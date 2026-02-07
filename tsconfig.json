@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    /* 1. Language & Environment */
+    // Node 20+ supports ES2023. This enables modern syntax validation.
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    // 'ESNext' + 'Bundler' is the gold standard for tsdown/Vite/Esbuild users.
+    // It defers module resolution logic to the bundler, which is what we want.
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    /* 2. Build Output (Handled by tsdown, not tsc) */
+    // We use tsc ONLY for type-checking. tsdown handles the build.
+    "noEmit": true,
+    // Enforces using 'import type' for types.
+    // This ensures imports meant only for types are erased efficiently,
+    // preventing runtime crashes due to importing non-existent files.
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    /* 3. Library Specifics */
+    // If you add /** @internal */ JSDoc to a function,
+    // it will be hidden from the generated .d.ts types for users.
+    "stripInternal": true,
+    /* 4. strict Type Safety */
+    "strict": true,
+    // Adds 'undefined' to array/object access (safer!)
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+    /* 5. Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    /* 6. Global Types */
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["src", "tests", "scripts"],
+  "exclude": ["node_modules", "dist"]
+}

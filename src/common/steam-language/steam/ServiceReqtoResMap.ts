@@ -1,0 +1,917 @@
+/**
+ * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
+ */
+
+export const ServiceCallToResMap = {
+  CAccountHardware_RegisterSteamController_Request:
+    "CAccountHardware_RegisterSteamController_Response",
+  CAccountHardware_CompleteSteamControllerRegistration_Request:
+    "CAccountHardware_CompleteSteamControllerRegistration_Response",
+  CAccountHardware_QueryAccountsRegisteredToSerial_Request:
+    "CAccountHardware_QueryAccountsRegisteredToSerial_Response",
+  CAccountHardware_UpdateControllerUsageReport_Request:
+    "CAccountHardware_UpdateControllerUsageReport_Response",
+  CAccountHardware_SteamControllerSetConfig_Request:
+    "CAccountHardware_SteamControllerSetConfig_Response",
+  CAccountHardware_SteamControllerGetConfig_Request:
+    "CAccountHardware_SteamControllerGetConfig_Response",
+  CAccountHardware_DeRegisterSteamController_Request:
+    "CAccountHardware_DeRegisterSteamController_Response",
+  CAccountHardware_SetPersonalizationFile_Request:
+    "CAccountHardware_SetPersonalizationFile_Response",
+  CAccountHardware_GetPersonalizationFile_Request:
+    "CAccountHardware_GetPersonalizationFile_Response",
+  CAccountHardware_VRCompatibilityCheck_Request: "CAccountHardware_VRCompatibilityCheck_Response",
+  CAccountHardware_RegisterValveIndexComponent_Request:
+    "CAccountHardware_RegisterValveIndexComponent_Response",
+  CAccountHardware_GetSteamDeckComponents_Request:
+    "CAccountHardware_GetSteamDeckComponents_Response",
+  CAccountHardware_SaveHardware_Request: "CAccountHardware_SaveHardware_Response",
+  CAccountHardware_ManageSavedHardware_Request: "CAccountHardware_ManageSavedHardware_Response",
+  CAccountHardware_GetSavedHardwareList_Request: "CAccountHardware_GetSavedHardwareList_Response",
+  CAchievements_GetInfo_Request: "CAchievements_GetInfo_Response",
+  CAuthentication_GetPasswordRSAPublicKey_Request:
+    "CAuthentication_GetPasswordRSAPublicKey_Response",
+  CAuthentication_BeginAuthSessionViaQR_Request: "CAuthentication_BeginAuthSessionViaQR_Response",
+  CAuthentication_BeginAuthSessionViaCredentials_Request:
+    "CAuthentication_BeginAuthSessionViaCredentials_Response",
+  CAuthentication_PollAuthSessionStatus_Request: "CAuthentication_PollAuthSessionStatus_Response",
+  CAuthentication_GetAuthSessionInfo_Request: "CAuthentication_GetAuthSessionInfo_Response",
+  CAuthentication_GetAuthSessionRiskInfo_Request: "CAuthentication_GetAuthSessionRiskInfo_Response",
+  CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request:
+    "CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response",
+  CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request:
+    "CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response",
+  CAuthentication_AccessToken_GenerateForApp_Request:
+    "CAuthentication_AccessToken_GenerateForApp_Response",
+  CAuthentication_RefreshToken_Enumerate_Request: "CAuthentication_RefreshToken_Enumerate_Response",
+  CAuthentication_GetAuthSessionsForAccount_Request:
+    "CAuthentication_GetAuthSessionsForAccount_Response",
+  CAuthentication_Token_Revoke_Request: "CAuthentication_Token_Revoke_Response",
+  CAuthentication_RefreshToken_Revoke_Request: "CAuthentication_RefreshToken_Revoke_Response",
+  CAuthenticationSupport_QueryRefreshTokensByAccount_Request:
+    "CAuthenticationSupport_QueryRefreshTokensByAccount_Response",
+  CAuthenticationSupport_QueryRefreshTokenByID_Request:
+    "CAuthenticationSupport_QueryRefreshTokenByID_Response",
+  CAuthenticationSupport_RevokeToken_Request: "CAuthenticationSupport_RevokeToken_Response",
+  CAuthenticationSupport_GetTokenHistory_Request: "CAuthenticationSupport_GetTokenHistory_Response",
+  CAuthenticationSupport_MarkTokenCompromised_Request:
+    "CAuthenticationSupport_MarkTokenCompromised_Response",
+  CBluetoothManager_GetState_Request: "CBluetoothManager_GetState_Response",
+  CBluetoothManager_GetAdapterDetails_Request: "CBluetoothManager_GetAdapterDetails_Response",
+  CBluetoothManager_GetDeviceDetails_Request: "CBluetoothManager_GetDeviceDetails_Response",
+  CBluetoothManager_SetDiscovering_Request: "CBluetoothManager_SetDiscovering_Response",
+  CBluetoothManager_SetLoginAdvertising_Request: "CBluetoothManager_SetLoginAdvertising_Response",
+  CBluetoothManager_Pair_Request: "CBluetoothManager_Pair_Response",
+  CBluetoothManager_CancelPair_Request: "CBluetoothManager_CancelPair_Response",
+  CBluetoothManager_Forget_Request: "CBluetoothManager_Forget_Response",
+  CBluetoothManager_Connect_Request: "CBluetoothManager_Connect_Response",
+  CBluetoothManager_Disconnect_Request: "CBluetoothManager_Disconnect_Response",
+  CBluetoothManager_SetWakeAllowed_Request: "CBluetoothManager_SetWakeAllowed_Response",
+  CBluetoothManager_SetTrusted_Request: "CBluetoothManager_SetTrusted_Response",
+  CBroadcast_BeginBroadcastSession_Request: "CBroadcast_BeginBroadcastSession_Response",
+  CBroadcast_EndBroadcastSession_Request: "CBroadcast_EndBroadcastSession_Response",
+  CBroadcast_StartBroadcastUpload_Request: "CBroadcast_StartBroadcastUpload_Response",
+  CBroadcast_WatchBroadcast_Request: "CBroadcast_WatchBroadcast_Response",
+  CBroadcast_GetBroadcastStatus_Request: "CBroadcast_GetBroadcastStatus_Response",
+  CBroadcast_GetBroadcastThumbnail_Request: "CBroadcast_GetBroadcastThumbnail_Response",
+  CBroadcast_InviteToBroadcast_Request: "CBroadcast_InviteToBroadcast_Response",
+  CBroadcast_SendBroadcastStateToServer_Request: "CBroadcast_SendBroadcastStateToServer_Response",
+  CBroadcast_GetBroadcastChatInfo_Request: "CBroadcast_GetBroadcastChatInfo_Response",
+  CBroadcast_PostChatMessage_Request: "CBroadcast_PostChatMessage_Response",
+  CBroadcast_UpdateChatMessageFlair_Request: "CBroadcast_UpdateChatMessageFlair_Response",
+  CBroadcast_MuteBroadcastChatUser_Request: "CBroadcast_MuteBroadcastChatUser_Response",
+  CBroadcast_RemoveUserChatText_Request: "CBroadcast_RemoveUserChatText_Response",
+  CBroadcast_GetBroadcastChatUserNames_Request: "CBroadcast_GetBroadcastChatUserNames_Response",
+  CBroadcast_StartBuildClip_Request: "CBroadcast_StartBuildClip_Response",
+  CBroadcast_GetBuildClipStatus_Request: "CBroadcast_GetBuildClipStatus_Response",
+  CBroadcast_SetClipDetails_Request: "CBroadcast_SetClipDetails_Response",
+  CBroadcast_GetClipDetails_Request: "CBroadcast_GetClipDetails_Response",
+  CBroadcast_SetRTMPInfo_Request: "CBroadcast_SetRTMPInfo_Response",
+  CBroadcast_GetRTMPInfo_Request: "CBroadcast_GetRTMPInfo_Response",
+  CBroadcast_WebRTCStartResult_Request: "CBroadcast_WebRTCStartResult_Response",
+  CBroadcast_WebRTCStopped_Request: "CBroadcast_WebRTCStopped_Response",
+  CBroadcast_WebRTCSetAnswer_Request: "CBroadcast_WebRTCSetAnswer_Response",
+  CBroadcast_WebRTCLookupTURNServer_Request: "CBroadcast_WebRTCLookupTURNServer_Response",
+  CBroadcast_WebRTCAddHostCandidate_Request: "CBroadcast_WebRTCAddHostCandidate_Response",
+  CBroadcast_WebRTCAddViewerCandidate_Request: "CBroadcast_WebRTCAddViewerCandidate_Response",
+  CBroadcast_WebRTCGetHostCandidates_Request: "CBroadcast_WebRTCGetHostCandidates_Response",
+  CBroadcast_GetBroadcastUploadStats_Request: "CBroadcast_GetBroadcastUploadStats_Response",
+  CBroadcast_GetBroadcastViewerStats_Request: "CBroadcast_GetBroadcastViewerStats_Response",
+  CChatRoom_CreateChatRoomGroup_Request: "CChatRoom_CreateChatRoomGroup_Response",
+  CChatRoom_SaveChatRoomGroup_Request: "CChatRoom_SaveChatRoomGroup_Response",
+  CChatRoom_RenameChatRoomGroup_Request: "CChatRoom_RenameChatRoomGroup_Response",
+  CChatRoom_SetChatRoomGroupTagline_Request: "CChatRoom_SetChatRoomGroupTagline_Response",
+  CChatRoom_SetChatRoomGroupAvatar_Request: "CChatRoom_SetChatRoomGroupAvatar_Response",
+  CChatRoom_SetChatRoomGroupWatchingBroadcast_Request:
+    "CChatRoom_SetChatRoomGroupWatchingBroadcast_Response",
+  CChatRoom_JoinMiniGameForChatRoomGroup_Request: "CChatRoom_JoinMiniGameForChatRoomGroup_Response",
+  CChatRoom_EndMiniGameForChatRoomGroup_Request: "CChatRoom_EndMiniGameForChatRoomGroup_Response",
+  CChatRoom_MuteUser_Request: "CChatRoom_MuteUser_Response",
+  CChatRoom_KickUser_Request: "CChatRoom_KickUser_Response",
+  CChatRoom_SetUserBanState_Request: "CChatRoom_SetUserBanState_Response",
+  CChatRoom_RevokeInvite_Request: "CChatRoom_RevokeInvite_Response",
+  CChatRoom_CreateRole_Request: "CChatRoom_CreateRole_Response",
+  CChatRoom_GetRoles_Request: "CChatRoom_GetRoles_Response",
+  CChatRoom_RenameRole_Request: "CChatRoom_RenameRole_Response",
+  CChatRoom_ReorderRole_Request: "CChatRoom_ReorderRole_Response",
+  CChatRoom_DeleteRole_Request: "CChatRoom_DeleteRole_Response",
+  CChatRoom_GetRoleActions_Request: "CChatRoom_GetRoleActions_Response",
+  CChatRoom_ReplaceRoleActions_Request: "CChatRoom_ReplaceRoleActions_Response",
+  CChatRoom_AddRoleToUser_Request: "CChatRoom_AddRoleToUser_Response",
+  CChatRoom_GetRolesForUser_Request: "CChatRoom_GetRolesForUser_Response",
+  CChatRoom_DeleteRoleFromUser_Request: "CChatRoom_DeleteRoleFromUser_Response",
+  CChatRoom_JoinChatRoomGroup_Request: "CChatRoom_JoinChatRoomGroup_Response",
+  CChatRoom_InviteFriendToChatRoomGroup_Request: "CChatRoom_InviteFriendToChatRoomGroup_Response",
+  CChatRoom_LeaveChatRoomGroup_Request: "CChatRoom_LeaveChatRoomGroup_Response",
+  CChatRoom_CreateChatRoom_Request: "CChatRoom_CreateChatRoom_Response",
+  CChatRoom_DeleteChatRoom_Request: "CChatRoom_DeleteChatRoom_Response",
+  CChatRoom_RenameChatRoom_Request: "CChatRoom_RenameChatRoom_Response",
+  CChatRoom_ReorderChatRoom_Request: "CChatRoom_ReorderChatRoom_Response",
+  CChatRoom_SendChatMessage_Request: "CChatRoom_SendChatMessage_Response",
+  CChatRoom_JoinVoiceChat_Request: "CChatRoom_JoinVoiceChat_Response",
+  CChatRoom_LeaveVoiceChat_Request: "CChatRoom_LeaveVoiceChat_Response",
+  CChatRoom_GetMessageHistory_Request: "CChatRoom_GetMessageHistory_Response",
+  CChatRoom_GetMyChatRoomGroups_Request: "CChatRoom_GetMyChatRoomGroups_Response",
+  CChatRoom_GetChatRoomGroupState_Request: "CChatRoom_GetChatRoomGroupState_Response",
+  CChatRoom_SetAppChatRoomGroupForceActive_Request:
+    "CChatRoom_SetAppChatRoomGroupForceActive_Response",
+  CChatRoom_CreateInviteLink_Request: "CChatRoom_CreateInviteLink_Response",
+  CChatRoom_GetInviteLinkInfo_Request: "CChatRoom_GetInviteLinkInfo_Response",
+  CChatRoom_GetInviteInfo_Request: "CChatRoom_GetInviteInfo_Response",
+  CChatRoom_GetInviteLinksForGroup_Request: "CChatRoom_GetInviteLinksForGroup_Response",
+  CChatRoom_GetBanList_Request: "CChatRoom_GetBanList_Response",
+  CChatRoom_GetInviteList_Request: "CChatRoom_GetInviteList_Response",
+  CChatRoom_DeleteInviteLink_Request: "CChatRoom_DeleteInviteLink_Response",
+  CChatRoom_SetSessionActiveChatRoomGroups_Request:
+    "CChatRoom_SetSessionActiveChatRoomGroups_Response",
+  CChatRoom_SetUserChatGroupPreferences_Request: "CChatRoom_SetUserChatGroupPreferences_Response",
+  CChatRoom_DeleteChatMessages_Request: "CChatRoom_DeleteChatMessages_Response",
+  CChatRoom_SearchMembers_Request: "CChatRoom_SearchMembers_Response",
+  CChatRoom_UpdateMessageReaction_Request: "CChatRoom_UpdateMessageReaction_Response",
+  CChatRoom_GetMessageReactionReactors_Request: "CChatRoom_GetMessageReactionReactors_Response",
+  CChatRoom_ReportMessage_Request: "CChatRoom_ReportMessage_Response",
+  CChatRoom_ResolveReport_Request: "CChatRoom_ResolveReport_Response",
+  CChat_RequestFriendPersonaStates_Request: "CChat_RequestFriendPersonaStates_Response",
+  CClanChatRooms_GetClanChatRoomInfo_Request: "CClanChatRooms_GetClanChatRoomInfo_Response",
+  CClanChatRooms_SetClanChatRoomPrivate_Request: "CClanChatRooms_SetClanChatRoomPrivate_Response",
+  CCloudGaming_CreateNonce_Request: "CCloudGaming_CreateNonce_Response",
+  CCloudGaming_GetTimeRemaining_Request: "CCloudGaming_GetTimeRemaining_Response",
+  CCloud_BeginHTTPUpload_Request: "CCloud_BeginHTTPUpload_Response",
+  CCloud_CommitHTTPUpload_Request: "CCloud_CommitHTTPUpload_Response",
+  CCloud_BeginUGCUpload_Request: "CCloud_BeginUGCUpload_Response",
+  CCloud_CommitUGCUpload_Request: "CCloud_CommitUGCUpload_Response",
+  CCloud_GetFileDetails_Request: "CCloud_GetFileDetails_Response",
+  CCloud_GetSingleFileInfo_Request: "CCloud_GetSingleFileInfo_Response",
+  CCloud_ShareFile_Request: "CCloud_ShareFile_Response",
+  CCloud_EnumerateUserFiles_Request: "CCloud_EnumerateUserFiles_Response",
+  CCloud_Delete_Request: "CCloud_Delete_Response",
+  CCloud_GetClientEncryptionKey_Request: "CCloud_GetClientEncryptionKey_Response",
+  CCloud_BeginAppUploadBatch_Request: "CCloud_BeginAppUploadBatch_Response",
+  CCloud_CompleteAppUploadBatch_Request: "CCloud_CompleteAppUploadBatch_Response",
+  CCloud_ClientBeginFileUpload_Request: "CCloud_ClientBeginFileUpload_Response",
+  CCloud_ClientCommitFileUpload_Request: "CCloud_ClientCommitFileUpload_Response",
+  CCloud_ClientFileDownload_Request: "CCloud_ClientFileDownload_Response",
+  CCloud_ClientDeleteFile_Request: "CCloud_ClientDeleteFile_Response",
+  CCloud_GetAppFileChangelist_Request: "CCloud_GetAppFileChangelist_Response",
+  CCloud_AppSessionSuspend_Request: "CCloud_AppSessionSuspend_Response",
+  CCloud_AppSessionResume_Request: "CCloud_AppSessionResume_Response",
+  CCloud_AppLaunchIntent_Request: "CCloud_AppLaunchIntent_Response",
+  CCloud_ClientGetAppQuotaUsage_Request: "CCloud_ClientGetAppQuotaUsage_Response",
+  CCommunity_GetLinkFilterHashPrefixes_Request: "CCommunity_GetLinkFilterHashPrefixes_Response",
+  CCommunity_GetLinkFilterHashes_Request: "CCommunity_GetLinkFilterHashes_Response",
+  CCommunity_GetLinkFilterListVersion_Request: "CCommunity_GetLinkFilterListVersion_Response",
+  CCommunity_GetApps_Request: "CCommunity_GetApps_Response",
+  CCommunity_GetAppRichPresenceLocalization_Request:
+    "CCommunity_GetAppRichPresenceLocalization_Response",
+  CCommunity_GetCommentThread_Request: "CCommunity_GetCommentThread_Response",
+  CCommunity_PostCommentToThread_Request: "CCommunity_PostCommentToThread_Response",
+  CCommunity_DeleteCommentFromThread_Request: "CCommunity_DeleteCommentFromThread_Response",
+  CCommunity_RateCommentThread_Request: "CCommunity_RateCommentThread_Response",
+  CCommunity_GetCommentThreadRatings_Request: "CCommunity_GetCommentThreadRatings_Response",
+  CCommunity_VerifyClanMembership_Request: "CCommunity_VerifyClanMembership_Response",
+  CCommunity_RateClanAnnouncement_Request: "CCommunity_RateClanAnnouncement_Response",
+  CCommunity_GetClanAnnouncementVoteForUser_Request:
+    "CCommunity_GetClanAnnouncementVoteForUser_Response",
+  CCommunity_GetClanLocGroupImages_Request: "CCommunity_GetClanLocGroupImages_Response",
+  CCommunity_GetAvatarHistory_Request: "CCommunity_GetAvatarHistory_Response",
+  CCommunity_GetClanEventCrowdInMetadata_Request: "CCommunity_GetClanEventCrowdInMetadata_Response",
+  CCommunity_GetClanCrowdInMetadata_Request: "CCommunity_GetClanCrowdInMetadata_Response",
+  CCommunity_FetchTranslationFromCrowdIn_Request: "CCommunity_FetchTranslationFromCrowdIn_Response",
+  CCommunity_HideAndReportComment_Request: "CCommunity_HideAndReportComment_Response",
+  CCommunity_GetUserPartnerEventNews_Request: "CCommunity_GetUserPartnerEventNews_Response",
+  CCommunity_GetBestEventsForUser_Request: "CCommunity_GetBestEventsForUser_Response",
+  CCommunity_MarkPartnerEventsForUser_Request: "CCommunity_MarkPartnerEventsForUser_Response",
+  CCommunity_GetUserPartnerEventViewStatus_Request:
+    "CCommunity_GetUserPartnerEventViewStatus_Response",
+  CCommunity_PartnerEventsShowMoreForApp_Request: "CCommunity_PartnerEventsShowMoreForApp_Response",
+  CCommunity_PartnerEventsShowLessForApp_Request: "CCommunity_PartnerEventsShowLessForApp_Response",
+  CCommunity_ClearUserPartnerEventsAppPriorities_Request:
+    "CCommunity_ClearUserPartnerEventsAppPriorities_Response",
+  CCommunity_GetUserPartnerEventsAppPriorities_Request:
+    "CCommunity_GetUserPartnerEventsAppPriorities_Response",
+  CCommunity_ClearSinglePartnerEventsAppPriority_Request:
+    "CCommunity_ClearSinglePartnerEventsAppPriority_Response",
+  CCommunity_SetRecommendationBotReviewStatus_Request:
+    "CCommunity_SetRecommendationBotReviewStatus_Response",
+  CContentBuilder_InitDepotBuild_Request: "CContentBuilder_InitDepotBuild_Response",
+  CContentBuilder_StartDepotUpload_Request: "CContentBuilder_StartDepotUpload_Response",
+  CContentBuilder_GetMissingDepotChunks_Request: "CContentBuilder_GetMissingDepotChunks_Response",
+  CContentBuilder_FinishDepotUpload_Request: "CContentBuilder_FinishDepotUpload_Response",
+  CContentBuilder_CommitAppBuild_Request: "CContentBuilder_CommitAppBuild_Response",
+  CContentBuilder_SignInstallScript_Request: "CContentBuilder_SignInstallScript_Response",
+  CContentServerDirectory_GetServersForSteamPipe_Request:
+    "CContentServerDirectory_GetServersForSteamPipe_Response",
+  CContentServerDirectory_GetDepotPatchInfo_Request:
+    "CContentServerDirectory_GetDepotPatchInfo_Response",
+  CContentServerDirectory_GetClientUpdateHosts_Request:
+    "CContentServerDirectory_GetClientUpdateHosts_Response",
+  CContentServerDirectory_GetManifestRequestCode_Request:
+    "CContentServerDirectory_GetManifestRequestCode_Response",
+  CContentServerDirectory_GetCDNAuthToken_Request:
+    "CContentServerDirectory_GetCDNAuthToken_Response",
+  CContentServerDirectory_RequestPeerContentServer_Request:
+    "CContentServerDirectory_RequestPeerContentServer_Response",
+  CContentServerDirectory_GetPeerContentInfo_Request:
+    "CContentServerDirectory_GetPeerContentInfo_Response",
+  CCredentials_GetSteamGuardDetails_Request: "CCredentials_GetSteamGuardDetails_Response",
+  CCredentials_ValidateEmailAddress_Request: "CCredentials_ValidateEmailAddress_Response",
+  CCredentials_SteamGuardPhishingReport_Request: "CCredentials_SteamGuardPhishingReport_Response",
+  CCredentials_LastCredentialChangeTime_Request: "CCredentials_LastCredentialChangeTime_Response",
+  CCredentials_GetAccountAuthSecret_Request: "CCredentials_GetAccountAuthSecret_Response",
+  CDataPublisher_GetVRDeviceInfo_Request: "CDataPublisher_GetVRDeviceInfo_Response",
+  CDataPublisher_SetVRDeviceInfoAggregationReference_Request:
+    "CDataPublisher_SetVRDeviceInfoAggregationReference_Response",
+  CDataPublisher_AddVRDeviceInfo_Request: "CDataPublisher_AddVRDeviceInfo_Response",
+  CDepotContentDetection_GetAllDetectedAppContent_Request:
+    "CDepotContentDetection_GetAllDetectedAppContent_Response",
+  CEconMarket_IsMarketplaceAllowed_Request: "CEconMarket_IsMarketplaceAllowed_Response",
+  CEcon_GetInventoryItemsWithDescriptions_Request:
+    "CEcon_GetInventoryItemsWithDescriptions_Response",
+  CEcon_GetTradeOfferAccessToken_Request: "CEcon_GetTradeOfferAccessToken_Response",
+  CEcon_ClientGetItemShopOverlayAuthURL_Request: "CEcon_ClientGetItemShopOverlayAuthURL_Response",
+  CEcon_GetAssetClassInfo_Request: "CEcon_GetAssetClassInfo_Response",
+  CEcon_GetAssetPropertySchema_Request: "CEcon_GetAssetPropertySchema_Response",
+  CEmbeddedClient_AuthorizeCurrentDevice_Request: "CEmbeddedClient_AuthorizeDevice_Response",
+  CFamilyGroups_CreateFamilyGroup_Request: "CFamilyGroups_CreateFamilyGroup_Response",
+  CFamilyGroups_GetFamilyGroup_Request: "CFamilyGroups_GetFamilyGroup_Response",
+  CFamilyGroups_GetFamilyGroupForUser_Request: "CFamilyGroups_GetFamilyGroupForUser_Response",
+  CFamilyGroups_ModifyFamilyGroupDetails_Request: "CFamilyGroups_ModifyFamilyGroupDetails_Response",
+  CFamilyGroups_InviteToFamilyGroup_Request: "CFamilyGroups_InviteToFamilyGroup_Response",
+  CFamilyGroups_ConfirmInviteToFamilyGroup_Request:
+    "CFamilyGroups_ConfirmInviteToFamilyGroup_Response",
+  CFamilyGroups_ResendInvitationToFamilyGroup_Request:
+    "CFamilyGroups_ResendInvitationToFamilyGroup_Response",
+  CFamilyGroups_JoinFamilyGroup_Request: "CFamilyGroups_JoinFamilyGroup_Response",
+  CFamilyGroups_ConfirmJoinFamilyGroup_Request: "CFamilyGroups_ConfirmJoinFamilyGroup_Response",
+  CFamilyGroups_RemoveFromFamilyGroup_Request: "CFamilyGroups_RemoveFromFamilyGroup_Response",
+  CFamilyGroups_CancelFamilyGroupInvite_Request: "CFamilyGroups_CancelFamilyGroupInvite_Response",
+  CFamilyGroups_GetUsersSharingDevice_Request: "CFamilyGroups_GetUsersSharingDevice_Response",
+  CFamilyGroups_DeleteFamilyGroup_Request: "CFamilyGroups_DeleteFamilyGroup_Response",
+  CFamilyGroups_UndeleteFamilyGroup_Request: "CFamilyGroups_UndeleteFamilyGroup_Response",
+  CFamilyGroups_GetPlaytimeSummary_Request: "CFamilyGroups_GetPlaytimeSummary_Response",
+  CFamilyGroups_RequestPurchase_Request: "CFamilyGroups_RequestPurchase_Response",
+  CFamilyGroups_GetPurchaseRequests_Request: "CFamilyGroups_GetPurchaseRequests_Response",
+  CFamilyGroups_RespondToRequestedPurchase_Request:
+    "CFamilyGroups_RespondToRequestedPurchase_Response",
+  CFamilyGroups_GetChangeLog_Request: "CFamilyGroups_GetChangeLog_Response",
+  CFamilyGroups_SetFamilyCooldownOverrides_Request:
+    "CFamilyGroups_SetFamilyCooldownOverrides_Response",
+  CFamilyGroups_GetSharedLibraryApps_Request: "CFamilyGroups_GetSharedLibraryApps_Response",
+  CFamilyGroups_SetPreferredLender_Request: "CFamilyGroups_SetPreferredLender_Response",
+  CFamilyGroups_GetPreferredLenders_Request: "CFamilyGroups_GetPreferredLenders_Response",
+  CFamilyGroups_ForceAcceptInvite_Request: "CFamilyGroups_ForceAcceptInvite_Response",
+  CFamilyGroups_GetInviteCheckResults_Request: "CFamilyGroups_GetInviteCheckResults_Response",
+  CFamilyGroups_ClearCooldownSkip_Request: "CFamilyGroups_ClearCooldownSkip_Response",
+  CFamilyGroups_RollbackFamilyGroup_Request: "CFamilyGroups_RollbackFamilyGroup_Response",
+  CFileVerification_SignatureCheck_Request: "CFileVerification_SignatureCheck_Response",
+  CFileVerification_SteamServiceCheck_Request: "CFileVerification_SteamServiceCheck_Response",
+  CFovasVideo_ClientGetOPFSettings_Request: "CFovasVideo_ClientGetOPFSettings_Response",
+  CFriendMessages_GetRecentMessages_Request: "CFriendMessages_GetRecentMessages_Response",
+  CFriendsMessages_GetActiveMessageSessions_Request:
+    "CFriendsMessages_GetActiveMessageSessions_Response",
+  CFriendMessages_SendMessage_Request: "CFriendMessages_SendMessage_Response",
+  CFriendMessages_IsInFriendsUIBeta_Request: "CFriendMessages_IsInFriendsUIBeta_Response",
+  CFriendMessages_UpdateMessageReaction_Request: "CFriendMessages_UpdateMessageReaction_Response",
+  CFriendMessages_ReportMessage_Request: "CFriendMessages_ReportMessage_Response",
+  CFriendMessages_ResolveReport_Request: "CFriendMessages_ResolveReport_Response",
+  CGameNetworking_AllocateFakeIP_Request: "CGameNetworking_AllocateFakeIP_Response",
+  CGameNotes_UploadImage_Request: "CGameNotes_UploadImage_Response",
+  CGameNotifications_CreateSession_Request: "CGameNotifications_CreateSession_Response",
+  CGameNotifications_DeleteSession_Request: "CGameNotifications_DeleteSession_Response",
+  CGameNotifications_UpdateSession_Request: "CGameNotifications_UpdateSession_Response",
+  CGameNotifications_EnumerateSessions_Request: "CGameNotifications_EnumerateSessions_Response",
+  CGameNotifications_GetSessionDetails_Request: "CGameNotifications_GetSessionDetails_Response",
+  CGameNotifications_UpdateNotificationSettings_Request:
+    "CGameNotifications_UpdateNotificationSettings_Response",
+  CGameRecording_CreateShareClip_Request: "CGameRecording_CreateShareClip_Response",
+  CGameRecording_DeleteSharedClip_Request: "CGameRecording_DeleteSharedClip_Response",
+  CGameRecording_GetSingleSharedClip_Request: "CGameRecording_GetSingleSharedClip_Response",
+  CGameRecording_GetAppsWithBackgroundVideo_Request:
+    "CGameRecording_GetAppsWithBackgroundVideo_Response",
+  CGameRecording_GetTimelinesForApp_Request: "CGameRecording_GetTimelinesForApp_Response",
+  CGameRecording_GetTimelinesForClip_Request: "CGameRecording_GetTimelinesForClip_Response",
+  CGameRecording_QueryPhases_Request: "CGameRecording_QueryPhases_Response",
+  CGameRecording_GetTags_Request: "CGameRecording_GetTags_Response",
+  CGameRecording_GetEnoughDiskSpace_Request: "CGameRecording_GetEnoughDiskSpace_Response",
+  CGameRecording_GetAvailableDiskSpace_Request: "CGameRecording_GetAvailableDiskSpace_Response",
+  CGameRecording_SaveClip_Request: "CGameRecording_SaveClip_Response",
+  CGameRecording_DeleteClip_Request: "CGameRecording_DeleteClip_Response",
+  CGameRecording_GetClips_Request: "CGameRecording_GetClips_Response",
+  CGameRecording_UploadClipToSteam_Request: "CGameRecording_UploadClipToSteam_Response",
+  CGameRecording_ExportClip_Request: "CGameRecording_ExportClip_Response",
+  CGameRecording_ExportClipPreview_Request: "CGameRecording_ExportClipPreview_Response",
+  CGameRecording_TakeScreenshot_Request: "CGameRecording_TakeScreenshot_Response",
+  CGameRecording_ZipClip_Request: "CGameRecording_ZipClip_Response",
+  CGameRecording_StartRecording_Request: "CGameRecording_StartRecording_Response",
+  CGameRecording_StopRecording_Request: "CGameRecording_StopRecording_Response",
+  CGameRecording_GetRecordingSize_Request: "CGameRecording_GetRecordingSize_Response",
+  CGameRecording_CleanupBackgroundRecordings_Request:
+    "CGameRecording_CleanupBackgroundRecordings_Response",
+  CGameRecording_GetAndTrimPostGameHighlights_Request:
+    "CGameRecording_GetAndTrimPostGameHighlights_Response",
+  CGameRecording_GetThumbnails_Request: "CGameRecording_GetThumbnails_Response",
+  CGameRecording_GetPlatformCapabilities_Request: "CGameRecording_GetPlatformCapabilities_Response",
+  CGameRecording_GetPerGameSettings_Request: "CGameRecording_GetPerGameSettings_Response",
+  CGameRecording_SetPerGameSettings_Request: "CGameRecording_SetPerGameSettings_Response",
+  CGameRecording_DeletePerGameSettings_Request: "CGameRecording_DeletePerGameSettings_Response",
+  CGameRecording_UserAddTimelineEntry_Request: "CGameRecording_UserAddTimelineEntry_Response",
+  CGameRecording_UserUpdateTimelineEntry_Request: "CGameRecording_UserUpdateTimelineEntry_Response",
+  CGameRecording_UserRemoveTimelineEntry_Request: "CGameRecording_UserRemoveTimelineEntry_Response",
+  CGameRecording_ManuallyDeleteRecordingsForApps_Request:
+    "CGameRecording_ManuallyDeleteRecordingsForApps_Response",
+  CGameRecording_GetTotalDiskSpaceUsage_Request: "CGameRecording_GetTotalDiskSpaceUsage_Response",
+  CGameRecording_SwitchBackgroundRecordingGame_Request:
+    "CGameRecording_SwitchBackgroundRecordingGame_Response",
+  CGamescope_GetState_Request: "CGamescope_GetState_Response",
+  CGamescope_SetBlurParams_Request: "CGamescope_SetBlurParams_Response",
+  CGamescope_ReArmMuraCalibration_Request: "CGamescope_ReArmMuraCalibration_Response",
+  CGamescope_SetDisplayPowerState_Request: "CGamescope_SetDisplayPowerState_Response",
+  GameServerClient_QueryServerData_Request: "GameServerClient_QueryServerData_Response",
+  CGameServers_GetServerSteamIDsByIP_Request: "CGameServers_IPsWithSteamIDs_Response",
+  CGameServers_GetServerIPsBySteamID_Request: "CGameServers_IPsWithSteamIDs_Response",
+  CGameServers_QueryByFakeIP_Request: "CGameServers_GameServerQuery_Response",
+  CHardwareUpdate_GetState_Request: "CHardwareUpdate_GetState_Response",
+  CHardwareUpdate_CheckForUpdates_Request: "CHardwareUpdate_CheckForUpdates_Response",
+  CHardwareUpdate_PrepForUpdate_Request: "CHardwareUpdate_PrepForUpdate_Response",
+  CHardwareUpdate_Update_Request: "CHardwareUpdate_Update_Response",
+  CInventory_GetInventory_Request: "CInventory_Response",
+  CInventory_ExchangeItem_Request: "CInventory_Response",
+  CInventory_GetEligiblePromoItemDefIDs_Request: "CInventory_GetEligiblePromoItemDefIDs_Response",
+  CInventory_AddItem_Request: "CInventory_Response",
+  CInventory_ModifyItems_Request: "CInventory_Response",
+  CInventory_ConsumePlaytime_Request: "CInventory_Response",
+  CInventory_ConsumeItem_Request: "CInventory_Response",
+  CInventory_DevSetNextDrop_Request: "CInventory_Response",
+  CInventory_SplitItemStack_Request: "CInventory_Response",
+  CInventory_CombineItemStacks_Request: "CInventory_Response",
+  CInventory_GetItemDefMeta_Request: "CInventory_GetItemDefMeta_Response",
+  CInventory_GetUserPurchaseInfo_Request: "CInventory_GetUserPurchaseInfo_Response",
+  CInventory_PurchaseInit_Request: "CInventory_PurchaseInit_Response",
+  CInventory_PurchaseFinalize_Request: "CInventory_Response",
+  CInventory_InspectItem_Request: "CInventory_Response",
+  CLEDManager_GetState_Request: "CLEDManager_GetState_Response",
+  CLEDManager_SetEnabled_Request: "CLEDManager_SetEnabled_Response",
+  CLEDManager_SetColor_Request: "CLEDManager_SetColor_Response",
+  CLEDManager_SetEffect_Request: "CLEDManager_SetEffect_Response",
+  CLEDManager_SetSpeed_Request: "CLEDManager_SetSpeed_Response",
+  CLEDManager_SetBrightness_Request: "CLEDManager_SetBrightness_Response",
+  LobbyMatchmakingLegacy_GetLobbyStatus_Request: "LobbyMatchmakingLegacy_GetLobbyStatus_Response",
+  CMarketingMessages_GetActiveMarketingMessages_Request:
+    "CMarketingMessages_GetActiveMarketingMessages_Response",
+  CMarketingMessages_GetPastMarketingMessages_Request:
+    "CMarketingMessages_GetPastMarketingMessages_Response",
+  CMarketingMessages_GetMarketingMessagesForUser_Request:
+    "CMarketingMessages_GetMarketingMessagesForUser_Response",
+  CMarketingMessages_DoesUserHavePendingMarketingMessages_Request:
+    "CMarketingMessages_DoesUserHavePendingMarketingMessages_Response",
+  CMarketingMessages_GetDisplayMarketingMessage_Request:
+    "CMarketingMessages_GetDisplayMarketingMessage_Response",
+  CMarketingMessages_GetMarketingMessage_Request: "CMarketingMessages_GetMarketingMessage_Response",
+  CMarketingMessages_CreateMarketingMessage_Request:
+    "CMarketingMessages_CreateMarketingMessage_Response",
+  CMarketingMessages_UpdateMarketingMessage_Request:
+    "CMarketingMessages_UpdateMarketingMessage_Response",
+  CMarketingMessages_DeleteMarketingMessage_Request:
+    "CMarketingMessages_DeleteMarketingMessage_Response",
+  CMarketingMessages_FindMarketingMessages_Request:
+    "CMarketingMessages_FindMarketingMessages_Response",
+  CMarketingMessages_GetMarketingMessageViewerStats_Request:
+    "CMarketingMessages_GetMarketingMessageViewerStats_Response",
+  CMarketingMessages_GetMarketingMessagesViewerRangeStats_Request:
+    "CMarketingMessages_GetMarketingMessagesViewerRangeStats_Response",
+  CMarketingMessages_GetMarketingMessageClickedStats_Request:
+    "CMarketingMessages_GetMarketingMessageClickedStats_Response",
+  CMarketingMessages_GetPartnerReadyToPublishMessages_Request:
+    "CMarketingMessages_GetPartnerReadyToPublishMessages_Response",
+  CMarketingMessages_PartnerPublishMessage_Request:
+    "CMarketingMessages_PartnerPublishMessage_Response",
+  CMarketingMessages_GetPartnerMessagePreview_Request:
+    "CMarketingMessages_GetPartnerMessagePreview_Response",
+  CMarketingMessage_GetMarketingMessagesForPartner_Request:
+    "CMarketingMessage_GetMarketingMessagesForPartner_Response",
+  CMarketingMessage_GetMarketingMessagesForApps_Request:
+    "CMarketingMessage_GetMarketingMessagesForApps_Response",
+  COffline_GetOfflineLogonTicket_Request: "COffline_GetOfflineLogonTicket_Response",
+  COffline_GetUnsignedOfflineLogonTicket_Request: "COffline_GetUnsignedOfflineLogonTicket_Response",
+  CParental_EnableParentalSettings_Request: "CParental_EnableParentalSettings_Response",
+  CParental_DisableParentalSettings_Request: "CParental_DisableParentalSettings_Response",
+  CParental_GetParentalSettings_Request: "CParental_GetParentalSettings_Response",
+  CParental_GetSignedParentalSettings_Request: "CParental_GetSignedParentalSettings_Response",
+  CParental_SetParentalSettings_Request: "CParental_SetParentalSettings_Response",
+  CParental_ValidateToken_Request: "CParental_ValidateToken_Response",
+  CParental_ValidatePassword_Request: "CParental_ValidatePassword_Response",
+  CParental_LockClient_Request: "CParental_LockClient_Response",
+  CParental_RequestRecoveryCode_Request: "CParental_RequestRecoveryCode_Response",
+  CParental_RequestFeatureAccess_Request: "CParental_RequestFeatureAccess_Response",
+  CParental_ApproveFeatureAccess_Request: "CParental_ApproveFeatureAccess_Response",
+  CParental_RequestPlaytime_Request: "CParental_RequestPlaytime_Response",
+  CParental_ApprovePlaytime_Request: "CParental_ApprovePlaytime_Response",
+  CParental_GetRequests_Request: "CParental_GetRequests_Response",
+  CParental_ReportPlaytimeAndNotify_Request: "CParental_ReportPlaytimeAndNotify_Response",
+  CParties_JoinParty_Request: "CParties_JoinParty_Response",
+  CParties_CreateBeacon_Request: "CParties_CreateBeacon_Response",
+  CParties_OnReservationCompleted_Request: "CParties_OnReservationCompleted_Response",
+  CParties_CancelReservation_Request: "CParties_CancelReservation_Response",
+  CParties_ChangeNumOpenSlots_Request: "CParties_ChangeNumOpenSlots_Response",
+  CParties_DestroyBeacon_Request: "CParties_DestroyBeacon_Response",
+  CPartnerApps_RequestUploadToken_Request: "CPartnerApps_RequestUploadToken_Response",
+  CPartnerApps_FinishUpload_Request: "CPartnerApps_FinishUpload_Response",
+  CPartnerApps_FinishUploadLegacyDRM_Request: "CPartnerApps_FinishUploadLegacyDRM_Response",
+  CPartnerApps_FinishUploadDepot_Request: "CPartnerApps_FinishUploadDepot_Response",
+  CPartnerApps_GetDepotBuildResult_Request: "CPartnerApps_GetDepotBuildResult_Response",
+  CPartnerApps_FindDRMUploads_Request: "CPartnerApps_FindDRMUploads_Response",
+  CPartnerApps_Download_Request: "CPartnerApps_Download_Response",
+  CPlayer_GetRecentPlaytimeSessionsForChild_Request:
+    "CPlayer_GetRecentPlaytimeSessionsForChild_Response",
+  CPlayer_GetPlayerLinkDetails_Request: "CPlayer_GetPlayerLinkDetails_Response",
+  CPlayer_GetMutualFriendsForIncomingInvites_Request:
+    "CPlayer_GetMutualFriendsForIncomingInvites_Response",
+  CPlayer_GetOwnedGames_Request: "CPlayer_GetOwnedGames_Response",
+  CPlayer_GetPlayNext_Request: "CPlayer_GetPlayNext_Response",
+  CPlayer_GetFriendsGameplayInfo_Request: "CPlayer_GetFriendsGameplayInfo_Response",
+  CPlayer_GetGameBadgeLevels_Request: "CPlayer_GetGameBadgeLevels_Response",
+  CPlayer_GetProfileBackground_Request: "CPlayer_GetProfileBackground_Response",
+  CPlayer_SetProfileBackground_Request: "CPlayer_SetProfileBackground_Response",
+  CPlayer_GetMiniProfileBackground_Request: "CPlayer_GetMiniProfileBackground_Response",
+  CPlayer_SetMiniProfileBackground_Request: "CPlayer_SetMiniProfileBackground_Response",
+  CPlayer_GetAvatarFrame_Request: "CPlayer_GetAvatarFrame_Response",
+  CPlayer_SetAvatarFrame_Request: "CPlayer_SetAvatarFrame_Response",
+  CPlayer_GetAnimatedAvatar_Request: "CPlayer_GetAnimatedAvatar_Response",
+  CPlayer_SetAnimatedAvatar_Request: "CPlayer_SetAnimatedAvatar_Response",
+  CPlayer_GetSteamDeckKeyboardSkin_Request: "CPlayer_GetSteamDeckKeyboardSkin_Response",
+  CPlayer_SetSteamDeckKeyboardSkin_Request: "CPlayer_SetSteamDeckKeyboardSkin_Response",
+  CPlayer_GetProfileItemsOwned_Request: "CPlayer_GetProfileItemsOwned_Response",
+  CPlayer_GetProfileItemsEquipped_Request: "CPlayer_GetProfileItemsEquipped_Response",
+  CPlayer_SetEquippedProfileItemFlags_Request: "CPlayer_SetEquippedProfileItemFlags_Response",
+  CPlayer_GetEmoticonList_Request: "CPlayer_GetEmoticonList_Response",
+  CPlayer_GetCommunityBadgeProgress_Request: "CPlayer_GetCommunityBadgeProgress_Response",
+  CPlayer_GetTopAchievementsForGames_Request: "CPlayer_GetTopAchievementsForGames_Response",
+  CPlayer_GetAchievementsProgress_Request: "CPlayer_GetAchievementsProgress_Response",
+  CPlayer_GetGameAchievements_Request: "CPlayer_GetGameAchievements_Response",
+  CPlayer_GetFavoriteBadge_Request: "CPlayer_GetFavoriteBadge_Response",
+  CPlayer_SetFavoriteBadge_Request: "CPlayer_SetFavoriteBadge_Response",
+  CPlayer_GetProfileCustomization_Request: "CPlayer_GetProfileCustomization_Response",
+  CPlayer_GetPurchasedProfileCustomizations_Request:
+    "CPlayer_GetPurchasedProfileCustomizations_Response",
+  CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request:
+    "CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response",
+  CPlayer_GetProfileThemesAvailable_Request: "CPlayer_GetProfileThemesAvailable_Response",
+  CPlayer_SetProfileTheme_Request: "CPlayer_SetProfileTheme_Response",
+  CPlayer_SetProfilePreferences_Request: "CPlayer_SetProfilePreferences_Response",
+  CPlayer_PostStatusToFriends_Request: "CPlayer_PostStatusToFriends_Response",
+  CPlayer_GetPostedStatus_Request: "CPlayer_GetPostedStatus_Response",
+  CPlayer_DeletePostedStatus_Request: "CPlayer_DeletePostedStatus_Response",
+  CPlayer_GetLastPlayedTimes_Request: "CPlayer_GetLastPlayedTimes_Response",
+  CPlayer_GetTimeSSAAccepted_Request: "CPlayer_GetTimeSSAAccepted_Response",
+  CPlayer_AcceptSSA_Request: "CPlayer_AcceptSSA_Response",
+  CPlayer_GetNicknameList_Request: "CPlayer_GetNicknameList_Response",
+  CPlayer_GetPerFriendPreferences_Request: "CPlayer_GetPerFriendPreferences_Response",
+  CPlayer_SetPerFriendPreferences_Request: "CPlayer_SetPerFriendPreferences_Response",
+  CPlayer_AddFriend_Request: "CPlayer_AddFriend_Response",
+  CPlayer_RemoveFriend_Request: "CPlayer_RemoveFriend_Response",
+  CPlayer_IgnoreFriend_Request: "CPlayer_IgnoreFriend_Response",
+  CPlayer_GetCommunityPreferences_Request: "CPlayer_GetCommunityPreferences_Response",
+  CPlayer_SetCommunityPreferences_Request: "CPlayer_SetCommunityPreferences_Response",
+  CPlayer_GetTextFilterWords_Request: "CPlayer_GetTextFilterWords_Response",
+  CPlayer_GetNewSteamAnnouncementState_Request: "CPlayer_GetNewSteamAnnouncementState_Response",
+  CPlayer_UpdateSteamAnnouncementLastRead_Request:
+    "CPlayer_UpdateSteamAnnouncementLastRead_Response",
+  CPlayer_GetPrivacySettings_Request: "CPlayer_GetPrivacySettings_Response",
+  CPlayer_GetDurationControl_Request: "CPlayer_GetDurationControl_Response",
+  CPlayer_RecordDisconnectedPlaytime_Request: "CPlayer_RecordDisconnectedPlaytime_Response",
+  CPublishedFile_Vote_Request: "CPublishedFile_Vote_Response",
+  CPublishedFile_Subscribe_Request: "CPublishedFile_Subscribe_Response",
+  CPublishedFile_Unsubscribe_Request: "CPublishedFile_Unsubscribe_Response",
+  CPublishedFile_CanSubscribe_Request: "CPublishedFile_CanSubscribe_Response",
+  CPublishedFile_GetSubSectionData_Request: "CPublishedFile_GetSubSectionData_Response",
+  CPublishedFile_Publish_Request: "CPublishedFile_Publish_Response",
+  CPublishedFile_GetDetails_Request: "CPublishedFile_GetDetails_Response",
+  CPublishedFile_GetItemInfo_Request: "CPublishedFile_GetItemInfo_Response",
+  CPublishedFile_GetUserFiles_Request: "CPublishedFile_GetUserFiles_Response",
+  CPublishedFile_AreFilesInSubscriptionList_Request:
+    "CPublishedFile_AreFilesInSubscriptionList_Response",
+  CPublishedFile_Update_Request: "CPublishedFile_Update_Response",
+  CPublishedFile_Delete_Request: "CPublishedFile_Delete_Response",
+  CPublishedFile_GetChangeHistoryEntry_Request: "CPublishedFile_GetChangeHistoryEntry_Response",
+  CPublishedFile_GetChangeHistory_Request: "CPublishedFile_GetChangeHistory_Response",
+  CPublishedFile_RefreshVotingQueue_Request: "CPublishedFile_RefreshVotingQueue_Response",
+  CPublishedFile_QueryFiles_Request: "CPublishedFile_QueryFiles_Response",
+  CPublishedFile_AddAppRelationship_Request: "CPublishedFile_AddAppRelationship_Response",
+  CPublishedFile_RemoveAppRelationship_Request: "CPublishedFile_RemoveAppRelationship_Response",
+  CPublishedFile_GetAppRelationships_Request: "CPublishedFile_GetAppRelationships_Response",
+  CPublishedFile_GetAppRelationshipsBatched_Request:
+    "CPublishedFile_GetAppRelationshipsBatched_Response",
+  CPublishedFile_StartPlaytimeTracking_Request: "CPublishedFile_StartPlaytimeTracking_Response",
+  CPublishedFile_StopPlaytimeTracking_Request: "CPublishedFile_StopPlaytimeTracking_Response",
+  CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request:
+    "CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response",
+  CPublishedFile_SetPlaytimeForControllerConfigs_Request:
+    "CPublishedFile_SetPlaytimeForControllerConfigs_Response",
+  CPublishedFile_AddChild_Request: "CPublishedFile_AddChild_Response",
+  CPublishedFile_RemoveChild_Request: "CPublishedFile_RemoveChild_Response",
+  CPublishedFile_SetCollectionChildren_Request: "CPublishedFile_SetCollectionChildren_Response",
+  CPublishedFile_SetSubscriptionListFromCollection_Request:
+    "CPublishedFile_SetSubscriptionListFromCollection_Response",
+  CPublishedFile_GetUserVoteSummary_Request: "CPublishedFile_GetUserVoteSummary_Response",
+  CPublishedFile_GetItemChanges_Request: "CPublishedFile_GetItemChanges_Response",
+  CPublishedFile_GetContentDescriptors_Request: "CPublishedFile_GetContentDescriptors_Response",
+  CPublishedFile_UpdateContentDescriptors_Request:
+    "CPublishedFile_UpdateContentDescriptors_Response",
+  CQueuedMatchmakingGameHost_SearchForPlayers_Request:
+    "CQueuedMatchmakingGameHost_SearchForPlayers_Response",
+  CQueuedMatchmakingGameHost_SubmitPlayerResult_Request:
+    "CQueuedMatchmakingGameHost_SubmitPlayerResult_Response",
+  CQueuedMatchmakingGameHost_EndGame_Request: "CQueuedMatchmakingGameHost_EndGame_Response",
+  CQueuedMatchmaking_SearchForGame_Request: "CQueuedMatchmaking_SearchForGame_Response",
+  CRemoteClient_GetPairingInfo_Request: "CRemoteClient_GetPairingInfo_Response",
+  CRemoteClient_GetRecentClients_Request: "CRemoteClient_GetRecentClients_Response",
+  CRemoteClient_MarkTaskComplete_Request: "CRemoteClient_MarkTaskComplete_Response",
+  CRemoteClient_AllocateRelayServer_Request: "CRemoteClient_AllocateRelayServer_Response",
+  CRemoteClient_AllocateSDR_Request: "CRemoteClient_AllocateSDR_Response",
+  CRemotePlay_SessionStarted_Request: "CRemotePlay_SessionStarted_Response",
+  CRemoteClient_CreateRemotePlayTogetherInvitation_Request:
+    "CRemoteClient_CreateRemotePlayTogetherInvitation_Response",
+  CRemoteClient_DeleteRemotePlayTogetherInvitation_Request:
+    "CRemoteClient_DeleteRemotePlayTogetherInvitation_Response",
+  CKeyEscrow_Request: "CKeyEscrow_Response",
+  CShader_GetShaderReportingCadence_Request: "CShader_GetShaderReportingCadence_Response",
+  CShader_RegisterShader_Request: "CShader_RegisterShader_Response",
+  CShader_SendShader_Request: "CShader_SendShader_Response",
+  CShader_GetBucketManifest_Request: "CShader_GetBucketManifest_Response",
+  CShader_GetStaleBucket_Request: "CShader_GetStaleBucket_Response",
+  CShader_ReportExternalBuild_Request: "CShader_ReportExternalBuild_Response",
+  CSharedJSContext_GetDesiredSteamUIWindows_Request:
+    "CSharedJSContext_GetDesiredSteamUIWindows_Response",
+  CSiteLicense_InitiateAssociation_Request: "CSiteLicense_InitiateAssociation_Response",
+  CSiteLicense_LCSAuthenticate_Request: "CSiteLicense_LCSAuthenticate_Response",
+  CSiteLicense_LCSAssociateUser_Request: "CSiteLicense_LCSAssociateUser_Response",
+  CSiteLicense_ClientSeatCheckout_Request: "CSiteLicense_ClientSeatCheckout_Response",
+  CSiteLicense_ClientGetAvailableSeats_Request: "CSiteLicense_ClientGetAvailableSeats_Response",
+  CSiteManagerClient_IncomingClient_Request: "CSiteManagerClient_IncomingClient_Response",
+  CSleepManager_GetState_Request: "CSleepManager_GetState_Response",
+  CSleepManager_SwitchToPowerState_Request: "CSleepManager_SwitchToPowerState_Response",
+  CSleepManager_RequestSleep_Request: "CSleepManager_RequestSleep_Response",
+  CSteamEngine_GetTextFilterDictionary_Request: "CSteamEngine_GetTextFilterDictionary_Response",
+  CSteamEngine_GetGameIDForPID_Request: "CSteamEngine_GetGameIDForPID_Response",
+  CSteamEngine_SearchAppDataCacheByStoreKeywords_Request:
+    "CSteamEngine_SearchAppDataCacheByStoreKeywords_Response",
+  CSteamInputService_ControllerStateFlow_Request: "CSteamInputService_ControllerStateFlow_Response",
+  CSteamInputService_ControllerAccessibilityStrings_Request:
+    "CSteamInputService_ControllerAccessibilityStrings_Response",
+  CSteamInputService_GyroSoftwareCalibration_Request:
+    "CSteamInputService_GyroSoftwareCalibration_Response",
+  CSteamInputService_PairDongleTritonConnected_Request:
+    "CSteamInputService_PairDongleTritonConnected_Response",
+  CSteamInputService_PairDongleTritonDocked_Request:
+    "CSteamInputService_PairDongleTritonDocked_Response",
+  CSteamInputService_GetDongles_Request: "CSteamInputService_GetDongles_Response",
+  CSteamInputService_ShouldTritonPairInOobe_Request:
+    "CSteamInputService_ShouldTritonPairInOobe_Response",
+  CSteamInputService_WaitInitialControllerStateEnumerated_Request:
+    "CSteamInputService_WaitInitialControllerStateEnumerated_Response",
+  CSteamInputService_GetTritonPairingInfo_Request:
+    "CSteamInputService_GetTritonPairingInfo_Response",
+  CSteamInputService_ForgetTritonPairingBond_Request:
+    "CSteamInputService_ForgetTritonPairingBond_Response",
+  CSteamInputService_ForgetDonglePairingBond_Request:
+    "CSteamInputService_ForgetDonglePairingBond_Response",
+  CSteamInputService_GetControllerName_Request: "CSteamInputService_GetControllerName_Response",
+  CSteamOSManager_GetState_Request: "CSteamOSManager_GetState_Response",
+  CSteamOSManager_OptOutOfSideloadedClient_Request:
+    "CSteamOSManager_OptOutOfSideloadedClient_Response",
+  CSteamOSManager_ApplyMandatoryUpdate_Request: "CSteamOSManager_ApplyMandatoryUpdate_Response",
+  CSteamOSManager_FactoryReset_Request: "CSteamOSManager_FactoryReset_Response",
+  CSteamOSManager_PrepareFactoryImageTest_Request:
+    "CSteamOSManager_PrepareFactoryImageTest_Response",
+  CSteamOSManager_RefreshScreenReaderAutoLocale_Request:
+    "CSteamOSManager_RefreshScreenReaderAutoLocale_Response",
+  CSteamOS_SetUserPassword_Request: "CSteamOS_SetUserPassword_Response",
+  CSteamOS_GetUserHasPassword_Request: "CSteamOS_GetUserHasPassword_Response",
+  CSteamOSSLS_GetState_Request: "CSteamOSSLS_GetState_Response",
+  CSteamOSSLS_SetEnabled_Request: "CSteamOSSLS_SetEnabled_Response",
+  CSteamOSSLS_SetPluginEnabled_Request: "CSteamOSSLS_SetPluginEnabled_Response",
+  CSteamTV_CreateBroadcastChannel_Request: "CSteamTV_CreateBroadcastChannel_Response",
+  CSteamTV_GetBroadcastChannelID_Request: "CSteamTV_GetBroadcastChannelID_Response",
+  CSteamTV_SetBroadcastChannelProfile_Request: "CSteamTV_SetBroadcastChannelProfile_Response",
+  CSteamTV_GetBroadcastChannelProfile_Request: "CSteamTV_GetBroadcastChannelProfile_Response",
+  CSteamTV_SetBroadcastChannelImage_Request: "CSteamTV_SetBroadcastChannelImage_Response",
+  CSteamTV_GetBroadcastChannelImages_Request: "CSteamTV_GetBroadcastChannelImages_Response",
+  CSteamTV_SetBroadcastChannelLinkRegions_Request:
+    "CSteamTV_SetBroadcastChannelLinkRegions_Response",
+  CSteamTV_GetBroadcastChannelLinks_Request: "CSteamTV_GetBroadcastChannelLinks_Response",
+  CSteamTV_GetBroadcastChannelBroadcasters_Request:
+    "CSteamTV_GetBroadcastChannelBroadcasters_Response",
+  CSteamTV_GetFollowedChannels_Request: "CSteamTV_GetFollowedChannels_Response",
+  CSteamTV_GetSubscribedChannels_Request: "CSteamTV_GetSubscribedChannels_Response",
+  CSteamTV_GetBroadcastChannelStatus_Request: "CSteamTV_GetBroadcastChannelStatus_Response",
+  CSteamTV_FollowBroadcastChannel_Request: "CSteamTV_FollowBroadcastChannel_Response",
+  CSteamTV_SubscribeBroadcastChannel_Request: "CSteamTV_SubscribeBroadcastChannel_Response",
+  CSteamTV_GetBroadcastChannelClips_Request: "CSteamTV_GetBroadcastChannelClips_Response",
+  CSteamTV_ReportBroadcastChannel_Request: "CSteamTV_ReportBroadcastChannel_Response",
+  CSteamTV_GetBroadcastChannelInteraction_Request:
+    "CSteamTV_GetBroadcastChannelInteraction_Response",
+  CSteamTV_GetGames_Request: "CSteamTV_GetGames_Response",
+  CSteamTV_GetChannels_Request: "CSteamTV_GetChannels_Response",
+  CSteamTV_AddChatBan_Request: "CSteamTV_AddChatBan_Response",
+  CSteamTV_GetChatBans_Request: "CSteamTV_GetChatBans_Response",
+  CSteamTV_AddChatModerator_Request: "CSteamTV_AddChatModerator_Response",
+  CSteamTV_GetChatModerators_Request: "CSteamTV_GetChatModerators_Response",
+  CSteamTV_AddWordBan_Request: "CSteamTV_AddWordBan_Response",
+  CSteamTV_GetWordBans_Request: "CSteamTV_GetWordBans_Response",
+  CSteamTV_JoinChat_Request: "CSteamTV_JoinChat_Response",
+  CSteamTV_Search_Request: "CSteamTV_Search_Response",
+  CSteamTV_GetSteamTVUserSettings_Request: "CSteamTV_GetSteamTVUserSettings_Response",
+  CSteamTV_SetSteamTVUserSettings_Request: "CSteamTV_SetSteamTVUserSettings_Response",
+  CSteamTV_GetMyBroadcastChannels_Request: "CSteamTV_GetMyBroadcastChannels_Response",
+  CSteamTV_GetHomePageContents_Request: "CSteamTV_GetHomePageContents_Response",
+  CSteamTV_AppCheer_Request: "CSteamTV_AppCheer_Response",
+  CStorageDeviceManager_IsServiceAvailable_Request:
+    "CStorageDeviceManager_IsServiceAvailable_Response",
+  CStorageDeviceManager_GetState_Request: "CStorageDeviceManager_GetState_Response",
+  CStorageDeviceManager_Adopt_Request: "CStorageDeviceManager_Adopt_Response",
+  CStorageDeviceManager_Eject_Request: "CStorageDeviceManager_Eject_Response",
+  CStorageDeviceManager_Format_Request: "CStorageDeviceManager_Format_Response",
+  CStorageDeviceManager_Unmount_Request: "CStorageDeviceManager_Unmount_Response",
+  CStorageDeviceManager_TrimAll_Request: "CStorageDeviceManager_TrimAll_Response",
+  CStoreBrowse_GetItems_Request: "CStoreBrowse_GetItems_Response",
+  CStoreBrowse_GetStoreCategories_Request: "CStoreBrowse_GetStoreCategories_Response",
+  CStoreBrowse_GetContentHubConfig_Request: "CStoreBrowse_GetContentHubConfig_Response",
+  CStoreBrowse_GetPriceStops_Request: "CStoreBrowse_GetPriceStops_Response",
+  CStoreBrowse_GetDLCForApps_Request: "CStoreBrowse_GetDLCForApps_Response",
+  CStoreBrowse_GetDLCForAppsSolr_Request: "CStoreBrowse_GetDLCForAppsSolr_Response",
+  CStoreBrowse_GetHardwareItems_Request: "CStoreBrowse_GetHardwareItems_Response",
+  CStore_RegisterCDKey_Request: "CStore_RegisterCDKey_Response",
+  CStore_GetRecommendedTagsForUser_Request: "CStore_GetRecommendedTagsForUser_Response",
+  CStore_GetMostPopularTags_Request: "CStore_GetMostPopularTags_Response",
+  CStore_GetLocalizedNameForTags_Request: "CStore_GetLocalizedNameForTags_Response",
+  CStore_GetTagList_Request: "CStore_GetTagList_Response",
+  CStore_GetDiscoveryQueue_Request: "CStore_GetDiscoveryQueue_Response",
+  CStore_GetDiscoveryQueueSettings_Request: "CStore_GetDiscoveryQueueSettings_Response",
+  CStore_SkipDiscoveryQueueItem_Request: "CStore_SkipDiscoveryQueueItem_Response",
+  CStore_GetUserGameInterestState_Request: "CStore_GetUserGameInterestState_Response",
+  CStore_GetGamesFollowed_Request: "CStore_GetGamesFollowed_Response",
+  CStore_GetGamesFollowedCount_Request: "CStore_GetGamesFollowedCount_Response",
+  CStore_GetDiscoveryQueueSkippedApps_Request: "CStore_GetDiscoveryQueueSkippedApps_Response",
+  CStore_ReportApp_Request: "CStore_ReportApp_Response",
+  CStore_GetStorePreferences_Request: "CStore_GetStorePreferences_Response",
+  CStore_GetTrendingAppsAmongFriends_Request: "CStore_GetTrendingAppsAmongFriends_Response",
+  CStore_UpdatePackageReservations_Request: "CStore_UpdatePackageReservations_Response",
+  CStore_GetWishlistDemoEmailStatus_Request: "CStore_GetWishlistDemoEmailStatus_Response",
+  CStore_QueueWishlistDemoEmailToFire_Request: "CStore_QueueWishlistDemoEmailToFire_Response",
+  CStore_SetReservationPositionMessage_Request: "CStore_SetReservationPositionMessage_Response",
+  CStore_DeleteReservationPositionMessage_Request:
+    "CStore_DeleteReservationPositionMessage_Response",
+  CStore_GetAllReservationPositionMessages_Request:
+    "CStore_GetAllReservationPositionMessages_Response",
+  CSteamDeckCompatibility_SetFeedback_Request: "CSteamDeckCompatibility_SetFeedback_Response",
+  CSteamDeckCompatibility_ShouldPrompt_Request: "CSteamDeckCompatibility_ShouldPrompt_Response",
+  CSystemManager_Hibernate_Request: "CSystemManager_Hibernate_Response",
+  CSystemManager_WriteFile_Request: "CSystemManager_WriteFile_Response",
+  CMsgTest_NoBody_Request: "CMsgTest_CallClient_Response",
+  CMsgTest_MessageToServer_Request: "CMsgTest_MessageToServer_Response",
+  CMsgTest_TestClientCall_Request: "CMsgTest_TestClientCall_Response",
+  CMsgTest_MessageToClient_Request: "CMsgTest_MessageToClient_Response",
+  CTimedTrial_GetTimeRemaining_Request: "CTimedTrial_GetTimeRemaining_Response",
+  CTimedTrial_RecordPlaytime_Request: "CTimedTrial_RecordPlaytime_Response",
+  CTimedTrial_ResetPlaytime_Request: "CTimedTrial_ResetPlaytime_Response",
+  CTransportAuth_Authenticate_Request: "CTransportAuth_Authenticate_Response",
+  CTransportValidationClient_AddNumbers_Request: "CTransportValidationClient_AddNumbers_Response",
+  CTransportValidation_AppendToString_Request: "CTransportValidation_AppendToString_Response",
+  CTransportValidation_AddNumbers_Request: "CTransportValidation_AddNumbers_Response",
+  CTransportValidation_GetLastNotifyNumber_Request:
+    "CTransportValidation_GetLastNotifyNumber_Response",
+  CTransportValidation_TriggerSyntheticEvents_Request:
+    "CTransportValidation_TriggerSyntheticEvents_Response",
+  CTransportValidation_CountOrderedBytes_Request: "CTransportValidation_CountOrderedBytes_Response",
+  CTransportValidation_ThreadedCount_Request: "CTransportValidation_ThreadedCount_Response",
+  CTransportValidation_RequestInvalidBool_Request:
+    "CTransportValidation_RequestInvalidBool_Response",
+  CTransportValidation_GetLargeResponse_Request: "CTransportValidation_GetLargeResponse_Response",
+  CTransportValidation_RequestLargeNotification_Request:
+    "CTransportValidation_RequestLargeNotification_Response",
+  CTwoFactor_Time_Request: "CTwoFactor_Time_Response",
+  CTwoFactor_Status_Request: "CTwoFactor_Status_Response",
+  CTwoFactor_AddAuthenticator_Request: "CTwoFactor_AddAuthenticator_Response",
+  CTwoFactor_FinalizeAddAuthenticator_Request: "CTwoFactor_FinalizeAddAuthenticator_Response",
+  CTwoFactor_UpdateTokenVersion_Request: "CTwoFactor_UpdateTokenVersion_Response",
+  CTwoFactor_RemoveAuthenticator_Request: "CTwoFactor_RemoveAuthenticator_Response",
+  CTwoFactor_RemoveAuthenticatorViaChallengeStart_Request:
+    "CTwoFactor_RemoveAuthenticatorViaChallengeStart_Response",
+  CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request:
+    "CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response",
+  CUserAccount_GetAvailableValveDiscountPromotions_Request:
+    "CUserAccount_GetAvailableValveDiscountPromotions_Response",
+  CUserAccount_GetClientWalletDetails_Request: "CUserAccount_GetWalletDetails_Response",
+  CUserAccount_GetAccountLinkStatus_Request: "CUserAccount_GetAccountLinkStatus_Response",
+  CUserAccount_CancelLicenseForApp_Request: "CUserAccount_CancelLicenseForApp_Response",
+  CUserAccount_GetUserCountry_Request: "CUserAccount_GetUserCountry_Response",
+  CUserAccount_CreateFriendInviteToken_Request: "CUserAccount_CreateFriendInviteToken_Response",
+  CUserAccount_GetFriendInviteTokens_Request: "CUserAccount_GetFriendInviteTokens_Response",
+  CUserAccount_ViewFriendInviteToken_Request: "CUserAccount_ViewFriendInviteToken_Response",
+  CUserAccount_RedeemFriendInviteToken_Request: "CUserAccount_RedeemFriendInviteToken_Response",
+  CUserAccount_RevokeFriendInviteToken_Request: "CUserAccount_RevokeFriendInviteToken_Response",
+  CUserAccount_RegisterCompatTool_Request: "CUserAccount_RegisterCompatTool_Response",
+  CUser_SaveHardwareInfo_Request: "CUser_SaveHardwareInfo_Response",
+  CUser_GetSavedHardwareInfo_Request: "CUser_GetSavedHardwareInfo_Response",
+  CValveHWSurvey_GetSurveySchedule_Request: "CValveHWSurvey_GetSurveySchedule_Response",
+  CVideo_BeginGameRecordingSegmentsUpload_Request:
+    "CVideo_BeginGameRecordingSegmentsUpload_Response",
+  CVideo_CommitGameRecordingSegmentsUpload_Request:
+    "CVideo_CommitGameRecordingSegmentsUpload_Response",
+  CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request:
+    "CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response",
+  CVideo_GameRecordingCommitSegmentUploads_Request:
+    "CVideo_GameRecordingCommitSegmentUploads_Response",
+  CVideo_ClientGetVideoURL_Request: "CVideo_ClientGetVideoURL_Response",
+  CVideo_GetVideoBookmarks_Request: "CVideo_GetVideoBookmarks_Response",
+  CWorkshop_GetEULAStatus_Request: "CWorkshop_GetEULAStatus_Response",
+} as const;
+
+export type ServiceCallsWithOutRes =
+  | "CAuthentication_NotifyRiskQuizResults_Notification"
+  | "CBluetoothManager_StateChanged_Notification"
+  | "CBroadcast_BroadcastViewerState_Notification"
+  | "CBroadcast_WaitingBroadcastViewer_Notification"
+  | "CBroadcast_BroadcastUploadStarted_Notification"
+  | "CBroadcast_StopBroadcastUpload_Notification"
+  | "CBroadcast_SessionClosed_Notification"
+  | "CBroadcast_ViewerBroadcastInvite_Notification"
+  | "CBroadcast_BroadcastStatus_Notification"
+  | "CBroadcast_BroadcastChannelLive_Notification"
+  | "CBroadcast_SendThumbnailToRelay_Notification"
+  | "CBroadcast_WebRTCNeedTURNServer_Notification"
+  | "CBroadcast_WebRTCStart_Notification"
+  | "CBroadcast_WebRTCSetAnswer_Notification"
+  | "CBroadcast_WebRTCAddViewerCandidate_Notification"
+  | "CBroadcast_NotifyBroadcastUploadStop_Notification"
+  | "CBroadcast_HeartbeatBroadcast_Notification"
+  | "CBroadcast_StopWatchingBroadcast_Notification"
+  | "CBroadcast_NotifyBroadcastSessionHeartbeat_Notification"
+  | "CBroadcast_WebRTCHaveTURNServer_Notification"
+  | "CChatRoom_IncomingChatMessage_Notification"
+  | "CChatRoom_ChatMessageModified_Notification"
+  | "CChatRoom_MemberStateChange_Notification"
+  | "CChatRoom_ChatRoomHeaderState_Notification"
+  | "CChatRoom_ChatRoomGroupRoomsChange_Notification"
+  | "CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification"
+  | "ChatRoomClient_NotifyChatGroupUserStateChanged_Notification"
+  | "CChatRoom_AckChatMessage_Notification"
+  | "ChatRoomClient_NotifyChatRoomDisconnect_Notification"
+  | "CChatRoomClient_MemberListViewUpdated_Notification"
+  | "CChatRoom_MessageReaction_Notification"
+  | "CChatRoom_SetAppChatRoomGroupStopForceActive_Notification"
+  | "CChatRoom_AckChatMessage_Notification"
+  | "CChatRoom_UpdateMemberListView_Notification"
+  | "CChatUsability_RequestClientUsabilityMetrics_Notification"
+  | "CChatUsability_ClientUsabilityMetrics_Notification"
+  | "CClientMetrics_AppInterfaceStats_Notification"
+  | "CClientMetrics_IPv6Connectivity_Notification"
+  | "CClientMetrics_SteamPipeWorkStats_Notification"
+  | "CClientMetrics_ReportReactUsage_Notification"
+  | "CClientMetrics_ReportClientError_Notification"
+  | "CClientMetrics_ClientBootstrap_Notification"
+  | "CClientMetrics_DownloadRates_Notification"
+  | "CClientMetrics_ContentValidation_Notification"
+  | "CClientMetrics_CloudAppSyncStats_Notification"
+  | "CClientMetrics_ContentDownloadResponse_Counts_Notification"
+  | "CClientMetrics_ReportClientArgs_Notification"
+  | "CClientMetrics_ReportLinuxStats_Notification"
+  | "CClientMetrics_ReportAccessibilitySettings_Notification"
+  | "CClientMetrics_ClipShare_Notification"
+  | "CClientMetrics_ClipRange_Notification"
+  | "CClientMetrics_EndGameRecording_Notification"
+  | "CClientMetrics_GamePerformance_Notification"
+  | "CCloud_AppCloudStateChange_Notification"
+  | "CCloud_ClientLogUploadRequest_Notification"
+  | "CCloud_ClientLogUploadCheck_Notification"
+  | "CCloud_ClientLogUploadComplete_Notification"
+  | "CCloud_CDNReport_Notification"
+  | "CCloud_ExternalStorageTransferReport_Notification"
+  | "CCloud_CompleteAppUploadBatch_Notification"
+  | "CCloud_ClientConflictResolution_Notification"
+  | "CCloud_AppExitSyncDone_Notification"
+  | "CDataPublisher_ClientContentCorruptionReport_Notification"
+  | "CDataPublisher_ClientUpdateAppJob_Notification"
+  | "CFamilyGroupsClient_NotifyRunningApps_Notification"
+  | "CFamilyGroupsClient_InviteStatus_Notification"
+  | "CFamilyGroupsClient_GroupChanged_Notification"
+  | "CFriendMessages_IncomingMessage_Notification"
+  | "CFriendMessages_AckMessage_Notification"
+  | "CFriendMessages_MessageReaction_Notification"
+  | "CFriendMessages_SessionNotice_Notification"
+  | "CFriendMessages_AckMessage_Notification"
+  | "CFriendMessages_DismissSessionNotice_Notification"
+  | "CGameNetworking_ReleaseFakeIP_Notification"
+  | "CGameNotifications_OnNotificationsRequested_Notification"
+  | "CGameNotifications_OnUserStatusChanged_Notification"
+  | "CGameRecording_TimelineChanged_Notification"
+  | "CGameRecording_RecordingSessionChanged_Notification"
+  | "CGameRecording_TimelineEntryChanged_Notification"
+  | "CGameRecording_TimelineEntryRemoved_Notification"
+  | "CGameRecording_ClipCreated_Notification"
+  | "CGameRecording_ClipDeleted_Notification"
+  | "CGameRecording_ExportProgress_Notification"
+  | "CGameRecording_UploadProgress_Notification"
+  | "CGameRecording_LowDiskSpace_Notification"
+  | "CGameRecording_PostGameHighlightsChanged_Notification"
+  | "CGameRecording_OpenOverlayToGamePhase_Notification"
+  | "CGameRecording_OpenOverlayToTimelineEvent_Notification"
+  | "CGameRecording_PhaseListChanged_Notification"
+  | "CGamescope_StateChanged_Notification"
+  | "CGameServers_ReportServerPingReply_Notification"
+  | "CHardwareUpdate_StateChanged_Notification"
+  | "CHardwareUpdate_UpdateProgress_Notification"
+  | "CHardwareUpdate_UpdateStateChanged_Notification"
+  | "CInventoryClient_NewItems_Notification"
+  | "CLEDManager_StateChanged_Notification"
+  | "CMarketingMessages_MarkMessageSeen_Notification"
+  | "CMarketingMessages_MarkMessageClicked_Notification"
+  | "CParental_ParentalSettingsChange_Notification"
+  | "CParental_ParentalUnlock_Notification"
+  | "CParental_ParentalLock_Notification"
+  | "CParental_PlaytimeUsed_Notification"
+  | "CPlayer_LastPlayedTimes_Notification"
+  | "CPlayer_FriendNicknameChanged_Notification"
+  | "CPlayer_FriendEquippedProfileItemsChanged_Notification"
+  | "CPlayer_NewSteamAnnouncementState_Notification"
+  | "CPlayer_CommunityPreferencesChanged_Notification"
+  | "CPlayer_TextFilterWordsChanged_Notification"
+  | "CPlayer_PerFriendPreferencesChanged_Notification"
+  | "CPlayer_PrivacySettingsChanged_Notification"
+  | "CPublishedFile_FileSubscribed_Notification"
+  | "CPublishedFile_FileUnsubscribed_Notification"
+  | "CPublishedFile_FileDeleted_Client_Notification"
+  | "CRemoteClient_Online_Notification"
+  | "CRemoteClient_ReplyPacket_Notification"
+  | "CRemoteClient_SteamBroadcast_Notification"
+  | "CRemoteClient_SteamToSteam_Notification"
+  | "CRemotePlay_SessionStopped_Notification"
+  | "CRemotePlayTogether_Notification"
+  | "CRemoteClient_RegisterStatusUpdate_Notification"
+  | "CRemoteClient_UnregisterStatusUpdate_Notification"
+  | "CRemoteClient_RemotePacket_Notification"
+  | "CRemoteClient_SteamBroadcast_Notification"
+  | "CRemoteClient_SteamToSteam_Notification"
+  | "CRemotePlayTogether_Notification"
+  | "CRemoteClient_TaskList_Notification"
+  | "CSiteLicense_ClientSeatCheckout_Notification"
+  | "CSiteManagerClient_TrackedPayments_Notification"
+  | "CSleepManager_StateChanged_Notification"
+  | "CSleepManager_RequestSuspend_Notification"
+  | "CSleepManager_ResumeFromSuspend_Notification"
+  | "CSleepManager_ShowPowerMenu_Notification"
+  | "CSteamEngine_UpdateTextFilterDictionary_Notification"
+  | "CSteamEngine_TextFilterDictionaryChanged_Notification"
+  | "CSteamEngine_SetOverlayEscapeKeyHandling_Notification"
+  | "CSteamInputService_ControllerButtonStateChanged_Notification"
+  | "CSteamInputService_ControllerAxesStateChange_Notification"
+  | "CSteamInputService_GyroQuaternionChanged_Notification"
+  | "CSteamInputService_GyroSpeedChanged_Notification"
+  | "CSteamInputService_GyroAccelerometerChanged_Notification"
+  | "CSteamInputService_GyroCalibration_Notification"
+  | "CSteamInputService_ControllerPowerMenu_Notification"
+  | "CSteamInputService_UnpairedTritonPluggedIn_Notification"
+  | "CSteamInputService_UnpairedTritonDocked_Notification"
+  | "CSteamInputService_TritonUndocked_Notification"
+  | "CSteamInputService_TritonDonglesChanged_Notification"
+  | "CSteamInputService_ControllerDisconnected_Notification"
+  | "CSteamInputService_ControllerPairingChanged_Notification"
+  | "CSteamNotification_NotificationsReceived_Notification"
+  | "CSteamNotification_PreferencesUpdated_Notification"
+  | "CSteamOSManager_StateChanged_Notification"
+  | "CSteamOSSLS_StateChanged_Notification"
+  | "CStorageDeviceManager_StateChanged_Notification"
+  | "CStore_StorePreferencesChanged_Notification"
+  | "CStore_MigratePartnerLinkTracking_Notification"
+  | "CStore_ReloadAllReservationPositionMessages_Notification"
+  | "CMsgTest_NotifyServer_Notification"
+  | "CMsgTest_NotifyClient_Notification"
+  | "CTransportAuth_StartShutdown_Notification"
+  | "CTransportValidation_NotifyText_Notification"
+  | "CTransportValidation_NotifyNumber_Notification"
+  | "CTransportValidation_NotifySyntheticEvent_Notification"
+  | "CTransportValidation_NotifyCount_Notification"
+  | "CTransportValidation_NotifyLarge_Notification"
+  | "CVideo_UnlockedH264_Notification"
+  | "CVideo_SetVideoBookmark_Notification";
