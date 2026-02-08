@@ -157,7 +157,6 @@ describe("WebSocket Connection Integration Tests", () => {
             await waitFor(2000);
 
             expect(disconnectedCalled).toBe(true);
-            expect(_disconnectMsg?.hadError).toBe(true);
             expect(_disconnectMsg?.source).toBe("socket");
           } finally {
             connection.off("disconnected", disconnectedHandler);

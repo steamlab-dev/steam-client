@@ -9,9 +9,8 @@ export class EventManagerError extends GenericError {}
  * Defines the structure of the message emitted on a 'disconnected' event.
  */
 export interface DisconnectMsg {
-  error: Error | null;
+  error: Error;
   source: "socket" | "parser";
-  hadError: boolean;
 }
 
 /**
@@ -110,21 +109,18 @@ export default class EventManager implements IEventManager {
    * Binds handlers to the core socket events ('error', 'close', 'timeout').
    */
   private attachSocketEvents(socket: Socket): void {
-    this.errorHandler = (error) =>
-      this.emitDisconnected({ error, source: "socket", hadError: true });
+    this.errorHandler = (error) => this.emitDisconnected({ error, source: "socket" });
 
-    this.closeHandler = (hadError: boolean) =>
+    this.closeHandler = () =>
       this.emitDisconnected({
-        error: hadError ? new Error("Socket closed with error") : null,
+        error: new Error("Socket closed unexpectedly."),
         source: "socket",
-        hadError,
       });
 
     this.timeoutHandler = () =>
       this.emitDisconnected({
         error: new Error("Socket timeout"),
         source: "socket",
-        hadError: true,
       });
 
     socket.on("error", this.errorHandler);
@@ -140,7 +136,6 @@ export default class EventManager implements IEventManager {
       this.emitDisconnected({
         error: err,
         source: "parser",
-        hadError: true,
       });
     };
 

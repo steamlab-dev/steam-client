@@ -149,19 +149,6 @@ describe("EventManager", () => {
       expect(onDisc).toHaveBeenCalledWith({
         error: err,
         source: "socket",
-        hadError: true,
-      });
-    });
-
-    it("emits 'disconnected' when socket emits close without error", () => {
-      socket.emit("close", false);
-
-      vi.runAllTimers(); // Execute the pending setImmediate callback
-
-      expect(onDisc).toHaveBeenCalledWith({
-        error: null,
-        source: "socket",
-        hadError: false,
       });
     });
 
@@ -179,9 +166,8 @@ describe("EventManager", () => {
       expect(payload).toEqual({
         error: expect.any(Error),
         source: "socket",
-        hadError: true,
       });
-      expect(payload.error?.message).toBe("Socket closed with error");
+      expect(payload.error?.message).toBe("Socket closed unexpectedly.");
     });
 
     it("emits 'disconnected' when socket emits timeout", () => {
@@ -198,7 +184,6 @@ describe("EventManager", () => {
       expect(payload).toEqual({
         error: expect.any(Error),
         source: "socket",
-        hadError: true,
       });
       expect(payload.error?.message).toBe("Socket timeout");
     });
@@ -212,7 +197,6 @@ describe("EventManager", () => {
       expect(onDisc).toHaveBeenCalledWith({
         error: err,
         source: "parser",
-        hadError: true,
       });
     });
 
@@ -228,7 +212,6 @@ describe("EventManager", () => {
       expect(onDisc).toHaveBeenCalledWith({
         error: firstError,
         source: "socket",
-        hadError: true,
       });
     });
   });
