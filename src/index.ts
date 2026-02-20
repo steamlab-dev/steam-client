@@ -1,3 +1,4 @@
+import { isValidRefreshToken } from "./common/utils";
 import SteamClientImpl from "./steam-client/steam-client";
 import ProtoManager from "./steam-protocol/proto-manager";
 
@@ -9,5 +10,5 @@ export {
 export { EAuthSessionGuardType } from "./common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 export type { ConnectionOptions } from "./connection/types";
 
-export { ProtoManager };
+export { ProtoManager, isValidRefreshToken };
 export { SteamClientImpl as SteamClient };

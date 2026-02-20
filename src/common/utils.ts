@@ -116,8 +116,12 @@ const jwtToJson = (token: string): SteamJWT => {
   };
 };
 
-const isValidRefreshToken = (jwt: SteamJWT): boolean => {
+const isValidRefreshToken = (jwt: SteamJWT | string): boolean => {
   const now = Math.floor(Date.now() / 1000);
+
+  if (typeof jwt === "string") {
+    jwt = jwtToJson(jwt);
+  }
 
   return (
     jwt.payload.iss === "steam" &&
