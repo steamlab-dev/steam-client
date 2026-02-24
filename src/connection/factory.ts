@@ -1,4 +1,3 @@
-import { isIP } from "node:net";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import ConnectorFactory from "./connectors/factory";
 import DataParserFactory from "./data-parsers/factory";
@@ -19,8 +18,6 @@ import type {
   ConnectionContextImps,
   ConnectionEvents,
   ConnectionOptions,
-  SteamCMServer,
-  TransportType,
 } from "./types";
 
 /**
@@ -40,7 +37,7 @@ export default class ConnectionFactory {
       emitter: TypedEventEmitter<ConnectionEvents>;
     },
   ): ConnectionContext {
-    const transportType = ConnectionFactory.getTransportType(options.steamCM);
+    const transportType = "ws";
 
     const context: ConnectionContext = {
       options,
@@ -68,12 +65,5 @@ export default class ConnectionFactory {
       .addStep(new AttachDataSenderStep())
       .addStep(new AttachDataParserStep())
       .addStep(new EventManagerStep());
-  }
-
-  /**
-   * Determines the transport protocol ('tcp' or 'ws') based on the server's host format.
-   */
-  static getTransportType(server: SteamCMServer): TransportType {
-    return isIP(server.host) ? "tcp" : "ws";
   }
 }

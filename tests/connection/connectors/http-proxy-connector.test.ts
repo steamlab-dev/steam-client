@@ -1,15 +1,21 @@
-import { EventEmitter } from "node:events";
 import { Socket } from "node:net";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type ConnectorError from "@/connection/connectors/error";
 import HttpProxyConnector from "@/connection/connectors/http-proxy-connector";
 import type { ConnectionOptions } from "@/connection/types";
+import {
+  createEventEmitterSocket,
+  type EventEmitterSocket,
+  flushMicrotasks,
+  mockConnectSuccess,
+  mockWriteSuccess,
+} from "../../helpers/socket-mocks";
 
 // Mock the entire 'net' module. This is hoisted by Vitest to the top of the file.
 vi.mock("net");
 
 describe("HttpProxyConnector", () => {
-  let mockSocket: Socket & EventEmitter;
+  let mockSocket: EventEmitterSocket;
   const options: ConnectionOptions = {
     steamCM: { host: "steam.example.com", port: 27017 },
     proxy: {
@@ -23,29 +29,12 @@ describe("HttpProxyConnector", () => {
   };
 
   beforeEach(() => {
-    const removeListenerSpy = vi.fn();
-    mockSocket = Object.assign(new EventEmitter(), {
-      connect: vi.fn((_p, _h, cb?: () => void) => {
-        if (cb) {
-          cb();
-        }
-        return mockSocket;
-      }),
-      write: vi.fn((...args: unknown[]) => {
-        const callback = args.find((arg) => typeof arg === "function");
-        if (callback) {
-          callback();
-        }
-        return true;
-      }),
-      destroy: vi.fn(),
-      removeListener: removeListenerSpy,
-      off: removeListenerSpy, // Ensure `off` uses the same spy as `removeListener`
-      destroyed: false,
-    }) as unknown as Socket & EventEmitter;
+    mockSocket = createEventEmitterSocket();
+    mockConnectSuccess(mockSocket);
+    mockWriteSuccess(mockSocket);
 
     vi.mocked(Socket).mockImplementation(function () {
-      return mockSocket;
+      return mockSocket as unknown as Socket;
     });
     vi.useFakeTimers();
   });
@@ -64,7 +53,7 @@ describe("HttpProxyConnector", () => {
 
   it("should successfully connect with proxy authentication", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from("HTTP/1.1 200 OK\r\n\r\n"));
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -92,7 +81,7 @@ describe("HttpProxyConnector", () => {
       },
     };
     const connectPromise = HttpProxyConnector.connect(optionsWithoutAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from("HTTP/1.1 200 OK\r\n\r\n"));
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -106,7 +95,7 @@ describe("HttpProxyConnector", () => {
 
   it("should succeed when the proxy response arrives in multiple chunks", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
 
     mockSocket.emit("data", Buffer.from("HTTP/1.1 20"));
     mockSocket.emit("data", Buffer.from("0 OK\r\n\r\n"));
@@ -156,7 +145,7 @@ describe("HttpProxyConnector", () => {
 
   it("should reject on non-2xx status code from proxy", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from("HTTP/1.1 407 Proxy Authentication Required\r\n\r\n"));
 
     await expect(connectPromise).rejects.toThrow(
@@ -170,7 +159,7 @@ describe("HttpProxyConnector", () => {
 
   it("should reject if the proxy sends a malformed HTTP response", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from("This is not a valid HTTP response\r\n\r\n"));
 
     await expect(connectPromise).rejects.toThrow(
@@ -183,7 +172,7 @@ describe("HttpProxyConnector", () => {
 
   it("should reject if the proxy response is unexpectedly large", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     // The MAX_HEADER_SIZE is 8192
     mockSocket.emit("data", Buffer.alloc(9000));
 
@@ -197,7 +186,7 @@ describe("HttpProxyConnector", () => {
 
   it("should handle the socket closing unexpectedly during the handshake", async () => {
     const connectPromise = HttpProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("close");
 
     await expect(connectPromise).rejects.toThrow(

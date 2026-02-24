@@ -1,34 +1,30 @@
-import { EventEmitter } from "node:events";
 import { Socket } from "node:net";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import DirectConnector from "@/connection/connectors/direct-connector";
 import ConnectorError from "@/connection/connectors/error";
 import type { ConnectionOptions } from "@/connection/types";
+import {
+  createEventEmitterSocket,
+  type EventEmitterSocket,
+  mockConnectSuccess,
+} from "../../helpers/socket-mocks";
 
 // Mock the entire 'net' module. This is hoisted by Vitest to the top of the file.
 vi.mock("net");
 
 describe("DirectConnector", () => {
-  let mockSocket: Socket & EventEmitter;
+  let mockSocket: EventEmitterSocket;
   const options: ConnectionOptions = {
     steamCM: { host: "1.2.3.4", port: 27015 },
     timeout: 5000,
   };
 
   beforeEach(() => {
-    // This spy will be used for both .off and .removeListener to correctly track calls
-    // made by the underlying socketRace utility.
-    const removeListenerSpy = vi.fn();
-
-    mockSocket = Object.assign(new EventEmitter(), {
-      connect: vi.fn(),
-      destroy: vi.fn(),
-      removeListener: removeListenerSpy,
-      off: removeListenerSpy,
-    }) as unknown as Socket & EventEmitter;
+    mockSocket = createEventEmitterSocket();
+    mockConnectSuccess(mockSocket);
 
     vi.mocked(Socket).mockImplementation(function () {
-      return mockSocket;
+      return mockSocket as unknown as Socket;
     });
     vi.useFakeTimers();
   });
@@ -39,14 +35,6 @@ describe("DirectConnector", () => {
   });
 
   it("should resolve with the socket on a successful connection", async () => {
-    // For this success test, we must simulate the connect callback being invoked.
-    vi.mocked(mockSocket.connect).mockImplementation((_port, _host, callback?: () => void) => {
-      if (callback) {
-        callback();
-      }
-      return mockSocket;
-    });
-
     await expect(DirectConnector.connect(options)).resolves.toBe(mockSocket);
     expect(mockSocket.connect).toHaveBeenCalledWith(
       options.steamCM.port,

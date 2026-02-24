@@ -41,7 +41,7 @@ export interface ConnectionOptions {
 /**
  * Defines the available transport protocols for the connection.
  */
-export type TransportType = "ws" | "tcp";
+export type TransportType = "ws";
 
 /**
  * Defines the events that a Connection instance can emit.

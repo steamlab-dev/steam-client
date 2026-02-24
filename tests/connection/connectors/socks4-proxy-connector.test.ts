@@ -1,15 +1,21 @@
-import { EventEmitter } from "node:events";
 import { Socket } from "node:net";
 import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type ConnectorError from "@/connection/connectors/error";
 import Socks4ProxyConnector from "@/connection/connectors/Socks4-proxy-connector";
 import type { ConnectionOptions } from "@/connection/types";
+import {
+  createEventEmitterSocket,
+  type EventEmitterSocket,
+  flushMicrotasks,
+  mockConnectSuccess,
+  mockWriteSuccess,
+} from "../../helpers/socket-mocks";
 
 // Mock the entire 'net' module. This is hoisted by Vitest to the top of the file.
 vi.mock("net");
 
 describe("Socks4ProxyConnector", () => {
-  let mockSocket: Socket & EventEmitter;
+  let mockSocket: EventEmitterSocket;
   const options: ConnectionOptions = {
     steamCM: { host: "192.0.2.1", port: 27017 },
     proxy: { host: "proxy.example.com", port: 1080, protocol: "socks4" },
@@ -20,29 +26,12 @@ describe("Socks4ProxyConnector", () => {
   const SOCKS4_REJECTED_RESPONSE = Buffer.from([0x00, 0x5b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
 
   beforeEach(() => {
-    const removeListenerSpy = vi.fn();
-    mockSocket = Object.assign(new EventEmitter(), {
-      connect: vi.fn((_p, _h, cb?: () => void) => {
-        if (cb) {
-          cb();
-        }
-        return mockSocket;
-      }),
-      write: vi.fn((...args: unknown[]) => {
-        const callback = args.find((arg) => typeof arg === "function");
-        if (callback) {
-          callback();
-        }
-        return true;
-      }),
-      destroy: vi.fn(),
-      removeListener: removeListenerSpy,
-      off: removeListenerSpy,
-      destroyed: false,
-    }) as unknown as Socket & EventEmitter;
+    mockSocket = createEventEmitterSocket();
+    mockConnectSuccess(mockSocket);
+    mockWriteSuccess(mockSocket);
 
     vi.mocked(Socket).mockImplementation(function () {
-      return mockSocket;
+      return mockSocket as unknown as Socket;
     });
     vi.useFakeTimers();
   });
@@ -61,7 +50,7 @@ describe("Socks4ProxyConnector", () => {
 
   it("should successfully connect and perform SOCKS4 handshake for an IPv4 destination", async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS4_SUCCESS_RESPONSE);
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -93,7 +82,7 @@ describe("Socks4ProxyConnector", () => {
       },
     };
     const connectPromise = Socks4ProxyConnector.connect(optionsWithDomain);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS4_SUCCESS_RESPONSE);
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -150,7 +139,7 @@ describe("Socks4ProxyConnector", () => {
 
   it('should reject on a SOCKS4 "rejected" status code', async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS4_REJECTED_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(
@@ -164,7 +153,7 @@ describe("Socks4ProxyConnector", () => {
 
   it("should reject if the proxy response has an invalid header", async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     // The first byte must be 0x00, so 0xFF is invalid.
     const invalidHeaderResponse = Buffer.from([0xff, 0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
     mockSocket.emit("data", invalidHeaderResponse);
@@ -179,7 +168,7 @@ describe("Socks4ProxyConnector", () => {
 
   it("should reject on an unknown SOCKS4 status code", async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     // 0xFF is not a valid SOCKS4 status code.
     const unknownStatusResponse = Buffer.from([0x00, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
     mockSocket.emit("data", unknownStatusResponse);
@@ -194,7 +183,7 @@ describe("Socks4ProxyConnector", () => {
 
   it("should reject if the proxy response is unexpectedly large", async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     // The MAX_BUFFER_SIZE is 1024.
     mockSocket.emit("data", Buffer.alloc(2048));
 
@@ -208,7 +197,7 @@ describe("Socks4ProxyConnector", () => {
 
   it("should handle the socket closing unexpectedly during the handshake", async () => {
     const connectPromise = Socks4ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("close");
 
     await expect(connectPromise).rejects.toThrow(

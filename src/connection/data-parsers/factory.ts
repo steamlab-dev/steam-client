@@ -1,7 +1,6 @@
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type { TransportType } from "../types";
 import DataParserError from "./error";
-import TcpDataParser from "./tcp-parser";
 import type { DataParser } from "./types";
 import WebSocketDataParser from "./websocket-parser";
 
@@ -20,8 +19,6 @@ export default class DataParserFactory {
     switch (type) {
       case "ws":
         return new WebSocketDataParser(emitter);
-      case "tcp":
-        return new TcpDataParser(emitter);
       default:
         throw new DataParserError(`Unsupported data parser: ${type}`);
     }

@@ -1,15 +1,21 @@
-import { EventEmitter } from "node:events";
 import { Socket } from "node:net";
 import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "vitest";
 import type ConnectorError from "@/connection/connectors/error";
 import Socks5ProxyConnector from "@/connection/connectors/Socks5-proxy-connector";
 import type { ConnectionOptions } from "@/connection/types";
+import {
+  createEventEmitterSocket,
+  type EventEmitterSocket,
+  flushMicrotasks,
+  mockConnectSuccess,
+  mockWriteSuccess,
+} from "../../helpers/socket-mocks";
 
 // Mock the entire 'net' module. This is hoisted by Vitest to the top of the file.
 vi.mock("net");
 
 describe("Socks5ProxyConnector", () => {
-  let mockSocket: Socket & EventEmitter;
+  let mockSocket: EventEmitterSocket;
   const options: ConnectionOptions = {
     steamCM: { host: "192.0.2.1", port: 27017 },
     proxy: { host: "proxy.example.com", port: 1080, protocol: "socks5" },
@@ -41,29 +47,12 @@ describe("Socks5ProxyConnector", () => {
   ]);
 
   beforeEach(() => {
-    const removeListenerSpy = vi.fn();
-    mockSocket = Object.assign(new EventEmitter(), {
-      connect: vi.fn((_p, _h, cb?: () => void) => {
-        if (cb) {
-          cb();
-        }
-        return mockSocket;
-      }),
-      write: vi.fn((...args: unknown[]) => {
-        const callback = args.find((arg) => typeof arg === "function");
-        if (callback) {
-          callback();
-        }
-        return true;
-      }),
-      destroy: vi.fn(),
-      removeListener: removeListenerSpy,
-      off: removeListenerSpy,
-      destroyed: false,
-    }) as unknown as Socket & EventEmitter;
+    mockSocket = createEventEmitterSocket();
+    mockConnectSuccess(mockSocket);
+    mockWriteSuccess(mockSocket);
 
     vi.mocked(Socket).mockImplementation(function () {
-      return mockSocket;
+      return mockSocket as unknown as Socket;
     });
     vi.useFakeTimers();
   });
@@ -86,9 +75,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should successfully connect without authentication for IPv4 destination", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE);
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -97,11 +86,11 @@ describe("Socks5ProxyConnector", () => {
 
   it("should successfully connect with username/password authentication", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_AUTH_SUCCESS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE);
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -114,9 +103,9 @@ describe("Socks5ProxyConnector", () => {
       steamCM: { host: "example.com", port: 80 },
     };
     const connectPromise = Socks5ProxyConnector.connect(domainOptions);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE);
 
     await expect(connectPromise).resolves.toBe(mockSocket);
@@ -145,7 +134,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle invalid SOCKS version in method selection response", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from([0x04, 0x00]));
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -156,7 +145,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle no acceptable authentication methods", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_ACCEPTABLE_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -167,7 +156,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle mismatch between provided auth and proxy requirements", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -178,7 +167,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle proxy requiring auth but no credentials provided", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -189,9 +178,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle auth version mismatch", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.from([0x02, 0x00]));
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(optionsWithAuth));
@@ -202,9 +191,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle authentication failure", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_AUTH_FAILED_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(optionsWithAuth));
@@ -215,9 +204,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle a generic connection request rejection", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_CONNECT_REJECTED_RESPONSE);
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -228,9 +217,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle a specific connection rejection reason (Host unreachable)", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     // Status 0x04 = Host unreachable
     const hostUnreachableResponse = Buffer.from([
       0x05, 0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -245,7 +234,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle unexpectedly large response during method selection", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.alloc(2048));
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -256,9 +245,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle an oversized response during authentication", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", Buffer.alloc(2048)); // Oversized auth response
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(optionsWithAuth));
@@ -269,7 +258,7 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle socket closing unexpectedly during method selection", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("close");
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
@@ -280,9 +269,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle socket closing unexpectedly during authentication", async () => {
     const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("close");
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(optionsWithAuth));
@@ -293,9 +282,9 @@ describe("Socks5ProxyConnector", () => {
 
   it("should handle socket closing unexpectedly during connection request", async () => {
     const connectPromise = Socks5ProxyConnector.connect(options);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
-    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    await flushMicrotasks();
     mockSocket.emit("close");
 
     await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));

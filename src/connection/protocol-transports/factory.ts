@@ -1,5 +1,4 @@
 import type { TransportType } from "../types";
-import TcpTransport from "./tcp-transport";
 import type { Transport } from "./types";
 import WebSocketTransport from "./websocket-transport";
 
@@ -12,7 +11,6 @@ export default class TransportFactory {
 
   private static readonly TRANSPORT_MAP: Record<TransportType, Transport> = {
     ws: WebSocketTransport,
-    tcp: TcpTransport,
   } as const;
 
   /**

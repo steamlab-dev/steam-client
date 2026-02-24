@@ -1,6 +1,5 @@
 import type { TransportType } from "../types";
 import DataSenderError from "./error";
-import TcpDataSender from "./tcp-sender";
 import type { DataSender } from "./types";
 import WebSocketDataSender from "./websocket-sender";
 
@@ -13,7 +12,6 @@ export default class DataSenderFactory {
 
   private static readonly DATA_SENDER_MAP: Record<TransportType, DataSender> = {
     ws: new WebSocketDataSender(),
-    tcp: new TcpDataSender(),
   } as const;
 
   /**
