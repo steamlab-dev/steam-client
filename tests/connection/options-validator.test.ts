@@ -30,15 +30,6 @@ describe("ConnectionOptionsValidator", () => {
       expect(() => ConnectionOptionsValidator.validate(opts)).not.toThrow();
     });
 
-    it("should allow socks4 proxy if steamCM host is IPv4", () => {
-      const opts: ConnectionOptions = {
-        ...validOptions,
-        steamCM: { host: "127.0.0.1", port: 27017 },
-        proxy: { ...validProxy, protocol: "socks4" },
-      };
-      expect(() => ConnectionOptionsValidator.validate(opts)).not.toThrow();
-    });
-
     it("should allow valid IPv6 steamCM host", () => {
       const opts: ConnectionOptions = {
         ...validOptions,
@@ -199,15 +190,6 @@ describe("ConnectionOptionsValidator", () => {
         proxy: { ...validProxy, password: longPassword },
       };
       expect(() => ConnectionOptionsValidator.validate(opts)).toThrow(/password exceeds/);
-    });
-
-    it("should throw if socks4 and steamCM host not IPv4", () => {
-      const opts: ConnectionOptions = {
-        ...validOptions,
-        steamCM: { host: "steam.example.com", port: 27017 },
-        proxy: { ...validProxy, protocol: "socks4" },
-      };
-      expect(() => ConnectionOptionsValidator.validate(opts)).toThrow(/SOCKS4 requires/);
     });
   });
 });

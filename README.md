@@ -8,7 +8,7 @@ A lean, TypeScript Steam client for Node.js with a focus on speed, clean primiti
 - QR and credential login flows
 - Minimal Steam client core with explicit connect and logon steps
 - WebSocket transport
-- HTTP, SOCKS4, and SOCKS5 proxy support
+- HTTP, HTTPS, and SOCKS5 proxy support
 
 ## Installation
 
@@ -137,7 +137,7 @@ const logonRes = await client.logonRequest({
 
 The client uses WebSocket transport for Steam CM connections.
 
-Proxy connections are supported via the proxy property (`http`, `https`, `socks4`, `socks5`).
+Proxy connections are supported via the proxy property (`http`, `https`, `socks5`).
 
 ```ts
 import type { ConnectionOptions } from "@steamlab/steam-client";

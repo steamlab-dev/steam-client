@@ -70,7 +70,7 @@ export default class ConnectionOptionsValidator {
    * Validates the proxy server configuration.
    * @throws {Error} If the proxy configuration is invalid.
    */
-  private static validateProxy(proxy: ProxyConfiguration, steamCM: SteamCMServer): void {
+  private static validateProxy(proxy: ProxyConfiguration, _steamCM: SteamCMServer): void {
     if (!proxy.host || !proxy.port) {
       throw new Error("Proxy host and port are required");
     }
@@ -93,9 +93,6 @@ export default class ConnectionOptionsValidator {
     }
     if (proxy.password && Buffer.byteLength(proxy.password, "utf8") > 255) {
       throw new Error("Proxy password exceeds 255 bytes");
-    }
-    if (proxy.protocol === "socks4" && !/^\d+\.\d+\.\d+\.\d+$/.test(steamCM.host)) {
-      throw new Error("SOCKS4 requires destination (steamCM.host) to be an IPv4 address");
     }
   }
 

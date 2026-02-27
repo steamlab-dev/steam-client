@@ -21,12 +21,11 @@ export interface SteamCMServer {
  * Represents proxy configuration options.
  */
 export interface ProxyConfiguration {
-  protocol: "http" | "https" | "socks4" | "socks5";
+  protocol: "http" | "https" | "socks5";
   host: string;
   port: number;
   username?: string;
   password?: string;
-  socks4UserId?: string;
 }
 
 /**

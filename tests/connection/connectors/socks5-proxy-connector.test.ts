@@ -62,9 +62,8 @@ describe("Socks5ProxyConnector", () => {
     vi.restoreAllMocks();
   });
 
-  // NOTE: The source code has a copy-paste error and says "SOCKS4", so we must match that.
   const getWrappedErrorPrefix = (opts: ConnectionOptions) =>
-    `Failed to connect via SOCKS4 proxy ${opts.proxy?.host}:${opts.proxy?.port} to ${opts.steamCM.host}:${opts.steamCM.port}`;
+    `Failed to connect via SOCKS5 proxy ${opts.proxy?.host}:${opts.proxy?.port} to ${opts.steamCM.host}:${opts.steamCM.port}`;
 
   it("should throw ConnectorError if proxy configuration is missing", async () => {
     const optionsWithoutProxy = { ...options, proxy: undefined };

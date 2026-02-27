@@ -3,7 +3,6 @@ import DirectConnector from "@/connection/connectors/direct-connector";
 import ConnectorFactory from "@/connection/connectors/factory";
 import HttpProxyConnector from "@/connection/connectors/http-proxy-connector";
 import HttpsProxyConnector from "@/connection/connectors/https-proxy-connector";
-import Socks4ProxyConnector from "@/connection/connectors/Socks4-proxy-connector";
 import Socks5ProxyConnector from "@/connection/connectors/Socks5-proxy-connector";
 import type { ConnectionOptions } from "@/connection/types";
 
@@ -41,18 +40,6 @@ describe("ConnectorFactory", () => {
     const connector = ConnectorFactory.create(options);
 
     expect(connector).toBe(HttpsProxyConnector);
-  });
-
-  it("returns SOCKS4 connector when socks4 proxy protocol is configured", () => {
-    const options: ConnectionOptions = {
-      steamCM: { host: "127.0.0.1", port: 27018 },
-      proxy: { protocol: "socks4", host: "proxy.local", port: 1080 },
-      timeout: 5_000,
-    };
-
-    const connector = ConnectorFactory.create(options);
-
-    expect(connector).toBe(Socks4ProxyConnector);
   });
 
   it("returns SOCKS5 connector when socks5 proxy protocol is configured", () => {

@@ -76,7 +76,7 @@ const Socks5ProxyConnector: Connector = class Socks5ProxyConnector {
         socket.destroy();
       }
       throw new ConnectorError(
-        `Failed to connect via SOCKS4 proxy ${options.proxy.host}:${options.proxy.port} to ${options.steamCM.host}:${options.steamCM.port}`,
+        `Failed to connect via SOCKS5 proxy ${options.proxy.host}:${options.proxy.port} to ${options.steamCM.host}:${options.steamCM.port}`,
         error,
       );
     }
