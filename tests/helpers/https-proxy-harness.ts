@@ -18,10 +18,18 @@ export type StartHttpsProxyHarnessOptions = {
   port?: number;
   certPath?: string;
   keyPath?: string;
+  requiredUsername?: string;
+  requiredPassword?: string;
 };
 
-const parseConnectRequest = (request: string): { host: string; port: number } => {
-  const requestLine = request.split("\r\n", 1)[0] ?? "";
+const parseConnectRequest = (
+  request: string,
+): {
+  host: string;
+  port: number;
+  headers: Map<string, string>;
+} => {
+  const [requestLine = "", ...headerLines] = request.split("\r\n");
   const match = requestLine.match(/^CONNECT\s+([^\s:]+):(\d+)\s+HTTP\/1\.[01]$/u);
 
   if (!match) {
@@ -40,7 +48,23 @@ const parseConnectRequest = (request: string): { host: string; port: number } =>
     throw new Error(`Invalid CONNECT target port: ${portText}`);
   }
 
-  return { host, port };
+  const headers = new Map<string, string>();
+  for (const line of headerLines) {
+    if (!line) {
+      continue;
+    }
+
+    const separatorIndex = line.indexOf(":");
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = line.slice(0, separatorIndex).trim().toLowerCase();
+    const value = line.slice(separatorIndex + 1).trim();
+    headers.set(key, value);
+  }
+
+  return { host, port, headers };
 };
 
 export const startHttpsProxyHarness = async (
@@ -50,6 +74,19 @@ export const startHttpsProxyHarness = async (
   const port = options.port ?? 0;
   const certPath = options.certPath ?? DEFAULT_CERT_PATH;
   const keyPath = options.keyPath ?? DEFAULT_KEY_PATH;
+  const hasAuthRequirement =
+    typeof options.requiredUsername === "string" || typeof options.requiredPassword === "string";
+
+  if (
+    hasAuthRequirement &&
+    (typeof options.requiredUsername !== "string" || typeof options.requiredPassword !== "string")
+  ) {
+    throw new Error("HTTPS proxy auth requires both requiredUsername and requiredPassword");
+  }
+
+  const expectedProxyAuthorization = hasAuthRequirement
+    ? `Basic ${Buffer.from(`${options.requiredUsername}:${options.requiredPassword}`).toString("base64")}`
+    : undefined;
 
   const cert = readFileSync(certPath, "utf8");
   const key = readFileSync(keyPath, "utf8");
@@ -99,6 +136,16 @@ export const startHttpsProxyHarness = async (
 
         try {
           const target = parseConnectRequest(request);
+          if (expectedProxyAuthorization) {
+            const proxyAuthorization = target.headers.get("proxy-authorization");
+            if (proxyAuthorization !== expectedProxyAuthorization) {
+              clientSocket.write(
+                'HTTP/1.1 407 Proxy Authentication Required\r\nProxy-Authenticate: Basic realm="steam-client-test-proxy"\r\nConnection: close\r\n\r\n',
+              );
+              clientSocket.end();
+              return;
+            }
+          }
 
           upstreamSocket = net.connect({ host: target.host, port: target.port }, () => {
             clientSocket.write(

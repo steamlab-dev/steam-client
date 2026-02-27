@@ -10,6 +10,7 @@ import {
 
 const SOCKS5_PROXY_PORT = 19080;
 const HTTP_PROXY_PORT = 19128;
+const HTTP_PROXY_AUTH_PORT = 19129;
 const PROXY_USERNAME = "integration_user";
 const PROXY_PASSWORD = "integration_pass";
 
@@ -18,13 +19,19 @@ const CM_HOST_DOCKER = "host.docker.internal";
 
 describe("SteamClient secure CM integration (direct + proxies)", () => {
   let secureCmServer: SecureSteamCmServer | undefined;
-  let httpsProxyHarness: HttpsProxyHarness | undefined;
+  let httpsProxyHarnessOpen: HttpsProxyHarness | undefined;
+  let httpsProxyHarnessAuth: HttpsProxyHarness | undefined;
   const activeClients: SteamClient[] = [];
 
   beforeAll(async () => {
     await acquireIntegrationDockerServices(["proxy"]);
     secureCmServer = await startSecureSteamCmServer({ host: "0.0.0.0" });
-    httpsProxyHarness = await startHttpsProxyHarness({ host: "127.0.0.1" });
+    httpsProxyHarnessOpen = await startHttpsProxyHarness({ host: "127.0.0.1" });
+    httpsProxyHarnessAuth = await startHttpsProxyHarness({
+      host: "127.0.0.1",
+      requiredUsername: PROXY_USERNAME,
+      requiredPassword: PROXY_PASSWORD,
+    });
   });
 
   beforeEach(() => {
@@ -45,8 +52,11 @@ describe("SteamClient secure CM integration (direct + proxies)", () => {
   });
 
   afterAll(async () => {
-    if (httpsProxyHarness) {
-      await httpsProxyHarness.close();
+    if (httpsProxyHarnessOpen) {
+      await httpsProxyHarnessOpen.close();
+    }
+    if (httpsProxyHarnessAuth) {
+      await httpsProxyHarnessAuth.close();
     }
     if (secureCmServer) {
       await secureCmServer.close();
@@ -66,6 +76,21 @@ describe("SteamClient secure CM integration (direct + proxies)", () => {
 
     const after = secureCmServer.getStats().successfulHandshakes;
     expect(after).toBe(before + 1);
+  };
+
+  const connectAndAssertFailure = async (options: ConnectionOptions): Promise<void> => {
+    if (!secureCmServer) {
+      throw new Error("Secure CM test server is not initialized");
+    }
+
+    const before = secureCmServer.getStats().successfulHandshakes;
+    const client = new SteamClient(options);
+    activeClients.push(client);
+
+    await expect(client.connect()).rejects.toThrow();
+
+    const after = secureCmServer.getStats().successfulHandshakes;
+    expect(after).toBe(before);
   };
 
   const requireSecureCmServer = (): SecureSteamCmServer => {
@@ -103,6 +128,21 @@ describe("SteamClient secure CM integration (direct + proxies)", () => {
     await connectAndAssertHandshake(options);
   });
 
+  it("fails through an authenticated SOCKS5 proxy when credentials are missing", async () => {
+    const cmServer = requireSecureCmServer();
+    const options: ConnectionOptions = {
+      steamCM: { host: CM_HOST_DOCKER, port: cmServer.port },
+      timeout: 15_000,
+      proxy: {
+        protocol: "socks5",
+        host: "127.0.0.1",
+        port: SOCKS5_PROXY_PORT,
+      },
+    };
+
+    await connectAndAssertFailure(options);
+  });
+
   it("connects through an HTTP proxy to the local secure Steam CM helper", async () => {
     const cmServer = requireSecureCmServer();
     const options: ConnectionOptions = {
@@ -118,8 +158,40 @@ describe("SteamClient secure CM integration (direct + proxies)", () => {
     await connectAndAssertHandshake(options);
   });
 
+  it("connects through an authenticated HTTP proxy with valid credentials", async () => {
+    const cmServer = requireSecureCmServer();
+    const options: ConnectionOptions = {
+      steamCM: { host: CM_HOST_DOCKER, port: cmServer.port },
+      timeout: 15_000,
+      proxy: {
+        protocol: "http",
+        host: "127.0.0.1",
+        port: HTTP_PROXY_AUTH_PORT,
+        username: PROXY_USERNAME,
+        password: PROXY_PASSWORD,
+      },
+    };
+
+    await connectAndAssertHandshake(options);
+  });
+
+  it("fails through an authenticated HTTP proxy when credentials are missing", async () => {
+    const cmServer = requireSecureCmServer();
+    const options: ConnectionOptions = {
+      steamCM: { host: CM_HOST_DOCKER, port: cmServer.port },
+      timeout: 15_000,
+      proxy: {
+        protocol: "http",
+        host: "127.0.0.1",
+        port: HTTP_PROXY_AUTH_PORT,
+      },
+    };
+
+    await connectAndAssertFailure(options);
+  });
+
   it("connects through an HTTPS proxy to the local secure Steam CM helper", async () => {
-    if (!httpsProxyHarness) {
+    if (!httpsProxyHarnessOpen) {
       throw new Error("HTTPS proxy harness is not initialized");
     }
 
@@ -130,10 +202,50 @@ describe("SteamClient secure CM integration (direct + proxies)", () => {
       proxy: {
         protocol: "https",
         host: "127.0.0.1",
-        port: httpsProxyHarness.port,
+        port: httpsProxyHarnessOpen.port,
       },
     };
 
     await connectAndAssertHandshake(options);
+  });
+
+  it("connects through an authenticated HTTPS proxy with valid credentials", async () => {
+    if (!httpsProxyHarnessAuth) {
+      throw new Error("Authenticated HTTPS proxy harness is not initialized");
+    }
+
+    const cmServer = requireSecureCmServer();
+    const options: ConnectionOptions = {
+      steamCM: { host: CM_HOST_DIRECT, port: cmServer.port },
+      timeout: 15_000,
+      proxy: {
+        protocol: "https",
+        host: "127.0.0.1",
+        port: httpsProxyHarnessAuth.port,
+        username: PROXY_USERNAME,
+        password: PROXY_PASSWORD,
+      },
+    };
+
+    await connectAndAssertHandshake(options);
+  });
+
+  it("fails through an authenticated HTTPS proxy when credentials are missing", async () => {
+    if (!httpsProxyHarnessAuth) {
+      throw new Error("Authenticated HTTPS proxy harness is not initialized");
+    }
+
+    const cmServer = requireSecureCmServer();
+    const options: ConnectionOptions = {
+      steamCM: { host: CM_HOST_DIRECT, port: cmServer.port },
+      timeout: 15_000,
+      proxy: {
+        protocol: "https",
+        host: "127.0.0.1",
+        port: httpsProxyHarnessAuth.port,
+      },
+    };
+
+    await connectAndAssertFailure(options);
   });
 });

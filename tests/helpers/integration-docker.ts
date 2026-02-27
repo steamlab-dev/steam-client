@@ -10,6 +10,7 @@ const PROXY_DOCKER_COMPOSE_FILE = fileURLToPath(
 );
 const SOCKS5_PROXY_PORT = 19080;
 const HTTP_PROXY_PORT = 19128;
+const HTTP_PROXY_AUTH_PORT = 19129;
 const DEFAULT_STATE_FILE = "/tmp/steam-client-vitest-docker-state.json";
 
 type ExecFileSyncError = Error & {
@@ -113,6 +114,8 @@ const waitForHttpProxyReady = async (
   host: string,
   port: number,
   timeoutMs: number,
+  expectedStatusCodes?: readonly number[],
+  probeRequest = "OPTIONS * HTTP/1.1\r\nHost: proxy\r\nConnection: close\r\n\r\n",
 ): Promise<void> => {
   const startedAt = Date.now();
 
@@ -134,7 +137,7 @@ const waitForHttpProxyReady = async (
 
       socket.setTimeout(2000);
       socket.once("connect", () => {
-        socket.write("OPTIONS * HTTP/1.1\r\nHost: proxy\r\nConnection: close\r\n\r\n");
+        socket.write(probeRequest);
       });
       socket.once("timeout", () => finish(false));
       socket.once("error", () => finish(false));
@@ -142,7 +145,17 @@ const waitForHttpProxyReady = async (
       socket.on("data", (chunk: Buffer) => {
         rawResponse += chunk.toString("utf8");
         const statusLine = rawResponse.split("\r\n", 1)[0] ?? "";
-        if (/^HTTP\/1\.[01] \d{3}\b/u.test(statusLine)) {
+        const match = statusLine.match(/^HTTP\/1\.[01] (\d{3})\b/u);
+        if (!match) {
+          return;
+        }
+
+        const statusCode = Number.parseInt(match[1] ?? "", 10);
+        if (Number.isNaN(statusCode)) {
+          return;
+        }
+
+        if (!expectedStatusCodes || expectedStatusCodes.includes(statusCode)) {
           finish(true);
         }
       });
@@ -227,11 +240,20 @@ const acquireProxyService = async (state: IntegrationDockerState): Promise<void>
 
   await waitForTcpPort("127.0.0.1", SOCKS5_PROXY_PORT, 30_000);
   await waitForTcpPort("127.0.0.1", HTTP_PROXY_PORT, 30_000);
+  await waitForTcpPort("127.0.0.1", HTTP_PROXY_AUTH_PORT, 30_000);
   await waitForHttpProxyReady("127.0.0.1", HTTP_PROXY_PORT, 30_000);
+  await waitForHttpProxyReady(
+    "127.0.0.1",
+    HTTP_PROXY_AUTH_PORT,
+    30_000,
+    [407],
+    "CONNECT 0.0.0.1:1 HTTP/1.1\r\nHost: 0.0.0.1:1\r\nConnection: close\r\n\r\n",
+  );
 
   state.acquiredServices = ["proxy"];
   logContainerStarted("proxy-socks5");
   logContainerStarted("proxy-squid");
+  logContainerStarted("proxy-squid-auth");
 };
 
 const runTeardownCommand = (command: string, args: string[], errors: Error[]): boolean => {
@@ -277,6 +299,7 @@ export async function teardownIntegrationDockerServices(
   if (proxyTeardownSucceeded) {
     logContainerRemoved("proxy-socks5");
     logContainerRemoved("proxy-squid");
+    logContainerRemoved("proxy-squid-auth");
   }
 
   clearState();

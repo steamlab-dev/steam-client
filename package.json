@@ -27,7 +27,7 @@
     "test:unit:connection": "vitest --run tests/connection/",
     "test:unit:common": "vitest --run tests/common/",
     "test:integration:connectors": "NODE_EXTRA_CA_CERTS=tests/fixtures/certs/ca-cert.pem vitest --run --config vitest.integration.config.ts",
-    "test:integration:live": "vitest --run tests/steam-client/live.integration.test.ts",
+    "test:integration:live": "VITEST_INCLUDE_LIVE=1 vitest --run tests/steam-client/live.integration.test.ts",
     "test:package": "./scripts/test-package.sh",
     "build": "tsdown",
     "prepublishOnly": "npm run build",
