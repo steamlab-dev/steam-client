@@ -9,6 +9,9 @@ import type { Messenger, ProtoMessageReq, ProtoMessageRes } from "./types";
 
 export class ProtoMessengerError extends GenericError {}
 
+const PENDING_REQUEST_TIMEOUT_MS = 30_000;
+const CLEANUP_ERROR_MESSAGE = "Cancelled by ProtoSender";
+
 export default class ProtoMessenger implements Messenger {
   constructor(
     private readonly protos: SteamProtoManager,
@@ -17,13 +20,13 @@ export default class ProtoMessenger implements Messenger {
     private readonly pendingRequest: PendingRequestMap<
       EMsg,
       Record<string, unknown>
-    > = new PendingRequestMap(30_000),
+    > = new PendingRequestMap(PENDING_REQUEST_TIMEOUT_MS),
   ) {}
 
   sendWithResponse<K extends EMsg, T extends EMsg | undefined = undefined>(
     req: ProtoMessageReq<K, T>,
   ): Promise<ProtoMessageRes<K, T>> {
-    const eMsgRes = req.eMsgRes ?? EMsgReqToEMsgRes[req.eMsg as keyof typeof EMsgReqToEMsgRes];
+    const eMsgRes = this.resolveResponseEMsg(req);
 
     const promise = this.pendingRequest.add(eMsgRes);
 
@@ -44,13 +47,26 @@ export default class ProtoMessenger implements Messenger {
   }
 
   public cleanUp(): void {
-    this.pendingRequest.cleanUp(new Error("Cancelled by ProtoSender"));
+    this.pendingRequest.cleanUp(new Error(CLEANUP_ERROR_MESSAGE));
   }
 
   private sendProto(eMsg: EMsg, payload: unknown): void {
     const header = this.headerBuilder.build(eMsg, {});
     const protoName = EMsgToProtoName[eMsg as keyof typeof EMsgToProtoName];
+    if (!protoName) {
+      throw new ProtoMessengerError(`Missing proto mapping for eMsg: ${eMsg}`);
+    }
     const body = this.protos.encode(protoName, payload as Record<string, unknown>);
     this.connection.send(Buffer.concat([header, body]));
+  }
+
+  private resolveResponseEMsg<K extends EMsg, T extends EMsg | undefined>(
+    req: ProtoMessageReq<K, T>,
+  ): EMsg {
+    const eMsgRes = req.eMsgRes ?? EMsgReqToEMsgRes[req.eMsg as keyof typeof EMsgReqToEMsgRes];
+    if (eMsgRes === undefined) {
+      throw new ProtoMessengerError(`Missing response mapping for eMsg: ${req.eMsg}`);
+    }
+    return eMsgRes;
   }
 }

@@ -2,7 +2,7 @@ import { EResult, type SteamProtos } from "@/common/steam-language";
 import type ServiceCallMessenger from "@/steam-protocol/messengers/service-call-messenger";
 import type ProtoManager from "@/steam-protocol/proto-manager";
 import type { DecodedProtoMessage, MsgHandler, ParsedMessage, ProtoMessage } from "../types";
-import { isServiceCallMessage } from "./common/util";
+import { extractEResult, isServiceCallMessage } from "./common/util";
 /**
  * Handler that filters out service method calls
  */
@@ -25,8 +25,7 @@ export default class ServiceMethodResponseHandler implements MsgHandler {
     };
 
     const bodyRecord = decodedMessage.body as Record<string, unknown>;
-    const eresult =
-      (bodyRecord && (bodyRecord.eresult as number | undefined)) ?? decodedMessage.header.eresult;
+    const eresult = extractEResult(bodyRecord, decodedMessage.header.eresult);
 
     if (eresult !== undefined && eresult !== EResult.OK) {
       this.serviceCallMessenger.rejectRequest(

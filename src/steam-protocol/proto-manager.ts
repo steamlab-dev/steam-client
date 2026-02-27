@@ -11,6 +11,9 @@ type Namespaces = "steam" | "csgo" | "webui";
 
 export class SteamProtoError extends GenericError {}
 
+const GOOGLE_PROTO_DIR = "google/protobuf";
+const PROTO_EXTENSION = "proto";
+
 /**
  * Manages the dynamic loading, caching, encoding, and decoding of .proto files
  * for Steam communication using protobuf.js.
@@ -49,8 +52,8 @@ export default class ProtoManager {
     const resolvedPath = await this.resolveProtoPath();
 
     const dir = path.join(resolvedPath, this.namespace ?? "");
-    const protoFiles = await findFilesRecursive(dir, "proto", [
-      path.resolve(resolvedPath, "google/protobuf"),
+    const protoFiles = await findFilesRecursive(dir, PROTO_EXTENSION, [
+      path.resolve(resolvedPath, GOOGLE_PROTO_DIR),
     ]);
 
     if (protoFiles.length === 0) {
@@ -59,27 +62,6 @@ export default class ProtoManager {
 
     const filesByNs = this.groupProtosByNamespace(protoFiles, resolvedPath);
 
-    const resolvePath = (origin: string, target: string) => {
-      if (path.isAbsolute(target)) {
-        return target;
-      }
-
-      const originDir = path.dirname(origin);
-      let targetPath = path.resolve(originDir, target);
-      if (fs.existsSync(targetPath)) {
-        return targetPath;
-      }
-
-      if (target.startsWith("google/protobuf")) {
-        targetPath = path.join(resolvedPath, target);
-        if (fs.existsSync(targetPath)) {
-          return targetPath;
-        }
-      }
-
-      throw new SteamProtoError(`Could not resolve ${target} from ${origin}`);
-    };
-
     for (const ns in filesByNs) {
       const nsFiles = filesByNs[ns];
       if (!nsFiles) {
@@ -87,8 +69,12 @@ export default class ProtoManager {
       }
       const files = await this.getTopLevelProtoFiles(nsFiles);
       const root = new protobuf.Root();
-      root.resolvePath = resolvePath;
-      await root.load(files, { keepCase: true });
+      root.resolvePath = this.createPathResolver(resolvedPath);
+      try {
+        await root.load(files, { keepCase: true });
+      } catch (error) {
+        throw new SteamProtoError(`Failed loading proto namespace '${ns}'`, error);
+      }
       this.cacheProtoNamespace(root);
     }
 
@@ -113,6 +99,29 @@ export default class ProtoManager {
     }
 
     throw new SteamProtoError("Could not find package root. Make sure protos directory exists.");
+  }
+
+  private createPathResolver(resolvedPath: string): protobuf.Root["resolvePath"] {
+    return (origin: string, target: string) => {
+      if (path.isAbsolute(target)) {
+        return target;
+      }
+
+      const originDir = path.dirname(origin);
+      let targetPath = path.resolve(originDir, target);
+      if (fs.existsSync(targetPath)) {
+        return targetPath;
+      }
+
+      if (target.startsWith(GOOGLE_PROTO_DIR)) {
+        targetPath = path.join(resolvedPath, target);
+        if (fs.existsSync(targetPath)) {
+          return targetPath;
+        }
+      }
+
+      throw new SteamProtoError(`Could not resolve ${target} from ${origin}`);
+    };
   }
 
   /**

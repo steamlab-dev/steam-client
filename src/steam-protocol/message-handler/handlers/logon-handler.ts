@@ -1,6 +1,6 @@
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { EResult } from "@/common/steam-language/EResult";
-import type HeartbeatManager from "@/steam-protocol/hearbeat-manager";
+import type HeartbeatManager from "@/steam-protocol/heartbeat-manager";
 import type SessionManager from "@/steam-protocol/session-manager";
 import type { DecodedProtoMessage, MsgHandler, SteamMessage } from "../types";
 

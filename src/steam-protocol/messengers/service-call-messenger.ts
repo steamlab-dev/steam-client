@@ -1,4 +1,5 @@
 import Long from "long";
+import GenericError from "@/common/generic-error";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import type Connection from "@/connection/connection";
 import type SteamProtoManager from "../proto-manager";
@@ -13,6 +14,11 @@ import type {
   ServiceCallsWithRes,
 } from "./types";
 
+export class ServiceCallMessengerError extends GenericError {}
+
+const PENDING_REQUEST_TIMEOUT_MS = 30_000;
+const CLEANUP_ERROR_MESSAGE = "Cancelled by ServiceCallSender";
+
 export default class ServiceCallMessenger implements Messenger {
   private lastGeneratedId: Long = Long.UZERO;
 
@@ -23,20 +29,16 @@ export default class ServiceCallMessenger implements Messenger {
     private readonly headerBuilder: ProtoHeaderBuilder,
 
     private readonly pendingRequest: PendingRequestMap<string, unknown> = new PendingRequestMap(
-      30_000,
+      PENDING_REQUEST_TIMEOUT_MS,
     ),
   ) {}
 
   public async sendWithResponse<K extends ServiceCallsWithRes>(
     req: ServiceCallMessageWithRes<K>,
   ): Promise<ServiceCallResponse<K>> {
-    const { service, method } = this.splitServiceAndMethod(req.message);
-    const targetJobName = `${service}.${method}#1`;
-    const jobIdSource = this.genUniquejobIdSource();
-
-    const eMsg = this.session.isLoggedIn()
-      ? EMsg.k_EMsgServiceMethodCallFromClient
-      : EMsg.k_EMsgServiceMethodCallFromClientNonAuthed;
+    const targetJobName = this.buildTargetJobName(req.message);
+    const jobIdSource = this.genUniqueJobIdSource();
+    const eMsg = this.resolveCallEMsg();
 
     const promise = this.pendingRequest.add(jobIdSource.toString()) as ServiceCallResponse<K>;
 
@@ -79,19 +81,33 @@ export default class ServiceCallMessenger implements Messenger {
   }
 
   public cleanUp(): void {
-    this.pendingRequest.cleanUp(new Error("Cancelled by ServiceCallSender"));
+    this.pendingRequest.cleanUp(new Error(CLEANUP_ERROR_MESSAGE));
   }
 
-  private splitServiceAndMethod(input: string) {
+  private splitServiceAndMethod(input: string): { service: string; method: string } {
     const match = /^C([A-Za-z0-9]+)_([A-Za-z0-9]+)_Request$/.exec(input);
     if (!match) {
-      throw new Error(`Invalid proto message format: '${input}'`);
+      throw new ServiceCallMessengerError(`Invalid proto message format: '${input}'`);
     }
     const [, service, method] = match;
+    if (!service || !method) {
+      throw new ServiceCallMessengerError(`Invalid proto message format: '${input}'`);
+    }
     return { service, method };
   }
 
-  private genUniquejobIdSource(): Long {
+  private buildTargetJobName(protoMessageName: string): string {
+    const { service, method } = this.splitServiceAndMethod(protoMessageName);
+    return `${service}.${method}#1`;
+  }
+
+  private resolveCallEMsg(): EMsg {
+    return this.session.isLoggedIn()
+      ? EMsg.k_EMsgServiceMethodCallFromClient
+      : EMsg.k_EMsgServiceMethodCallFromClientNonAuthed;
+  }
+
+  private genUniqueJobIdSource(): Long {
     this.lastGeneratedId = this.lastGeneratedId.add(1);
     return this.lastGeneratedId;
   }

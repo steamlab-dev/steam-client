@@ -38,39 +38,47 @@ export default class MessageHandler {
   private runHandlers(messages: ParsedMessage[]): SteamMessage[] {
     const steamMessages: SteamMessage[] = [];
 
-    // Process each message
     for (const msg of messages) {
       if (this.isFiltered(msg)) {
         continue;
       }
 
-      // one of the handlers will decode the parsed message
-      let steamMessage: SteamMessage | undefined;
-
-      // pass the parsed message to handlers
-      for (const handler of this.handlers) {
-        const canHandle = handler.canHandle(msg);
-        if (!canHandle) {
-          continue;
-        }
-
-        try {
-          // one of the handlers will return the decoded message
-          // once it returns, pass the steamMessage instead
-          const decodedMsg = handler.handle(steamMessage ?? msg);
-
-          if (decodedMsg) {
-            steamMessage = decodedMsg;
-            steamMessages.push(decodedMsg);
-          }
-        } catch (error) {
-          this.emitter.emit("steam-message-error", new MessageHandlerError(error, msg));
-          break; // stop processing this message
-        }
+      const decodedMessages = this.runHandlersForMessage(msg);
+      if (decodedMessages.length) {
+        steamMessages.push(...decodedMessages);
       }
     }
 
     return steamMessages;
+  }
+
+  /**
+   * Executes handler chain for a single parsed message.
+   * Stops at the first handler error and emits "steam-message-error".
+   */
+  private runHandlersForMessage(message: ParsedMessage): SteamMessage[] {
+    const decodedMessages: SteamMessage[] = [];
+    let currentMessage: ParsedMessage | SteamMessage = message;
+
+    for (const handler of this.handlers) {
+      if (!handler.canHandle(message)) {
+        continue;
+      }
+
+      try {
+        const decoded = handler.handle(currentMessage);
+        if (!decoded) {
+          continue;
+        }
+        currentMessage = decoded;
+        decodedMessages.push(decoded);
+      } catch (error) {
+        this.emitter.emit("steam-message-error", new MessageHandlerError(error, message));
+        break;
+      }
+    }
+
+    return decodedMessages;
   }
 
   /**

@@ -1,7 +1,7 @@
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
 import Connection from "@/connection";
 import type { ConnectionOptions } from "@/connection/types";
-import HeartBeatManager from "./hearbeat-manager";
+import HeartBeatManager from "./heartbeat-manager";
 import MessageHandler from "./message-handler";
 import MessengerFactory from "./messengers";
 import ProtoManager from "./proto-manager";
@@ -28,7 +28,7 @@ export default class ContextCreator {
       session,
     });
 
-    // connection heartBeat, started after logon
+    // Connection heartbeat starts only after a successful logon response.
     const heartBeat = new HeartBeatManager(protoMessenger);
 
     const messageHandler = MessageHandler({

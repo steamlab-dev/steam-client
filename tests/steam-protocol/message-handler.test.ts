@@ -1,0 +1,98 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import MessageHandler from "@/steam-protocol/message-handler/message-handler";
+
+describe("MessageHandler", () => {
+  const createBase = () => {
+    const connection = {
+      on: vi.fn(),
+      off: vi.fn(),
+    };
+
+    const emitter = {
+      emit: vi.fn(),
+    };
+
+    const parser = {
+      parse: vi.fn(),
+    };
+
+    const handler = new MessageHandler(connection as never, emitter as never, parser as never);
+    const onData = connection.on.mock.calls[0]?.[1] as
+      | ((data: Buffer) => Promise<void>)
+      | undefined;
+
+    return { connection, emitter, parser, handler, onData };
+  };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("executes handlers in chain and emits decoded steam messages", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    parser.parse.mockResolvedValue([
+      { eMsg: 1, isProto: true, rawBody: Buffer.alloc(0), header: {} },
+    ]);
+
+    const firstDecoded = {
+      eMsg: 1,
+      isProto: true,
+      rawBody: Buffer.alloc(0),
+      header: {},
+      body: { a: 1 },
+    };
+    const secondDecoded = { ...firstDecoded, body: { b: 2 } };
+
+    const firstHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockReturnValue(firstDecoded),
+    };
+
+    const secondHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockReturnValue(secondDecoded),
+    };
+
+    handler.addHandler(firstHandler as never, secondHandler as never);
+
+    await onData?.(Buffer.from([0x01]));
+
+    expect(firstHandler.handle).toHaveBeenCalledTimes(1);
+    expect(secondHandler.handle).toHaveBeenCalledWith(firstDecoded);
+    expect(emitter.emit).toHaveBeenCalledWith("steam-messages", [firstDecoded, secondDecoded]);
+  });
+
+  it("emits steam-message-error and stops processing current message when handler throws", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    const parsed = { eMsg: 2, isProto: true, rawBody: Buffer.alloc(0), header: {} };
+    parser.parse.mockResolvedValue([parsed]);
+
+    const failingHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockImplementation(() => {
+        throw new Error("boom");
+      }),
+    };
+
+    const nextHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn(),
+    };
+
+    handler.addHandler(failingHandler as never, nextHandler as never);
+
+    await onData?.(Buffer.from([0x02]));
+
+    expect(emitter.emit).toHaveBeenCalledWith("steam-message-error", expect.any(Error));
+    expect(nextHandler.handle).not.toHaveBeenCalled();
+  });
+
+  it("cleanup detaches data listener from connection", () => {
+    const { connection, handler } = createBase();
+    const onData = connection.on.mock.calls[0]?.[1];
+
+    handler.cleanUp();
+
+    expect(connection.off).toHaveBeenCalledWith("data", onData);
+  });
+});

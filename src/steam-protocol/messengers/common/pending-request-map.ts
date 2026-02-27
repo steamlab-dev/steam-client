@@ -1,8 +1,12 @@
+import GenericError from "@/common/generic-error";
+
 type PendingEntry<T> = {
   resolve: (value: T) => void;
   reject: (reason?: unknown) => void;
   timeout: NodeJS.Timeout;
 };
+
+export class PendingRequestMapError extends GenericError {}
 
 /**
  * Generic manager for pending requests keyed by K, resolving T.
@@ -13,7 +17,7 @@ export default class PendingRequestMap<K, T> {
 
   constructor(private readonly timeout: number) {
     if (timeout < 10_000 || timeout > 60_000) {
-      throw new Error("Timeout must be between 10_000 and 60_000 ms");
+      throw new PendingRequestMapError("Timeout must be between 10_000 and 60_000 ms");
     }
   }
 
@@ -25,7 +29,7 @@ export default class PendingRequestMap<K, T> {
   public add(key: K): Promise<T> {
     if (this.map.has(key)) {
       const errorMsg = `Pending request for key already exists: ${key}`;
-      throw new Error(errorMsg);
+      throw new PendingRequestMapError(errorMsg);
     }
 
     return new Promise<T>((resolve, reject) => {
@@ -35,7 +39,7 @@ export default class PendingRequestMap<K, T> {
         }
         this.map.delete(key);
         const msg = `Timeout waiting for response for key: ${key} after ${this.timeout}ms`;
-        reject(new Error(msg));
+        reject(new PendingRequestMapError(msg));
       }, this.timeout);
 
       this.map.set(key, { resolve, reject, timeout });

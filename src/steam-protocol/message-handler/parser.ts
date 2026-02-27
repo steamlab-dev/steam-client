@@ -7,11 +7,16 @@ import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import SteamProtoConstants from "../constants";
 import type SteamProtoManager from "../proto-manager";
-import type { ParsedMessage } from "./types";
+import type { NonProtoHeader, ParsedMessage } from "./types";
 
 const gunzipAsync = promisify(gunzip);
 
 export class MessageParserError extends GenericError {}
+
+interface RawMessageEnvelope {
+  eMsg: EMsg;
+  isProto: boolean;
+}
 
 /**
  * Parses raw binary data from Steam into structured, manageable message objects.
@@ -24,50 +29,59 @@ export default class MessageParser {
    */
   public async parse(data: Buffer): Promise<ParsedMessage[]> {
     const packet = SmartBuffer.fromBuffer(data);
+    const envelope = this.readRawMessageEnvelope(packet);
 
-    // --- 1. Read raw EMsg ---
-    const rawEMsg = packet.readUInt32LE();
-    let eMsg = (rawEMsg & ~SteamProtoConstants.ProtoMask) as EMsg;
-    eMsg = this.normalizeEMsg(eMsg);
-    const isProto = (rawEMsg & SteamProtoConstants.ProtoMask) !== 0;
-
-    // --- 2. Handle Multi messages ---
-    if (eMsg === EMsg.k_EMsgMulti) {
+    if (envelope.eMsg === EMsg.k_EMsgMulti) {
       const multiPayload = packet.readBuffer();
       return this.parseMulti(multiPayload);
     }
 
     const message = {
-      eMsg,
-      msgName: this.getMsgName(eMsg),
-      isProto,
+      eMsg: envelope.eMsg,
+      msgName: this.getMsgName(envelope.eMsg),
+      isProto: envelope.isProto,
     } as ParsedMessage;
 
-    // --- 3. Parse header ---
-    if (isProto) {
-      const headerLength = packet.readUInt32LE();
-      const protoHeaderBuffer = packet.readBuffer(headerLength);
-
-      message.header = this.protos.decode("CMsgProtoBufHeader", protoHeaderBuffer);
+    if (envelope.isProto) {
+      message.header = this.parseProtoHeader(packet);
     } else {
-      // Non-proto header - 36 total minus already-read rawEMsg
-      const buf = SmartBuffer.fromBuffer(packet.readBuffer(36 - 4));
-
-      message.header = {
-        headerSize: buf.readUInt8(),
-        headerVersion: buf.readUInt16LE(),
-        targetJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
-        sourceJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
-        headerCanary: buf.readUInt8(),
-        steamid: Long.fromBigInt(buf.readBigUInt64LE(), true),
-        client_sessionid: buf.readInt32LE(),
-      };
+      message.header = this.parseNonProtoHeader(packet);
     }
 
-    // --- 4. Remaining packet is the body ---
     message.rawBody = packet.readBuffer();
-
     return [message];
+  }
+
+  private readRawMessageEnvelope(packet: SmartBuffer): RawMessageEnvelope {
+    const rawEMsg = packet.readUInt32LE();
+    const isProto = (rawEMsg & SteamProtoConstants.ProtoMask) !== 0;
+    const eMsg = this.normalizeEMsg((rawEMsg & ~SteamProtoConstants.ProtoMask) as EMsg);
+
+    return { eMsg, isProto };
+  }
+
+  private parseProtoHeader(packet: SmartBuffer): SteamProtos["CMsgProtoBufHeader"] {
+    const headerLength = packet.readUInt32LE();
+    const protoHeaderBuffer = packet.readBuffer(headerLength);
+    return this.protos.decode(
+      "CMsgProtoBufHeader",
+      protoHeaderBuffer,
+    ) as SteamProtos["CMsgProtoBufHeader"];
+  }
+
+  private parseNonProtoHeader(packet: SmartBuffer): NonProtoHeader {
+    // Non-proto header - 36 total minus already-read rawEMsg
+    const buf = SmartBuffer.fromBuffer(packet.readBuffer(36 - 4));
+
+    return {
+      headerSize: buf.readUInt8(),
+      headerVersion: buf.readUInt16LE(),
+      targetJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
+      sourceJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
+      headerCanary: buf.readUInt8(),
+      steamid: Long.fromBigInt(buf.readBigUInt64LE(), true),
+      client_sessionid: buf.readInt32LE(),
+    };
   }
 
   private getMsgName(eMsg: EMsg): string {
@@ -106,24 +120,29 @@ export default class MessageParser {
     }
   }
 
-  /**
-   * @private Parses the payload of a CMsgMulti message.
-   * @throws {MessageParserError} If the multi-message chunk is malformed.
-   */
-  private async parseMulti(payload: Buffer): Promise<ParsedMessage[]> {
+  private async decodeMultiMessageBody(payload: Buffer): Promise<Buffer> {
     const multiMessage: SteamProtos["CMsgMulti"] = this.protos.decode("CMsgMulti", payload);
 
     if (!multiMessage.message_body) {
       throw new MessageParserError("Multi message missing body");
     }
-    let body = multiMessage.message_body;
+
     if (multiMessage.size_unzipped) {
-      body = await gunzipAsync(body);
+      return gunzipAsync(multiMessage.message_body);
     }
 
-    const messages: ParsedMessage[] = [];
+    return multiMessage.message_body;
+  }
 
+  /**
+   * @private Parses the payload of a CMsgMulti message.
+   * @throws {MessageParserError} If the multi-message chunk is malformed.
+   */
+  private async parseMulti(payload: Buffer): Promise<ParsedMessage[]> {
+    const body = await this.decodeMultiMessageBody(payload);
+    const messages: ParsedMessage[] = [];
     const bodyReader = SmartBuffer.fromBuffer(body);
+
     while (bodyReader.remaining() > 0) {
       if (bodyReader.remaining() < 4) {
         throw new MessageParserError(
@@ -132,7 +151,6 @@ export default class MessageParser {
       }
 
       const subSize = bodyReader.readUInt32LE();
-
       if (bodyReader.remaining() < subSize) {
         throw new MessageParserError(
           `Malformed multi-message chunk: expected ${subSize} bytes but only ${bodyReader.remaining()} available`,
@@ -140,7 +158,6 @@ export default class MessageParser {
       }
 
       const subPacket = bodyReader.readBuffer(subSize);
-
       const subMessages = await this.parse(subPacket);
       messages.push(...subMessages);
     }

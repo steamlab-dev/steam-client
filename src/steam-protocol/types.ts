@@ -2,7 +2,7 @@ import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
 import type { DisconnectMsg } from "@/connection/event-manager";
 import type { ConnectionOptions } from "@/connection/types";
-import type HeartBeatManager from "./hearbeat-manager";
+import type HeartBeatManager from "./heartbeat-manager";
 import type MessageHandler from "./message-handler/message-handler";
 import type { MessageHandlerEvents } from "./message-handler/types";
 import type ProtoMessenger from "./messengers/proto-messenger";

@@ -38,18 +38,22 @@ export default class SteamProtocol {
   }
 
   public async connect(): Promise<void> {
-    // 1. Check if already connected
-    if (this.context?.connection.hasActiveConnection()) {
-      throw new Error("There's an active connection");
+    const context = this.requireContext();
+
+    // 1. Validate no active transport/session connection is already present.
+    if (context.connection.hasActiveConnection()) {
+      throw new SteamProtocolError("There's an active connection");
     }
 
-    // 2. Load protos
-    if (!this.context?.protos.isLoaded()) {
-      await this.context?.protos.loadProtos();
+    // 2. Ensure protos are loaded before any protocol-level send/decode.
+    if (!context.protos.isLoaded()) {
+      await context.protos.loadProtos();
     }
 
-    // 3. Connect to Steam
-    await this.context?.connection.connect();
+    // 3. Connect to Steam.
+    await context.connection.connect();
+
+    // 4. Send initial hello after transport is connected.
     this.send({
       eMsg: EMsg.k_EMsgClientHello,
       payload: { protocol_version: SteamProtoConstants.ProtocolVersion },
@@ -62,46 +66,47 @@ export default class SteamProtocol {
     }
 
     // 1. create context
-    this.context = ContextCreator.create(this.options, this.instances);
+    const context = ContextCreator.create(this.options, this.instances);
+    this.context = context;
 
     // 2. persist the session manager
-    this.session = this.context?.session;
+    this.session = context.session;
 
     // 3. Define disconnect listener
     this.disconnectHandler = this.cleanUp.bind(this);
 
     // 4. Listen to connection disconnect
-    this.context?.connection.once("disconnected", this.disconnectHandler);
+    context.connection.once("disconnected", this.disconnectHandler);
   }
 
-  private cleanUp(msg?: DisconnectMsg) {
-    if (!this.context) {
+  private cleanUp(msg?: DisconnectMsg): void {
+    const context = this.context;
+    if (!context) {
       return;
     }
-    this.context.connection.off("disconnected", this.disconnectHandler);
+
+    // Always detach first so cleanup remains idempotent across repeated calls.
+    context.connection.off("disconnected", this.disconnectHandler);
 
     if (msg) {
-      this.context.emitter.emit("disconnected", msg);
+      context.emitter.emit("disconnected", msg);
     }
 
-    this.context.session.cleanUp();
-    this.context.messageHandler.cleanUp();
-    this.context.protoMessenger.cleanUp();
-    this.context.serviceCallMessenger.cleanUp();
-    this.context.heartBeat.stop();
+    // Release session/protocol resources in a fixed order.
+    context.session.cleanUp();
+    context.messageHandler.cleanUp();
+    context.protoMessenger.cleanUp();
+    context.serviceCallMessenger.cleanUp();
+    context.heartBeat.stop();
     this.context = undefined;
   }
 
   addMessageHandler(...msgHandler: MsgHandler[]) {
-    this.validateContext();
-    const ctx = this.context as SteamProtoContext;
-    ctx.messageHandler.addHandler(...msgHandler);
+    this.requireContext().messageHandler.addHandler(...msgHandler);
   }
 
   getEmitter(): TypedEventEmitter<SteamProtocolEvents> {
-    this.validateContext();
-    const ctx = this.context as SteamProtoContext;
-    return ctx.emitter;
+    return this.requireContext().emitter;
   }
 
   getSession(): SteamProtocolSession {
@@ -113,58 +118,46 @@ export default class SteamProtocol {
   }
 
   disconnect(): void {
-    if (!this.context) {
-      return;
-    }
-    const ctx = this.context as SteamProtoContext;
-    ctx.connection.disconnect();
+    this.context?.connection.disconnect();
   }
 
   send(req: Omit<ProtoMessageReq, "eMsgRes">): void {
-    this.validateConnection();
-    const ctx = this.context as SteamProtoContext;
-    ctx.protoMessenger.send(req);
+    this.requireConnectedContext().protoMessenger.send(req);
   }
 
   sendWithResponse<K extends EMsg, T extends EMsg | undefined = undefined>(
     req: ProtoMessageReq<K, T>,
   ): Promise<ProtoMessageRes<K, T>> {
-    this.validateConnection();
-    const ctx = this.context as SteamProtoContext;
-    return ctx.protoMessenger.sendWithResponse(req);
+    return this.requireConnectedContext().protoMessenger.sendWithResponse(req);
   }
 
   setSteamId(steamId: Long) {
-    this.validateConnection();
-    const ctx = this.context as SteamProtoContext;
-    ctx.session.setSteamId(steamId);
+    this.requireConnectedContext().session.setSteamId(steamId);
   }
 
   sendServiceCall(req: ServiceCallMessage) {
-    this.validateConnection();
-    const ctx = this.context as SteamProtoContext;
-    ctx.serviceCallMessenger.send(req);
+    this.requireConnectedContext().serviceCallMessenger.send(req);
   }
 
   sendServiceCallWithRes<K extends ServiceCallsWithRes>(
     req: ServiceCallMessageWithRes<K>,
   ): Promise<ServiceCallResponse<K>> {
-    this.validateConnection();
-    const ctx = this.context as SteamProtoContext;
-    return ctx.serviceCallMessenger.sendWithResponse(req);
+    return this.requireConnectedContext().serviceCallMessenger.sendWithResponse(req);
   }
 
-  private validateContext() {
-    if (!this.context) {
+  private requireContext(): SteamProtoContext {
+    const context = this.context;
+    if (!context) {
       throw new SteamProtocolError("SteamProtoContext is undefined");
     }
+    return context;
   }
 
-  private validateConnection() {
-    this.validateContext();
-
-    if (!this.context?.connection.getState().connected) {
+  private requireConnectedContext(): SteamProtoContext {
+    const context = this.requireContext();
+    if (!context.connection.getState().connected) {
       throw new SteamProtocolError("Not Connected");
     }
+    return context;
   }
 }

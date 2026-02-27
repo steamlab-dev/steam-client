@@ -1,13 +1,13 @@
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
-import type HeartBeatManager from "../hearbeat-manager";
+import type HeartBeatManager from "../heartbeat-manager";
 import type ProtoMessenger from "../messengers/proto-messenger";
 import type ServiceCallMessenger from "../messengers/service-call-messenger";
 import type ProtoManager from "../proto-manager";
 import type SessionManager from "../session-manager";
 import ErrorResponseHandler from "./handlers/error-handler";
 import LogOnResponseHandler from "./handlers/logon-handler";
-import NonProtoResonseHandler from "./handlers/non-proto";
+import NonProtoResponseHandler from "./handlers/non-proto-response-handler";
 import ProtoResponseHandler from "./handlers/proto-handler";
 import ServiceMethodResponseHandler from "./handlers/service-call-handler";
 import MessageHandler from "./message-handler";
@@ -41,9 +41,9 @@ function MessageHandlerFactory({
     heartBeat,
   );
 
-  const messageDispacher = new MessageHandler(connection, emitter, messageParser);
-  messageDispacher.addHandler(...handlers);
-  return messageDispacher;
+  const messageDispatcher = new MessageHandler(connection, emitter, messageParser);
+  messageDispatcher.addHandler(...handlers);
+  return messageDispatcher;
 }
 
 function createDefaultHandlers(
@@ -57,7 +57,7 @@ function createDefaultHandlers(
     new ErrorResponseHandler(),
     new ProtoResponseHandler(protos, protoMessenger),
     new ServiceMethodResponseHandler(protos, serviceCallMessenger),
-    new NonProtoResonseHandler(),
+    new NonProtoResponseHandler(),
     new LogOnResponseHandler(session, heartBeat),
   ];
 }

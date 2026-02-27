@@ -3,7 +3,7 @@ import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import type ProtoMessenger from "@/steam-protocol/messengers/proto-messenger";
 import type ProtoManager from "@/steam-protocol/proto-manager";
 import type { DecodedProtoMessage, MsgHandler, ParsedMessage, ProtoMessage } from "../types";
-import { isKeyOf, isRegularProtoMessage } from "./common/util";
+import { extractEResult, isKeyOf, isRegularProtoMessage } from "./common/util";
 
 export default class ProtoResponseHandler implements MsgHandler {
   constructor(
@@ -28,8 +28,7 @@ export default class ProtoResponseHandler implements MsgHandler {
     };
 
     const bodyRecord = decodedMessage.body as Record<string, unknown>;
-    const eresult =
-      (bodyRecord && (bodyRecord.eresult as number | undefined)) ?? decodedMessage.header.eresult;
+    const eresult = extractEResult(bodyRecord, decodedMessage.header.eresult);
 
     if (eresult !== undefined && eresult !== EResult.OK) {
       //  reject awaiting request

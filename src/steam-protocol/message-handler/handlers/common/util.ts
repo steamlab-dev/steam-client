@@ -10,4 +10,11 @@ const isNonProtoMessage = (message: ParsedMessage) => !message.isProto;
 
 const isKeyOf = <T extends object>(obj: T, key: PropertyKey): key is keyof T => key in obj;
 
-export { isServiceCallMessage, isRegularProtoMessage, isNonProtoMessage, isKeyOf };
+const extractEResult = (
+  decodedBody: Record<string, unknown>,
+  headerEResult: number | undefined,
+): number | undefined => {
+  return (decodedBody.eresult as number | undefined) ?? headerEResult;
+};
+
+export { extractEResult, isServiceCallMessage, isRegularProtoMessage, isNonProtoMessage, isKeyOf };
