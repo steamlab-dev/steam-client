@@ -12,9 +12,9 @@ export default class ConnectorStep implements ConnectionStep {
     context.stateManager.setConnecting();
     const socket = await context.connector.connect(context.options);
     context.socket = socket; // Mutate context
-    context.stateManager.setSteamConnected();
     if (context.options.proxy) {
       context.stateManager.setProxyConnected();
     }
+    context.stateManager.setSteamConnected();
   }
 }

@@ -2,6 +2,7 @@ import type { ConnectionOptions } from "../types";
 import DirectConnector from "./direct-connector";
 import ConnectorError from "./error";
 import HttpProxyConnector from "./http-proxy-connector";
+import HttpsProxyConnector from "./https-proxy-connector";
 import Socks4ProxyConnector from "./Socks4-proxy-connector";
 import Socks5ProxyConnector from "./Socks5-proxy-connector";
 import type { Connector } from "./types";
@@ -15,6 +16,7 @@ export default class ConnectorFactory {
 
   private static readonly PROXY_CONNECTOR_MAP = {
     http: HttpProxyConnector,
+    https: HttpsProxyConnector,
     socks4: Socks4ProxyConnector,
     socks5: Socks5ProxyConnector,
   } as const;

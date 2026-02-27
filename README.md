@@ -137,7 +137,7 @@ const logonRes = await client.logonRequest({
 
 The client uses WebSocket transport for Steam CM connections.
 
-Proxy connections are supported via the proxy property.
+Proxy connections are supported via the proxy property (`http`, `https`, `socks4`, `socks5`).
 
 ```ts
 import type { ConnectionOptions } from "@steamlab/steam-client";
@@ -154,6 +154,14 @@ const options: ConnectionOptions = {
   },
 };
 ```
+
+Run deterministic secure CM proxy integration tests:
+
+```shell
+npm run test:cm-proxy:integration
+```
+
+This script sets `NODE_EXTRA_CA_CERTS` to trust the integration test CA bundle.
 
 ## Client API
 

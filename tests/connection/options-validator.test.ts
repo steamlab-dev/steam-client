@@ -50,12 +50,18 @@ describe("ConnectionOptionsValidator", () => {
       expect(() => ConnectionOptionsValidator.validate(opts)).not.toThrow();
     });
 
-    it("should allow proxy with protocol other than socks4 or socks5 (e.g. http)", () => {
-      const opts: ConnectionOptions = {
+    it("should allow HTTP-family proxy protocols (http and https)", () => {
+      const httpOptions: ConnectionOptions = {
         ...validOptions,
         proxy: { ...validProxy, protocol: "http" },
       };
-      expect(() => ConnectionOptionsValidator.validate(opts)).not.toThrow();
+      const httpsOptions: ConnectionOptions = {
+        ...validOptions,
+        proxy: { ...validProxy, protocol: "https" },
+      };
+
+      expect(() => ConnectionOptionsValidator.validate(httpOptions)).not.toThrow();
+      expect(() => ConnectionOptionsValidator.validate(httpsOptions)).not.toThrow();
     });
 
     it("should allow empty proxy username and password", () => {

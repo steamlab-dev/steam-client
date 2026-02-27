@@ -110,6 +110,30 @@ describe("WebSocketTransport", () => {
       await expect(setupPromise).resolves.toBe(mockTlsSocket);
     });
 
+    it("uses strict default TLS options for the CM upgrade", async () => {
+      const setupPromise = WebSocketTransport.setupTransport(
+        mockInitialSocket,
+        mockConnectionOptions,
+      );
+
+      await vi.advanceTimersByTimeAsync(0);
+      expect(mockTlsConnect).toHaveBeenCalledWith(
+        expect.objectContaining({
+          host: STEAM_CM_SERVER.host,
+          port: STEAM_CM_SERVER.port,
+          servername: STEAM_CM_SERVER.host,
+          rejectUnauthorized: true,
+          socket: mockInitialSocket,
+        }),
+      );
+
+      mockTlsSocket.emit("secureConnect");
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("data", Buffer.from(SUCCESSFUL_HANDSHAKE_RESPONSE));
+
+      await expect(setupPromise).resolves.toBe(mockTlsSocket);
+    });
+
     it("should throw TransportError if TLS upgrade fails", async () => {
       const setupPromise = WebSocketTransport.setupTransport(
         mockInitialSocket,
