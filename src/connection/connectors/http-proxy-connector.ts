@@ -1,7 +1,14 @@
 import { Socket } from "node:net";
+import { connectSocket } from "../common/socket-operations";
 import socketRace from "../common/socket-race";
 import type { ConnectionOptions } from "../types";
 import ConnectorError from "./error";
+import {
+  buildConnectRequest,
+  parseHttpStatusCode,
+  readHttpHeadersUntilTerminator,
+  validateProxyConnectStatus,
+} from "./http-connect-shared";
 import type { Connector } from "./types";
 
 /**
@@ -57,9 +64,7 @@ const HttpProxyConnector: Connector = class HttpProxyConnector {
     socket: Socket,
     proxy: { host: string; port: number },
   ): Promise<void> {
-    return new Promise((resolve) => {
-      socket.connect(proxy.port, proxy.host, resolve);
-    });
+    return connectSocket(socket, proxy.host, proxy.port);
   }
 
   /**
@@ -73,42 +78,22 @@ const HttpProxyConnector: Connector = class HttpProxyConnector {
     proxy: { username?: string; password?: string },
   ): Promise<void> {
     return new Promise((resolve, reject) => {
-      let receivedBuffer = Buffer.alloc(0);
-
-      const cleanup = () => {
-        socket.removeListener("data", onData);
-      };
-
-      const onData = (chunk: Buffer) => {
-        receivedBuffer = Buffer.concat([receivedBuffer, chunk]);
-
-        if (receivedBuffer.length > HttpProxyConnector.MAX_HEADER_SIZE) {
-          cleanup();
-          return reject(new ConnectorError("Proxy response headers too large or malformed."));
-        }
-
-        const responseStr = receivedBuffer.toString("ascii");
-        if (responseStr.includes("\r\n\r\n")) {
-          cleanup();
-
-          try {
-            const statusCode = HttpProxyConnector.parseHttpStatusCode(responseStr);
-            HttpProxyConnector.validateProxyResponse(statusCode, responseStr);
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        }
-      };
-
-      socket.on("data", onData);
-
       const connectRequest = HttpProxyConnector.buildConnectRequest(targetHost, targetPort, proxy);
       socket.write(connectRequest, (error) => {
         if (error) {
-          cleanup();
           reject(new ConnectorError("Failed to write CONNECT request to proxy", error));
+          return;
         }
+
+        readHttpHeadersUntilTerminator(socket, {
+          maxHeaderSize: HttpProxyConnector.MAX_HEADER_SIZE,
+        })
+          .then((responseStr) => {
+            const statusCode = HttpProxyConnector.parseHttpStatusCode(responseStr);
+            HttpProxyConnector.validateProxyResponse(statusCode, responseStr);
+            resolve();
+          })
+          .catch(reject);
       });
     });
   }
@@ -122,15 +107,7 @@ const HttpProxyConnector: Connector = class HttpProxyConnector {
     port: number,
     proxy: { username?: string; password?: string },
   ): string {
-    let request = `CONNECT ${host}:${port} HTTP/1.1\r\nHost: ${host}:${port}\r\n`;
-
-    if (proxy.username && proxy.password) {
-      const credentials = Buffer.from(`${proxy.username}:${proxy.password}`).toString("base64");
-      request += `Proxy-Authorization: Basic ${credentials}\r\n`;
-    }
-
-    request += "Connection: Keep-Alive\r\n\r\n";
-    return request;
+    return buildConnectRequest(host, port, proxy);
   }
 
   /**
@@ -138,18 +115,7 @@ const HttpProxyConnector: Connector = class HttpProxyConnector {
    * @throws {ConnectorError} If the response status line is malformed.
    */
   private static parseHttpStatusCode(response: string): string {
-    const statusLine = response.split("\r\n")[0] ?? "";
-    const match = statusLine.match(/HTTP\/\d\.\d\s+(\d{3})/);
-
-    if (!match) {
-      throw new ConnectorError(`Invalid HTTP response from proxy: ${statusLine}`);
-    }
-    const statusCode = match[1];
-    if (!statusCode) {
-      throw new ConnectorError(`Invalid HTTP response from proxy: ${statusLine}`);
-    }
-
-    return statusCode;
+    return parseHttpStatusCode(response);
   }
 
   /**
@@ -157,24 +123,7 @@ const HttpProxyConnector: Connector = class HttpProxyConnector {
    * @throws {ConnectorError} If the status code is not a 2xx success code.
    */
   private static validateProxyResponse(statusCode: string, response: string): void {
-    if (statusCode.startsWith("2")) {
-      return;
-    }
-
-    const statusLine = response.split("\r\n")[0] || "No status line found";
-
-    switch (statusCode) {
-      case "400":
-        throw new ConnectorError(`HTTP proxy bad request: ${statusLine}`);
-      case "403":
-        throw new ConnectorError(`HTTP proxy forbidden: ${statusLine}`);
-      case "407":
-        throw new ConnectorError(`HTTP proxy authentication failed: ${statusLine}`);
-      default:
-        throw new ConnectorError(
-          `HTTP proxy CONNECT failed with status ${statusCode}: ${statusLine}`,
-        );
-    }
+    validateProxyConnectStatus(statusCode, response, "HTTP");
   }
 };
 

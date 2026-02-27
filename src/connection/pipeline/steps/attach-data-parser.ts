@@ -10,6 +10,7 @@ export default class AttachDataParserStep implements ConnectionStep {
 
   async execute(context: ConnectionContext): Promise<void> {
     if (context.socket) {
+      // Parser listens on the transport-ready socket to decode framed messages.
       context.parser.attach(context.socket);
     }
   }

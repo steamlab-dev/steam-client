@@ -4,9 +4,16 @@ import {
   type TLSSocket,
   connect as tlsConnect,
 } from "node:tls";
+import { connectSocket, waitForTlsSecureConnect } from "../common/socket-operations";
 import socketRace from "../common/socket-race";
 import type { ConnectionOptions, ProxyConfiguration } from "../types";
 import ConnectorError from "./error";
+import {
+  buildConnectRequest,
+  parseHttpStatusCode,
+  readHttpHeadersUntilTerminator,
+  validateProxyConnectStatus,
+} from "./http-connect-shared";
 import type { Connector } from "./types";
 
 /**
@@ -85,9 +92,7 @@ const HttpsProxyConnector: Connector = class HttpsProxyConnector {
     socket: Socket,
     proxy: { host: string; port: number },
   ): Promise<void> {
-    return new Promise((resolve) => {
-      socket.connect(proxy.port, proxy.host, resolve);
-    });
+    return connectSocket(socket, proxy.host, proxy.port);
   }
 
   /**
@@ -110,27 +115,7 @@ const HttpsProxyConnector: Connector = class HttpsProxyConnector {
       rejectUnauthorized: true,
     };
 
-    const tlsSocket = tlsConnect(tlsOptions);
-
-    return new Promise<TLSSocket>((resolve, reject) => {
-      const cleanup = () => {
-        tlsSocket.off("error", onError);
-        tlsSocket.off("secureConnect", onSecureConnect);
-      };
-
-      const onError = (error: unknown) => {
-        cleanup();
-        reject(error);
-      };
-
-      const onSecureConnect = () => {
-        cleanup();
-        resolve(tlsSocket);
-      };
-
-      tlsSocket.once("error", onError);
-      tlsSocket.once("secureConnect", onSecureConnect);
-    });
+    return waitForTlsSecureConnect(tlsConnect(tlsOptions));
   }
 
   /**
@@ -143,42 +128,22 @@ const HttpsProxyConnector: Connector = class HttpsProxyConnector {
     proxy: { username?: string; password?: string },
   ): Promise<void> {
     return new Promise((resolve, reject) => {
-      let receivedBuffer = Buffer.alloc(0);
-
-      const cleanup = () => {
-        socket.removeListener("data", onData);
-      };
-
-      const onData = (chunk: Buffer) => {
-        receivedBuffer = Buffer.concat([receivedBuffer, chunk]);
-
-        if (receivedBuffer.length > HttpsProxyConnector.MAX_HEADER_SIZE) {
-          cleanup();
-          return reject(new ConnectorError("Proxy response headers too large or malformed."));
-        }
-
-        const responseStr = receivedBuffer.toString("ascii");
-        if (responseStr.includes("\r\n\r\n")) {
-          cleanup();
-
-          try {
-            const statusCode = HttpsProxyConnector.parseHttpStatusCode(responseStr);
-            HttpsProxyConnector.validateProxyResponse(statusCode, responseStr);
-            resolve();
-          } catch (error) {
-            reject(error);
-          }
-        }
-      };
-
-      socket.on("data", onData);
-
       const connectRequest = HttpsProxyConnector.buildConnectRequest(targetHost, targetPort, proxy);
       socket.write(connectRequest, (error) => {
         if (error) {
-          cleanup();
           reject(new ConnectorError("Failed to write CONNECT request to proxy", error));
+          return;
         }
+
+        readHttpHeadersUntilTerminator(socket, {
+          maxHeaderSize: HttpsProxyConnector.MAX_HEADER_SIZE,
+        })
+          .then((responseStr) => {
+            const statusCode = HttpsProxyConnector.parseHttpStatusCode(responseStr);
+            HttpsProxyConnector.validateProxyResponse(statusCode, responseStr);
+            resolve();
+          })
+          .catch(reject);
       });
     });
   }
@@ -192,58 +157,21 @@ const HttpsProxyConnector: Connector = class HttpsProxyConnector {
     port: number,
     proxy: { username?: string; password?: string },
   ): string {
-    let request = `CONNECT ${host}:${port} HTTP/1.1\r\nHost: ${host}:${port}\r\n`;
-
-    if (proxy.username && proxy.password) {
-      const credentials = Buffer.from(`${proxy.username}:${proxy.password}`).toString("base64");
-      request += `Proxy-Authorization: Basic ${credentials}\r\n`;
-    }
-
-    request += "Connection: Keep-Alive\r\n\r\n";
-    return request;
+    return buildConnectRequest(host, port, proxy);
   }
 
   /**
    * Parses the HTTP status code from the proxy's response.
    */
   private static parseHttpStatusCode(response: string): string {
-    const statusLine = response.split("\r\n")[0] ?? "";
-    const match = statusLine.match(/HTTP\/\d\.\d\s+(\d{3})/);
-
-    if (!match) {
-      throw new ConnectorError(`Invalid HTTP response from proxy: ${statusLine}`);
-    }
-
-    const statusCode = match[1];
-    if (!statusCode) {
-      throw new ConnectorError(`Invalid HTTP response from proxy: ${statusLine}`);
-    }
-
-    return statusCode;
+    return parseHttpStatusCode(response);
   }
 
   /**
    * Validates the HTTP status code from the proxy's response.
    */
   private static validateProxyResponse(statusCode: string, response: string): void {
-    if (statusCode.startsWith("2")) {
-      return;
-    }
-
-    const statusLine = response.split("\r\n")[0] || "No status line found";
-
-    switch (statusCode) {
-      case "400":
-        throw new ConnectorError(`HTTPS proxy bad request: ${statusLine}`);
-      case "403":
-        throw new ConnectorError(`HTTPS proxy forbidden: ${statusLine}`);
-      case "407":
-        throw new ConnectorError(`HTTPS proxy authentication failed: ${statusLine}`);
-      default:
-        throw new ConnectorError(
-          `HTTPS proxy CONNECT failed with status ${statusCode}: ${statusLine}`,
-        );
-    }
+    validateProxyConnectStatus(statusCode, response, "HTTPS");
   }
 };
 

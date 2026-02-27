@@ -30,6 +30,7 @@ export default class EventManager implements IEventManager {
   private disconnectedFired = false;
   private context?: ConnectionContext;
   private isAttached = false;
+  private socket?: Socket;
   private errorHandler?: (error: Error) => void;
   private closeHandler?: (hadError: boolean) => void;
   private timeoutHandler?: () => void;
@@ -55,9 +56,10 @@ export default class EventManager implements IEventManager {
     }
 
     this.context = context;
+    this.socket = context.socket;
     this.isAttached = true;
     this.disconnectedFired = false;
-    this.attachSocketEvents(context.socket);
+    this.attachSocketEvents();
     this.attachDataParseErrorListener();
   }
 
@@ -69,23 +71,15 @@ export default class EventManager implements IEventManager {
       return;
     }
 
-    // Clean up socket listeners
-    if (this.context?.socket && this.errorHandler && this.closeHandler && this.timeoutHandler) {
-      this.context.socket.off("error", this.errorHandler);
-      this.context.socket.off("close", this.closeHandler);
-      this.context.socket.off("timeout", this.timeoutHandler);
-    }
-
-    // Clean up emitter listener
-    if (this.dataParseErrorHandler) {
-      this.emitter.off("dataParseError", this.dataParseErrorHandler);
-    }
+    this.detachSocketEvents();
+    this.detachDataParseErrorListener();
 
     // Reset state
     this.errorHandler = undefined;
     this.closeHandler = undefined;
     this.timeoutHandler = undefined;
     this.dataParseErrorHandler = undefined;
+    this.socket = undefined;
     this.context = undefined;
     this.disconnectedFired = false;
     this.isAttached = false;
@@ -108,7 +102,12 @@ export default class EventManager implements IEventManager {
   /**
    * Binds handlers to the core socket events ('error', 'close', 'timeout').
    */
-  private attachSocketEvents(socket: Socket): void {
+  private attachSocketEvents(): void {
+    const socket = this.socket;
+    if (!socket) {
+      return;
+    }
+
     this.errorHandler = (error) => this.emitDisconnected({ error, source: "socket" });
 
     this.closeHandler = () =>
@@ -129,6 +128,19 @@ export default class EventManager implements IEventManager {
   }
 
   /**
+   * Detaches all previously registered socket listeners.
+   */
+  private detachSocketEvents(): void {
+    if (!this.socket || !this.errorHandler || !this.closeHandler || !this.timeoutHandler) {
+      return;
+    }
+
+    this.socket.off("error", this.errorHandler);
+    this.socket.off("close", this.closeHandler);
+    this.socket.off("timeout", this.timeoutHandler);
+  }
+
+  /**
    * Attaches listener for data parse errors from the parser.
    */
   private attachDataParseErrorListener(): void {
@@ -140,5 +152,15 @@ export default class EventManager implements IEventManager {
     };
 
     this.emitter.on("dataParseError", this.dataParseErrorHandler);
+  }
+
+  /**
+   * Detaches parser-originated error listener from the shared emitter.
+   */
+  private detachDataParseErrorListener(): void {
+    if (!this.dataParseErrorHandler) {
+      return;
+    }
+    this.emitter.off("dataParseError", this.dataParseErrorHandler);
   }
 }

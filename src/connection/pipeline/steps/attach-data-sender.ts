@@ -10,6 +10,7 @@ export default class AttachDataSenderStep implements ConnectionStep {
 
   async execute(context: ConnectionContext): Promise<void> {
     if (context.socket) {
+      // Sender attaches only after transport handshake has finalized the socket.
       context.sender.attach(context.socket);
     }
   }

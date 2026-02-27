@@ -63,7 +63,7 @@ export interface ConnectionContext {
   readonly emitter: TypedEventEmitter<ConnectionEvents>;
 }
 
-export type ConnectionContextImps = Partial<Omit<ConnectionContext, "options" | "emmiter">>;
+export type ConnectionContextImps = Partial<Omit<ConnectionContext, "options" | "emitter">>;
 
 /**
  * Describes the public interface for a Connection, defining it as an emitter of ConnectionEvents.

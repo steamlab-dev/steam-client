@@ -47,20 +47,16 @@ export default class Connection
    * @throws {ConnectionError} If a connection is already active or if the pipeline execution fails.
    */
   async connect(): Promise<Socket> {
-    this.validateContext();
-
     if (this.state.hasActiveConnection()) {
       throw new ConnectionError("There's an active connection");
     }
 
-    const context = this.context;
-    if (!context) {
-      throw new ConnectionError("Connection context is undefined");
-    }
+    const context = this.requireContext();
+    const pipeline = this.pipeline;
 
     try {
-      if (this.pipeline) {
-        await this.pipeline.execute(context);
+      if (pipeline) {
+        await pipeline.execute(context);
       }
       this.handleEvents();
       if (!context.socket) {
@@ -100,11 +96,7 @@ export default class Connection
    * @throws {ConnectionError} If the connection context is not available.
    */
   async send(data: Buffer): Promise<void> {
-    this.validateContext();
-    const context = this.context;
-    if (!context) {
-      throw new ConnectionError("Connection context is undefined");
-    }
+    const context = this.requireContext();
     return context.sender.send(data);
   }
 
@@ -113,7 +105,7 @@ export default class Connection
    * @throws {ConnectionError} If the connection context is not available.
    */
   private handleEvents() {
-    this.validateContext();
+    this.requireContext();
 
     if (this.eventsAttached) {
       return;
@@ -129,20 +121,23 @@ export default class Connection
    * Performs a full teardown of the connection, releasing all resources and resetting state.
    */
   private cleanUp(): void {
-    if (this.cleaningUp || !this.context) {
+    const context = this.context;
+    if (this.cleaningUp || !context) {
       return;
     }
 
     this.cleaningUp = true;
 
     try {
+      // Reset state first so any in-flight logic observes disconnected status.
       this.state.setDisconnected();
-      this.context.eventManager.cleanUp();
-      this.context.parser.cleanUp();
-      this.context.sender.cleanUp();
+      // Detach listeners and parser/sender hooks before closing the socket.
+      context.eventManager.cleanUp();
+      context.parser.cleanUp();
+      context.sender.cleanUp();
 
-      if (this.context.socket) {
-        this.context.socket.destroy();
+      if (context.socket) {
+        context.socket.destroy();
       }
     } finally {
       this.pipeline = undefined;
@@ -151,9 +146,11 @@ export default class Connection
     }
   }
 
-  private validateContext() {
-    if (!this.context) {
+  private requireContext(): ConnectionContext {
+    const context = this.context;
+    if (!context) {
       throw new ConnectionError("Connection context is undefined");
     }
+    return context;
   }
 }

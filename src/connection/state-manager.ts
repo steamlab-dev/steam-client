@@ -16,6 +16,14 @@ export interface ConnectionState {
   transportReady: boolean;
 }
 
+const createDisconnectedState = (): ConnectionState => ({
+  connecting: false,
+  connected: false,
+  steamConnected: false,
+  proxyConnected: false,
+  transportReady: false,
+});
+
 /**
  * Manages and enforces a state machine for a multi-stage connection process,
  * ensuring that connection stages occur in a valid order.
@@ -24,13 +32,7 @@ export interface ConnectionState {
  * 2. client → connecting → steam → transport handshake → fully connected
  * */
 export default class StateManager {
-  private _state: ConnectionState = {
-    connecting: false,
-    connected: false,
-    steamConnected: false,
-    proxyConnected: false,
-    transportReady: false,
-  };
+  private _state: ConnectionState = createDisconnectedState();
 
   /**
    * Checks if the connection is in any state other than fully disconnected.
@@ -61,13 +63,7 @@ export default class StateManager {
     if (this._state.connecting || this._state.connected) {
       throw new ConnectionStateError("cannot connect: already connecting or connected");
     }
-    this._state = {
-      connecting: true,
-      connected: false,
-      steamConnected: false,
-      proxyConnected: false,
-      transportReady: false,
-    };
+    this._state = { ...createDisconnectedState(), connecting: true };
   }
 
   /**
@@ -124,12 +120,6 @@ export default class StateManager {
    * Resets all state flags to their initial, disconnected values.
    */
   public setDisconnected(): void {
-    this._state = {
-      connecting: false,
-      connected: false,
-      steamConnected: false,
-      proxyConnected: false,
-      transportReady: false,
-    };
+    this._state = createDisconnectedState();
   }
 }

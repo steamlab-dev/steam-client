@@ -9,6 +9,7 @@ export default class EventManagerStep implements ConnectionStep {
   }
 
   async execute(context: ConnectionContext): Promise<void> {
+    // Event attachment is deferred until transport readiness to avoid early noise.
     context.eventManager.attachEvents(context);
   }
 }

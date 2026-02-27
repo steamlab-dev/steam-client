@@ -1,6 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import type { Socket } from "node:net";
 import { type ConnectionOptions as TlsConnectionOptions, connect as tlsConnect } from "node:tls";
+import { waitForTlsSecureConnect } from "../common/socket-operations";
 import socketRace from "../common/socket-race";
 import type { ConnectionOptions } from "../types";
 import TransportError from "./error";
@@ -69,27 +70,7 @@ const WebSocketTransport: Transport = class WebSocketTransport {
       rejectUnauthorized: true,
     };
 
-    const tlsSocket = tlsConnect(tlsOptions);
-
-    return new Promise<Socket>((resolve, reject) => {
-      const cleanup = () => {
-        tlsSocket.off("error", onTlsError);
-        tlsSocket.off("secureConnect", onSecureConnect);
-      };
-
-      const onTlsError = (err: unknown) => {
-        cleanup();
-        reject(err);
-      };
-
-      const onSecureConnect = () => {
-        cleanup();
-        resolve(tlsSocket);
-      };
-
-      tlsSocket.once("error", onTlsError);
-      tlsSocket.once("secureConnect", onSecureConnect);
-    });
+    return waitForTlsSecureConnect(tlsConnect(tlsOptions));
   }
 
   /**

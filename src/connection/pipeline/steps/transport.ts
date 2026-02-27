@@ -14,8 +14,10 @@ export default class TransportStep implements ConnectionStep {
     }
 
     const socket = await context.transport.setupTransport(context.socket, context.options);
+    // Replace the raw socket with the transport-upgraded socket.
     context.socket = socket; // Mutate context
     context.stateManager.setTransportReady();
+    // connected=true is only valid after both steam + transport are complete.
     context.stateManager.setFullyConnected();
   }
 }

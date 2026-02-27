@@ -38,7 +38,7 @@ export default class ConnectionPipeline {
         try {
           await step.execute(context);
         } catch (error) {
-          throw new ConnectionPipelineError(`Step '${step.name}' failed: ${error}`);
+          throw new ConnectionPipelineError(`Step '${step.name}' failed`, error);
         }
       }
     }
