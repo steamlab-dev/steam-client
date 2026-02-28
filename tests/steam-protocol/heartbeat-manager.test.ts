@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
-import HeartBeatManager from "@/steam-protocol/heartbeat-manager";
+import HeartBeatManager, { HeartbeatError } from "@/steam-protocol/heartbeat-manager";
 
 describe("HeartBeatManager", () => {
   const messenger = {
@@ -31,6 +31,8 @@ describe("HeartBeatManager", () => {
   it("throws for invalid heartbeat delay", () => {
     const manager = new HeartBeatManager(messenger as never);
 
+    expect(() => manager.start(9)).toThrow(HeartbeatError);
+    expect(() => manager.start(31)).toThrow(HeartbeatError);
     expect(() => manager.start(9)).toThrow("Delay must be between 10 and 30 seconds");
     expect(() => manager.start(31)).toThrow("Delay must be between 10 and 30 seconds");
   });

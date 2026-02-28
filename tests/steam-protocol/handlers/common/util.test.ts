@@ -6,6 +6,7 @@ import {
   isNonProtoMessage,
   isRegularProtoMessage,
   isServiceCallMessage,
+  resolveEResultName,
 } from "@/steam-protocol/message-handler/handlers/common/util";
 
 describe("message-handler common util", () => {
@@ -60,6 +61,12 @@ describe("message-handler common util", () => {
   it("extracts eresult from body first, then header fallback", () => {
     expect(extractEResult({ eresult: 5 }, 1)).toBe(5);
     expect(extractEResult({}, 9)).toBe(9);
+  });
+
+  it("resolves EResult names and uses Unknown fallback", () => {
+    expect(resolveEResultName(1)).toBe("OK");
+    expect(resolveEResultName(5)).toBe("InvalidPassword");
+    expect(resolveEResultName(999_999)).toBe("Unknown");
   });
 
   it("checks object keys safely", () => {

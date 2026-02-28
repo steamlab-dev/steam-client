@@ -1,4 +1,5 @@
 import { EMsg } from "@/common/steam-language";
+import { SteamProtocolError } from "@/steam-protocol/error";
 import type { MsgHandler, ParsedMessage, SteamMessage } from "../types";
 
 export default class ErrorResponseHandler implements MsgHandler {
@@ -8,6 +9,9 @@ export default class ErrorResponseHandler implements MsgHandler {
 
   handle(message: ParsedMessage): undefined | SteamMessage {
     // stop executing all handlers
-    throw new Error(`Invalid request made to Steam: ${JSON.stringify(message)}`);
+    throw new SteamProtocolError(
+      `Invalid request made to Steam: ${JSON.stringify(message)}`,
+      "handler",
+    );
   }
 }

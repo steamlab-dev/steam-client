@@ -1,10 +1,18 @@
-import GenericError from "@/common/generic-error";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
+import { SteamProtocolError } from "../error";
 import type MessageParser from "./parser";
 import type { MessageHandlerEvents, MsgHandler, ParsedMessage, SteamMessage } from "./types";
 
-export class MessageHandlerError extends GenericError {}
+export class MessageHandlerError extends SteamProtocolError {
+  constructor(
+    messageOrCause: string | unknown,
+    public readonly rawMessage: ParsedMessage,
+    cause?: unknown,
+  ) {
+    super(messageOrCause, "handler", cause);
+  }
+}
 
 export default class MessageHandler {
   private readonly handlers: MsgHandler[] = [];
@@ -73,7 +81,10 @@ export default class MessageHandler {
         currentMessage = decoded;
         decodedMessages.push(decoded);
       } catch (error) {
-        this.emitter.emit("steam-message-error", new MessageHandlerError(error, message));
+        this.emitter.emit(
+          "steam-message-error",
+          new MessageHandlerError("Failed to process steam message", message, error),
+        );
         break;
       }
     }

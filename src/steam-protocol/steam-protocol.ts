@@ -1,11 +1,11 @@
 import type Long from "long";
-import GenericError from "@/common/generic-error";
 import { EMsg } from "@/common/steam-language";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type { DisconnectMsg } from "@/connection/event-manager";
 import type { ConnectionOptions } from "@/connection/types";
 import SteamProtoConstants from "./constants";
 import ContextCreator from "./context-creator";
+import { SteamProtocolError } from "./error";
 import type { MsgHandler } from "./message-handler/types";
 import type {
   ProtoMessageReq,
@@ -19,7 +19,7 @@ import type SessionManager from "./session-manager";
 import type { SteamProtocolSession } from "./session-manager";
 import type { SteamProtoContext, SteamProtoContextImps, SteamProtocolEvents } from "./types";
 
-export class SteamProtocolError extends GenericError {}
+export { SteamProtocolError } from "./error";
 
 export default class SteamProtocol {
   private context?: SteamProtoContext;
@@ -42,7 +42,7 @@ export default class SteamProtocol {
 
     // 1. Validate no active transport/session connection is already present.
     if (context.connection.hasActiveConnection()) {
-      throw new SteamProtocolError("There's an active connection");
+      throw new SteamProtocolError("There's an active connection", "protocol");
     }
 
     // 2. Ensure protos are loaded before any protocol-level send/decode.
@@ -62,7 +62,7 @@ export default class SteamProtocol {
 
   private createContext() {
     if (this.context) {
-      throw new SteamProtocolError("SteamProtoContext is already defined");
+      throw new SteamProtocolError("SteamProtoContext is already defined", "protocol");
     }
 
     // 1. create context
@@ -148,7 +148,7 @@ export default class SteamProtocol {
   private requireContext(): SteamProtoContext {
     const context = this.context;
     if (!context) {
-      throw new SteamProtocolError("SteamProtoContext is undefined");
+      throw new SteamProtocolError("SteamProtoContext is undefined", "protocol");
     }
     return context;
   }
@@ -156,7 +156,7 @@ export default class SteamProtocol {
   private requireConnectedContext(): SteamProtoContext {
     const context = this.requireContext();
     if (!context.connection.getState().connected) {
-      throw new SteamProtocolError("Not Connected");
+      throw new SteamProtocolError("Not Connected", "protocol");
     }
     return context;
   }

@@ -53,6 +53,9 @@ describe("ProtoMessenger", () => {
     messenger.cleanUp();
 
     expect(pendingRequest.cleanUp).toHaveBeenCalledWith(expect.any(Error));
+    const cleanupError = pendingRequest.cleanUp.mock.calls[0]?.[0] as ProtoMessengerError;
+    expect(cleanupError).toBeInstanceOf(ProtoMessengerError);
+    expect(cleanupError.subsystem).toBe("proto-messenger");
   });
 
   it("throws when proto mapping is missing for send", () => {
@@ -64,6 +67,12 @@ describe("ProtoMessenger", () => {
         payload: {} as never,
       }),
     ).toThrow(ProtoMessengerError);
+    expect(() =>
+      messenger.send({
+        eMsg: 999999 as EMsg,
+        payload: {} as never,
+      }),
+    ).toThrow(/Missing proto mapping/);
   });
 
   it("throws when response mapping is missing for sendWithResponse", () => {
@@ -75,5 +84,11 @@ describe("ProtoMessenger", () => {
         payload: {} as never,
       }),
     ).toThrow(ProtoMessengerError);
+    expect(() =>
+      messenger.sendWithResponse({
+        eMsg: 999999 as EMsg,
+        payload: {} as never,
+      }),
+    ).toThrow(/Missing response mapping/);
   });
 });

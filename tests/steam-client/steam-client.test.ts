@@ -2,8 +2,10 @@ import Long from "long";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
+import SteamClientError from "@/steam-client/error";
 import SteamClient from "@/steam-client/steam-client";
 import type { SteamClientEvents } from "@/steam-client/types";
+import { SteamProtocolError } from "@/steam-protocol/error";
 
 vi.mock("@/steam-protocol/proto-manager", () => ({
   default: vi.fn(),
@@ -100,6 +102,42 @@ describe("SteamClient", () => {
     expect(steamProtocol.disconnect).toHaveBeenCalledTimes(1);
   });
 
+  it("wraps connect failures as SteamClientError with client subsystem", async () => {
+    const cause = new SteamProtocolError("protocol connect failed", "protocol");
+    steamProtocol.connect.mockRejectedValueOnce(cause);
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.connect();
+      throw new Error("Expected connect to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "client",
+        cause,
+      });
+    }
+  });
+
+  it("wraps disconnect failures as SteamClientError with client subsystem", () => {
+    const cause = new Error("disconnect failed");
+    steamProtocol.disconnect.mockImplementationOnce(() => {
+      throw cause;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      client.disconnect();
+      throw new Error("Expected disconnect to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "client",
+        cause,
+      });
+    }
+  });
+
   it("starts playing and kicks existing playing sessions when blocked", async () => {
     session.playingBlocked = true;
     steamProtocol.sendWithResponse.mockResolvedValue({});
@@ -140,10 +178,38 @@ describe("SteamClient", () => {
     expect(result).toEqual(["730"]);
   });
 
-  it("throws if logonRequest is missing access_token", async () => {
+  it("throws SteamClientError if logonRequest is missing access_token", async () => {
     const client = new SteamClient(options as never);
 
-    await expect(client.logonRequest({} as never)).rejects.toThrow("access_token is required");
+    try {
+      await client.logonRequest({} as never);
+      throw new Error("Expected logonRequest to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        message: "access_token is required",
+        subsystem: "validation",
+      });
+    }
+  });
+
+  it("wraps logon request protocol failures with protocol subsystem", async () => {
+    const cause = new SteamProtocolError("send failed", "protocol");
+    steamProtocol.sendWithResponse.mockRejectedValueOnce(cause);
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.logonRequest({
+        access_token: "token",
+      } as never);
+      throw new Error("Expected logonRequest to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "protocol",
+        cause,
+      });
+    }
   });
 
   it("sends logon and status messages when access token exists", async () => {
@@ -177,5 +243,65 @@ describe("SteamClient", () => {
     client.addMsgHandler(customHandler as never);
 
     expect(steamProtocol.addMessageHandler).toHaveBeenCalledWith(customHandler);
+  });
+
+  it("wraps addMsgHandler failures as SteamClientError with client subsystem", () => {
+    const cause = new Error("add handler failed");
+    steamProtocol.addMessageHandler
+      .mockImplementationOnce(() => {})
+      .mockImplementationOnce(() => {
+        throw cause;
+      });
+    const client = new SteamClient(options as never);
+    const customHandler = { canHandle: vi.fn(), handle: vi.fn() };
+
+    try {
+      client.addMsgHandler(customHandler as never);
+      throw new Error("Expected addMsgHandler to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "client",
+        cause,
+      });
+    }
+  });
+
+  it("wraps tracker failures in startPlaying as gameplay subsystem", async () => {
+    const cause = new Error("track failed");
+    tracker.track.mockImplementationOnce(() => {
+      throw cause;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.startPlaying(730);
+      throw new Error("Expected startPlaying to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "gameplay",
+        cause,
+      });
+    }
+  });
+
+  it("wraps tracker failures in stopPlaying as gameplay subsystem", () => {
+    const cause = new Error("untrack failed");
+    tracker.untrack.mockImplementationOnce(() => {
+      throw cause;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      client.stopPlaying(730);
+      throw new Error("Expected stopPlaying to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "gameplay",
+        cause,
+      });
+    }
   });
 });

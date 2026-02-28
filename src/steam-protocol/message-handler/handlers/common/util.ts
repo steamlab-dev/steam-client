@@ -1,4 +1,5 @@
 import { EMsg } from "@/common/steam-language";
+import { resolveEResultName } from "@/steam-protocol/error";
 import type { ParsedMessage } from "../../types";
 
 const isServiceCallMessage = (message: ParsedMessage) =>
@@ -17,4 +18,11 @@ const extractEResult = (
   return (decodedBody.eresult as number | undefined) ?? headerEResult;
 };
 
-export { extractEResult, isServiceCallMessage, isRegularProtoMessage, isNonProtoMessage, isKeyOf };
+export {
+  extractEResult,
+  isServiceCallMessage,
+  isRegularProtoMessage,
+  isNonProtoMessage,
+  isKeyOf,
+  resolveEResultName,
+};

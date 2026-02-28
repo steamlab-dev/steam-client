@@ -2,16 +2,20 @@ import { promisify } from "node:util";
 import { gunzip } from "node:zlib";
 import Long from "long";
 import { SmartBuffer } from "smart-buffer";
-import GenericError from "@/common/generic-error";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import SteamProtoConstants from "../constants";
+import { SteamProtocolError } from "../error";
 import type SteamProtoManager from "../proto-manager";
 import type { NonProtoHeader, ParsedMessage } from "./types";
 
 const gunzipAsync = promisify(gunzip);
 
-export class MessageParserError extends GenericError {}
+export class MessageParserError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "parser", cause);
+  }
+}
 
 interface RawMessageEnvelope {
   eMsg: EMsg;

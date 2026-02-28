@@ -1,5 +1,12 @@
 import { EMsg, type SteamProtos } from "@/common/steam-language";
+import { SteamProtocolError } from "./error";
 import type ProtoMessenger from "./messengers/proto-messenger";
+
+export class HeartbeatError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "heartbeat", cause);
+  }
+}
 
 /**
  * Manages sending periodic heartbeat messages to the Steam servers to keep a session alive.
@@ -21,7 +28,7 @@ export default class HeartBeatManager {
    */
   public start(delay: SteamProtos["CMsgClientLogOnResponse"]["heartbeat_seconds"] = 10): void {
     if (delay < 10 || delay > 30) {
-      throw new Error("Delay must be between 10 and 30 seconds");
+      throw new HeartbeatError("Delay must be between 10 and 30 seconds");
     }
 
     this.stop();

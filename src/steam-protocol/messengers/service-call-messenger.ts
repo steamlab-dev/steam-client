@@ -1,7 +1,7 @@
 import Long from "long";
-import GenericError from "@/common/generic-error";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import type Connection from "@/connection/connection";
+import { SteamProtocolError } from "../error";
 import type SteamProtoManager from "../proto-manager";
 import type SessionManager from "../session-manager";
 import PendingRequestMap from "./common/pending-request-map";
@@ -14,7 +14,11 @@ import type {
   ServiceCallsWithRes,
 } from "./types";
 
-export class ServiceCallMessengerError extends GenericError {}
+export class ServiceCallMessengerError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "service-call-messenger", cause);
+  }
+}
 
 const PENDING_REQUEST_TIMEOUT_MS = 30_000;
 const CLEANUP_ERROR_MESSAGE = "Cancelled by ServiceCallSender";
@@ -81,7 +85,7 @@ export default class ServiceCallMessenger implements Messenger {
   }
 
   public cleanUp(): void {
-    this.pendingRequest.cleanUp(new Error(CLEANUP_ERROR_MESSAGE));
+    this.pendingRequest.cleanUp(new ServiceCallMessengerError(CLEANUP_ERROR_MESSAGE));
   }
 
   private splitServiceAndMethod(input: string): { service: string; method: string } {

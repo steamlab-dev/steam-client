@@ -87,6 +87,7 @@ describe("SteamProtocol", () => {
     const protocol = new SteamProtocol(options);
 
     await expect(protocol.connect()).rejects.toBeInstanceOf(SteamProtocolError);
+    await expect(protocol.connect()).rejects.toMatchObject({ subsystem: "protocol" });
     await expect(protocol.connect()).rejects.toThrow("There's an active connection");
   });
 

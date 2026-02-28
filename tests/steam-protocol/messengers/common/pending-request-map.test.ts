@@ -13,8 +13,20 @@ describe("PendingRequestMap", () => {
   });
 
   it("validates constructor timeout range", () => {
-    expect(() => new PendingRequestMap<string, unknown>(9_999)).toThrow(PendingRequestMapError);
-    expect(() => new PendingRequestMap<string, unknown>(60_001)).toThrow(PendingRequestMapError);
+    try {
+      new PendingRequestMap<string, unknown>(9_999);
+      throw new Error("Expected constructor to throw");
+    } catch (error) {
+      expect(error).toBeInstanceOf(PendingRequestMapError);
+      expect((error as PendingRequestMapError).subsystem).toBe("pending-request");
+    }
+    try {
+      new PendingRequestMap<string, unknown>(60_001);
+      throw new Error("Expected constructor to throw");
+    } catch (error) {
+      expect(error).toBeInstanceOf(PendingRequestMapError);
+      expect((error as PendingRequestMapError).subsystem).toBe("pending-request");
+    }
     expect(() => new PendingRequestMap<string, unknown>(10_000)).not.toThrow();
     expect(() => new PendingRequestMap<string, unknown>(60_000)).not.toThrow();
   });
@@ -23,7 +35,13 @@ describe("PendingRequestMap", () => {
     const pending = new PendingRequestMap<string, unknown>(10_000);
     const first = pending.add("k1");
 
-    expect(() => pending.add("k1")).toThrow(PendingRequestMapError);
+    try {
+      pending.add("k1");
+      throw new Error("Expected duplicate add to throw");
+    } catch (error) {
+      expect(error).toBeInstanceOf(PendingRequestMapError);
+      expect((error as PendingRequestMapError).subsystem).toBe("pending-request");
+    }
     expect(pending.size()).toBe(1);
 
     expect(pending.resolve("k1", "ok")).toBe(true);
@@ -55,6 +73,7 @@ describe("PendingRequestMap", () => {
     await vi.advanceTimersByTimeAsync(10_001);
 
     await rejection;
+    await expect(promise).rejects.toMatchObject({ subsystem: "pending-request" });
     expect(pending.size()).toBe(0);
   });
 

@@ -1,13 +1,17 @@
-import GenericError from "@/common/generic-error";
 import type { EMsg } from "@/common/steam-language";
 import { EMsgReqToEMsgRes, EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import type Connection from "@/connection/connection";
 import type SteamProtoManager from "@/steam-protocol/proto-manager";
+import { SteamProtocolError } from "../error";
 import PendingRequestMap from "./common/pending-request-map";
 import type ProtoHeaderBuilder from "./common/proto-header-builder";
 import type { Messenger, ProtoMessageReq, ProtoMessageRes } from "./types";
 
-export class ProtoMessengerError extends GenericError {}
+export class ProtoMessengerError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "proto-messenger", cause);
+  }
+}
 
 const PENDING_REQUEST_TIMEOUT_MS = 30_000;
 const CLEANUP_ERROR_MESSAGE = "Cancelled by ProtoSender";
@@ -47,7 +51,7 @@ export default class ProtoMessenger implements Messenger {
   }
 
   public cleanUp(): void {
-    this.pendingRequest.cleanUp(new Error(CLEANUP_ERROR_MESSAGE));
+    this.pendingRequest.cleanUp(new ProtoMessengerError(CLEANUP_ERROR_MESSAGE));
   }
 
   private sendProto(eMsg: EMsg, payload: unknown): void {

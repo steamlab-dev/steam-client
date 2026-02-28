@@ -4,12 +4,16 @@ import path, { dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ReflectionObject } from "protobufjs";
 import protobuf from "protobufjs";
-import GenericError from "@/common/generic-error";
 import { findFilesRecursive, pathExists } from "@/common/utils";
+import { SteamProtocolError } from "./error";
 
 type Namespaces = "steam" | "csgo" | "webui";
 
-export class SteamProtoError extends GenericError {}
+export class SteamProtoError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "context", cause);
+  }
+}
 
 const GOOGLE_PROTO_DIR = "google/protobuf";
 const PROTO_EXTENSION = "proto";

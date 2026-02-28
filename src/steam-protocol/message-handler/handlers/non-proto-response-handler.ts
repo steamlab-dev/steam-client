@@ -1,5 +1,6 @@
 import { SmartBuffer } from "smart-buffer";
 import { EMsg } from "@/common/steam-language";
+import { SteamProtocolError } from "@/steam-protocol/error";
 import type { DecodedNonProtoMessage, MsgHandler, NonProtoMessage, ParsedMessage } from "../types";
 import { isNonProtoMessage } from "./common/util";
 
@@ -25,7 +26,17 @@ export default class NonProtoResponseHandler implements MsgHandler {
         decodedNonProtoMessage.msgName = "ClientUpdateGuestPassesList";
         break;
       default:
-        throw new Error(`Unhandled non proto message ${message}`);
+        throw new SteamProtocolError(
+          `Unhandled non proto message: ${JSON.stringify(
+            {
+              eMsg: message.eMsg,
+              msgName: message.msgName,
+            },
+            null,
+            2,
+          )}`,
+          "handler",
+        );
     }
 
     return decodedNonProtoMessage;

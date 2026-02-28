@@ -1,4 +1,5 @@
 import { EResult, type SteamProtos } from "@/common/steam-language";
+import { SteamProtocolEResultError } from "@/steam-protocol/error";
 import type ServiceCallMessenger from "@/steam-protocol/messengers/service-call-messenger";
 import type ProtoManager from "@/steam-protocol/proto-manager";
 import type { DecodedProtoMessage, MsgHandler, ParsedMessage, ProtoMessage } from "../types";
@@ -30,7 +31,12 @@ export default class ServiceMethodResponseHandler implements MsgHandler {
     if (eresult !== undefined && eresult !== EResult.OK) {
       this.serviceCallMessenger.rejectRequest(
         message.header.jobid_target,
-        new Error(`${protoName} failed eresult: ${eresult}`),
+        new SteamProtocolEResultError({
+          protoName,
+          eresultCode: eresult,
+          eMsg: message.eMsg,
+          jobIdTarget: message.header.jobid_target?.toString(),
+        }),
       );
       return decodedMessage;
     }

@@ -1,4 +1,4 @@
-import GenericError from "@/common/generic-error";
+import { SteamProtocolError } from "../../error";
 
 type PendingEntry<T> = {
   resolve: (value: T) => void;
@@ -6,7 +6,11 @@ type PendingEntry<T> = {
   timeout: NodeJS.Timeout;
 };
 
-export class PendingRequestMapError extends GenericError {}
+export class PendingRequestMapError extends SteamProtocolError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "pending-request", cause);
+  }
+}
 
 /**
  * Generic manager for pending requests keyed by K, resolving T.

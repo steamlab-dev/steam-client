@@ -87,6 +87,12 @@ describe("ServiceCallMessenger", () => {
         payload: {} as never,
       }),
     ).rejects.toBeInstanceOf(ServiceCallMessengerError);
+    await expect(
+      messenger.sendWithResponse({
+        message: "InvalidMessageName" as never,
+        payload: {} as never,
+      }),
+    ).rejects.toMatchObject({ subsystem: "service-call-messenger" });
   });
 
   it("resolveRequest/rejectRequest return false for missing job ids", () => {
@@ -108,5 +114,15 @@ describe("ServiceCallMessenger", () => {
 
     expect(pendingRequest.resolve).toHaveBeenCalledWith("42", { ok: true });
     expect(pendingRequest.reject).toHaveBeenCalledWith("42", expect.any(Error));
+  });
+
+  it("cleanup rejects pending requests with typed messenger error", () => {
+    const { messenger, pendingRequest } = createMessenger(true);
+    messenger.cleanUp();
+
+    const cleanupError = pendingRequest.cleanUp.mock.calls[0]?.[0] as ServiceCallMessengerError;
+    expect(cleanupError).toBeInstanceOf(ServiceCallMessengerError);
+    expect(cleanupError.subsystem).toBe("service-call-messenger");
+    expect(cleanupError.message).toContain("Cancelled by ServiceCallSender");
   });
 });

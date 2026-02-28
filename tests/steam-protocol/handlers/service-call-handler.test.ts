@@ -1,6 +1,7 @@
 import Long from "long";
 import { describe, expect, it, vi } from "vitest";
 import { EMsg, EResult } from "@/common/steam-language";
+import { SteamProtocolEResultError } from "@/steam-protocol/error";
 import ServiceMethodResponseHandler from "@/steam-protocol/message-handler/handlers/service-call-handler";
 
 describe("ServiceMethodResponseHandler", () => {
@@ -68,8 +69,18 @@ describe("ServiceMethodResponseHandler", () => {
 
     expect(serviceCallMessenger.rejectRequest).toHaveBeenCalledWith(
       message.header.jobid_target,
-      expect.any(Error),
+      expect.any(SteamProtocolEResultError),
     );
+    const rejectedError = serviceCallMessenger.rejectRequest.mock.calls[0]?.[1];
+    expect(rejectedError).toBeInstanceOf(SteamProtocolEResultError);
+    expect(rejectedError).toMatchObject({
+      subsystem: "eresult",
+      protoName: "CAuthentication_BeginAuthSessionViaQR_Response",
+      eresultCode: EResult.Fail,
+      eresultName: "Fail",
+      jobIdTarget: "7",
+    });
+    expect((rejectedError as Error).message).toContain("EResult.Fail=2");
     expect(serviceCallMessenger.resolveRequest).not.toHaveBeenCalled();
   });
 });

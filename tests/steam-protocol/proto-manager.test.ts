@@ -31,6 +31,7 @@ describe("ProtoManager", () => {
     vi.mocked(findFilesRecursive).mockResolvedValue([]);
 
     await expect(manager.loadProtos()).rejects.toThrow(SteamProtoError);
+    await expect(manager.loadProtos()).rejects.toMatchObject({ subsystem: "context" });
     await expect(manager.loadProtos()).rejects.toThrow(
       "No .proto files found in the specified path/namespace.",
     );

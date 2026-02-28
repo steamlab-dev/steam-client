@@ -9,6 +9,7 @@ import SteamProtoConstants from "@/steam-protocol/constants";
 import type { MsgHandler } from "@/steam-protocol/message-handler/types";
 import ProtoManager from "@/steam-protocol/proto-manager";
 import SteamProtocol from "@/steam-protocol/steam-protocol";
+import SteamClientError from "./error";
 import GamesPlayedTracker from "./games-played-tracker";
 import ClientPlayingSessionState from "./message-handlers/ClientPlayingSessionState";
 import SessionManager from "./session-manager";
@@ -43,97 +44,140 @@ export default class SteamClient {
     this.addDefaultMsgHandlers();
   }
 
-  connect() {
-    return this.steamProtocol?.connect();
+  async connect() {
+    try {
+      return await this.steamProtocol.connect();
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed to connect", "client", err);
+    }
   }
 
   disconnect() {
-    return this.steamProtocol?.disconnect();
+    try {
+      this.steamProtocol.disconnect();
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed to disconnect", "client", err);
+    }
   }
 
   async startPlaying(
     gameId: Long | number | string | (Long | number | string)[],
   ): Promise<string[]> {
-    // 1. kick other playing sessions
-    if (this.session.playingBlocked) {
-      await this.steamProtocol.sendWithResponse({
-        eMsg: EMsg.k_EMsgClientKickPlayingSession,
-        eMsgRes: EMsg.k_EMsgClientConcurrentSessionsBase, // wait for this message
-        payload: { only_stop_game: false },
-      });
+    try {
+      // 1. kick other playing sessions
+      if (this.session.playingBlocked) {
+        await this.steamProtocol.sendWithResponse({
+          eMsg: EMsg.k_EMsgClientKickPlayingSession,
+          eMsgRes: EMsg.k_EMsgClientConcurrentSessionsBase, // wait for this message
+          payload: { only_stop_game: false },
+        });
+      }
+
+      const games_played = this.gamesPlayedTracker.track(
+        gameId,
+        this.steamProtocol.getSession().steamId,
+      );
+
+      const payload: CMsgClientGamesPlayed = {
+        games_played,
+        client_os_type: SteamProtoConstants.Win11,
+        cloud_gaming_platform: 0,
+        recent_reauthentication: false,
+      };
+
+      this.steamProtocol.send({ eMsg: EMsg.k_EMsgClientGamesPlayed, payload });
+
+      return games_played.map((game) => String(game.game_id));
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed to start playing", "gameplay", err);
     }
-
-    const games_played = this.gamesPlayedTracker.track(
-      gameId,
-      this.steamProtocol.getSession().steamId,
-    );
-
-    const payload: CMsgClientGamesPlayed = {
-      games_played,
-      client_os_type: SteamProtoConstants.Win11,
-      cloud_gaming_platform: 0,
-      recent_reauthentication: false,
-    };
-
-    this.steamProtocol.send({ eMsg: EMsg.k_EMsgClientGamesPlayed, payload });
-
-    return games_played.map((game) => String(game.game_id));
   }
 
   stopPlaying(gameId: Long | number | string | (Long | number | string)[]): string[] {
-    const games_played = this.gamesPlayedTracker.untrack(gameId);
+    try {
+      const games_played = this.gamesPlayedTracker.untrack(gameId);
 
-    const payload: CMsgClientGamesPlayed = {
-      games_played,
-      client_os_type: SteamProtoConstants.Win11,
-      cloud_gaming_platform: 0,
-      recent_reauthentication: false,
-    };
+      const payload: CMsgClientGamesPlayed = {
+        games_played,
+        client_os_type: SteamProtoConstants.Win11,
+        cloud_gaming_platform: 0,
+        recent_reauthentication: false,
+      };
 
-    this.steamProtocol.send({
-      eMsg: EMsg.k_EMsgClientGamesPlayedWithDataBlob,
-      payload,
-    });
+      this.steamProtocol.send({
+        eMsg: EMsg.k_EMsgClientGamesPlayedWithDataBlob,
+        payload,
+      });
 
-    return games_played.map((game) => String(game.game_id));
+      return games_played.map((game) => String(game.game_id));
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed to stop playing", "gameplay", err);
+    }
   }
 
   async logonRequest(
     req: SteamProtos["CMsgClientLogon"],
   ): Promise<SteamProtos["CMsgClientLogOnResponse"]> {
     if (!req.access_token) {
-      throw new Error("access_token is required");
+      throw new SteamClientError("access_token is required", "validation");
     }
-    const token = jwtToJson(req.access_token);
-    const steamId = Long.fromString(token.payload.sub, true);
-    this.steamProtocol.setSteamId(steamId);
 
-    const res = await this.steamProtocol.sendWithResponse({
-      eMsg: EMsg.k_EMsgClientLogon,
-      payload: {
-        ...req,
-        protocol_version: SteamProtoConstants.ProtocolVersion,
-        cell_id: 4294967295,
-        client_package_version: 1751405894,
-        client_language: "english",
-        client_os_type: SteamProtoConstants.Win11,
-        should_remember_password: true,
-        qos_level: 2,
-        supports_rate_limit_response: true,
-        priority_reason: 11,
-      },
-    });
+    try {
+      const token = jwtToJson(req.access_token);
+      const steamId = Long.fromString(token.payload.sub, true);
+      this.steamProtocol.setSteamId(steamId);
 
-    this.steamProtocol.send({
-      eMsg: EMsg.k_EMsgClientChangeStatus,
-      payload: { persona_state: 1 },
-    });
+      const res = await this.steamProtocol.sendWithResponse({
+        eMsg: EMsg.k_EMsgClientLogon,
+        payload: {
+          ...req,
+          protocol_version: SteamProtoConstants.ProtocolVersion,
+          cell_id: 4294967295,
+          client_package_version: 1751405894,
+          client_language: "english",
+          client_os_type: SteamProtoConstants.Win11,
+          should_remember_password: true,
+          qos_level: 2,
+          supports_rate_limit_response: true,
+          priority_reason: 11,
+        },
+      });
 
-    return res;
+      this.steamProtocol.send({
+        eMsg: EMsg.k_EMsgClientChangeStatus,
+        payload: { persona_state: 1 },
+      });
+
+      return res;
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed logon request", "protocol", err);
+    }
   }
 
   addMsgHandler(...msgHandler: MsgHandler[]) {
-    this.steamProtocol.addMessageHandler(...msgHandler);
+    try {
+      this.steamProtocol.addMessageHandler(...msgHandler);
+    } catch (err) {
+      if (err instanceof SteamClientError) {
+        throw err;
+      }
+      throw new SteamClientError("Failed to add message handler", "client", err);
+    }
   }
 
   private addDefaultMsgHandlers() {

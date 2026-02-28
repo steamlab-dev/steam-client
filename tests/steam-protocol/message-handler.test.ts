@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import MessageHandler from "@/steam-protocol/message-handler/message-handler";
+import MessageHandler, {
+  MessageHandlerError,
+} from "@/steam-protocol/message-handler/message-handler";
 
 describe("MessageHandler", () => {
   const createBase = () => {
@@ -83,7 +85,15 @@ describe("MessageHandler", () => {
 
     await onData?.(Buffer.from([0x02]));
 
-    expect(emitter.emit).toHaveBeenCalledWith("steam-message-error", expect.any(Error));
+    expect(emitter.emit).toHaveBeenCalledWith(
+      "steam-message-error",
+      expect.any(MessageHandlerError),
+    );
+    const emittedError = emitter.emit.mock.calls[0]?.[1] as MessageHandlerError;
+    expect(emittedError).toBeInstanceOf(MessageHandlerError);
+    expect(emittedError.subsystem).toBe("handler");
+    expect(emittedError.rawMessage).toBe(parsed);
+    expect(emittedError.cause).toBeInstanceOf(Error);
     expect(nextHandler.handle).not.toHaveBeenCalled();
   });
 
