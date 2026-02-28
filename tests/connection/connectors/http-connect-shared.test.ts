@@ -89,4 +89,28 @@ describe("http-connect-shared", () => {
       validateProxyConnectStatus("502", "HTTP/1.1 502 Bad Gateway\r\n\r\n", "HTTP"),
     ).toThrow("HTTP proxy CONNECT failed with status 502: HTTP/1.1 502 Bad Gateway");
   });
+
+  it("maps 400 and 403 statuses to protocol-specific errors", () => {
+    expect(() =>
+      validateProxyConnectStatus("400", "HTTP/1.1 400 Bad Request\r\n\r\n", "HTTP"),
+    ).toThrow("HTTP proxy bad request: HTTP/1.1 400 Bad Request");
+
+    expect(() =>
+      validateProxyConnectStatus("403", "HTTP/1.1 403 Forbidden\r\n\r\n", "HTTPS"),
+    ).toThrow("HTTPS proxy forbidden: HTTP/1.1 403 Forbidden");
+  });
+
+  it("uses fallback status line text when response has no status line", () => {
+    expect(() => validateProxyConnectStatus("500", "", "HTTP")).toThrow(
+      "HTTP proxy CONNECT failed with status 500: No status line found",
+    );
+  });
+
+  it("handles undefined first split segment via status-line fallback", () => {
+    const fakeResponse = {
+      split: () => [],
+    } as unknown as string;
+
+    expect(() => parseHttpStatusCode(fakeResponse)).toThrow("Invalid HTTP response from proxy");
+  });
 });

@@ -91,4 +91,16 @@ describe("DirectConnector", () => {
     );
     await expect(connectPromise).rejects.toBeInstanceOf(ConnectorError);
   });
+
+  it("does not destroy socket again when it is already destroyed", async () => {
+    mockSocket.destroyed = true;
+    const connectPromise = DirectConnector.connect(options);
+
+    mockSocket.emit("error", new Error("already destroyed"));
+
+    await expect(connectPromise).rejects.toThrow(
+      `Failed to connect directly to ${options.steamCM.host}:${options.steamCM.port}`,
+    );
+    expect(mockSocket.destroy).not.toHaveBeenCalled();
+  });
 });

@@ -143,4 +143,52 @@ describe("SteamProtocol", () => {
 
     protocol.disconnect();
   });
+
+  it("throws if internal context creation is attempted twice", () => {
+    const context = createMockContext();
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+
+    expect(() => (protocol as unknown as { createContext: () => void }).createContext()).toThrow(
+      "SteamProtoContext is already defined",
+    );
+  });
+
+  it("cleanup without a disconnect message does not emit disconnected", () => {
+    const context = createMockContext();
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+
+    (protocol as unknown as { cleanUp: () => void }).cleanUp();
+
+    expect(context.emitter.emit).not.toHaveBeenCalled();
+    expect(context.session.cleanUp).toHaveBeenCalledTimes(1);
+  });
+
+  it("throws Not Connected when trying to send while disconnected", () => {
+    const context = createMockContext();
+    context.connection.getState.mockReturnValue({ connected: false });
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+
+    expect(() =>
+      protocol.send({
+        eMsg: EMsg.k_EMsgClientHello,
+        payload: {} as never,
+      }),
+    ).toThrow("Not Connected");
+  });
+
+  it("throws SteamProtoContext is undefined after context cleanup", () => {
+    const context = createMockContext();
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+    (protocol as unknown as { cleanUp: () => void }).cleanUp();
+
+    expect(() => protocol.getEmitter()).toThrow("SteamProtoContext is undefined");
+  });
 });

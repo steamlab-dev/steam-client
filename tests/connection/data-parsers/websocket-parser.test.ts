@@ -165,6 +165,15 @@ describe("WebSocketDataParser", () => {
       // The parser's data event should not have been triggered
       expect(dataSpy).not.toHaveBeenCalled();
     });
+
+    it("should handle cleanup even when attached state is inconsistent", () => {
+      (parser as unknown as { isAttached: boolean }).isAttached = true;
+      (parser as unknown as { socket: Socket | null }).socket = null;
+      (parser as unknown as { dataHandler: ((data: Buffer) => void) | null }).dataHandler = null;
+
+      expect(() => parser.cleanUp()).not.toThrow();
+      expect(parser.getBufferSize()).toBe(0);
+    });
   });
 
   describe("getBufferSize", () => {
@@ -267,6 +276,32 @@ describe("WebSocketDataParser", () => {
     });
 
     describe("error handling", () => {
+      it("should emit error when reserved bits are set", async () => {
+        const frameWithRsv = Buffer.from([0xc2, 0x00]); // FIN + RSV1 + binary, empty payload
+
+        const errorPromise = new Promise<ParserError>((resolve) => {
+          emitter.on("dataParseError", resolve);
+        });
+
+        mockSocket.emit("data", frameWithRsv);
+        const error = await errorPromise;
+
+        expect(error.message).toContain("Reserved bits are set without a negotiated extension");
+      });
+
+      it("should emit error when close opcode is received", async () => {
+        const closeFrame = Buffer.from([0x88, 0x00]);
+
+        const errorPromise = new Promise<ParserError>((resolve) => {
+          emitter.on("dataParseError", resolve);
+        });
+
+        mockSocket.emit("data", closeFrame);
+        const error = await errorPromise;
+
+        expect(error.message).toContain("Steam closed the connection.");
+      });
+
       it("should emit error for invalid opcode", async () => {
         const invalidFrame = Buffer.from([0x81, 0x05, 0x48, 0x65, 0x6c, 0x6c, 0x6f]); // Opcode for text frame
 
@@ -296,6 +331,38 @@ describe("WebSocketDataParser", () => {
 
         expect(error.message).toContain("Received masked frame from server");
       });
+
+      it("should emit error for fragmented binary frames (FIN=false)", async () => {
+        const fragmentedBinaryFrame = Buffer.concat([
+          Buffer.from([0x02, 0x03]),
+          Buffer.from("abc"),
+        ]);
+
+        const errorPromise = new Promise<ParserError>((resolve) => {
+          emitter.on("dataParseError", resolve);
+        });
+
+        mockSocket.emit("data", fragmentedBinaryFrame);
+        const error = await errorPromise;
+
+        expect(error.message).toContain("Unsupported WebSocket frame received. FIN: false");
+      });
+
+      it("should emit error when 64-bit payload length exceeds safe integer", async () => {
+        const hugeLengthFrame = Buffer.alloc(10);
+        hugeLengthFrame[0] = 0x82;
+        hugeLengthFrame[1] = 0x7f;
+        hugeLengthFrame.writeBigUInt64BE(BigInt(Number.MAX_SAFE_INTEGER) + 1n, 2);
+
+        const errorPromise = new Promise<ParserError>((resolve) => {
+          emitter.on("dataParseError", resolve);
+        });
+
+        mockSocket.emit("data", hugeLengthFrame);
+        const error = await errorPromise;
+
+        expect(error.message).toContain("Frame payload length exceeds maximum safe integer");
+      });
     });
 
     describe("buffer management", () => {
@@ -321,6 +388,42 @@ describe("WebSocketDataParser", () => {
         mockSocket.emit("data", partialFrame);
 
         expect(parser.getBufferSize()).toBe(partialFrame.length);
+      });
+
+      it("buffers incomplete extended 16-bit frame headers", () => {
+        mockSocket.emit("data", Buffer.from([0x82, 0x7e, 0x00]));
+
+        expect(parser.getBufferSize()).toBe(3);
+      });
+
+      it("buffers incomplete extended 64-bit frame headers", () => {
+        mockSocket.emit("data", Buffer.from([0x82, 0x7f, 0x00, 0x00, 0x00]));
+
+        expect(parser.getBufferSize()).toBe(5);
+      });
+
+      it("parses extended 16-bit and 64-bit payload length frames", async () => {
+        const mediumPayload = Buffer.alloc(300, 0x41);
+        const largePayload = Buffer.alloc(70000, 0x42);
+        const mediumFrame = createWebSocketFrame(mediumPayload);
+        const largeFrame = createWebSocketFrame(largePayload);
+        const payloads: Buffer[] = [];
+
+        const done = new Promise<void>((resolve) => {
+          emitter.on("data", (payload: Buffer) => {
+            payloads.push(payload);
+            if (payloads.length === 2) {
+              resolve();
+            }
+          });
+        });
+
+        mockSocket.emit("data", mediumFrame);
+        mockSocket.emit("data", largeFrame);
+        await done;
+
+        expect(payloads[0]?.length).toBe(300);
+        expect(payloads[1]?.length).toBe(70000);
       });
     });
   });

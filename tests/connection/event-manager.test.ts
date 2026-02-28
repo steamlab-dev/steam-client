@@ -122,6 +122,18 @@ describe("EventManager", () => {
       expect(() => manager.attachEvents(context)).not.toThrow();
       expect(socket.on).toHaveBeenCalledTimes(6);
     });
+
+    it("private attach/detach helpers are no-ops when required internals are missing", () => {
+      (manager as unknown as { socket?: unknown }).socket = undefined;
+      expect(() =>
+        (manager as unknown as { attachSocketEvents: () => void }).attachSocketEvents(),
+      ).not.toThrow();
+      expect(() =>
+        (
+          manager as unknown as { detachDataParseErrorListener: () => void }
+        ).detachDataParseErrorListener(),
+      ).not.toThrow();
+    });
   });
 
   describe("Event Emission", () => {

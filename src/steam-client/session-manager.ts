@@ -7,7 +7,7 @@ export default class SessionManager {
   }
 
   set isPlaying(isPlaying: boolean) {
-    this.isPlaying = isPlaying;
+    this._isPlaying = isPlaying;
   }
 
   get playingBlocked() {

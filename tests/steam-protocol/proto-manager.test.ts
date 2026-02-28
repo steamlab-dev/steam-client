@@ -110,4 +110,97 @@ describe("ProtoManager", () => {
       SteamProtoError,
     );
   });
+
+  it("throws on encode validation failures", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      loaded: boolean;
+      protoCache: Map<string, unknown>;
+      encode: (protoName: string, body: Record<string, unknown>) => Buffer;
+    };
+
+    const fakeType = {
+      verify: vi.fn().mockReturnValue("missing required field"),
+      create: vi.fn(),
+      encode: vi.fn(),
+    };
+
+    manager.loaded = true;
+    manager.protoCache = new Map([["steam.CMsgProtoBufHeader", fakeType]]);
+
+    expect(() => manager.encode("CMsgProtoBufHeader", { a: 1 })).toThrow("Validation failed");
+  });
+
+  it("throws when getting proto names before loading", () => {
+    const manager = new ProtoManager("steam");
+    expect(() => manager.getProtoNames()).toThrow(
+      "Protocol buffers not loaded. Call loadProtos() first.",
+    );
+  });
+
+  it("throws for missing or unknown proto types", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      loaded: boolean;
+      protoCache: Map<string, unknown>;
+      encode: (protoName: string, body: Record<string, unknown>) => Buffer;
+    };
+
+    const fakeType = {
+      verify: vi.fn().mockReturnValue(null),
+      create: vi.fn((body: Record<string, unknown>) => body),
+      encode: vi.fn().mockReturnValue({ finish: () => Buffer.from([1]) }),
+    };
+
+    manager.loaded = true;
+    manager.protoCache = new Map([["steam.CMsgProtoBufHeader", fakeType]]);
+
+    expect(() => manager.encode("" as never, { a: 1 })).toThrow("Proto type cannot be undefined.");
+    expect(() => manager.encode("UnknownProto", { a: 1 })).toThrow(
+      "Protocol buffer type UnknownProto not found",
+    );
+  });
+
+  it("throws from resolver when local/google proto paths cannot be resolved", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      createPathResolver: (basePath: string) => (origin: string, target: string) => string;
+    };
+
+    const root = mkdtempSync(path.join(tmpdir(), "steam-proto-manager-missing-"));
+    tempDirs.push(root);
+    const resolver = manager.createPathResolver(root);
+
+    expect(() => resolver(path.join(root, "steam", "x.proto"), "missing.proto")).toThrow(
+      "Could not resolve missing.proto",
+    );
+    expect(() =>
+      resolver(path.join(root, "steam", "x.proto"), "google/protobuf/timestamp.proto"),
+    ).toThrow("Could not resolve google/protobuf/timestamp.proto");
+  });
+
+  it("loadProtos uses root proto directory when namespace is omitted", async () => {
+    const manager = new ProtoManager() as unknown as {
+      loadProtos: () => Promise<unknown>;
+      resolveProtoPath: () => Promise<string>;
+      groupProtosByNamespace: (files: string[], root: string) => Record<string, string[]>;
+      getTopLevelProtoFiles: (files: string[]) => Promise<string[]>;
+      cacheProtoNamespace: (root: unknown) => void;
+      loaded: boolean;
+    };
+
+    vi.spyOn(manager, "resolveProtoPath").mockResolvedValue("/tmp/protos");
+    vi.mocked(findFilesRecursive).mockResolvedValue(["/tmp/protos/steam/test.proto"]);
+    vi.spyOn(manager, "groupProtosByNamespace").mockReturnValue({
+      steam: undefined as never,
+      webui: ["/tmp/protos/webui/test.proto"],
+    });
+    vi.spyOn(manager, "getTopLevelProtoFiles").mockResolvedValue([]);
+    const cacheSpy = vi.spyOn(manager, "cacheProtoNamespace");
+
+    await manager.loadProtos();
+
+    expect(findFilesRecursive).toHaveBeenCalledWith("/tmp/protos", "proto", [
+      path.resolve("/tmp/protos", "google/protobuf"),
+    ]);
+    expect(cacheSpy).toHaveBeenCalledTimes(1);
+    expect(manager.loaded).toBe(true);
+  });
 });

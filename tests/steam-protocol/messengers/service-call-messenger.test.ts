@@ -88,4 +88,25 @@ describe("ServiceCallMessenger", () => {
       }),
     ).rejects.toBeInstanceOf(ServiceCallMessengerError);
   });
+
+  it("resolveRequest/rejectRequest return false for missing job ids", () => {
+    const { messenger, pendingRequest } = createMessenger(true);
+
+    expect(messenger.resolveRequest(undefined, { ok: true })).toBe(false);
+    expect(messenger.rejectRequest(undefined, new Error("x"))).toBe(false);
+    expect(pendingRequest.resolve).not.toHaveBeenCalled();
+    expect(pendingRequest.reject).not.toHaveBeenCalled();
+  });
+
+  it("resolveRequest/rejectRequest delegate to pending map for valid job ids", () => {
+    const { messenger, pendingRequest } = createMessenger(true);
+
+    expect(messenger.resolveRequest({ toString: () => "42" } as never, { ok: true })).toBe(true);
+    expect(messenger.rejectRequest({ toString: () => "42" } as never, new Error("boom"))).toBe(
+      true,
+    );
+
+    expect(pendingRequest.resolve).toHaveBeenCalledWith("42", { ok: true });
+    expect(pendingRequest.reject).toHaveBeenCalledWith("42", expect.any(Error));
+  });
 });

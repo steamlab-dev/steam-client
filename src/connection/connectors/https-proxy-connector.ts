@@ -78,10 +78,6 @@ const HttpsProxyConnector: Connector = class HttpsProxyConnector {
       );
     }
 
-    if (!tlsSocket) {
-      throw new ConnectorError("HTTPS proxy TLS socket is unavailable");
-    }
-
     return tlsSocket;
   }
 

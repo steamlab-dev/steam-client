@@ -170,15 +170,15 @@ const WebSocketTransport: Transport = class WebSocketTransport {
    */
   private static validateHandshakeResponse(responseBuffer: Buffer, expectedAccept: string): void {
     const responseStr = responseBuffer.toString("utf8");
-    const [statusLine, ...headerLines] = responseStr.split("\r\n");
-    const safeStatusLine = statusLine ?? "";
+    const [statusLine = "", ...headerLines] = responseStr.split("\r\n");
+    const safeStatusLine = statusLine;
 
     const statusMatch = safeStatusLine.match(/^HTTP\/1\.1 (\d{3})/);
     if (!statusMatch) {
       throw new TransportError("Invalid HTTP response during WebSocket handshake");
     }
 
-    const statusText = statusMatch[1];
+    const statusText = statusMatch.at(1);
     if (!statusText) {
       throw new TransportError("Invalid HTTP response during WebSocket handshake");
     }

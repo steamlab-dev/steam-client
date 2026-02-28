@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
-import ProtoMessenger from "@/steam-protocol/messengers/proto-messenger";
+import ProtoMessenger, { ProtoMessengerError } from "@/steam-protocol/messengers/proto-messenger";
 
 describe("ProtoMessenger", () => {
   const createMessenger = () => {
@@ -53,5 +53,27 @@ describe("ProtoMessenger", () => {
     messenger.cleanUp();
 
     expect(pendingRequest.cleanUp).toHaveBeenCalledWith(expect.any(Error));
+  });
+
+  it("throws when proto mapping is missing for send", () => {
+    const { messenger } = createMessenger();
+
+    expect(() =>
+      messenger.send({
+        eMsg: 999999 as EMsg,
+        payload: {} as never,
+      }),
+    ).toThrow(ProtoMessengerError);
+  });
+
+  it("throws when response mapping is missing for sendWithResponse", () => {
+    const { messenger } = createMessenger();
+
+    expect(() =>
+      messenger.sendWithResponse({
+        eMsg: 999999 as EMsg,
+        payload: {} as never,
+      }),
+    ).toThrow(ProtoMessengerError);
   });
 });

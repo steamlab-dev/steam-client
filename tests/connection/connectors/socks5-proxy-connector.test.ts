@@ -304,4 +304,64 @@ describe("Socks5ProxyConnector", () => {
       (e.cause as Error).message.includes("Socket timed out"),
     );
   });
+
+  it("supports method-selection response arriving in multiple chunks", async () => {
+    const connectPromise = Socks5ProxyConnector.connect(options);
+    await flushMicrotasks();
+    mockSocket.emit("data", Buffer.from([0x05]));
+    await flushMicrotasks();
+    mockSocket.emit("data", Buffer.from([0x00]));
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE);
+
+    await expect(connectPromise).resolves.toBe(mockSocket);
+  });
+
+  it("supports auth response arriving in multiple chunks", async () => {
+    const connectPromise = Socks5ProxyConnector.connect(optionsWithAuth);
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_METHOD_USER_PASS_RESPONSE);
+    await flushMicrotasks();
+    mockSocket.emit("data", Buffer.from([0x01]));
+    await flushMicrotasks();
+    mockSocket.emit("data", Buffer.from([0x00]));
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE);
+
+    await expect(connectPromise).resolves.toBe(mockSocket);
+  });
+
+  it("supports connection response arriving in multiple chunks", async () => {
+    const connectPromise = Socks5ProxyConnector.connect(options);
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE.subarray(0, 4));
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_CONNECT_SUCCESS_RESPONSE.subarray(4));
+
+    await expect(connectPromise).resolves.toBe(mockSocket);
+  });
+
+  it("maps unknown SOCKS5 status codes to generic error text", async () => {
+    const connectPromise = Socks5ProxyConnector.connect(options);
+    await flushMicrotasks();
+    mockSocket.emit("data", SOCKS5_METHOD_NO_AUTH_RESPONSE);
+    await flushMicrotasks();
+    mockSocket.emit("data", Buffer.from([0x05, 0x09, 0x00, 0x01, 0, 0, 0, 0, 0, 0]));
+
+    await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
+    await expect(connectPromise).rejects.toSatisfy((e: ConnectorError) =>
+      (e.cause as Error).message.includes("Unknown SOCKS5 error code 0x9"),
+    );
+  });
+
+  it("does not destroy socket again when it is already destroyed", async () => {
+    mockSocket.destroyed = true;
+    const connectPromise = Socks5ProxyConnector.connect(options);
+    mockSocket.emit("error", new Error("proxy down"));
+
+    await expect(connectPromise).rejects.toThrow(getWrappedErrorPrefix(options));
+    expect(mockSocket.destroy).not.toHaveBeenCalled();
+  });
 });

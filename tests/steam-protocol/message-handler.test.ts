@@ -95,4 +95,44 @@ describe("MessageHandler", () => {
 
     expect(connection.off).toHaveBeenCalledWith("data", onData);
   });
+
+  it("skips filtered messages and does not emit steam-messages", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    parser.parse.mockResolvedValue([
+      { eMsg: 1, isProto: true, rawBody: Buffer.alloc(0), header: {} },
+    ]);
+
+    vi.spyOn(
+      handler as unknown as { isFiltered: (msg: unknown) => boolean },
+      "isFiltered",
+    ).mockReturnValue(true);
+
+    await onData?.(Buffer.from([0x01]));
+
+    expect(emitter.emit).not.toHaveBeenCalledWith("steam-messages", expect.anything());
+  });
+
+  it("skips handlers that cannot handle and ignores empty handler outputs", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    parser.parse.mockResolvedValue([
+      { eMsg: 1, isProto: true, rawBody: Buffer.alloc(0), header: {} },
+    ]);
+
+    const skippedHandler = {
+      canHandle: vi.fn().mockReturnValue(false),
+      handle: vi.fn(),
+    };
+    const emptyHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockReturnValue(undefined),
+    };
+
+    handler.addHandler(skippedHandler as never, emptyHandler as never);
+
+    await onData?.(Buffer.from([0x02]));
+
+    expect(skippedHandler.handle).not.toHaveBeenCalled();
+    expect(emptyHandler.handle).toHaveBeenCalledTimes(1);
+    expect(emitter.emit).not.toHaveBeenCalledWith("steam-messages", expect.anything());
+  });
 });

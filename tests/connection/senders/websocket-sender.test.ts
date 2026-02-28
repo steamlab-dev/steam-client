@@ -66,6 +66,32 @@ describe("WebSocketDataSender", () => {
     });
   });
 
+  describe("cleanUp method", () => {
+    it("is safe when no socket was attached", () => {
+      expect(() => sender.cleanUp()).not.toThrow();
+    });
+
+    it("resets state when socket exists but drain handler does not", () => {
+      const offSpy = vi.spyOn(mockSocket, "off");
+      sender.attach(mockSocket);
+
+      sender.cleanUp();
+
+      expect(offSpy).not.toHaveBeenCalled();
+    });
+
+    it("detaches drain handler when cleanup runs during a pending drain wait", () => {
+      const offSpy = vi.spyOn(mockSocket, "off");
+      sender.attach(mockSocket);
+      const drainHandler = vi.fn();
+      (sender as unknown as { drainHandler: () => void }).drainHandler = drainHandler;
+
+      sender.cleanUp();
+
+      expect(offSpy).toHaveBeenCalledWith("drain", drainHandler);
+    });
+  });
+
   describe("send method", () => {
     it("should throw DataSenderError when no socket is attached", async () => {
       const testData = Buffer.from("test");
@@ -121,6 +147,20 @@ describe("WebSocketDataSender", () => {
       await sender.send(testData);
 
       expect(mockSocket.write).toHaveBeenCalledOnce();
+    });
+
+    it("should throw when sending while awaiting a drain event", async () => {
+      sender.attach(mockSocket);
+      mockSocket.write.mockReturnValue(false);
+
+      const firstSend = sender.send(Buffer.from("first"));
+
+      await expect(sender.send(Buffer.from("second"))).rejects.toThrow(
+        "Cannot send new data while awaiting drain.",
+      );
+
+      mockSocket.emit("drain");
+      await firstSend;
     });
   });
 
@@ -287,6 +327,15 @@ describe("WebSocketDataSender", () => {
       expect(firstFrame).not.toEqual(secondFrame);
       expect(firstFrame.subarray(2, 6)).toEqual(Buffer.from([0x11, 0x22, 0x33, 0x44]));
       expect(secondFrame.subarray(2, 6)).toEqual(Buffer.from([0x55, 0x66, 0x77, 0x88]));
+    });
+
+    it("falls back to zero for missing payload and mask bytes", async () => {
+      mockRandomBytes.mockReturnValue(Buffer.alloc(0));
+
+      await sender.send({ length: 2 } as unknown as Buffer);
+
+      const writtenFrame = getWrittenFrame();
+      expect(writtenFrame.subarray(6, 8)).toEqual(Buffer.from([0x00, 0x00]));
     });
   });
 

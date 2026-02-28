@@ -193,6 +193,23 @@ describe("WebSocketTransport", () => {
 
       await assertion;
     });
+
+    it("does not destroy TLS socket twice if it is already destroyed", async () => {
+      (mockTlsSocket as unknown as { destroyed?: boolean }).destroyed = true;
+      const setupPromise = WebSocketTransport.setupTransport(
+        mockInitialSocket,
+        mockConnectionOptions,
+      );
+
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("secureConnect");
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("data", Buffer.from("HTTP/1.1 500 Internal Server Error\r\n\r\n"));
+
+      await expect(setupPromise).rejects.toThrow(getWrappedErrorPrefix());
+      expect(mockTlsSocket.destroy).not.toHaveBeenCalled();
+      expect(mockInitialSocket.destroy).toHaveBeenCalled();
+    });
   });
 
   describe("WebSocket Handshake Failures", () => {
@@ -253,6 +270,84 @@ describe("WebSocketTransport", () => {
         "\r\n",
       ].join("\r\n");
       await testHandshakeFailure(response, "Invalid or missing Connection header");
+    });
+
+    it("should fail when HTTP status line is malformed", async () => {
+      await testHandshakeFailure(
+        "NOT_HTTP\r\n\r\n",
+        "Invalid HTTP response during WebSocket handshake",
+      );
+    });
+
+    it("should fail when server advertises unexpected websocket version", async () => {
+      const response = [
+        "HTTP/1.1 101 Switching Protocols",
+        "Upgrade: websocket",
+        "Connection: Upgrade",
+        `Sec-WebSocket-Accept: ${FAKE_ACCEPT_KEY}`,
+        "Sec-WebSocket-Version: 12",
+        "\r\n",
+      ].join("\r\n");
+
+      await testHandshakeFailure(response, "Unexpected Sec-WebSocket-Version header value");
+    });
+
+    it("should handle partial handshake response chunks before completion", async () => {
+      const setupPromise = WebSocketTransport.setupTransport(
+        mockInitialSocket,
+        mockConnectionOptions,
+      );
+
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("secureConnect");
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit(
+        "data",
+        Buffer.from("HTTP/1.1 101 Switching Protocols\r\nUpgrade: websocket"),
+      );
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit(
+        "data",
+        Buffer.from(`\r\nConnection: Upgrade\r\nSec-WebSocket-Accept: ${FAKE_ACCEPT_KEY}\r\n\r\n`),
+      );
+
+      await expect(setupPromise).resolves.toBe(mockTlsSocket);
+    });
+
+    it("wraps handshake request write failures", async () => {
+      mockTlsSocket.write = vi.fn((_data, cb?: (err?: Error) => void) => {
+        cb?.(new Error("write failed"));
+      }) as never;
+
+      const setupPromise = WebSocketTransport.setupTransport(
+        mockInitialSocket,
+        mockConnectionOptions,
+      );
+
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("secureConnect");
+
+      await expect(setupPromise).rejects.toThrow(getWrappedErrorPrefix());
+      await expect(setupPromise).rejects.toSatisfy((e: TransportError) =>
+        (e.cause as Error).message.includes("Failed to write WebSocket handshake request"),
+      );
+    });
+
+    it("keeps handshake cleanup idempotent when multiple failures race", async () => {
+      mockTlsSocket.write = vi.fn((_data, cb?: (err?: Error) => void) => {
+        queueMicrotask(() => cb?.(new Error("write failed")));
+      }) as never;
+
+      const setupPromise = WebSocketTransport.setupTransport(
+        mockInitialSocket,
+        mockConnectionOptions,
+      );
+
+      await vi.advanceTimersByTimeAsync(0);
+      mockTlsSocket.emit("secureConnect");
+      mockTlsSocket.emit("error", new Error("socket failure"));
+
+      await expect(setupPromise).rejects.toThrow(getWrappedErrorPrefix());
     });
   });
 });

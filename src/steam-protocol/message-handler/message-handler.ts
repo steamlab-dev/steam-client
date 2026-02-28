@@ -61,7 +61,7 @@ export default class MessageHandler {
     let currentMessage: ParsedMessage | SteamMessage = message;
 
     for (const handler of this.handlers) {
-      if (!handler.canHandle(message)) {
+      if (!handler.canHandle(currentMessage as ParsedMessage)) {
         continue;
       }
 

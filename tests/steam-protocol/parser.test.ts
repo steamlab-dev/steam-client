@@ -187,4 +187,42 @@ describe("MessageParser", () => {
       "Malformed multi-message chunk: expected 32 bytes but only 4 available",
     );
   });
+
+  it("maps service call eMsgs to fallback message names", async () => {
+    const protos = { decode: vi.fn().mockReturnValue({}) };
+    const parser = new MessageParser(protos as never);
+
+    const servicePacket = buildProtoPacket(
+      EMsg.k_EMsgServiceMethod,
+      Buffer.from([0x01]),
+      Buffer.from([0x02]),
+    );
+    const serviceResPacket = buildProtoPacket(
+      EMsg.k_EMsgServiceMethodResponse,
+      Buffer.from([0x01]),
+      Buffer.from([0x02]),
+    );
+
+    const [serviceParsed] = await parser.parse(servicePacket);
+    const [serviceResParsed] = await parser.parse(serviceResPacket);
+
+    expect(serviceParsed?.msgName).toBe("ServiceMethod");
+    expect(serviceResParsed?.msgName).toBe("ServiceMethodResponse");
+  });
+
+  it("throws when multi message body is missing", async () => {
+    const protos = {
+      decode: vi.fn((name: string) => {
+        if (name === "CMsgMulti") {
+          return { size_unzipped: 0 };
+        }
+        return {};
+      }),
+    };
+
+    const parser = new MessageParser(protos as never);
+    const topPacket = Buffer.concat([encodeRawEMsg(EMsg.k_EMsgMulti, false), Buffer.from([0x01])]);
+
+    await expect(parser.parse(topPacket)).rejects.toThrow("Multi message missing body");
+  });
 });

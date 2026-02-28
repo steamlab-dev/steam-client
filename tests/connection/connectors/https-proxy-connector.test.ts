@@ -177,4 +177,51 @@ describe("HttpsProxyConnector", () => {
       (error.cause as Error).message.includes("Socket timed out"),
     );
   });
+
+  it("rejects when TLS upgrade does not provide a socket", async () => {
+    const tlsUpgradeSpy = vi
+      .spyOn(
+        HttpsProxyConnector as unknown as {
+          performProxyTlsUpgrade: (...args: unknown[]) => Promise<unknown>;
+        },
+        "performProxyTlsUpgrade",
+      )
+      .mockResolvedValue(undefined);
+
+    await expect(HttpsProxyConnector.connect(options)).rejects.toThrow(
+      "Failed to connect via HTTPS proxy proxy.example.com:8443 to steam.example.com:27017",
+    );
+
+    tlsUpgradeSpy.mockRestore();
+  });
+
+  it("rejects when CONNECT write callback returns an error", async () => {
+    secureProxySocket.write = vi.fn((_req, cb?: (err?: Error) => void) => {
+      cb?.(new Error("broken pipe"));
+      return true;
+    }) as never;
+
+    const connectPromise = HttpsProxyConnector.connect(options);
+
+    await flushMicrotasks();
+    secureProxySocket.emit("secureConnect");
+    await flushMicrotasks();
+
+    await expect(connectPromise).rejects.toThrow(
+      "Failed to connect via HTTPS proxy proxy.example.com:8443 to steam.example.com:27017",
+    );
+  });
+
+  it("does not destroy proxy socket again when already destroyed", async () => {
+    proxySocket.destroyed = true;
+    const connectPromise = HttpsProxyConnector.connect(options);
+
+    await flushMicrotasks();
+    secureProxySocket.emit("error", new Error("tls fail"));
+
+    await expect(connectPromise).rejects.toThrow(
+      "Failed to connect via HTTPS proxy proxy.example.com:8443 to steam.example.com:27017",
+    );
+    expect(proxySocket.destroy).not.toHaveBeenCalled();
+  });
 });

@@ -17,7 +17,7 @@ export class TypedEventEmitter<T> {
     return this;
   }
 
-  off<K extends keyof T>(event: K, listener: T[K]): this {
+  off<K extends keyof T>(event: K, listener?: T[K]): this {
     if (!listener) {
       return this;
     }
@@ -33,7 +33,12 @@ export class TypedEventEmitter<T> {
   }
 
   removeAllListeners<K extends keyof T>(event?: K): this {
-    this.emitter.removeAllListeners(event as string | undefined);
+    if (typeof event === "undefined") {
+      this.emitter.removeAllListeners();
+      return this;
+    }
+
+    this.emitter.removeAllListeners(event as string);
     return this;
   }
 }

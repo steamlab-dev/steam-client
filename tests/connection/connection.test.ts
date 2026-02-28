@@ -166,6 +166,19 @@ describe("Connection", () => {
 
       expect(cleanUpSpy).toHaveBeenCalledOnce();
     });
+
+    it("should still connect when pipeline is undefined", async () => {
+      (connection as unknown as { pipeline?: unknown }).pipeline = undefined;
+
+      await expect(connection.connect()).resolves.toBe(mockContext.socket);
+      expect(mockPipeline.execute).not.toHaveBeenCalled();
+    });
+
+    it("should throw when context socket is missing after pipeline execution", async () => {
+      (mockContext as unknown as { socket?: Socket }).socket = undefined;
+
+      await expect(connection.connect()).rejects.toThrow("Connection socket is undefined");
+    });
   });
 
   describe("disconnect", () => {
@@ -258,6 +271,15 @@ describe("Connection", () => {
       expect(onSpy).toHaveBeenCalledWith("disconnected", expect.any(Function));
     });
 
+    it("should not register duplicate disconnected handlers when already attached", async () => {
+      const onceSpy = vi.spyOn(connection, "once");
+      await connection.connect();
+
+      (connection as unknown as { handleEvents: () => void }).handleEvents();
+
+      expect(onceSpy).toHaveBeenCalledTimes(1);
+    });
+
     it("should handle 'disconnected' event and cleanup", async () => {
       const disconnectedListener = vi.fn();
       connection.on("disconnected", disconnectedListener);
@@ -316,6 +338,18 @@ describe("Connection", () => {
         expect(mockContext.eventManager.cleanUp).toHaveBeenCalledOnce();
         expect(mockContext.parser.cleanUp).toHaveBeenCalledOnce();
         expect((connection as unknown as { context?: unknown }).context).toBeUndefined();
+      });
+
+      it("should cleanup safely when context has no socket", async () => {
+        (connection as unknown as { context?: unknown }).context = {
+          ...mockContext,
+          socket: undefined,
+        };
+
+        await (connection as unknown as { cleanUp: () => Promise<void> }).cleanUp();
+
+        expect(mockContext.stateManager.setDisconnected).toHaveBeenCalledOnce();
+        expect(mockContext.eventManager.cleanUp).toHaveBeenCalledOnce();
       });
 
       it("should be idempotent", async () => {

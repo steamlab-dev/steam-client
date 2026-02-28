@@ -212,4 +212,16 @@ describe("HttpProxyConnector", () => {
     );
     expect(mockSocket.destroy).toHaveBeenCalled();
   });
+
+  it("should not destroy socket again if it is already destroyed", async () => {
+    mockSocket.destroyed = true;
+    const connectPromise = HttpProxyConnector.connect(options);
+    await flushMicrotasks();
+    mockSocket.emit("error", new Error("proxy down"));
+
+    await expect(connectPromise).rejects.toThrow(
+      `Failed to connect via HTTP proxy ${options.proxy?.host}:${options.proxy?.port} to ${options.steamCM.host}:${options.steamCM.port}`,
+    );
+    expect(mockSocket.destroy).not.toHaveBeenCalled();
+  });
 });

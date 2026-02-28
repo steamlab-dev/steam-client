@@ -158,4 +158,49 @@ describe("socketRace", () => {
     expect(mockSocket.off).toHaveBeenCalledWith("error", expect.any(Function));
     expect(mockSocket.off).toHaveBeenCalledWith("close", expect.any(Function));
   });
+
+  it("handles late operation resolution after socket error without settling twice", async () => {
+    let resolveOperation!: (value: string) => void;
+    const operation = new Promise<string>((resolve) => {
+      resolveOperation = resolve;
+    });
+
+    const racePromise = socketRace({
+      socket: mockSocket as unknown as Socket,
+      operation,
+      timeoutMs: 1000,
+    });
+
+    const socketError = new Error("socket failed first");
+    mockSocket.emit("error", socketError);
+    resolveOperation("late-result");
+
+    await expect(racePromise).rejects.toThrow(socketError);
+  });
+
+  it("keeps timeout callback inert when timer handle is unavailable", async () => {
+    const setTimeoutSpy = vi.spyOn(globalThis, "setTimeout").mockImplementation(((
+      cb: (...args: unknown[]) => void,
+    ) => {
+      queueMicrotask(() => {
+        queueMicrotask(() => {
+          if (typeof cb === "function") {
+            cb();
+          }
+        });
+      });
+      return null as unknown as NodeJS.Timeout;
+    }) as typeof setTimeout);
+
+    const racePromise = socketRace({
+      socket: mockSocket as unknown as Socket,
+      operation: Promise.resolve("ok"),
+      timeoutMs: 1000,
+    });
+
+    await expect(racePromise).resolves.toBe("ok");
+    await Promise.resolve();
+
+    setTimeoutSpy.mockRestore();
+  });
 });
