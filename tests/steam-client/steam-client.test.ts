@@ -119,6 +119,19 @@ describe("SteamClient", () => {
     }
   });
 
+  it("rethrows existing SteamClientError from connect without re-wrapping", async () => {
+    const original = new SteamClientError("already client error", "client");
+    steamProtocol.connect.mockRejectedValueOnce(original);
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.connect();
+      throw new Error("Expected connect to throw");
+    } catch (err) {
+      expect(err).toBe(original);
+    }
+  });
+
   it("wraps disconnect failures as SteamClientError with client subsystem", () => {
     const cause = new Error("disconnect failed");
     steamProtocol.disconnect.mockImplementationOnce(() => {
@@ -135,6 +148,21 @@ describe("SteamClient", () => {
         subsystem: "client",
         cause,
       });
+    }
+  });
+
+  it("rethrows existing SteamClientError from disconnect without re-wrapping", () => {
+    const original = new SteamClientError("already disconnected", "client");
+    steamProtocol.disconnect.mockImplementationOnce(() => {
+      throw original;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      client.disconnect();
+      throw new Error("Expected disconnect to throw");
+    } catch (err) {
+      expect(err).toBe(original);
     }
   });
 
@@ -212,6 +240,21 @@ describe("SteamClient", () => {
     }
   });
 
+  it("rethrows existing SteamClientError from logonRequest without re-wrapping", async () => {
+    const original = new SteamClientError("already protocol error", "protocol");
+    steamProtocol.sendWithResponse.mockRejectedValueOnce(original);
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.logonRequest({
+        access_token: "token",
+      } as never);
+      throw new Error("Expected logonRequest to throw");
+    } catch (err) {
+      expect(err).toBe(original);
+    }
+  });
+
   it("sends logon and status messages when access token exists", async () => {
     steamProtocol.sendWithResponse.mockResolvedValue({ ok: true });
     const client = new SteamClient(options as never);
@@ -267,6 +310,24 @@ describe("SteamClient", () => {
     }
   });
 
+  it("rethrows existing SteamClientError from addMsgHandler without re-wrapping", () => {
+    const original = new SteamClientError("already add handler", "client");
+    steamProtocol.addMessageHandler
+      .mockImplementationOnce(() => {})
+      .mockImplementationOnce(() => {
+        throw original;
+      });
+    const client = new SteamClient(options as never);
+    const customHandler = { canHandle: vi.fn(), handle: vi.fn() };
+
+    try {
+      client.addMsgHandler(customHandler as never);
+      throw new Error("Expected addMsgHandler to throw");
+    } catch (err) {
+      expect(err).toBe(original);
+    }
+  });
+
   it("wraps tracker failures in startPlaying as gameplay subsystem", async () => {
     const cause = new Error("track failed");
     tracker.track.mockImplementationOnce(() => {
@@ -286,6 +347,21 @@ describe("SteamClient", () => {
     }
   });
 
+  it("rethrows existing SteamClientError from startPlaying without re-wrapping", async () => {
+    const original = new SteamClientError("already gameplay", "gameplay");
+    tracker.track.mockImplementationOnce(() => {
+      throw original;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      await client.startPlaying(730);
+      throw new Error("Expected startPlaying to throw");
+    } catch (err) {
+      expect(err).toBe(original);
+    }
+  });
+
   it("wraps tracker failures in stopPlaying as gameplay subsystem", () => {
     const cause = new Error("untrack failed");
     tracker.untrack.mockImplementationOnce(() => {
@@ -302,6 +378,21 @@ describe("SteamClient", () => {
         subsystem: "gameplay",
         cause,
       });
+    }
+  });
+
+  it("rethrows existing SteamClientError from stopPlaying without re-wrapping", () => {
+    const original = new SteamClientError("already stop", "gameplay");
+    tracker.untrack.mockImplementationOnce(() => {
+      throw original;
+    });
+    const client = new SteamClient(options as never);
+
+    try {
+      client.stopPlaying(730);
+      throw new Error("Expected stopPlaying to throw");
+    } catch (err) {
+      expect(err).toBe(original);
     }
   });
 });
