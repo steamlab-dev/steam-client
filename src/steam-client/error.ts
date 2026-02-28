@@ -1,6 +1,12 @@
 import GenericError from "@/common/generic-error";
 
-export type SteamClientSubsystem = "client" | "session" | "gameplay" | "validation" | "protocol";
+export type SteamClientSubsystem =
+  | "client"
+  | "session"
+  | "gameplay"
+  | "validation"
+  | "protocol"
+  | "services";
 
 export default class SteamClientError extends GenericError {
   constructor(

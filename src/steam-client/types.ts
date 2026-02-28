@@ -1,4 +1,4 @@
-import type { AuthenticationEvents } from "@/services/authentication";
+import type { AuthenticationEvents } from "@/steam-client/services/authentication";
 import type { SteamProtocolEvents } from "@/steam-protocol/types";
 
 export type SteamClientEvents = SteamProtocolEvents & AuthenticationEvents;

@@ -13,7 +13,7 @@ vi.mock("@/steam-protocol/proto-manager", () => ({
 vi.mock("@/steam-protocol/steam-protocol", () => ({
   default: vi.fn(),
 }));
-vi.mock("@/services", () => ({
+vi.mock("@/steam-client/services", () => ({
   default: vi.fn(),
 }));
 vi.mock("@/steam-client/games-played-tracker", () => ({
@@ -33,8 +33,8 @@ vi.mock("@/common/utils", async (importOriginal) => {
   };
 });
 
-import initiateServices from "@/services";
 import GamesPlayedTracker from "@/steam-client/games-played-tracker";
+import initiateServices from "@/steam-client/services";
 import SessionManager from "@/steam-client/session-manager";
 import ProtoManager from "@/steam-protocol/proto-manager";
 import SteamProtocol from "@/steam-protocol/steam-protocol";

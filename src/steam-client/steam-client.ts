@@ -4,7 +4,7 @@ import type { CMsgClientGamesPlayed } from "@/common/steam-language/protos-defin
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
 import { jwtToJson } from "@/common/utils";
 import type { ConnectionOptions } from "@/connection/types";
-import initiateServices, { type Services } from "@/services";
+import initiateServices, { type Services } from "@/steam-client/services";
 import SteamProtoConstants from "@/steam-protocol/constants";
 import type { MsgHandler } from "@/steam-protocol/message-handler/types";
 import ProtoManager from "@/steam-protocol/proto-manager";

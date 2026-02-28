@@ -11,31 +11,36 @@ import type {
   CCredentials_ValidateEmailAddress_Response,
   CredentialsService,
 } from "@/common/steam-language/protos-definitions/steam/steammessages_credentials.steamclient";
+import SteamClientError from "@/steam-client/error";
 
 export default class Credentials implements CredentialsService {
   GetSteamGuardDetails(
     _request: CCredentials_GetSteamGuardDetails_Request,
   ): Promise<CCredentials_GetSteamGuardDetails_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   ValidateEmailAddress(
     _request: CCredentials_ValidateEmailAddress_Request,
   ): Promise<CCredentials_ValidateEmailAddress_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SteamGuardPhishingReport(
     _request: CCredentials_SteamGuardPhishingReport_Request,
   ): Promise<CCredentials_SteamGuardPhishingReport_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetCredentialChangeTimeDetails(
     _request: CCredentials_LastCredentialChangeTime_Request,
   ): Promise<CCredentials_LastCredentialChangeTime_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAccountAuthSecret(
     _request: CCredentials_GetAccountAuthSecret_Request,
   ): Promise<CCredentials_GetAccountAuthSecret_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
+  }
+
+  private notImplemented(): never {
+    throw new SteamClientError("Method not implemented.", "services");
   }
 }

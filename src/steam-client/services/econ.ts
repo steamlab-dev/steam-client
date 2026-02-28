@@ -11,31 +11,36 @@ import type {
   CEcon_GetTradeOfferAccessToken_Response,
   EconService as IEconService,
 } from "@/common/steam-language/protos-definitions/steam/steammessages_econ.steamclient";
+import SteamClientError from "@/steam-client/error";
 
 export default class EconService implements IEconService {
   GetInventoryItemsWithDescriptions(
     _request: CEcon_GetInventoryItemsWithDescriptions_Request,
   ): Promise<CEcon_GetInventoryItemsWithDescriptions_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetTradeOfferAccessToken(
     _request: CEcon_GetTradeOfferAccessToken_Request,
   ): Promise<CEcon_GetTradeOfferAccessToken_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   ClientGetItemShopOverlayAuthURL(
     _request: CEcon_ClientGetItemShopOverlayAuthURL_Request,
   ): Promise<CEcon_ClientGetItemShopOverlayAuthURL_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAssetClassInfo(
     _request: CEcon_GetAssetClassInfo_Request,
   ): Promise<CEcon_GetAssetClassInfo_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAssetPropertySchema(
     _request: CEcon_GetAssetPropertySchema_Request,
   ): Promise<CEcon_GetAssetPropertySchema_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
+  }
+
+  private notImplemented(): never {
+    throw new SteamClientError("Method not implemented.", "services");
   }
 }

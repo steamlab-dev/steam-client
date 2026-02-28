@@ -1,6 +1,5 @@
 import { setTimeout } from "node:timers/promises";
 import Long from "long";
-import GenericError from "@/common/generic-error";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { ESessionPersistence } from "@/common/steam-language/protos-definitions/steam/enums";
 import {
@@ -46,6 +45,7 @@ import {
   hasConfirmationType,
   jwtToJson,
 } from "@/common/utils";
+import SteamClientError, { type SteamClientSubsystem } from "@/steam-client/error";
 import SteamProtoConstants from "@/steam-protocol/constants";
 import type SteamProtocol from "@/steam-protocol/steam-protocol";
 
@@ -61,8 +61,6 @@ export interface AuthenticationEvents {
   "steam-auth-tokens": (tokens: { refreshToken: string; accessToken: string }) => void;
 }
 
-export class AuthenticationError extends GenericError {}
-
 export default class AuthenticationService implements IAuthenticationService {
   private lock = false;
 
@@ -74,7 +72,7 @@ export default class AuthenticationService implements IAuthenticationService {
   async loginViaQr(
     req: CAuthentication_DeviceDetails = {},
   ): Promise<SteamProtos["CMsgClientLogOnResponse"]> {
-    this.adquireLock();
+    this.acquireLock();
 
     const device_details: CAuthentication_DeviceDetails = {
       device_friendly_name: createMachineName(),
@@ -89,7 +87,10 @@ export default class AuthenticationService implements IAuthenticationService {
       // 2. Send confirmation QR to user
       const challengeUrl = beginAuthRes.challenge_url;
       if (!challengeUrl) {
-        throw new AuthenticationError("Missing challenge URL from BeginAuthSessionViaQR");
+        throw new SteamClientError(
+          "Missing challenge URL from BeginAuthSessionViaQR",
+          "validation",
+        );
       }
       this.emitter.emit("authentication-qr", {
         imageQr: await genImageQR(challengeUrl),
@@ -99,7 +100,10 @@ export default class AuthenticationService implements IAuthenticationService {
       // 3. Start polling for user response to the QR
       const { client_id, request_id } = beginAuthRes;
       if (!client_id || !request_id) {
-        throw new AuthenticationError("Missing client_id or request_id from BeginAuthSessionViaQR");
+        throw new SteamClientError(
+          "Missing client_id or request_id from BeginAuthSessionViaQR",
+          "validation",
+        );
       }
       const pollingRes = await this.PollAuthSessionStatus({
         client_id,
@@ -108,7 +112,7 @@ export default class AuthenticationService implements IAuthenticationService {
 
       // 4. Get steamid from refresh_token and set it to the session
       if (!pollingRes.refresh_token || !pollingRes.access_token) {
-        throw new AuthenticationError("Polling response missing refresh/access token");
+        throw new SteamClientError("Polling response missing refresh/access token", "validation");
       }
 
       this.emitter.emit("steam-auth-tokens", {
@@ -126,6 +130,8 @@ export default class AuthenticationService implements IAuthenticationService {
         machine_id: device_details.machine_id,
         access_token: pollingRes.refresh_token,
       });
+    } catch (error) {
+      this.wrapServiceError("Failed to login via QR", error);
     } finally {
       this.releaseLock();
     }
@@ -135,7 +141,7 @@ export default class AuthenticationService implements IAuthenticationService {
     req: loginViaCredentialsReq,
     onSteamGuardRequired: () => Promise<string>,
   ): Promise<SteamProtos["CMsgClientLogOnResponse"]> {
-    this.adquireLock();
+    this.acquireLock();
 
     const device_details: CAuthentication_DeviceDetails = {
       device_friendly_name: createMachineName(),
@@ -176,7 +182,7 @@ export default class AuthenticationService implements IAuthenticationService {
 
       // 6. Get steamid from refresh_token and set it to the session
       if (!pollingRes.refresh_token || !pollingRes.access_token) {
-        throw new AuthenticationError("Polling response missing refresh/access token");
+        throw new SteamClientError("Polling response missing refresh/access token", "validation");
       }
 
       this.emitter.emit("steam-auth-tokens", {
@@ -194,6 +200,8 @@ export default class AuthenticationService implements IAuthenticationService {
         machine_id: device_details.machine_id,
         access_token: pollingRes.refresh_token,
       });
+    } catch (error) {
+      this.wrapServiceError("Failed to login via credentials", error);
     } finally {
       this.releaseLock();
     }
@@ -212,7 +220,10 @@ export default class AuthenticationService implements IAuthenticationService {
       hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_LegacyMachineAuth) ||
       hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_MachineToken)
     ) {
-      throw new AuthenticationError("Machine token authentication is not supported yet.");
+      throw new SteamClientError(
+        "Machine token authentication is not supported yet.",
+        "validation",
+      );
     }
 
     // Device or email confirmation (no code required, just notification)
@@ -281,32 +292,40 @@ export default class AuthenticationService implements IAuthenticationService {
     });
   }
 
-  GetPasswordRSAPublicKey(
+  async GetPasswordRSAPublicKey(
     _request: CAuthentication_GetPasswordRSAPublicKey_Request,
   ): Promise<CAuthentication_GetPasswordRSAPublicKey_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_GetPasswordRSAPublicKey_Request",
-      payload: _request,
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_GetPasswordRSAPublicKey_Request",
+        payload: _request,
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to get password RSA public key", error);
+    }
   }
 
-  BeginAuthSessionViaQR(
+  async BeginAuthSessionViaQR(
     _request: CAuthentication_BeginAuthSessionViaQR_Request,
   ): Promise<CAuthentication_BeginAuthSessionViaQR_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_BeginAuthSessionViaQR_Request",
-      payload: {
-        device_details: {
-          ...(_request.device_details ?? {}),
-          platform_type: EAuthTokenPlatformType.k_EAuthTokenPlatformType_SteamClient,
-          os_type: SteamProtoConstants.Win11,
-          gaming_device_type: 1,
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_BeginAuthSessionViaQR_Request",
+        payload: {
+          device_details: {
+            ...(_request.device_details ?? {}),
+            platform_type: EAuthTokenPlatformType.k_EAuthTokenPlatformType_SteamClient,
+            os_type: SteamProtoConstants.Win11,
+            gaming_device_type: 1,
+          },
         },
-      },
-    });
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to begin auth session via QR", error);
+    }
   }
 
-  BeginAuthSessionViaCredentials(
+  async BeginAuthSessionViaCredentials(
     _request: CAuthentication_BeginAuthSessionViaCredentials_Request,
   ): Promise<CAuthentication_BeginAuthSessionViaCredentials_Response> {
     const req: CAuthentication_BeginAuthSessionViaCredentials_Request = {
@@ -322,10 +341,14 @@ export default class AuthenticationService implements IAuthenticationService {
       },
     };
 
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_BeginAuthSessionViaCredentials_Request",
-      payload: req,
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_BeginAuthSessionViaCredentials_Request",
+        payload: req,
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to begin auth session via credentials", error);
+    }
   }
 
   async PollAuthSessionStatus(
@@ -363,92 +386,107 @@ export default class AuthenticationService implements IAuthenticationService {
       } catch (error) {
         // If the error was caused by the signal aborting (e.g., from setTimeout),
         if (signal.aborted) {
-          throw new AuthenticationError(`Polling timed out after ${maxDuration / 1000} seconds.`);
+          throw new SteamClientError(
+            `Polling timed out after ${maxDuration / 1000} seconds.`,
+            "session",
+          );
         }
 
         // Otherwise, re-throw the original error (e.g., a network failure).
-        throw error;
+        this.wrapServiceError("Failed to poll auth session status", error);
       }
     }
 
     // 3. This code is now only reachable if the loop was exited due to the signal aborting.
     // We throw an explicit error to make the timeout failure clear to the caller.
-    throw new AuthenticationError(`Polling timed out after ${maxDuration / 1000} seconds.`);
+    throw new SteamClientError(`Polling timed out after ${maxDuration / 1000} seconds.`, "session");
   }
 
-  UpdateAuthSessionWithSteamGuardCode(
+  async UpdateAuthSessionWithSteamGuardCode(
     payload: CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request,
   ): Promise<CAuthentication_UpdateAuthSessionWithSteamGuardCode_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request",
-      payload,
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request",
+        payload,
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to update auth session with steam guard code", error);
+    }
   }
 
-  GetAuthSessionInfo(
+  async GetAuthSessionInfo(
     _request: CAuthentication_GetAuthSessionInfo_Request,
   ): Promise<CAuthentication_GetAuthSessionInfo_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_GetAuthSessionInfo_Request",
-      payload: _request,
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_GetAuthSessionInfo_Request",
+        payload: _request,
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to get auth session info", error);
+    }
   }
 
-  RevokeToken(
+  async RevokeToken(
     payload: CAuthentication_Token_Revoke_Request,
   ): Promise<CAuthentication_Token_Revoke_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CAuthentication_Token_Revoke_Request",
-      payload,
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CAuthentication_Token_Revoke_Request",
+        payload,
+      });
+    } catch (error) {
+      this.wrapServiceError("Failed to revoke token", error);
+    }
   }
 
   GetAuthSessionRiskInfo(
     _request: CAuthentication_GetAuthSessionRiskInfo_Request,
   ): Promise<CAuthentication_GetAuthSessionRiskInfo_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("GetAuthSessionRiskInfo");
   }
   NotifyRiskQuizResults(
     _request: CAuthentication_NotifyRiskQuizResults_Notification,
   ): Promise<void> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("NotifyRiskQuizResults");
   }
   UpdateAuthSessionWithMobileConfirmation(
     _request: CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request,
   ): Promise<CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("UpdateAuthSessionWithMobileConfirmation");
   }
   GenerateAccessTokenForApp(
     _request: CAuthentication_AccessToken_GenerateForApp_Request,
   ): Promise<CAuthentication_AccessToken_GenerateForApp_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("GenerateAccessTokenForApp");
   }
   EnumerateTokens(
     _request: CAuthentication_RefreshToken_Enumerate_Request,
   ): Promise<CAuthentication_RefreshToken_Enumerate_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("EnumerateTokens");
   }
   GetAuthSessionsForAccount(
     _request: CAuthentication_GetAuthSessionsForAccount_Request,
   ): Promise<CAuthentication_GetAuthSessionsForAccount_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("GetAuthSessionsForAccount");
   }
   MigrateMobileSession(
     _request: import("@/common/steam-language/protos-definitions/webui/service_authentication").CAuthentication_MigrateMobileSession_Request,
   ): Promise<
     import("@/common/steam-language/protos-definitions/webui/service_authentication").CAuthentication_MigrateMobileSession_Response
   > {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("MigrateMobileSession");
   }
   RevokeRefreshToken(
     _request: CAuthentication_RefreshToken_Revoke_Request,
   ): Promise<CAuthentication_RefreshToken_Revoke_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented("RevokeRefreshToken");
   }
 
-  private adquireLock() {
+  private acquireLock() {
     if (this.lock) {
-      throw new AuthenticationError("There's an ongoing request.");
+      throw new SteamClientError("There's an ongoing request.", "session");
     }
 
     this.lock = true;
@@ -456,5 +494,20 @@ export default class AuthenticationService implements IAuthenticationService {
 
   private releaseLock() {
     this.lock = false;
+  }
+
+  private wrapServiceError(
+    message: string,
+    err: unknown,
+    subsystem: SteamClientSubsystem = "services",
+  ): never {
+    if (err instanceof SteamClientError) {
+      throw err;
+    }
+    throw new SteamClientError(message, subsystem, err);
+  }
+
+  private notImplemented(methodName: string): never {
+    throw new SteamClientError(`Method not implemented: ${methodName}`, "services");
   }
 }

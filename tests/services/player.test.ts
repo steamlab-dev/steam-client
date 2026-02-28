@@ -1,6 +1,7 @@
 import Long from "long";
 import { describe, expect, it, vi } from "vitest";
-import PlayerService from "@/services/player";
+import SteamClientError from "@/steam-client/error";
+import PlayerService from "@/steam-client/services/player";
 
 describe("PlayerService", () => {
   const createService = () => {
@@ -52,5 +53,48 @@ describe("PlayerService", () => {
         steamid: steamId,
       }),
     });
+  });
+
+  it("wraps GetOwnedGames failures as SteamClientError with services subsystem", async () => {
+    const { service, steamProtocol } = createService();
+    const cause = new Error("service down");
+    steamProtocol.sendServiceCallWithRes.mockRejectedValueOnce(cause);
+
+    try {
+      await service.GetOwnedGames();
+      throw new Error("Expected GetOwnedGames to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "services",
+        cause,
+      });
+    }
+  });
+
+  it("rethrows existing SteamClientError from GetOwnedGames without re-wrapping", async () => {
+    const { service, steamProtocol } = createService();
+    const existing = new SteamClientError("already normalized", "services");
+    steamProtocol.sendServiceCallWithRes.mockRejectedValueOnce(existing);
+
+    try {
+      await service.GetOwnedGames();
+      throw new Error("Expected GetOwnedGames to throw");
+    } catch (err) {
+      expect(err).toBe(existing);
+    }
+  });
+
+  it("throws SteamClientError for not implemented methods", async () => {
+    const { service } = createService();
+    try {
+      await service.GetPlayNext({} as never);
+      throw new Error("Expected GetPlayNext to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "services",
+      });
+    }
   });
 });

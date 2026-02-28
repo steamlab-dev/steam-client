@@ -107,6 +107,7 @@ import type {
   CPlayer_UpdateSteamAnnouncementLastRead_Response,
   PlayerService as IPlayerService,
 } from "@/common/steam-language/protos-definitions/steam/steammessages_player.steamclient";
+import SteamClientError from "@/steam-client/error";
 import type SteamProtocol from "@/steam-protocol/steam-protocol";
 
 export default class PlayerService implements IPlayerService {
@@ -115,267 +116,278 @@ export default class PlayerService implements IPlayerService {
   GetRecentPlaytimeSessionsForChild(
     _request: CPlayer_GetRecentPlaytimeSessionsForChild_Request,
   ): Promise<CPlayer_GetRecentPlaytimeSessionsForChild_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPlayerLinkDetails(
     _request: CPlayer_GetPlayerLinkDetails_Request,
   ): Promise<CPlayer_GetPlayerLinkDetails_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetMutualFriendsForIncomingInvites(
     _request: CPlayer_GetMutualFriendsForIncomingInvites_Request,
   ): Promise<CPlayer_GetMutualFriendsForIncomingInvites_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
-  GetOwnedGames(
+  async GetOwnedGames(
     _request: CPlayer_GetOwnedGames_Request = {},
   ): Promise<CPlayer_GetOwnedGames_Response> {
-    return this.steamProtocol.sendServiceCallWithRes({
-      message: "CPlayer_GetOwnedGames_Request",
-      payload: {
-        include_appinfo: true,
-        include_played_free_games: true,
-        include_free_sub: false,
-        skip_unvetted_apps: false,
-        include_extended_appinfo: true,
-        ..._request,
-        steamid: this.steamProtocol.getSession().steamId,
-      },
-    });
+    try {
+      return await this.steamProtocol.sendServiceCallWithRes({
+        message: "CPlayer_GetOwnedGames_Request",
+        payload: {
+          include_appinfo: true,
+          include_played_free_games: true,
+          include_free_sub: false,
+          skip_unvetted_apps: false,
+          include_extended_appinfo: true,
+          ..._request,
+          steamid: this.steamProtocol.getSession().steamId,
+        },
+      });
+    } catch (error) {
+      if (error instanceof SteamClientError) {
+        throw error;
+      }
+      throw new SteamClientError("Failed to get owned games", "services", error);
+    }
   }
   GetPlayNext(_request: CPlayer_GetPlayNext_Request): Promise<CPlayer_GetPlayNext_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetFriendsGameplayInfo(
     _request: CPlayer_GetFriendsGameplayInfo_Request,
   ): Promise<CPlayer_GetFriendsGameplayInfo_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetGameBadgeLevels(
     _request: CPlayer_GetGameBadgeLevels_Request,
   ): Promise<CPlayer_GetGameBadgeLevels_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetProfileBackground(
     _request: CPlayer_GetProfileBackground_Request,
   ): Promise<CPlayer_GetProfileBackground_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetProfileBackground(
     _request: CPlayer_SetProfileBackground_Request,
   ): Promise<CPlayer_SetProfileBackground_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetMiniProfileBackground(
     _request: CPlayer_GetMiniProfileBackground_Request,
   ): Promise<CPlayer_GetMiniProfileBackground_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetMiniProfileBackground(
     _request: CPlayer_SetMiniProfileBackground_Request,
   ): Promise<CPlayer_SetMiniProfileBackground_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAvatarFrame(
     _request: CPlayer_GetAvatarFrame_Request,
   ): Promise<CPlayer_GetAvatarFrame_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetAvatarFrame(
     _request: CPlayer_SetAvatarFrame_Request,
   ): Promise<CPlayer_SetAvatarFrame_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAnimatedAvatar(
     _request: CPlayer_GetAnimatedAvatar_Request,
   ): Promise<CPlayer_GetAnimatedAvatar_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetAnimatedAvatar(
     _request: CPlayer_SetAnimatedAvatar_Request,
   ): Promise<CPlayer_SetAnimatedAvatar_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetSteamDeckKeyboardSkin(
     _request: CPlayer_GetSteamDeckKeyboardSkin_Request,
   ): Promise<CPlayer_GetSteamDeckKeyboardSkin_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetSteamDeckKeyboardSkin(
     _request: CPlayer_SetSteamDeckKeyboardSkin_Request,
   ): Promise<CPlayer_SetSteamDeckKeyboardSkin_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetProfileItemsOwned(
     _request: CPlayer_GetProfileItemsOwned_Request,
   ): Promise<CPlayer_GetProfileItemsOwned_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetProfileItemsEquipped(
     _request: CPlayer_GetProfileItemsEquipped_Request,
   ): Promise<CPlayer_GetProfileItemsEquipped_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetEquippedProfileItemFlags(
     _request: CPlayer_SetEquippedProfileItemFlags_Request,
   ): Promise<CPlayer_SetEquippedProfileItemFlags_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetEmoticonList(
     _request: CPlayer_GetEmoticonList_Request,
   ): Promise<CPlayer_GetEmoticonList_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetCommunityBadgeProgress(
     _request: CPlayer_GetCommunityBadgeProgress_Request,
   ): Promise<CPlayer_GetCommunityBadgeProgress_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetTopAchievementsForGames(
     _request: CPlayer_GetTopAchievementsForGames_Request,
   ): Promise<CPlayer_GetTopAchievementsForGames_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetAchievementsProgress(
     _request: CPlayer_GetAchievementsProgress_Request,
   ): Promise<CPlayer_GetAchievementsProgress_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetGameAchievements(
     _request: CPlayer_GetGameAchievements_Request,
   ): Promise<CPlayer_GetGameAchievements_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetFavoriteBadge(
     _request: CPlayer_GetFavoriteBadge_Request,
   ): Promise<CPlayer_GetFavoriteBadge_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetFavoriteBadge(
     _request: CPlayer_SetFavoriteBadge_Request,
   ): Promise<CPlayer_SetFavoriteBadge_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetProfileCustomization(
     _request: CPlayer_GetProfileCustomization_Request,
   ): Promise<CPlayer_GetProfileCustomization_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPurchasedProfileCustomizations(
     _request: CPlayer_GetPurchasedProfileCustomizations_Request,
   ): Promise<CPlayer_GetPurchasedProfileCustomizations_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPurchasedAndUpgradedProfileCustomizations(
     _request: CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request,
   ): Promise<CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetProfileThemesAvailable(
     _request: CPlayer_GetProfileThemesAvailable_Request,
   ): Promise<CPlayer_GetProfileThemesAvailable_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetProfileTheme(
     _request: CPlayer_SetProfileTheme_Request,
   ): Promise<CPlayer_SetProfileTheme_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetProfilePreferences(
     _request: CPlayer_SetProfilePreferences_Request,
   ): Promise<CPlayer_SetProfilePreferences_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   PostStatusToFriends(
     _request: CPlayer_PostStatusToFriends_Request,
   ): Promise<CPlayer_PostStatusToFriends_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPostedStatus(
     _request: CPlayer_GetPostedStatus_Request,
   ): Promise<CPlayer_GetPostedStatus_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   DeletePostedStatus(
     _request: CPlayer_DeletePostedStatus_Request,
   ): Promise<CPlayer_DeletePostedStatus_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   ClientGetLastPlayedTimes(
     _request: CPlayer_GetLastPlayedTimes_Request,
   ): Promise<CPlayer_GetLastPlayedTimes_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetTimeSSAAccepted(
     _request: CPlayer_GetTimeSSAAccepted_Request,
   ): Promise<CPlayer_GetTimeSSAAccepted_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   AcceptSSA(_request: CPlayer_AcceptSSA_Request): Promise<CPlayer_AcceptSSA_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetNicknameList(
     _request: CPlayer_GetNicknameList_Request,
   ): Promise<CPlayer_GetNicknameList_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPerFriendPreferences(
     _request: CPlayer_GetPerFriendPreferences_Request,
   ): Promise<CPlayer_GetPerFriendPreferences_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetPerFriendPreferences(
     _request: CPlayer_SetPerFriendPreferences_Request,
   ): Promise<CPlayer_SetPerFriendPreferences_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   AddFriend(_request: CPlayer_AddFriend_Request): Promise<CPlayer_AddFriend_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   RemoveFriend(_request: CPlayer_RemoveFriend_Request): Promise<CPlayer_RemoveFriend_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   IgnoreFriend(_request: CPlayer_IgnoreFriend_Request): Promise<CPlayer_IgnoreFriend_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetCommunityPreferences(
     _request: CPlayer_GetCommunityPreferences_Request,
   ): Promise<CPlayer_GetCommunityPreferences_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   SetCommunityPreferences(
     _request: CPlayer_SetCommunityPreferences_Request,
   ): Promise<CPlayer_SetCommunityPreferences_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetTextFilterWords(
     _request: CPlayer_GetTextFilterWords_Request,
   ): Promise<CPlayer_GetTextFilterWords_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetNewSteamAnnouncementState(
     _request: CPlayer_GetNewSteamAnnouncementState_Request,
   ): Promise<CPlayer_GetNewSteamAnnouncementState_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   UpdateSteamAnnouncementLastRead(
     _request: CPlayer_UpdateSteamAnnouncementLastRead_Request,
   ): Promise<CPlayer_UpdateSteamAnnouncementLastRead_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetPrivacySettings(
     _request: CPlayer_GetPrivacySettings_Request,
   ): Promise<CPlayer_GetPrivacySettings_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   GetDurationControl(
     _request: CPlayer_GetDurationControl_Request,
   ): Promise<CPlayer_GetDurationControl_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
   }
   RecordDisconnectedPlaytime(
     _request: CPlayer_RecordDisconnectedPlaytime_Request,
   ): Promise<CPlayer_RecordDisconnectedPlaytime_Response> {
-    throw new Error("Method not implemented.");
+    return this.notImplemented();
+  }
+
+  private notImplemented(): never {
+    throw new SteamClientError("Method not implemented.", "services");
   }
 }

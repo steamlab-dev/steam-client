@@ -14,8 +14,10 @@ import {
   genTerminalQR,
   jwtToJson,
 } from "@/common/utils";
-import AuthenticationService, { AuthenticationError } from "@/services/authentication";
+import SteamClientError from "@/steam-client/error";
+import AuthenticationService from "@/steam-client/services/authentication";
 import SteamProtoConstants from "@/steam-protocol/constants";
+import { SteamProtocolEResultError } from "@/steam-protocol/error";
 
 vi.mock("node:timers/promises", () => ({
   setTimeout: vi.fn(() => Promise.resolve()),
@@ -106,9 +108,10 @@ describe("AuthenticationService", () => {
       request_id: Buffer.from("r"),
     } as never);
 
-    await expect(service.loginViaQr()).rejects.toThrow(
-      "Missing challenge URL from BeginAuthSessionViaQR",
-    );
+    await expect(service.loginViaQr()).rejects.toMatchObject({
+      message: "Missing challenge URL from BeginAuthSessionViaQR",
+      subsystem: "validation",
+    });
   });
 
   it("loginViaQr throws when client_id is missing", async () => {
@@ -118,9 +121,10 @@ describe("AuthenticationService", () => {
       request_id: Buffer.from("r"),
     } as never);
 
-    await expect(service.loginViaQr()).rejects.toThrow(
-      "Missing client_id or request_id from BeginAuthSessionViaQR",
-    );
+    await expect(service.loginViaQr()).rejects.toMatchObject({
+      message: "Missing client_id or request_id from BeginAuthSessionViaQR",
+      subsystem: "validation",
+    });
   });
 
   it("loginViaQr throws when request_id is missing", async () => {
@@ -146,9 +150,10 @@ describe("AuthenticationService", () => {
       refresh_token: "refresh-only",
     } as never);
 
-    await expect(service.loginViaQr()).rejects.toThrow(
-      "Polling response missing refresh/access token",
-    );
+    await expect(service.loginViaQr()).rejects.toMatchObject({
+      message: "Polling response missing refresh/access token",
+      subsystem: "validation",
+    });
   });
 
   it("loginViaCredentials succeeds with Steam Guard device code flow", async () => {
@@ -336,8 +341,11 @@ describe("AuthenticationService", () => {
     const { service } = createService();
     (service as unknown as { lock: boolean }).lock = true;
 
-    await expect(service.loginViaQr()).rejects.toBeInstanceOf(AuthenticationError);
-    await expect(service.loginViaQr()).rejects.toThrow("There's an ongoing request.");
+    await expect(service.loginViaQr()).rejects.toBeInstanceOf(SteamClientError);
+    await expect(service.loginViaQr()).rejects.toMatchObject({
+      message: "There's an ongoing request.",
+      subsystem: "session",
+    });
   });
 
   it("PollAuthSessionStatus returns immediately when tokens are present", async () => {
@@ -384,12 +392,42 @@ describe("AuthenticationService", () => {
     const networkError = new Error("network failure");
     steamProtocol.sendServiceCallWithRes.mockRejectedValue(networkError);
 
-    await expect(
-      service.PollAuthSessionStatus({
+    try {
+      await service.PollAuthSessionStatus({
         client_id: Long.fromString("1", true),
         request_id: Buffer.from("r"),
-      } as never),
-    ).rejects.toBe(networkError);
+      } as never);
+      throw new Error("Expected PollAuthSessionStatus to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "services",
+        cause: networkError,
+      });
+    }
+  });
+
+  it("preserves SteamProtocolEResultError in cause for service failures", async () => {
+    const { service } = createService();
+    const eresultCause = new SteamProtocolEResultError({
+      protoName: "CAuthentication_BeginAuthSessionViaQR_Response",
+      eresultCode: 5,
+      eMsg: 7512,
+    });
+
+    vi.spyOn(service, "BeginAuthSessionViaQR").mockRejectedValue(eresultCause);
+
+    try {
+      await service.loginViaQr();
+      throw new Error("Expected loginViaQr to throw");
+    } catch (err) {
+      expect(err).toBeInstanceOf(SteamClientError);
+      expect(err).toMatchObject({
+        subsystem: "services",
+        cause: eresultCause,
+      });
+      expect((err as SteamClientError).cause).toBeInstanceOf(SteamProtocolEResultError);
+    }
   });
 
   it("PollAuthSessionStatus throws timeout when signal aborts inside wait", async () => {
