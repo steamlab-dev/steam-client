@@ -1,4 +1,5 @@
 import { isValidRefreshToken } from "./common/utils";
+import type { DisconnectMsg } from "./connection/event-manager";
 import SteamClientError, { type SteamClientSubsystem } from "./steam-client/error";
 import SteamClientImpl from "./steam-client/steam-client";
 import {
@@ -22,3 +23,4 @@ export type { SteamProtocolSubsystem };
 export { SteamClientError };
 export type { SteamClientSubsystem };
 export { SteamClientImpl as SteamClient };
+export type { DisconnectMsg };
