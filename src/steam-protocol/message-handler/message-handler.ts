@@ -81,10 +81,11 @@ export default class MessageHandler {
         currentMessage = decoded;
         decodedMessages.push(decoded);
       } catch (error) {
-        this.emitter.emit(
-          "steam-message-error",
-          new MessageHandlerError("Failed to process steam message", message, error),
-        );
+        const handlerError =
+          error instanceof MessageHandlerError
+            ? error
+            : new MessageHandlerError("Failed to process steam message", message, error);
+        this.emitter.emit("steam-message-error", handlerError);
         break;
       }
     }

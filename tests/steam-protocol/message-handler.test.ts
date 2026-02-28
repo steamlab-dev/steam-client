@@ -99,6 +99,26 @@ describe("MessageHandler", () => {
     expect(nextHandler.handle).not.toHaveBeenCalled();
   });
 
+  it("emits existing MessageHandlerError without re-wrapping", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    const parsed = { eMsg: 2, isProto: true, rawBody: Buffer.alloc(0), header: {} };
+    parser.parse.mockResolvedValue([parsed]);
+
+    const original = new MessageHandlerError("Bad header", parsed as never, new Error("root"));
+    const failingHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockImplementation(() => {
+        throw original;
+      }),
+    };
+
+    handler.addHandler(failingHandler as never);
+
+    await onData?.(Buffer.from([0x03]));
+
+    expect(emitter.emit).toHaveBeenCalledWith("steam-message-error", original);
+  });
+
   it("cleanup detaches data listener from connection", () => {
     const { connection, handler } = createBase();
     const onData = connection.on.mock.calls[0]?.[1];

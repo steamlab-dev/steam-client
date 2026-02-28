@@ -1,6 +1,7 @@
 import Long from "long";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
+import ConnectionError from "@/connection/error";
 import ContextCreator from "@/steam-protocol/context-creator";
 import SteamProtocol, { SteamProtocolError } from "@/steam-protocol/steam-protocol";
 
@@ -126,13 +127,19 @@ describe("SteamProtocol", () => {
 
     const protocol = new SteamProtocol(options);
     const disconnectedHandler = context.connection.once.mock.calls[0]?.[1] as
-      | ((msg: { error: Error; source: "socket" | "parser" }) => void)
+      | ((msg: { error: ConnectionError; source: "socket" | "parser" }) => void)
       | undefined;
 
     expect(disconnectedHandler).toBeTypeOf("function");
 
-    disconnectedHandler?.({ error: new Error("closed"), source: "socket" });
-    disconnectedHandler?.({ error: new Error("closed again"), source: "socket" });
+    disconnectedHandler?.({
+      error: new ConnectionError("closed", "transport"),
+      source: "socket",
+    });
+    disconnectedHandler?.({
+      error: new ConnectionError("closed again", "transport"),
+      source: "socket",
+    });
 
     expect(context.connection.off).toHaveBeenCalledTimes(1);
     expect(context.session.cleanUp).toHaveBeenCalledTimes(1);

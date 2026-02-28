@@ -159,10 +159,19 @@ describe("EventManager", () => {
 
       vi.runAllTimers(); // Execute the pending setImmediate callback
 
-      expect(onDisc).toHaveBeenCalledWith({
-        error: err,
+      expect(onDisc).toHaveBeenCalledTimes(1);
+      const callArgs = onDisc.mock.calls[0];
+      if (!callArgs) {
+        throw new Error("Expected disconnected callback to be called");
+      }
+      const payload = callArgs[0];
+      expect(payload).toEqual({
+        error: expect.any(ConnectionError),
         source: "socket",
       });
+      expect(payload.error.message).toBe("Socket error: socket fail");
+      expect(payload.error.subsystem).toBe("transport");
+      expect(payload.error.cause).toBe(err);
     });
 
     it("emits 'disconnected' when socket emits close with an error", () => {
@@ -177,7 +186,7 @@ describe("EventManager", () => {
       }
       const payload = callArgs[0];
       expect(payload).toEqual({
-        error: expect.any(Error),
+        error: expect.any(ConnectionError),
         source: "socket",
       });
       expect(payload.error?.message).toBe("Socket closed unexpectedly.");
@@ -197,7 +206,7 @@ describe("EventManager", () => {
       }
       const payload = callArgs[0];
       expect(payload).toEqual({
-        error: expect.any(Error),
+        error: expect.any(ConnectionError),
         source: "socket",
       });
       expect(payload.error?.message).toBe("Socket timeout");
@@ -227,9 +236,12 @@ describe("EventManager", () => {
 
       expect(onDisc).toHaveBeenCalledTimes(1);
       expect(onDisc).toHaveBeenCalledWith({
-        error: firstError,
+        error: expect.any(ConnectionError),
         source: "socket",
       });
+      const payload = onDisc.mock.calls[0]?.[0];
+      expect(payload?.error.message).toBe("Socket error: first");
+      expect(payload?.error.cause).toBe(firstError);
     });
   });
 });

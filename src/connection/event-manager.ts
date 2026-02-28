@@ -13,7 +13,7 @@ export class EventManagerError extends ConnectionError {
  * Defines the structure of the message emitted on a 'disconnected' event.
  */
 export interface DisconnectMsg {
-  error: Error;
+  error: ConnectionError;
   source: "socket" | "parser";
 }
 
@@ -112,17 +112,21 @@ export default class EventManager implements IEventManager {
       return;
     }
 
-    this.errorHandler = (error) => this.emitDisconnected({ error, source: "socket" });
+    this.errorHandler = (error) =>
+      this.emitDisconnected({
+        error: this.toTransportDisconnectError("Socket error", error),
+        source: "socket",
+      });
 
     this.closeHandler = () =>
       this.emitDisconnected({
-        error: new ConnectionError("Socket closed unexpectedly.", "transport"),
+        error: this.toTransportDisconnectError("Socket closed unexpectedly."),
         source: "socket",
       });
 
     this.timeoutHandler = () =>
       this.emitDisconnected({
-        error: new ConnectionError("Socket timeout", "transport"),
+        error: this.toTransportDisconnectError("Socket timeout"),
         source: "socket",
       });
 
@@ -170,5 +174,9 @@ export default class EventManager implements IEventManager {
       return;
     }
     this.emitter.off("dataParseError", this.dataParseErrorHandler);
+  }
+
+  private toTransportDisconnectError(message: string, cause?: unknown): ConnectionError {
+    return new ConnectionError(message, "transport", cause);
   }
 }

@@ -3,6 +3,7 @@ import type { MockedFunction } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Connection from "@/connection/connection";
 import ConnectionError from "@/connection/error";
+import type { DisconnectMsg } from "@/connection/event-manager";
 import ConnectionFactory from "@/connection/factory";
 import type { ConnectionOptions } from "@/connection/types";
 
@@ -321,11 +322,15 @@ describe("Connection", () => {
           emitter?: { emit: (...args: unknown[]) => void };
         }
       ).emitter;
-      internalEmitter?.emit("disconnected", new Error("Socket closed"));
+      const disconnectedMsg: DisconnectMsg = {
+        error: new ConnectionError("Socket closed", "transport"),
+        source: "socket",
+      };
+      internalEmitter?.emit("disconnected", disconnectedMsg);
 
       expect(cleanUpSpy).toHaveBeenCalledOnce();
       expect(disconnectedListener).toHaveBeenCalledOnce();
-      expect(disconnectedListener).toHaveBeenCalledWith(new Error("Socket closed"));
+      expect(disconnectedListener).toHaveBeenCalledWith(disconnectedMsg);
     });
 
     it("should forward events from emitter", async () => {
