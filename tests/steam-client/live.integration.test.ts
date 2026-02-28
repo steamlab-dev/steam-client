@@ -43,9 +43,9 @@ describe("Steam-Client", () => {
         );
       };
 
-      steamClient.emitter.once("authentication_qr", qrHandler);
+      steamClient.emitter.once("authentication-qr", qrHandler);
 
-      steamClient.emitter.once("steam_auth_tokens", (tokens) => {
+      steamClient.emitter.once("steam-auth-tokens", (tokens) => {
         console.log("\n--- Steam authentication tokens received ---\n");
         console.log("Refresh Token:", tokens.refreshToken);
         console.log("Access Token:", tokens.accessToken);

@@ -76,11 +76,11 @@ describe("AuthenticationService", () => {
     expect(createMachineId).toHaveBeenCalled();
     expect(genImageQR).toHaveBeenCalledWith("https://challenge");
     expect(genTerminalQR).toHaveBeenCalledWith("https://challenge");
-    expect(emitter.emit).toHaveBeenCalledWith("authentication_qr", {
+    expect(emitter.emit).toHaveBeenCalledWith("authentication-qr", {
       imageQr: "img:https://challenge",
       terminalQr: "term:https://challenge",
     });
-    expect(emitter.emit).toHaveBeenCalledWith("steam_auth_tokens", {
+    expect(emitter.emit).toHaveBeenCalledWith("steam-auth-tokens", {
       refreshToken: "refresh-token",
       accessToken: "access-token",
     });
@@ -180,7 +180,7 @@ describe("AuthenticationService", () => {
 
     expect(encryptRsaPassword).toHaveBeenCalledWith("password", expect.any(Object));
     expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication_2fa_required",
+      "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
     );
     expect(onSteamGuardRequired).toHaveBeenCalledTimes(1);
@@ -274,7 +274,7 @@ describe("AuthenticationService", () => {
       onSteamGuardRequired,
     );
     expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication_2fa_required",
+      "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceConfirmation,
     );
     expect(onSteamGuardRequired).not.toHaveBeenCalled();
@@ -293,7 +293,7 @@ describe("AuthenticationService", () => {
       onSteamGuardRequired,
     );
     expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication_2fa_required",
+      "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation,
     );
     expect(onSteamGuardRequired).not.toHaveBeenCalled();
@@ -371,7 +371,7 @@ describe("AuthenticationService", () => {
 
     expect(genImageQR).toHaveBeenCalledWith("https://new-challenge");
     expect(genTerminalQR).toHaveBeenCalledWith("https://new-challenge");
-    expect(emitter.emit).toHaveBeenCalledWith("authentication_qr", {
+    expect(emitter.emit).toHaveBeenCalledWith("authentication-qr", {
       imageQr: "img:https://new-challenge",
       terminalQr: "term:https://new-challenge",
     });

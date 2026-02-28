@@ -33,6 +33,9 @@ const client = new SteamClient(options);
 
 client.emitter.on("steam-message-error", (error) => {
   console.error("Steam message error:", error);
+  console.error("Subsystem:", error.subsystem);
+  console.error("Raw message:", error.rawMessage);
+  console.error("Cause:", error.cause);
 });
 
 client.emitter.on("disconnected", (msg) => {
@@ -47,13 +50,13 @@ await client.connect();
 QR login emits a QR code that can be displayed as an image or in a terminal.
 
 ```ts
-client.emitter.once("authentication_qr", ({ imageQr, terminalQr }) => {
+client.emitter.once("authentication-qr", ({ imageQr, terminalQr }) => {
   console.log(imageQr);
   console.log(terminalQr);
 });
 
 // Received after authentication
-client.emitter.once("steam_auth_tokens", ({ refreshToken, accessToken }) => {
+client.emitter.once("steam-auth-tokens", ({ refreshToken, accessToken }) => {
   console.log("Refresh token:", refreshToken);
   console.log("Access token:", accessToken);
 });
@@ -74,7 +77,7 @@ import { EAuthSessionGuardType } from "@steamlab/steam-client";
 const pendingLogins = new Map<string, (code: string) => void>();
 
 // Optional: Listen for 2FA requirement notification
-client.emitter.on("authentication_2fa_required", (guardType) => {
+client.emitter.on("authentication-2fa-required", (guardType) => {
   if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode) {
     console.log("Steam Guard code from mobile app required");
   } else if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_EmailCode) {
@@ -87,7 +90,7 @@ client.emitter.on("authentication_2fa_required", (guardType) => {
 });
 
 // Received after authentication
-client.emitter.once("steam_auth_tokens", ({ refreshToken, accessToken }) => {
+client.emitter.once("steam-auth-tokens", ({ refreshToken, accessToken }) => {
   console.log("Refresh token:", refreshToken);
   console.log("Access token:", accessToken);
 });

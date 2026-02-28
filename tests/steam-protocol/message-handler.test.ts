@@ -91,6 +91,8 @@ describe("MessageHandler", () => {
     );
     const emittedError = emitter.emit.mock.calls[0]?.[1] as MessageHandlerError;
     expect(emittedError).toBeInstanceOf(MessageHandlerError);
+    expect(emittedError.name).toBe("MessageHandlerError");
+    expect(emittedError.message).toContain("Failed to process steam message");
     expect(emittedError.subsystem).toBe("handler");
     expect(emittedError.rawMessage).toBe(parsed);
     expect(emittedError.cause).toBeInstanceOf(Error);

@@ -56,9 +56,9 @@ export interface loginViaCredentialsReq {
 }
 
 export interface AuthenticationEvents {
-  authentication_qr: (body: { imageQr: string; terminalQr: string }) => void;
-  authentication_2fa_required: (guardType: EAuthSessionGuardType) => void;
-  steam_auth_tokens: (tokens: { refreshToken: string; accessToken: string }) => void;
+  "authentication-qr": (body: { imageQr: string; terminalQr: string }) => void;
+  "authentication-2fa-required": (guardType: EAuthSessionGuardType) => void;
+  "steam-auth-tokens": (tokens: { refreshToken: string; accessToken: string }) => void;
 }
 
 export class AuthenticationError extends GenericError {}
@@ -91,7 +91,7 @@ export default class AuthenticationService implements IAuthenticationService {
       if (!challengeUrl) {
         throw new AuthenticationError("Missing challenge URL from BeginAuthSessionViaQR");
       }
-      this.emitter.emit("authentication_qr", {
+      this.emitter.emit("authentication-qr", {
         imageQr: await genImageQR(challengeUrl),
         terminalQr: await genTerminalQR(challengeUrl),
       });
@@ -111,7 +111,7 @@ export default class AuthenticationService implements IAuthenticationService {
         throw new AuthenticationError("Polling response missing refresh/access token");
       }
 
-      this.emitter.emit("steam_auth_tokens", {
+      this.emitter.emit("steam-auth-tokens", {
         refreshToken: pollingRes.refresh_token,
         accessToken: pollingRes.access_token,
       });
@@ -179,7 +179,7 @@ export default class AuthenticationService implements IAuthenticationService {
         throw new AuthenticationError("Polling response missing refresh/access token");
       }
 
-      this.emitter.emit("steam_auth_tokens", {
+      this.emitter.emit("steam-auth-tokens", {
         refreshToken: pollingRes.refresh_token,
         accessToken: pollingRes.access_token,
       });
@@ -218,7 +218,7 @@ export default class AuthenticationService implements IAuthenticationService {
     // Device or email confirmation (no code required, just notification)
     if (hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_DeviceConfirmation)) {
       this.emitter.emit(
-        "authentication_2fa_required",
+        "authentication-2fa-required",
         GuardType.k_EAuthSessionGuardType_DeviceConfirmation,
       );
       return;
@@ -226,7 +226,7 @@ export default class AuthenticationService implements IAuthenticationService {
 
     if (hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_EmailConfirmation)) {
       this.emitter.emit(
-        "authentication_2fa_required",
+        "authentication-2fa-required",
         GuardType.k_EAuthSessionGuardType_EmailConfirmation,
       );
       return;
@@ -248,7 +248,7 @@ export default class AuthenticationService implements IAuthenticationService {
         : GuardType.k_EAuthSessionGuardType_EmailCode;
 
       // Emit event to notify that Steam Guard code is needed
-      this.emitter.emit("authentication_2fa_required", guardType);
+      this.emitter.emit("authentication-2fa-required", guardType);
 
       // Call callback to get the code
       const steamGuardCode = await onSteamGuardRequired();
@@ -351,7 +351,7 @@ export default class AuthenticationService implements IAuthenticationService {
 
         if (response.new_challenge_url) {
           const url = response.new_challenge_url;
-          this.emitter.emit("authentication_qr", {
+          this.emitter.emit("authentication-qr", {
             imageQr: await genImageQR(url),
             terminalQr: await genTerminalQR(url),
           });
