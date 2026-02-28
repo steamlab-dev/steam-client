@@ -1,6 +1,6 @@
 import type { Socket } from "node:net";
-import GenericError from "@/common/generic-error";
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
+import ConnectionError from "./error";
 import ConnectionFactory from "./factory";
 import type ConnectionPipeline from "./pipeline/pipeline";
 import type ConnectionStateManager from "./state-manager";
@@ -13,7 +13,7 @@ import type {
   IConnection,
 } from "./types";
 
-export class ConnectionError extends GenericError {}
+export { default as ConnectionError } from "./error";
 
 // Omit dataParserError event from consumer since it's handled internally
 type ConnEventsForConsumer = Omit<ConnectionEvents, "dataParseError">;
@@ -33,7 +33,7 @@ export default class Connection
     private readonly implementations?: ConnectionContextImps,
   ) {
     super();
-    this.context = ConnectionFactory.createConnection(options, {
+    this.context = ConnectionFactory.createConnection(this.options, {
       ...this.implementations,
       emitter: this.getEmitter(),
     });
@@ -48,7 +48,7 @@ export default class Connection
    */
   async connect(): Promise<Socket> {
     if (this.state.hasActiveConnection()) {
-      throw new ConnectionError("There's an active connection");
+      throw new ConnectionError("There's an active connection", "pipeline");
     }
 
     const context = this.requireContext();
@@ -60,12 +60,15 @@ export default class Connection
       }
       this.handleEvents();
       if (!context.socket) {
-        throw new ConnectionError("Connection socket is undefined");
+        throw new ConnectionError("Connection socket is undefined", "pipeline");
       }
       return context.socket;
     } catch (err) {
       this.cleanUp();
-      throw new ConnectionError(err);
+      if (err instanceof ConnectionError) {
+        throw err;
+      }
+      throw new ConnectionError("Failed to establish connection", "pipeline", err);
     }
   }
 
@@ -149,7 +152,7 @@ export default class Connection
   private requireContext(): ConnectionContext {
     const context = this.context;
     if (!context) {
-      throw new ConnectionError("Connection context is undefined");
+      throw new ConnectionError("Connection context is undefined", "pipeline");
     }
     return context;
   }

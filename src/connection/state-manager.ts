@@ -1,9 +1,13 @@
-import GenericError from "@/common/generic-error";
+import ConnectionError from "./error";
 
 /**
  * Custom error type for invalid connection state transitions.
  */
-export class ConnectionStateError extends GenericError {}
+export class ConnectionStateError extends ConnectionError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "pipeline", cause);
+  }
+}
 
 /**
  * Defines the flags that represent the various stages of a connection.

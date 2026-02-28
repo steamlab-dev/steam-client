@@ -1,11 +1,15 @@
-import GenericError from "@/common/generic-error";
+import ConnectionError from "../error";
 import type { ConnectionContext } from "../types";
 import type { ConnectionStep } from "./types";
 
 /**
  * Custom error type for failures occurring within the connection pipeline.
  */
-export class ConnectionPipelineError extends GenericError {}
+export class ConnectionPipelineError extends ConnectionError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "pipeline", cause);
+  }
+}
 
 /**
  * Manages and executes a sequence of steps to establish a connection.

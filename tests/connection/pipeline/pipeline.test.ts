@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import ConnectionError from "@/connection/error";
 import ConnectionPipeline, { ConnectionPipelineError } from "@/connection/pipeline/pipeline";
 import type { ConnectionStep } from "@/connection/pipeline/types";
 import type { ConnectionContext } from "@/connection/types";
@@ -79,6 +80,8 @@ describe("ConnectionPipeline", () => {
 
     await expect(pipeline.execute(context)).rejects.toThrowError(ConnectionPipelineError);
     await expect(pipeline.execute(context)).rejects.toThrowError(/Step 'failStep' failed:/);
+    await expect(pipeline.execute(context)).rejects.toMatchObject({ subsystem: "pipeline" });
+    await expect(pipeline.execute(context)).rejects.toBeInstanceOf(ConnectionError);
   });
 
   it("passes the same context object to all executed steps", async () => {

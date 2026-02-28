@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, type Mock, vi } from "vite
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
 import DataParserError from "@/connection/data-parsers/error";
 import type { DataParser } from "@/connection/data-parsers/types";
+import ConnectionError from "@/connection/error";
 import EventManager, { type DisconnectMsg, EventManagerError } from "@/connection/event-manager";
 import type { ConnectionContext, ConnectionEvents } from "@/connection/types";
 
@@ -180,6 +181,8 @@ describe("EventManager", () => {
         source: "socket",
       });
       expect(payload.error?.message).toBe("Socket closed unexpectedly.");
+      expect(payload.error).toBeInstanceOf(ConnectionError);
+      expect((payload.error as ConnectionError).subsystem).toBe("transport");
     });
 
     it("emits 'disconnected' when socket emits timeout", () => {
@@ -198,6 +201,8 @@ describe("EventManager", () => {
         source: "socket",
       });
       expect(payload.error?.message).toBe("Socket timeout");
+      expect(payload.error).toBeInstanceOf(ConnectionError);
+      expect((payload.error as ConnectionError).subsystem).toBe("transport");
     });
 
     it("emits 'disconnected' when dataParseError is emitted", () => {

@@ -1,7 +1,8 @@
 import type { Socket } from "node:net";
 import type { MockedFunction } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import Connection, { ConnectionError } from "@/connection/connection";
+import Connection from "@/connection/connection";
+import ConnectionError from "@/connection/error";
 import ConnectionFactory from "@/connection/factory";
 import type { ConnectionOptions } from "@/connection/types";
 
@@ -165,6 +166,28 @@ describe("Connection", () => {
       await expect(connection.connect()).rejects.toThrow(ConnectionError);
 
       expect(cleanUpSpy).toHaveBeenCalledOnce();
+    });
+
+    it("wraps unknown connect errors as pipeline ConnectionError", async () => {
+      const pipelineError = new Error("Pipeline execution failed");
+      mockPipeline.execute.mockRejectedValue(pipelineError);
+
+      await expect(connection.connect()).rejects.toMatchObject({
+        subsystem: "pipeline",
+        cause: pipelineError,
+      });
+    });
+
+    it("does not double-wrap ConnectionError from pipeline", async () => {
+      const pipelineError = new ConnectionError("pipeline failed", "pipeline");
+      mockPipeline.execute.mockRejectedValue(pipelineError);
+
+      try {
+        await connection.connect();
+        throw new Error("Expected connect to fail");
+      } catch (error) {
+        expect(error).toBe(pipelineError);
+      }
     });
 
     it("should still connect when pipeline is undefined", async () => {

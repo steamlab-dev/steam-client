@@ -1,9 +1,13 @@
 import type { Socket } from "node:net";
-import GenericError from "@/common/generic-error";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
+import ConnectionError from "./error";
 import type { ConnectionContext, ConnectionEvents } from "./types";
 
-export class EventManagerError extends GenericError {}
+export class EventManagerError extends ConnectionError {
+  constructor(messageOrCause: string | unknown, cause?: unknown) {
+    super(messageOrCause, "pipeline", cause);
+  }
+}
 
 /**
  * Defines the structure of the message emitted on a 'disconnected' event.
@@ -112,13 +116,13 @@ export default class EventManager implements IEventManager {
 
     this.closeHandler = () =>
       this.emitDisconnected({
-        error: new Error("Socket closed unexpectedly."),
+        error: new ConnectionError("Socket closed unexpectedly.", "transport"),
         source: "socket",
       });
 
     this.timeoutHandler = () =>
       this.emitDisconnected({
-        error: new Error("Socket timeout"),
+        error: new ConnectionError("Socket timeout", "transport"),
         source: "socket",
       });
 
@@ -145,8 +149,12 @@ export default class EventManager implements IEventManager {
    */
   private attachDataParseErrorListener(): void {
     this.dataParseErrorHandler = (err: Error) => {
+      const parserError =
+        err instanceof ConnectionError
+          ? err
+          : new ConnectionError("Data parser error", "parser", err);
       this.emitDisconnected({
-        error: err,
+        error: parserError,
         source: "parser",
       });
     };

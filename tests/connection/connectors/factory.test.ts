@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import DirectConnector from "@/connection/connectors/direct-connector";
+import ConnectorError from "@/connection/connectors/error";
 import ConnectorFactory from "@/connection/connectors/factory";
 import HttpProxyConnector from "@/connection/connectors/http-proxy-connector";
 import HttpsProxyConnector from "@/connection/connectors/https-proxy-connector";
 import Socks5ProxyConnector from "@/connection/connectors/Socks5-proxy-connector";
+import ConnectionError from "@/connection/error";
 import type { ConnectionOptions } from "@/connection/types";
 
 describe("ConnectorFactory", () => {
@@ -61,6 +63,14 @@ describe("ConnectorFactory", () => {
       timeout: 5_000,
     } as unknown as ConnectionOptions;
 
-    expect(() => ConnectorFactory.create(options)).toThrow("Unsupported proxy protocol: ftp");
+    try {
+      ConnectorFactory.create(options);
+      throw new Error("Expected factory to throw");
+    } catch (error) {
+      expect(error).toBeInstanceOf(ConnectorError);
+      expect(error).toBeInstanceOf(ConnectionError);
+      expect((error as ConnectorError).subsystem).toBe("connector");
+      expect((error as ConnectorError).message).toContain("Unsupported proxy protocol: ftp");
+    }
   });
 });

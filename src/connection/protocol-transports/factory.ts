@@ -1,4 +1,5 @@
 import type { TransportType } from "../types";
+import TransportError from "./error";
 import type { Transport } from "./types";
 import WebSocketTransport from "./websocket-transport";
 
@@ -15,12 +16,12 @@ export default class TransportFactory {
 
   /**
    * Creates and returns a transport handler based on the specified type.
-   * @throws {Error} If the requested transport type is unsupported.
+   * @throws {TransportError} If the requested transport type is unsupported.
    */
   public static create(type: TransportType): Transport {
     const Transport = TransportFactory.TRANSPORT_MAP[type];
     if (!Transport) {
-      throw new Error(`Unsupported transport: ${type}`);
+      throw new TransportError(`Unsupported transport: ${type}`);
     }
 
     return Transport;
