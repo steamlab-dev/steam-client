@@ -7,6 +7,7 @@ import {
   SteamProtocolError,
   type SteamProtocolSubsystem,
 } from "./steam-protocol/error";
+import type { SteamMessage } from "./steam-protocol/message-handler/types";
 import ProtoManager from "./steam-protocol/proto-manager";
 
 export type { SteamProtos, SteamServices } from "./common/steam-language";
@@ -24,3 +25,4 @@ export { SteamClientError };
 export type { SteamClientSubsystem };
 export { SteamClientImpl as SteamClient };
 export type { DisconnectMsg };
+export type { SteamMessage };
