@@ -18,6 +18,25 @@ export { default as ConnectionError } from "./error";
 // Omit dataParserError event from consumer since it's handled internally
 type ConnEventsForConsumer = Omit<ConnectionEvents, "dataParseError">;
 
+/**
+ * High-level transport lifecycle manager used by the Steam protocol layer.
+ *
+ * How it works:
+ * - Builds a connection context and pipeline via `ConnectionFactory`.
+ * - `connect()` executes pipeline steps in order (validate options, connect socket,
+ *   apply transport, attach sender/parser, attach event manager).
+ * - Parsed inbound payloads are emitted as `"data"` events.
+ * - Transport/parser failures are normalized into a single `"disconnected"` event.
+ * - Cleanup is centralized and idempotent (`disconnect()` or `"disconnected"` both
+ *   end in `cleanUp()`), and tears down listeners, parser/sender hooks, and socket.
+ *
+ * Consumer usage (for example `src/steam-protocol/*`):
+ * 1. Construct once with connection options.
+ * 2. Subscribe to `"data"` and `"disconnected"` before or immediately after connect.
+ * 3. Call `connect()` before calling `send(...)`.
+ * 4. Treat `"disconnected"` as terminal for the instance.
+ * 5. Call `disconnect()` for explicit shutdown.
+ */
 export default class Connection
   extends TypedEventEmitter<ConnEventsForConsumer>
   implements IConnection
