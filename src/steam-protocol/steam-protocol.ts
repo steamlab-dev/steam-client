@@ -21,6 +21,33 @@ import type { SteamProtoContext, SteamProtoContextImps, SteamProtocolEvents } fr
 
 export { SteamProtocolError } from "./error";
 
+/**
+ * Protocol-level orchestrator between `Connection` and `steam-client` services.
+ *
+ * Incoming message flow (from transport to protocol consumers):
+ * 1. `Connection` emits `"data"` with a parsed WebSocket payload buffer.
+ * 2. `MessageHandler` listens to `connection.on("data", ...)` and parses that buffer
+ *    into one or more Steam protocol envelopes.
+ * 3. Each parsed envelope runs through the default handler chain:
+ *    error -> proto response -> service-call response -> non-proto response -> logon side effects.
+ * 4. Decoded messages are emitted on the protocol emitter as `"steam-messages"`.
+ * 5. Handler failures are emitted as `"steam-message-error"`.
+ * 6. Transport/parser failures from `Connection` become `"disconnected"` and trigger protocol cleanup.
+ *
+ * Protocol events exposed via `getEmitter()`:
+ * - `"steam-messages"`: `SteamMessage[]` decoded by the handler chain.
+ * - `"steam-message-error"`: `MessageHandlerError` when a handler fails for a parsed message.
+ * - `"disconnected"`: `DisconnectMsg` from the underlying connection (`source` is `"socket"` or `"parser"`).
+ *
+ * Consumer usage (typically `src/steam-client/*`):
+ * 1. Construct once with options.
+ * 2. Subscribe to `"steam-messages"`, `"steam-message-error"`, and `"disconnected"` via `getEmitter()`.
+ * 3. Call `connect()`; this loads protos, opens transport, and sends initial `ClientHello`.
+ * 4. Use `send`, `sendWithResponse`, `sendServiceCall`, and `sendServiceCallWithRes` for outbound traffic.
+ * 5. Read session state via `getSession()` / `isLoggedIn()` as protocol messages update it.
+ * 6. Optionally add custom handlers via `addMessageHandler(...)`.
+ * 7. Treat disconnect as terminal and create a new instance for reconnect.
+ */
 export default class SteamProtocol {
   private context?: SteamProtoContext;
   private disconnectHandler!: (msg: DisconnectMsg) => void;
