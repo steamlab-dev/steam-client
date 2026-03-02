@@ -22,6 +22,7 @@ export default class ServiceMethodResponseHandler implements MsgHandler {
 
     const decodedMessage: DecodedProtoMessage = {
       ...message,
+      msgName: protoName,
       body: this.protos.decode(protoName, message.rawBody),
     };
 
