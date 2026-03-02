@@ -1,3 +1,4 @@
+import { EMsg } from "@/common/steam-language";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
 import { SteamProtocolError } from "../error";
@@ -38,8 +39,14 @@ export default class MessageHandler {
     const parsedMessages = await this.parser.parse(data);
     const steamMessages = this.runHandlers(parsedMessages);
 
-    if (steamMessages.length) {
-      this.emitter.emit("steam-messages", steamMessages);
+    // Filter out service method call messages from public emission, they are handled by ServiceCallMessenger
+    const publicMessages = steamMessages.filter(
+      (msg) =>
+        msg.eMsg !== EMsg.k_EMsgServiceMethod && msg.eMsg !== EMsg.k_EMsgServiceMethodResponse,
+    );
+
+    if (publicMessages.length) {
+      this.emitter.emit("steam-messages", publicMessages);
     }
   }
 
