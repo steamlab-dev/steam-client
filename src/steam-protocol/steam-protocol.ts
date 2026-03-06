@@ -124,7 +124,7 @@ export default class SteamProtocol {
     context.messageHandler.cleanUp();
     context.protoMessenger.cleanUp();
     context.serviceCallMessenger.cleanUp();
-    context.heartBeat.stop();
+    context.heartBeat.cleanUp();
     this.context = undefined;
   }
 
@@ -145,7 +145,17 @@ export default class SteamProtocol {
   }
 
   disconnect(): void {
-    this.context?.connection.disconnect();
+    const context = this.context;
+    if (!context) {
+      return;
+    }
+
+    context.heartBeat.cleanUp();
+    try {
+      context.connection.disconnect();
+    } finally {
+      this.cleanUp();
+    }
   }
 
   send(req: Omit<ProtoMessageReq, "eMsgRes">): void {

@@ -60,7 +60,7 @@ describe("SteamProtocol", () => {
     };
 
     const heartBeat = {
-      stop: vi.fn(),
+      cleanUp: vi.fn(),
     };
 
     return {
@@ -146,7 +146,7 @@ describe("SteamProtocol", () => {
     expect(context.messageHandler.cleanUp).toHaveBeenCalledTimes(1);
     expect(context.protoMessenger.cleanUp).toHaveBeenCalledTimes(1);
     expect(context.serviceCallMessenger.cleanUp).toHaveBeenCalledTimes(1);
-    expect(context.heartBeat.stop).toHaveBeenCalledTimes(1);
+    expect(context.heartBeat.cleanUp).toHaveBeenCalledTimes(1);
     expect(context.emitter.emit).toHaveBeenCalledTimes(1);
 
     protocol.disconnect();
@@ -188,6 +188,45 @@ describe("SteamProtocol", () => {
         payload: {} as never,
       }),
     ).toThrow("Not Connected");
+  });
+
+  it("manual disconnect stops heartbeat and runs full cleanup without emitting disconnected", () => {
+    const context = createMockContext();
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+    protocol.disconnect();
+
+    expect(context.heartBeat.cleanUp).toHaveBeenCalledTimes(2);
+    expect(context.connection.disconnect).toHaveBeenCalledTimes(1);
+    expect(context.connection.off).toHaveBeenCalledTimes(1);
+    expect(context.session.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.messageHandler.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.protoMessenger.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.serviceCallMessenger.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.emitter.emit).not.toHaveBeenCalled();
+    expect(() => protocol.getEmitter()).toThrow("SteamProtoContext is undefined");
+  });
+
+  it("manual disconnect still cleans protocol resources if connection disconnect throws", () => {
+    const context = createMockContext();
+    const disconnectError = new Error("disconnect failed");
+    context.connection.disconnect.mockImplementation(() => {
+      throw disconnectError;
+    });
+    vi.mocked(ContextCreator.create).mockReturnValue(context as never);
+
+    const protocol = new SteamProtocol(options);
+
+    expect(() => protocol.disconnect()).toThrow(disconnectError);
+    expect(context.heartBeat.cleanUp).toHaveBeenCalledTimes(2);
+    expect(context.connection.off).toHaveBeenCalledTimes(1);
+    expect(context.session.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.messageHandler.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.protoMessenger.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.serviceCallMessenger.cleanUp).toHaveBeenCalledTimes(1);
+    expect(context.emitter.emit).not.toHaveBeenCalled();
+    expect(() => protocol.getEmitter()).toThrow("SteamProtoContext is undefined");
   });
 
   it("throws SteamProtoContext is undefined after context cleanup", () => {

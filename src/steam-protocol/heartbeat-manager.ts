@@ -31,7 +31,7 @@ export default class HeartBeatManager {
       throw new HeartbeatError("Delay must be between 10 and 30 seconds");
     }
 
-    this.stop();
+    this.cleanUp();
     this.interval = setInterval(() => {
       this.protoMessenger.send({
         eMsg: EMsg.k_EMsgClientHeartBeat,
@@ -41,9 +41,9 @@ export default class HeartBeatManager {
   }
 
   /**
-   * Stops the currently running heartbeat interval, if one exists.
+   * Clears the currently running heartbeat interval, if one exists.
    */
-  public stop(): void {
+  public cleanUp(): void {
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = undefined;

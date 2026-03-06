@@ -52,13 +52,13 @@ describe("HeartBeatManager", () => {
     expect(messenger.send).toHaveBeenCalledTimes(2);
   });
 
-  it("stop is idempotent", async () => {
+  it("cleanUp is idempotent", async () => {
     const manager = new HeartBeatManager(messenger as never);
 
-    manager.stop();
+    manager.cleanUp();
     manager.start(10);
-    manager.stop();
-    manager.stop();
+    manager.cleanUp();
+    manager.cleanUp();
 
     await vi.advanceTimersByTimeAsync(20_000);
     expect(messenger.send).not.toHaveBeenCalled();
