@@ -139,7 +139,7 @@ export default class AuthenticationService implements IAuthenticationService {
 
   async loginViaCredentials(
     req: loginViaCredentialsReq,
-    onSteamGuardRequired: () => Promise<string>,
+    onSteamGuardRequired: Promise<string>,
   ): Promise<SteamProtos["CMsgClientLogOnResponse"]> {
     this.acquireLock();
 
@@ -211,7 +211,7 @@ export default class AuthenticationService implements IAuthenticationService {
     confirmations: SteamProtos["CAuthentication_AllowedConfirmation"][],
     client_id: Long | undefined,
     steamid: Long | undefined,
-    onSteamGuardRequired: () => Promise<string>,
+    onSteamGuardRequired: Promise<string>,
   ): Promise<void> {
     const GuardType = EAuthSessionGuardType;
 
@@ -262,9 +262,9 @@ export default class AuthenticationService implements IAuthenticationService {
       this.emitter.emit("authentication-2fa-required", guardType);
 
       // Call callback to get the code
-      const steamGuardCode = await onSteamGuardRequired();
+      const code = await onSteamGuardRequired;
       await this.UpdateAuthSessionWithSteamGuardCode({
-        code: steamGuardCode,
+        code,
         code_type: guardType,
         client_id,
         steamid,

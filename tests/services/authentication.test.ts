@@ -176,7 +176,7 @@ describe("AuthenticationService", () => {
       refresh_token: "refresh-token",
       access_token: "access-token",
     } as never);
-    const onSteamGuardRequired = vi.fn().mockResolvedValue("123456");
+    const onSteamGuardRequired = Promise.resolve("123456");
 
     await service.loginViaCredentials(
       { account_name: "alice", password: "password" },
@@ -188,7 +188,6 @@ describe("AuthenticationService", () => {
       "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
     );
-    expect(onSteamGuardRequired).toHaveBeenCalledTimes(1);
     expect(service.UpdateAuthSessionWithSteamGuardCode).toHaveBeenCalledWith({
       code: "123456",
       code_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
@@ -223,7 +222,7 @@ describe("AuthenticationService", () => {
     await expect(
       service.loginViaCredentials(
         { account_name: "alice", password: "password" },
-        vi.fn().mockResolvedValue("123456"),
+        Promise.resolve("123456"),
       ),
     ).rejects.toThrow("Polling response missing refresh/access token");
   });
@@ -247,7 +246,7 @@ describe("AuthenticationService", () => {
     await expect(
       service.loginViaCredentials(
         { account_name: "alice", password: "password" },
-        vi.fn().mockResolvedValue("123456"),
+        Promise.resolve("123456"),
       ),
     ).rejects.toThrow("Machine token authentication is not supported yet.");
   });
@@ -264,7 +263,7 @@ describe("AuthenticationService", () => {
       access_token: "access",
     } as never);
 
-    const onSteamGuardRequired = vi.fn().mockResolvedValue("123456");
+    const onSteamGuardRequired = Promise.resolve("123456");
 
     vi.spyOn(service, "BeginAuthSessionViaCredentials").mockResolvedValue({
       allowed_confirmations: [
@@ -282,7 +281,6 @@ describe("AuthenticationService", () => {
       "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceConfirmation,
     );
-    expect(onSteamGuardRequired).not.toHaveBeenCalled();
 
     vi.mocked(emitter.emit).mockClear();
     vi.spyOn(service, "BeginAuthSessionViaCredentials").mockResolvedValue({
@@ -301,7 +299,6 @@ describe("AuthenticationService", () => {
       "authentication-2fa-required",
       EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation,
     );
-    expect(onSteamGuardRequired).not.toHaveBeenCalled();
   });
 
   it("loginViaCredentials uses email code guard type when device code is absent", async () => {
@@ -327,7 +324,7 @@ describe("AuthenticationService", () => {
 
     await service.loginViaCredentials(
       { account_name: "alice", password: "password" },
-      vi.fn().mockResolvedValue("MAIL-CODE"),
+      Promise.resolve("MAIL-CODE"),
     );
 
     expect(service.UpdateAuthSessionWithSteamGuardCode).toHaveBeenCalledWith(
