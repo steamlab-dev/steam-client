@@ -6,7 +6,8 @@ import type { DisconnectMsg } from "./connection/event-manager";
 import SteamClientError, { type SteamClientSubsystem } from "./steam-client/error";
 import type {
   AuthenticationEvents,
-  loginViaCredentialsReq,
+  LoginViaCredentialsReq,
+  SteamAuthTokens,
 } from "./steam-client/services/authentication";
 import SteamClientImpl from "./steam-client/steam-client";
 import type { SteamClientEvents } from "./steam-client/types";
@@ -29,7 +30,7 @@ export {
 // Main client API
 export { SteamClientImpl as SteamClient };
 export type { ConnectionOptions } from "./connection/types";
-export type { SteamClientEvents, AuthenticationEvents, loginViaCredentialsReq };
+export type { SteamClientEvents, AuthenticationEvents, LoginViaCredentialsReq, SteamAuthTokens };
 export type { DisconnectMsg, SteamMessage, MsgHandler };
 
 // Errors

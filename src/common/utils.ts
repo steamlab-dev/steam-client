@@ -1,13 +1,8 @@
-import { RSA_PKCS1_PADDING } from "node:constants";
-import { createPublicKey, publicEncrypt, randomBytes } from "node:crypto";
 import { glob } from "node:fs";
 import { access, constants } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import QRCode from "qrcode";
 import type { SteamJWT } from "@/steam-protocol/types";
-import type { SteamProtos } from "./steam-language";
-import type { EAuthSessionGuardType } from "./steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 
 const globAsync = promisify(glob);
 
@@ -85,25 +80,6 @@ const listSubdirectories = async (dirPath: string): Promise<string[]> => {
   }
 };
 
-const createMachineName = (): string => {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const name = Array.from({ length: 5 }, () =>
-    chars.charAt(Math.floor(Math.random() * chars.length)),
-  ).join("");
-  return `DESKTOP-${name}`;
-};
-
-const createMachineId = (): Buffer => {
-  const hexBB3 = randomBytes(20).toString("hex");
-  const hexFF2 = randomBytes(20).toString("hex");
-  const hex3B3 = randomBytes(20).toString("hex");
-
-  return Buffer.from(
-    `004D6573736167654F626A656374000142423300${hexBB3}000146463200${hexFF2}000133423300${hex3B3}000808`,
-    "hex",
-  );
-};
-
 const jwtToJson = (token: string): SteamJWT => {
   const [header, payload] = token.split(".");
   if (!header || !payload) {
@@ -131,71 +107,4 @@ const isValidRefreshToken = (jwt: SteamJWT | string): boolean => {
   );
 };
 
-const encryptRsaPassword = async (
-  text: string,
-  response: SteamProtos["CAuthentication_GetPasswordRSAPublicKey_Response"],
-): Promise<string> => {
-  // 1. Input Validation
-  if (!response.publickey_mod || !response.publickey_exp) {
-    throw new Error("Missing RSA key components from Steam response");
-  }
-
-  try {
-    // 2. Simplified buffer creation directly from hex
-    const modulus = Buffer.from(response.publickey_mod, "hex");
-    const exponent = Buffer.from(response.publickey_exp, "hex");
-
-    // 3. Create the public key using JWK format
-    const publicKey = createPublicKey({
-      key: {
-        kty: "RSA",
-        n: modulus.toString("base64url"), // Use base64url for JWK
-        e: exponent.toString("base64url"),
-      },
-      format: "jwk",
-    });
-
-    // 4. Encrypt the text
-    const encrypted = publicEncrypt(
-      {
-        key: publicKey,
-        padding: RSA_PKCS1_PADDING,
-      },
-      Buffer.from(text, "utf8"),
-    );
-
-    // 5. Return the result. 'async' functions automatically handle the promise.
-    return encrypted.toString("base64");
-  } catch (error) {
-    throw new Error("Failed to encrypt data for Steam.", { cause: error });
-  }
-};
-
-const hasConfirmationType = (
-  confirmations: SteamProtos["CAuthentication_AllowedConfirmation"][],
-  confirmationType: EAuthSessionGuardType,
-): boolean => {
-  return (confirmations || []).some((item) => item.confirmation_type === confirmationType);
-};
-
-const genTerminalQR = async (text: string) => {
-  return QRCode.toString(text, { type: "terminal" });
-};
-
-const genImageQR = async (text: string) => {
-  return QRCode.toDataURL(text);
-};
-
-export {
-  pathExists,
-  findFilesRecursive,
-  listSubdirectories,
-  createMachineName,
-  createMachineId,
-  jwtToJson,
-  isValidRefreshToken,
-  encryptRsaPassword,
-  hasConfirmationType,
-  genTerminalQR,
-  genImageQR,
-};
+export { pathExists, findFilesRecursive, listSubdirectories, jwtToJson, isValidRefreshToken };

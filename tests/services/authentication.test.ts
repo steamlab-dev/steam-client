@@ -6,16 +6,15 @@ import {
   EAuthSessionGuardType,
   EAuthTokenPlatformType,
 } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
+import { jwtToJson } from "@/common/utils";
+import SteamClientError from "@/steam-client/error";
+import AuthenticationService from "@/steam-client/services/authentication";
 import {
   createMachineId,
   createMachineName,
   encryptRsaPassword,
-  genImageQR,
-  genTerminalQR,
-  jwtToJson,
-} from "@/common/utils";
-import SteamClientError from "@/steam-client/error";
-import AuthenticationService from "@/steam-client/services/authentication";
+  mapSteamGuardToString as mapGuardTypeToString,
+} from "@/steam-client/services/utils";
 import SteamProtoConstants from "@/steam-protocol/constants";
 import { SteamProtocolEResultError } from "@/steam-protocol/error";
 
@@ -24,23 +23,40 @@ vi.mock("node:timers/promises", () => ({
 }));
 
 vi.mock("@/common/utils", () => ({
-  createMachineId: vi.fn(() => Buffer.from([0x01, 0x02, 0x03])),
-  createMachineName: vi.fn(() => "DESKTOP-ABCDE"),
-  encryptRsaPassword: vi.fn(() => Promise.resolve("enc-pass")),
-  genImageQR: vi.fn((url: string) => Promise.resolve(`img:${url}`)),
-  genTerminalQR: vi.fn((url: string) => Promise.resolve(`term:${url}`)),
-  hasConfirmationType: vi.fn(
-    (
-      confirmations: Array<{ confirmation_type?: number }> | undefined,
-      confirmationType: number,
-    ) => {
-      return (confirmations ?? []).some((item) => item.confirmation_type === confirmationType);
-    },
-  ),
   jwtToJson: vi.fn(() => ({ payload: { sub: "76561197960265729" } })),
 }));
 
+vi.mock("@/steam-client/services/utils", async () => {
+  const actual = await vi.importActual<typeof import("@/steam-client/services/utils")>(
+    "@/steam-client/services/utils",
+  );
+  return {
+    ...actual,
+    createMachineId: vi.fn(() => Buffer.from([0x01, 0x02, 0x03])),
+    createMachineName: vi.fn(() => "DESKTOP-ABCDE"),
+    encryptRsaPassword: vi.fn(() => Promise.resolve("enc-pass")),
+    hasConfirmationType: vi.fn(
+      (
+        confirmations: Array<{ confirmation_type?: number }> | undefined,
+        confirmationType: number,
+      ) => {
+        return (confirmations ?? []).some((item) => item.confirmation_type === confirmationType);
+      },
+    ),
+  };
+});
+
 describe("AuthenticationService", () => {
+  it("maps guard type enum to consumer-friendly string", () => {
+    expect(mapGuardTypeToString(EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode)).toBe(
+      "device_code",
+    );
+    expect(
+      mapGuardTypeToString(EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation),
+    ).toBe("email_confirmation");
+    expect(mapGuardTypeToString(999 as EAuthSessionGuardType)).toBe("unknown");
+  });
+
   const createService = () => {
     const steamProtocol = {
       sendServiceCallWithRes: vi.fn(),
@@ -60,7 +76,7 @@ describe("AuthenticationService", () => {
     vi.mocked(delay).mockResolvedValue(undefined);
   });
 
-  it("loginViaQr succeeds and emits QR + token events", async () => {
+  it("loginViaQr succeeds and emits challenge URL + token events", async () => {
     const { service, steamProtocol, emitter } = createService();
     vi.spyOn(service, "BeginAuthSessionViaQR").mockResolvedValue({
       challenge_url: "https://challenge",
@@ -76,15 +92,14 @@ describe("AuthenticationService", () => {
 
     expect(createMachineName).toHaveBeenCalled();
     expect(createMachineId).toHaveBeenCalled();
-    expect(genImageQR).toHaveBeenCalledWith("https://challenge");
-    expect(genTerminalQR).toHaveBeenCalledWith("https://challenge");
     expect(emitter.emit).toHaveBeenCalledWith("authentication-qr", {
-      imageQr: "img:https://challenge",
-      terminalQr: "term:https://challenge",
+      challengeUrl: "https://challenge",
     });
     expect(emitter.emit).toHaveBeenCalledWith("steam-auth-tokens", {
-      refreshToken: "refresh-token",
-      accessToken: "access-token",
+      tokens: {
+        refreshToken: "refresh-token",
+        accessToken: "access-token",
+      },
     });
     expect(jwtToJson).toHaveBeenCalledWith("refresh-token");
     expect(steamProtocol.setSteamId).toHaveBeenCalledWith(
@@ -184,10 +199,9 @@ describe("AuthenticationService", () => {
     );
 
     expect(encryptRsaPassword).toHaveBeenCalledWith("password", expect.any(Object));
-    expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication-2fa-required",
-      EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
-    );
+    expect(emitter.emit).toHaveBeenCalledWith("authentication-2fa-required", {
+      guardType: "device_code",
+    });
     expect(service.UpdateAuthSessionWithSteamGuardCode).toHaveBeenCalledWith({
       code: "123456",
       code_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
@@ -277,10 +291,9 @@ describe("AuthenticationService", () => {
       { account_name: "alice", password: "password" },
       onSteamGuardRequired,
     );
-    expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication-2fa-required",
-      EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceConfirmation,
-    );
+    expect(emitter.emit).toHaveBeenCalledWith("authentication-2fa-required", {
+      guardType: "device_confirmation",
+    });
 
     vi.mocked(emitter.emit).mockClear();
     vi.spyOn(service, "BeginAuthSessionViaCredentials").mockResolvedValue({
@@ -295,10 +308,9 @@ describe("AuthenticationService", () => {
       { account_name: "alice", password: "password" },
       onSteamGuardRequired,
     );
-    expect(emitter.emit).toHaveBeenCalledWith(
-      "authentication-2fa-required",
-      EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation,
-    );
+    expect(emitter.emit).toHaveBeenCalledWith("authentication-2fa-required", {
+      guardType: "email_confirmation",
+    });
   });
 
   it("loginViaCredentials uses email code guard type when device code is absent", async () => {
@@ -363,7 +375,7 @@ describe("AuthenticationService", () => {
     });
   });
 
-  it("PollAuthSessionStatus emits new challenge QR and continues polling", async () => {
+  it("PollAuthSessionStatus emits new challenge URL and continues polling", async () => {
     const { service, steamProtocol, emitter } = createService();
     steamProtocol.sendServiceCallWithRes
       .mockResolvedValueOnce({ new_challenge_url: "https://new-challenge" })
@@ -374,11 +386,8 @@ describe("AuthenticationService", () => {
       request_id: Buffer.from("r"),
     } as never);
 
-    expect(genImageQR).toHaveBeenCalledWith("https://new-challenge");
-    expect(genTerminalQR).toHaveBeenCalledWith("https://new-challenge");
     expect(emitter.emit).toHaveBeenCalledWith("authentication-qr", {
-      imageQr: "img:https://new-challenge",
-      terminalQr: "term:https://new-challenge",
+      challengeUrl: "https://new-challenge",
     });
     expect(delay).toHaveBeenCalled();
     expect(result).toEqual({ refresh_token: "refresh", access_token: "access" });

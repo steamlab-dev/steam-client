@@ -1,17 +1,9 @@
-import { generateKeyPairSync } from "node:crypto";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { EAuthSessionGuardType } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 import {
-  createMachineId,
-  createMachineName,
-  encryptRsaPassword,
   findFilesRecursive,
-  genImageQR,
-  genTerminalQR,
-  hasConfirmationType,
   isValidRefreshToken,
   jwtToJson,
   listSubdirectories,
@@ -19,7 +11,6 @@ import {
 } from "@/common/utils";
 
 const toBase64Url = (value: string) => Buffer.from(value, "utf8").toString("base64url");
-const base64UrlToHex = (value: string) => Buffer.from(value, "base64url").toString("hex");
 
 describe("common/utils", () => {
   const tempDirs: string[] = [];
@@ -69,16 +60,6 @@ describe("common/utils", () => {
     const subdirs = await listSubdirectories(root);
 
     expect(subdirs.sort()).toEqual(["alpha", "beta"]);
-  });
-
-  it("creates machine name and id", () => {
-    const machineName = createMachineName();
-    const machineId = createMachineId();
-
-    expect(machineName).toMatch(/^DESKTOP-[A-Z]{5}$/);
-    expect(machineId).toBeInstanceOf(Buffer);
-    expect(machineId.length).toBeGreaterThan(30);
-    expect(machineId.toString("hex")).toContain("42423300");
   });
 
   it("parses valid JWT and throws for invalid format", () => {
@@ -133,61 +114,5 @@ describe("common/utils", () => {
         payload: { ...valid.payload, nbf: now + 100 },
       } as never),
     ).toBe(false);
-  });
-
-  it("encrypts password with valid RSA key and wraps errors", async () => {
-    const { publicKey } = generateKeyPairSync("rsa", { modulusLength: 1024 });
-    const jwk = publicKey.export({ format: "jwk" }) as { n: string; e: string };
-    const publickey_mod = base64UrlToHex(jwk.n);
-    const publickey_exp = base64UrlToHex(jwk.e);
-
-    await expect(
-      encryptRsaPassword("secret", {
-        publickey_mod,
-        publickey_exp,
-      } as never),
-    ).resolves.toMatch(/^[A-Za-z0-9+/=]+$/);
-
-    await expect(
-      encryptRsaPassword("secret", {
-        publickey_mod: undefined,
-        publickey_exp,
-      } as never),
-    ).rejects.toThrow("Missing RSA key components from Steam response");
-
-    await expect(
-      encryptRsaPassword("secret", {
-        publickey_mod: "zz",
-        publickey_exp: "zz",
-      } as never),
-    ).rejects.toThrow("Failed to encrypt data for Steam.");
-  });
-
-  it("checks confirmation types and QR generation helpers", async () => {
-    const confirmations = [
-      { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode },
-    ];
-
-    expect(
-      hasConfirmationType(
-        confirmations as never,
-        EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
-      ),
-    ).toBe(true);
-    expect(
-      hasConfirmationType(
-        confirmations as never,
-        EAuthSessionGuardType.k_EAuthSessionGuardType_EmailCode,
-      ),
-    ).toBe(false);
-    expect(
-      hasConfirmationType(
-        undefined as never,
-        EAuthSessionGuardType.k_EAuthSessionGuardType_EmailCode,
-      ),
-    ).toBe(false);
-
-    await expect(genTerminalQR("https://example.com")).resolves.toContain("\u001b[");
-    await expect(genImageQR("https://example.com")).resolves.toMatch(/^data:image\/png;base64,/);
   });
 });

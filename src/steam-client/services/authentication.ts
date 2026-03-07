@@ -36,29 +36,34 @@ import {
   type AuthenticationService as IAuthenticationService,
 } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
+import { jwtToJson } from "@/common/utils";
+import SteamClientError, { type SteamClientSubsystem } from "@/steam-client/error";
+import SteamProtoConstants from "@/steam-protocol/constants";
+import type SteamProtocol from "@/steam-protocol/steam-protocol";
 import {
   createMachineId,
   createMachineName,
   encryptRsaPassword,
-  genImageQR,
-  genTerminalQR,
   hasConfirmationType,
-  jwtToJson,
-} from "@/common/utils";
-import SteamClientError, { type SteamClientSubsystem } from "@/steam-client/error";
-import SteamProtoConstants from "@/steam-protocol/constants";
-import type SteamProtocol from "@/steam-protocol/steam-protocol";
+  mapSteamGuardToString,
+  type SteamGuardType,
+} from "./utils";
 
-export interface loginViaCredentialsReq {
+export interface LoginViaCredentialsReq {
   account_name: string;
   password: string;
   device_details?: CAuthentication_DeviceDetails;
 }
 
+export interface SteamAuthTokens {
+  refreshToken: string;
+  accessToken: string;
+}
+
 export interface AuthenticationEvents {
-  "authentication-qr": (body: { imageQr: string; terminalQr: string }) => void;
-  "authentication-2fa-required": (guardType: EAuthSessionGuardType) => void;
-  "steam-auth-tokens": (tokens: { refreshToken: string; accessToken: string }) => void;
+  "authentication-qr": (body: { challengeUrl: string }) => void;
+  "authentication-2fa-required": (body: { guardType: SteamGuardType }) => void;
+  "steam-auth-tokens": (body: { tokens: SteamAuthTokens }) => void;
 }
 
 export default class AuthenticationService implements IAuthenticationService {
@@ -93,8 +98,7 @@ export default class AuthenticationService implements IAuthenticationService {
         );
       }
       this.emitter.emit("authentication-qr", {
-        imageQr: await genImageQR(challengeUrl),
-        terminalQr: await genTerminalQR(challengeUrl),
+        challengeUrl,
       });
 
       // 3. Start polling for user response to the QR
@@ -116,8 +120,10 @@ export default class AuthenticationService implements IAuthenticationService {
       }
 
       this.emitter.emit("steam-auth-tokens", {
-        refreshToken: pollingRes.refresh_token,
-        accessToken: pollingRes.access_token,
+        tokens: {
+          refreshToken: pollingRes.refresh_token,
+          accessToken: pollingRes.access_token,
+        },
       });
 
       const token = jwtToJson(pollingRes.refresh_token);
@@ -138,7 +144,7 @@ export default class AuthenticationService implements IAuthenticationService {
   }
 
   async loginViaCredentials(
-    req: loginViaCredentialsReq,
+    req: LoginViaCredentialsReq,
     onSteamGuardRequired: Promise<string>,
   ): Promise<SteamProtos["CMsgClientLogOnResponse"]> {
     this.acquireLock();
@@ -186,8 +192,10 @@ export default class AuthenticationService implements IAuthenticationService {
       }
 
       this.emitter.emit("steam-auth-tokens", {
-        refreshToken: pollingRes.refresh_token,
-        accessToken: pollingRes.access_token,
+        tokens: {
+          refreshToken: pollingRes.refresh_token,
+          accessToken: pollingRes.access_token,
+        },
       });
 
       const token = jwtToJson(pollingRes.refresh_token);
@@ -228,18 +236,16 @@ export default class AuthenticationService implements IAuthenticationService {
 
     // Device or email confirmation (no code required, just notification)
     if (hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_DeviceConfirmation)) {
-      this.emitter.emit(
-        "authentication-2fa-required",
-        GuardType.k_EAuthSessionGuardType_DeviceConfirmation,
-      );
+      this.emitter.emit("authentication-2fa-required", {
+        guardType: mapSteamGuardToString(GuardType.k_EAuthSessionGuardType_DeviceConfirmation),
+      });
       return;
     }
 
     if (hasConfirmationType(confirmations, GuardType.k_EAuthSessionGuardType_EmailConfirmation)) {
-      this.emitter.emit(
-        "authentication-2fa-required",
-        GuardType.k_EAuthSessionGuardType_EmailConfirmation,
-      );
+      this.emitter.emit("authentication-2fa-required", {
+        guardType: mapSteamGuardToString(GuardType.k_EAuthSessionGuardType_EmailConfirmation),
+      });
       return;
     }
 
@@ -259,7 +265,9 @@ export default class AuthenticationService implements IAuthenticationService {
         : GuardType.k_EAuthSessionGuardType_EmailCode;
 
       // Emit event to notify that Steam Guard code is needed
-      this.emitter.emit("authentication-2fa-required", guardType);
+      this.emitter.emit("authentication-2fa-required", {
+        guardType: mapSteamGuardToString(guardType),
+      });
 
       // Call callback to get the code
       const code = await onSteamGuardRequired;
@@ -375,8 +383,7 @@ export default class AuthenticationService implements IAuthenticationService {
         if (response.new_challenge_url) {
           const url = response.new_challenge_url;
           this.emitter.emit("authentication-qr", {
-            imageQr: await genImageQR(url),
-            terminalQr: await genTerminalQR(url),
+            challengeUrl: url,
           });
         }
 

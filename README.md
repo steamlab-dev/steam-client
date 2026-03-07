@@ -47,12 +47,11 @@ await client.connect();
 
 ## Authentication
 
-QR login emits a QR code that can be displayed as an image or in a terminal.
+QR login emits the `challengeUrl`. Consumers can render it however they want.
 
 ```ts
-client.emitter.once("authentication-qr", ({ imageQr, terminalQr }) => {
-  console.log(imageQr);
-  console.log(terminalQr);
+client.emitter.once("authentication-qr", ({ challengeUrl }) => {
+  console.log(challengeUrl);
 });
 
 // Received after authentication
@@ -71,20 +70,18 @@ Credential login is a two-step flow:
 Device or email confirmation does not require a code; just approve the sign-in when notified.
 
 ```ts
-import { EAuthSessionGuardType } from "@steamlab/steam-client";
-
 // Store pending logins so the code can be supplied later from elsewhere
 const pendingLogins = new Map<string, (code: string) => void>();
 
 // Optional: Listen for 2FA requirement notification
 client.emitter.on("authentication-2fa-required", (guardType) => {
-  if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode) {
+  if (guardType === "device_code") {
     console.log("Steam Guard code from mobile app required");
-  } else if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_EmailCode) {
+  } else if (guardType === "email_code") {
     console.log("Steam Guard code from email required");
-  } else if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceConfirmation) {
+  } else if (guardType === "device_confirmation") {
     console.log("Approve sign-in from the Steam mobile app");
-  } else if (guardType === EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation) {
+  } else if (guardType === "email_confirmation") {
     console.log("Approve sign-in from the email confirmation link");
   }
 });
@@ -189,7 +186,8 @@ import {
   ProtoManager,
   EMsg,
   EResult,
-  EAuthSessionGuardType,
+  SteamEnums,
+  mapAuthSessionGuardTypeToString,
 } from "@steamlab/steam-client";
 ```
 

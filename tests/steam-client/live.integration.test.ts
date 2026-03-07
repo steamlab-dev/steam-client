@@ -34,10 +34,10 @@ describe("Steam-Client", () => {
 
     // no refresh token found, kick QR flow
     if (!existing.refreshToken) {
-      type QrPayload = { imageQr: string; terminalQr: string };
+      type QrPayload = { challengeUrl: string };
       const qrHandler = (qr: QrPayload) => {
         console.log("\n--- Steam QR code emitted (scan with Steam Mobile App) ---\n");
-        console.log(qr.terminalQr || qr.imageQr || JSON.stringify(qr));
+        console.log(qr.challengeUrl || JSON.stringify(qr));
         console.log(
           "\nScan the QR with the Steam Mobile App. Tokens will be persisted to tests/steam-client/.steam-tokens.env\n",
         );
@@ -45,7 +45,7 @@ describe("Steam-Client", () => {
 
       steamClient.emitter.once("authentication-qr", qrHandler);
 
-      steamClient.emitter.once("steam-auth-tokens", (tokens) => {
+      steamClient.emitter.once("steam-auth-tokens", ({ tokens }) => {
         console.log("\n--- Steam authentication tokens received ---\n");
         console.log("Refresh Token:", tokens.refreshToken);
         console.log("Access Token:", tokens.accessToken);
