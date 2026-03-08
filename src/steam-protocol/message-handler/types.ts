@@ -1,9 +1,11 @@
 import type Long from "long";
-import type { EMsg, EMsg as EMsgValue, SteamProtos } from "@/common/steam-language";
 import type {
+  EMsg,
   EMsgMapToPayload,
   EMsgMapToProtoName,
-} from "@/common/steam-language/steam/EMsgMapping";
+  EMsg as EMsgValue,
+  SteamProtos,
+} from "@/common/steam-language";
 import type { MessageHandlerError } from "./message-handler";
 
 type StripCMsgPrefix<T extends string> = T extends `CMsg${infer Name}` ? Name : T;

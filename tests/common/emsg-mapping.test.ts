@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EMsg } from "@/common/steam-language";
-import { EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language/steam/EMsgMapping";
+import { EMsg, EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language";
 
 describe("EMsgMapping generation", () => {
   it("maps standard request/response pairs", () => {

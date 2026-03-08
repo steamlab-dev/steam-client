@@ -1,5 +1,4 @@
-import { EMsg } from "@/common/steam-language";
-import { EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language/steam/EMsgMapping";
+import { EMsg, EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language";
 import type Connection from "@/connection/connection";
 import type SteamProtoManager from "@/steam-protocol/proto-manager";
 import { SteamProtocolError } from "../error";

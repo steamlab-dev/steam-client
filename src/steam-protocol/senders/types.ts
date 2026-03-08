@@ -1,15 +1,14 @@
-import type { EMsg, SteamProtos } from "@/common/steam-language";
-import type { CAuthentication_Token_Revoke_Response } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 import type {
+  EMsg,
   EMsgMapFromProtoName,
   EMsgMapRequestPayloadByEMsg,
   EMsgMapResponsePayloadByRequestEMsg,
   EMsgMapToPayload,
-} from "@/common/steam-language/steam/EMsgMapping";
-import type {
   ServiceCallsWithOutRes,
   ServiceCallToResMap,
-} from "@/common/steam-language/steam/ServiceReqtoResMap";
+  SteamProtos,
+} from "@/common/steam-language";
+import type { CAuthentication_Token_Revoke_Response } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 
 export interface Messenger {
   sendWithResponse(req: unknown): Promise<unknown>;

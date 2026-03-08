@@ -345,6 +345,8 @@ export default async function buildSteamLanguage(): Promise<void> {
       '',*/
       'export { EResult } from "./EResult"',
       'export { EMsg } from "./protos-definitions/steam/enums_clientserver"',
+      'export * from "./steam/EMsgMapping"',
+      'export * from "./steam/ServiceReqtoResMap"',
     ].join("\n");
 
     await writeFileAsync(path.join(config.outputDir, "index.ts"), indexContent);
