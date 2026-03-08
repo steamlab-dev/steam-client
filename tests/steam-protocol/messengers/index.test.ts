@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import MessengerFactory from "@/steam-protocol/messengers";
-import ProtoHeaderBuilder from "@/steam-protocol/messengers/common/proto-header-builder";
-import ProtoMessenger from "@/steam-protocol/messengers/proto-messenger";
-import ServiceCallMessenger from "@/steam-protocol/messengers/service-call-messenger";
+import MessengerFactory from "@/steam-protocol/senders";
+import ProtoHeaderBuilder from "@/steam-protocol/senders/common/proto-header-builder";
+import ProtoMessenger from "@/steam-protocol/senders/proto-messenger";
+import ServiceCallMessenger from "@/steam-protocol/senders/service-call-messenger";
 
 vi.mock("@/steam-protocol/messengers/common/proto-header-builder", () => ({
   default: vi.fn(),

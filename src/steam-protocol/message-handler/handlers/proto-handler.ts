@@ -1,8 +1,8 @@
 import { EResult } from "@/common/steam-language";
 import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import { SteamProtocolEResultError, SteamProtocolError } from "@/steam-protocol/error";
-import type ProtoMessenger from "@/steam-protocol/messengers/proto-messenger";
 import type ProtoManager from "@/steam-protocol/proto-manager";
+import type ProtoMessenger from "@/steam-protocol/senders/proto-messenger";
 import type { DecodedProtoMessage, MsgHandler, ParsedMessage, ProtoMessage } from "../types";
 import { extractEResult, isKeyOf, isRegularProtoMessage } from "./common/util";
 

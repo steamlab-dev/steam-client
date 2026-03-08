@@ -3,8 +3,8 @@ import Connection from "@/connection";
 import type { ConnectionOptions } from "@/connection/types";
 import HeartBeatManager from "./heartbeat-manager";
 import MessageHandler from "./message-handler";
-import MessengerFactory from "./messengers";
 import ProtoManager from "./proto-manager";
+import MessengerFactory from "./senders";
 import SessionManager from "./session-manager";
 import type { SteamProtoContext, SteamProtocolEvents } from "./types";
 

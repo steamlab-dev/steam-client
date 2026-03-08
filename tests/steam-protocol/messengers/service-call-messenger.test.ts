@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import ServiceCallMessenger, {
   ServiceCallMessengerError,
-} from "@/steam-protocol/messengers/service-call-messenger";
+} from "@/steam-protocol/senders/service-call-messenger";
 
 describe("ServiceCallMessenger", () => {
   const createMessenger = (isLoggedIn: boolean) => {

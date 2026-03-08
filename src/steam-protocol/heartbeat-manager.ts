@@ -1,6 +1,6 @@
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { SteamProtocolError } from "./error";
-import type ProtoMessenger from "./messengers/proto-messenger";
+import type ProtoMessenger from "./senders/proto-messenger";
 
 export class HeartbeatError extends SteamProtocolError {
   constructor(messageOrCause: string | unknown, cause?: unknown) {

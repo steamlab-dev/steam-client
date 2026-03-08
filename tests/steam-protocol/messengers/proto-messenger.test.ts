@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
-import ProtoMessenger, { ProtoMessengerError } from "@/steam-protocol/messengers/proto-messenger";
+import ProtoMessenger, { ProtoMessengerError } from "@/steam-protocol/senders/proto-messenger";
 
 describe("ProtoMessenger", () => {
   const createMessenger = () => {

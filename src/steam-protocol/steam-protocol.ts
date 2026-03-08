@@ -14,7 +14,7 @@ import type {
   ServiceCallMessageWithRes,
   ServiceCallResponse,
   ServiceCallsWithRes,
-} from "./messengers/types";
+} from "./senders/types";
 import type SessionManager from "./session-manager";
 import type { SteamProtocolSession } from "./session-manager";
 import type { SteamProtoContext, SteamProtoContextImps, SteamProtocolEvents } from "./types";

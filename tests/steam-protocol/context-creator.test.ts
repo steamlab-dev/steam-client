@@ -4,8 +4,8 @@ import Connection from "@/connection";
 import ContextCreator from "@/steam-protocol/context-creator";
 import HeartBeatManager from "@/steam-protocol/heartbeat-manager";
 import MessageHandlerFactory from "@/steam-protocol/message-handler";
-import MessengerFactory from "@/steam-protocol/messengers";
 import ProtoManager from "@/steam-protocol/proto-manager";
+import MessengerFactory from "@/steam-protocol/senders";
 import SessionManager from "@/steam-protocol/session-manager";
 
 vi.mock("@/connection", () => ({

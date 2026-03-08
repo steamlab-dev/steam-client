@@ -5,9 +5,9 @@ import type { ConnectionOptions } from "@/connection/types";
 import type HeartBeatManager from "./heartbeat-manager";
 import type MessageHandler from "./message-handler/message-handler";
 import type { MessageHandlerEvents } from "./message-handler/types";
-import type ProtoMessenger from "./messengers/proto-messenger";
-import type ServiceCallMessenger from "./messengers/service-call-messenger";
 import type ProtoManager from "./proto-manager";
+import type ProtoMessenger from "./senders/proto-messenger";
+import type ServiceCallMessenger from "./senders/service-call-messenger";
 import type SessionManager from "./session-manager";
 
 export interface SteamProtocolEvents extends MessageHandlerEvents {

@@ -1,9 +1,9 @@
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
 import type HeartBeatManager from "../heartbeat-manager";
-import type ProtoMessenger from "../messengers/proto-messenger";
-import type ServiceCallMessenger from "../messengers/service-call-messenger";
 import type ProtoManager from "../proto-manager";
+import type ProtoMessenger from "../senders/proto-messenger";
+import type ServiceCallMessenger from "../senders/service-call-messenger";
 import type SessionManager from "../session-manager";
 import ErrorResponseHandler from "./handlers/error-handler";
 import LogOnResponseHandler from "./handlers/logon-handler";

@@ -1,7 +1,7 @@
 import { EResult, type SteamProtos } from "@/common/steam-language";
 import { SteamProtocolEResultError } from "@/steam-protocol/error";
-import type ServiceCallMessenger from "@/steam-protocol/messengers/service-call-messenger";
 import type ProtoManager from "@/steam-protocol/proto-manager";
+import type ServiceCallMessenger from "@/steam-protocol/senders/service-call-messenger";
 import type { DecodedProtoMessage, MsgHandler, ParsedMessage, ProtoMessage } from "../types";
 import { extractEResult, isServiceCallMessage } from "./common/util";
 /**

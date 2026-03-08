@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import PendingRequestMap, {
   PendingRequestMapError,
-} from "@/steam-protocol/messengers/common/pending-request-map";
+} from "@/steam-protocol/senders/common/pending-request-map";
 
 describe("PendingRequestMap", () => {
   beforeEach(() => {
