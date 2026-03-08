@@ -1,4 +1,4 @@
-import type { EMsg } from "@/common/steam-language";
+import { EMsg } from "@/common/steam-language";
 import { EMsgReqToEMsgRes, EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import type Connection from "@/connection/connection";
 import type SteamProtoManager from "@/steam-protocol/proto-manager";
@@ -56,7 +56,7 @@ export default class ProtoMessenger implements Messenger {
 
   private sendProto(eMsg: EMsg, payload: unknown): void {
     const header = this.headerBuilder.build(eMsg, {});
-    const protoName = EMsgToProtoName[eMsg as keyof typeof EMsgToProtoName];
+    const protoName = this.getProtoName(eMsg);
     if (!protoName) {
       throw new ProtoMessengerError(`Missing proto mapping for eMsg: ${eMsg}`);
     }
@@ -72,5 +72,19 @@ export default class ProtoMessenger implements Messenger {
       throw new ProtoMessengerError(`Missing response mapping for eMsg: ${req.eMsg}`);
     }
     return eMsgRes;
+  }
+
+  // Get ProtoName while appling special rules for certain eMsg types
+  private getProtoName(eMsg: EMsg): string {
+    if (eMsg === EMsg.k_EMsgClientGamesPlayedWithDataBlob) {
+      eMsg = EMsg.k_EMsgClientGamesPlayed;
+    }
+
+    const protoName = EMsgToProtoName[eMsg as keyof typeof EMsgToProtoName];
+
+    if (!protoName) {
+      throw new ProtoMessengerError(`Missing proto mapping for eMsg: ${eMsg}`);
+    }
+    return protoName;
   }
 }

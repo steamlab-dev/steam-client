@@ -180,7 +180,7 @@ describe("SteamClient", () => {
     });
     expect(tracker.track).toHaveBeenCalled();
     expect(steamProtocol.send).toHaveBeenCalledWith(
-      expect.objectContaining({ eMsg: EMsg.k_EMsgClientGamesPlayed }),
+      expect.objectContaining({ eMsg: EMsg.k_EMsgClientGamesPlayedWithDataBlob }),
     );
     expect(result).toEqual(["730"]);
   });

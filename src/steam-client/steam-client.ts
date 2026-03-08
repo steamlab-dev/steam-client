@@ -20,6 +20,7 @@ export default class SteamClient {
   private readonly protos: ProtoManager;
   private readonly steamProtocol: SteamProtocol;
   private readonly session: SessionManager;
+  private recentReauthentication = true;
   readonly emitter: TypedEventEmitter<SteamClientEvents>;
   readonly services: Services;
 
@@ -91,7 +92,7 @@ export default class SteamClient {
         recent_reauthentication: false,
       };
 
-      this.steamProtocol.send({ eMsg: EMsg.k_EMsgClientGamesPlayed, payload });
+      this.steamProtocol.send({ eMsg: EMsg.k_EMsgClientGamesPlayedWithDataBlob, payload });
 
       return games_played.map((game) => String(game.game_id));
     } catch (err) {
@@ -107,7 +108,7 @@ export default class SteamClient {
       const games_played = this.gamesPlayedTracker.untrack(gameId);
 
       const payload: CMsgClientGamesPlayed = {
-        games_played,
+        games_played: games_played.length > 0 ? games_played : undefined,
         client_os_type: SteamProtoConstants.Win11,
         cloud_gaming_platform: 0,
         recent_reauthentication: false,
@@ -159,6 +160,17 @@ export default class SteamClient {
         eMsg: EMsg.k_EMsgClientChangeStatus,
         payload: { persona_state: 1 },
       });
+
+      // Steam sends this message after logon
+      if (this.recentReauthentication) {
+        const payload: CMsgClientGamesPlayed = {
+          client_os_type: SteamProtoConstants.Win11,
+          cloud_gaming_platform: 0,
+          recent_reauthentication: this.recentReauthentication,
+        };
+        this.steamProtocol.send({ eMsg: EMsg.k_EMsgClientGamesPlayedWithDataBlob, payload });
+        this.recentReauthentication = false;
+      }
 
       return res;
     } catch (err) {
