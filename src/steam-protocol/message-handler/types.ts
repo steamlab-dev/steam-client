@@ -32,8 +32,6 @@ type NonProtoMessagesByName = {
   };
 };
 
-export type ProtoMessageName = keyof ProtoMessagesByName;
-
 export interface ClientVacBanStatusBody {
   numBans: number;
 }
@@ -44,7 +42,7 @@ export interface ClientUpdateGuestPassesListBody {
   countGuestPassesToRedeem: number;
 }
 
-export type SteamMessagesByName = ProtoMessagesByName & NonProtoMessagesByName;
+type SteamMessagesByName = ProtoMessagesByName & NonProtoMessagesByName;
 export type SteamMessageName = keyof SteamMessagesByName;
 export type PublicSteamMessage = SteamMessagesByName[SteamMessageName];
 export type SteamMessages = Partial<{ [K in SteamMessageName]: SteamMessagesByName[K] }>;

@@ -16,14 +16,13 @@ import {
   SteamProtocolError,
   type SteamProtocolSubsystem,
 } from "./steam-protocol/error";
+import ProtoManager from "./steam-protocol/proto-manager";
 import type {
   MsgHandler,
   SteamMessage,
   SteamMessageName,
   SteamMessages,
-  SteamMessagesByName,
-} from "./steam-protocol/message-handler/types";
-import ProtoManager from "./steam-protocol/proto-manager";
+} from "./steam-protocol/types";
 
 // Steam language primitives
 export type { SteamProtos, SteamServices } from "./common/steam-language";
@@ -37,14 +36,7 @@ export {
 export { SteamClientImpl as SteamClient };
 export type { ConnectionOptions } from "./connection/types";
 export type { SteamClientEvents, AuthenticationEvents, LoginViaCredentialsReq, SteamAuthTokens };
-export type {
-  DisconnectMsg,
-  MsgHandler,
-  SteamMessage,
-  SteamMessageName,
-  SteamMessages,
-  SteamMessagesByName,
-};
+export type { DisconnectMsg, MsgHandler, SteamMessage, SteamMessageName, SteamMessages };
 
 // Errors
 export { SteamClientError };

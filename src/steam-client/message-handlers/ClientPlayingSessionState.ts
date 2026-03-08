@@ -1,7 +1,7 @@
 import { EMsg } from "@/common/steam-language";
 import type { CMsgClientPlayingSessionState } from "@/common/steam-language/protos-definitions/steam/steammessages_clientserver_2";
 import type SessionManager from "@/steam-client/session-manager";
-import type { MsgHandler, SteamMessage } from "@/steam-protocol/message-handler/types";
+import type { MsgHandler, SteamMessage } from "@/steam-protocol/types";
 
 export default class ClientPlayingSessionState implements MsgHandler {
   constructor(private readonly session: SessionManager) {}

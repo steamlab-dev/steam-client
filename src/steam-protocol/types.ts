@@ -10,6 +10,13 @@ import type ProtoMessenger from "./senders/proto-messenger";
 import type ServiceCallMessenger from "./senders/service-call-messenger";
 import type SessionManager from "./session-manager";
 
+export type {
+  MsgHandler,
+  SteamMessage,
+  SteamMessageName,
+  SteamMessages,
+} from "./message-handler/types";
+
 export interface SteamProtocolEvents extends MessageHandlerEvents {
   disconnected: (msg: DisconnectMsg) => void;
 }
