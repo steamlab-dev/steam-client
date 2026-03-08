@@ -1,8 +1,7 @@
 import type Long from "long";
 import { EMsg } from "@/common/steam-language";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
-import type { DisconnectMsg } from "@/connection/event-manager";
-import type { ConnectionOptions } from "@/connection/types";
+import type { ConnectionOptions, DisconnectMsg } from "@/connection/types";
 import SteamProtoConstants from "./constants";
 import ContextCreator from "./context-creator";
 import { SteamProtocolError } from "./error";

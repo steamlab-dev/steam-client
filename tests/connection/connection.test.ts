@@ -3,9 +3,8 @@ import type { MockedFunction } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Connection from "@/connection/connection";
 import ConnectionError from "@/connection/error";
-import type { DisconnectMsg } from "@/connection/event-manager";
 import ConnectionFactory from "@/connection/factory";
-import type { ConnectionOptions } from "@/connection/types";
+import type { ConnectionOptions, DisconnectMsg } from "@/connection/types";
 
 // Mock the ConnectionFactory
 vi.mock("@/connection/factory");

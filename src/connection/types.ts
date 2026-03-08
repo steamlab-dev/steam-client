@@ -9,6 +9,9 @@ import type ConnectionOptionsValidator from "./options-validator";
 import type { Transport } from "./protocol-transports/types";
 import type StateManager from "./state-manager";
 
+export type { default as Connection } from "./connection";
+export type { DisconnectMsg } from "./event-manager";
+
 /**
  * Represents a SteamCM server (host/port pair).
  */

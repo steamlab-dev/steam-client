@@ -1,5 +1,5 @@
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
-import type Connection from "@/connection/connection";
+import type { Connection } from "@/connection/types";
 import type HeartBeatManager from "../heartbeat-manager";
 import type ProtoManager from "../proto-manager";
 import type ProtoMessenger from "../senders/proto-messenger";

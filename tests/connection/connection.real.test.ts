@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Connection from "@/connection/connection";
-import type { DisconnectMsg } from "@/connection/event-manager";
-import type { ConnectionOptions } from "@/connection/types";
+import type { ConnectionOptions, DisconnectMsg } from "@/connection/types";
 
 // Test configuration - WebSocket endpoints for Steam CM
 const STEAM_WS_SERVERS = [

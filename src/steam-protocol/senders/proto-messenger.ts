@@ -1,5 +1,5 @@
 import { EMsg, EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language";
-import type Connection from "@/connection/connection";
+import type { Connection } from "@/connection/types";
 import type SteamProtoManager from "@/steam-protocol/proto-manager";
 import { SteamProtocolError } from "../error";
 import PendingRequestMap from "./common/pending-request-map";

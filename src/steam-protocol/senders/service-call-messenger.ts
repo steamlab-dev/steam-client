@@ -1,6 +1,6 @@
 import Long from "long";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
-import type Connection from "@/connection/connection";
+import type { Connection } from "@/connection/types";
 import { SteamProtocolError } from "../error";
 import type SteamProtoManager from "../proto-manager";
 import type SessionManager from "../session-manager";
