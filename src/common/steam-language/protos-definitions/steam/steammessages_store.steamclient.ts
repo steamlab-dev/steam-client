@@ -449,6 +449,7 @@ export type CStore_ReloadAllReservationPositionMessages_Notification = Record<st
 export interface CSteamDeckCompatibility_SetFeedback_Request {
   appid?: number;
   feedback?: ESteamDeckCompatibilityFeedback;
+  feedback_details?: number;
 }
 
 export type CSteamDeckCompatibility_SetFeedback_Response = Record<string, never>;

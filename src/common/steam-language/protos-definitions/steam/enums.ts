@@ -597,6 +597,18 @@ export const EProvideDeckFeedbackPreference = {
 export type EProvideDeckFeedbackPreference =
   (typeof EProvideDeckFeedbackPreference)[keyof typeof EProvideDeckFeedbackPreference];
 
+export const EHardwareCompatibilityFeedbackDetails = {
+  k_EHardwareCompatibilityFeedbackDetails_Unset: 0,
+  k_EHardwareCompatibilityFeedbackDetails_Performance: 1,
+  k_EHardwareCompatibilityFeedbackDetails_Stability: 2,
+  k_EHardwareCompatibilityFeedbackDetails_Legibility: 4,
+  k_EHardwareCompatibilityFeedbackDetails_Input: 8,
+  k_EHardwareCompatibilityFeedbackDetails_Other: 16,
+} as const;
+
+export type EHardwareCompatibilityFeedbackDetails =
+  (typeof EHardwareCompatibilityFeedbackDetails)[keyof typeof EHardwareCompatibilityFeedbackDetails];
+
 export const EGameFrameRateReportingPreference = {
   k_EGameFrameRateReportingPreference_Unset: 0,
   k_EGameFrameRateReportingPreference_No: 1,
@@ -1037,7 +1049,35 @@ export const EPressOutletAction = {
   k_EPressOutletAction_Updated: 4,
   k_EPressOutletAction_Deleted: 5,
   k_EPressOutletAction_Undeleted: 6,
-  k_EPressOutletAction_MAX: 7,
+  k_EPressOutletAction_StagedAdd: 7,
+  k_EPressOutletAction_StagedDelete: 8,
+  k_EPressOutletAction_EnterStaging: 9,
+  k_EPressOutletAction_ExitStaging: 10,
+  k_EPressOutletAction_ReverseStagedAdd: 11,
+  k_EPressOutletAction_ReverseStagedDelete: 12,
+  k_EPressOutletAction_MAX: 13,
 } as const;
 
 export type EPressOutletAction = (typeof EPressOutletAction)[keyof typeof EPressOutletAction];
+
+export const EPressOutletMemberPendingState = {
+  k_EPressOutletMemberPendingState_Member: 0,
+  k_EPressOutletMemberPendingState_StagedDelete: 1,
+  k_EPressOutletMemberPendingState_StagedAdd: 2,
+  k_EPressOutletMemberPendingState_MAX: 3,
+} as const;
+
+export type EPressOutletMemberPendingState =
+  (typeof EPressOutletMemberPendingState)[keyof typeof EPressOutletMemberPendingState];
+
+export const ECommentDeleteReason = {
+  k_ECommentDeleteReason_Invalid: 0,
+  k_ECommentDeleteReason_User: 1,
+  k_ECommentDeleteReason_ThreadOwner: 2,
+  k_ECommentDeleteReason_Moderator: 3,
+  k_ECommentDeleteReason_Support: 4,
+  k_ECommentDeleteReason_Spam: 5,
+  k_ECommentDeleteReason_AccountDeletion: 6,
+} as const;
+
+export type ECommentDeleteReason = (typeof ECommentDeleteReason)[keyof typeof ECommentDeleteReason];

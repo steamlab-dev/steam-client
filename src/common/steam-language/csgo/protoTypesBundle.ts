@@ -555,6 +555,8 @@ import type {
   CMsgSource2SystemSpecs,
   CMsgSource2VProfLiteReport,
   CMsgSource2VProfLiteReportItem,
+  CSource2Metrics_FetchMapData_Request,
+  CSource2Metrics_FetchMapData_Response,
   CSource2Metrics_MatchPerfSummary_Notification,
   CSource2Metrics_RecordPlayStats_Notification,
 } from "../protos-definitions/csgo/source2_steam_stats";
@@ -1363,6 +1365,8 @@ export interface CsgoProtos {
   CSOPartyInvite: CSOPartyInvite;
   CSOPersonaDataPublic: CSOPersonaDataPublic;
   CSOQuestProgress: CSOQuestProgress;
+  CSource2Metrics_FetchMapData_Request: CSource2Metrics_FetchMapData_Request;
+  CSource2Metrics_FetchMapData_Response: CSource2Metrics_FetchMapData_Response;
   CSource2Metrics_MatchPerfSummary_Notification: CSource2Metrics_MatchPerfSummary_Notification;
   CSource2Metrics_RecordPlayStats_Notification: CSource2Metrics_RecordPlayStats_Notification;
   CSOVolatileItemClaimedRewards: CSOVolatileItemClaimedRewards;

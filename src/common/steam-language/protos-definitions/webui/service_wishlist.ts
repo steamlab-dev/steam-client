@@ -19,6 +19,26 @@ export interface CWishlist_AddToWishlist_Response {
   wishlist_count?: number;
 }
 
+export interface CWishlist_AddWishlistItemCategory_Request {
+  appid?: number;
+  categoryid?: Long;
+  category_name?: string;
+}
+
+export interface CWishlist_AddWishlistItemCategory_Response {
+  categoryid?: Long;
+  name?: string;
+  item_count?: number;
+}
+
+export interface CWishlist_GetItemCategories_Request {
+  appid?: number;
+}
+
+export interface CWishlist_GetItemCategories_Response {
+  categories?: CWishlistCategory[];
+}
+
 export interface CWishlist_GetWishlist_Request {
   steamid?: Long;
 }
@@ -31,6 +51,12 @@ export interface CWishlist_GetWishlist_Response_WishlistItem {
   appid?: number;
   priority?: number;
   date_added?: number;
+}
+
+export type CWishlist_GetWishlistCategories_Request = Record<string, never>;
+
+export interface CWishlist_GetWishlistCategories_Response {
+  categories?: CWishlistCategory[];
 }
 
 export interface CWishlist_GetWishlistItemCount_Request {
@@ -86,6 +112,19 @@ export interface CWishlist_RemoveFromWishlist_Response {
   wishlist_count?: number;
 }
 
+export interface CWishlist_RemoveWishlistItemCategory_Request {
+  appid?: number;
+  categoryid?: Long;
+}
+
+export type CWishlist_RemoveWishlistItemCategory_Response = Record<string, never>;
+
+export interface CWishlistCategory {
+  categoryid?: Long;
+  name?: string;
+  item_count?: number;
+}
+
 export interface CWishlistFilters {
   macos_only?: boolean;
   steamos_linux_only?: boolean;
@@ -117,9 +156,18 @@ export abstract class WishlistService {
   abstract AddToWishlist(
     request: CWishlist_AddToWishlist_Request,
   ): Promise<CWishlist_AddToWishlist_Response>;
+  abstract AddWishlistItemCategory(
+    request: CWishlist_AddWishlistItemCategory_Request,
+  ): Promise<CWishlist_AddWishlistItemCategory_Response>;
+  abstract GetItemCategories(
+    request: CWishlist_GetItemCategories_Request,
+  ): Promise<CWishlist_GetItemCategories_Response>;
   abstract GetWishlist(
     request: CWishlist_GetWishlist_Request,
   ): Promise<CWishlist_GetWishlist_Response>;
+  abstract GetWishlistCategories(
+    request: CWishlist_GetWishlistCategories_Request,
+  ): Promise<CWishlist_GetWishlistCategories_Response>;
   abstract GetWishlistItemCount(
     request: CWishlist_GetWishlistItemCount_Request,
   ): Promise<CWishlist_GetWishlistItemCount_Response>;
@@ -132,4 +180,7 @@ export abstract class WishlistService {
   abstract RemoveFromWishlist(
     request: CWishlist_RemoveFromWishlist_Request,
   ): Promise<CWishlist_RemoveFromWishlist_Response>;
+  abstract RemoveWishlistItemCategory(
+    request: CWishlist_RemoveWishlistItemCategory_Request,
+  ): Promise<CWishlist_RemoveWishlistItemCategory_Response>;
 }

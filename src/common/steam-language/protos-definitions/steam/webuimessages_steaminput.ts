@@ -1,6 +1,8 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
+
+import type Long from "long";
 import type { WebUINoResponse } from "./webuimessages_base";
 
 export const ETritonPairType = {
@@ -206,9 +208,10 @@ export type CSteamInputService_ShouldTritonPairInOobe_Request = Record<string, n
 
 export type CSteamInputService_WaitInitialControllerStateEnumerated_Request = Record<string, never>;
 
-export interface CSteamInputService_WaitInitialControllerStateEnumerated_Response {
-  controller?: number[];
-}
+export type CSteamInputService_WaitInitialControllerStateEnumerated_Response = Record<
+  string,
+  never
+>;
 
 export interface CSteamInputService_ShouldTritonPairInOobe_Response {
   pair_type?: ETritonPairType;
@@ -280,6 +283,68 @@ export interface CSteamInputService_GetControllerName_Response {
   controller_name?: string;
 }
 
+export interface CSteamInputService_RawControllerDetailItem {
+  controller_index?: number;
+  initialized?: boolean;
+  controller_type?: number;
+  controller_style?: number;
+  xinput_index?: number;
+  is_wireless_steam_dongle?: boolean;
+  vendor_id?: number;
+  product_id?: number;
+  capabilities?: Long;
+  firmware_version?: number;
+  firmware_build_time?: string;
+  serial_number?: string;
+  cpu_id?: string;
+  name?: string;
+  is_remote_device?: boolean;
+  is_bluetooth?: boolean;
+  has_touchscreen?: boolean;
+  mac_addr?: string[];
+  battery_level?: number;
+  is_charging?: boolean;
+  led_brightness?: number;
+  led_saturation?: number;
+  turn_on_sound?: number;
+  turn_off_sound?: number;
+  led_red?: number;
+  led_green?: number;
+  led_blue?: number;
+  deadzone_left_stick?: number;
+  deadzone_right_stick?: number;
+  haptics_enabled?: boolean;
+  gyro_sw_antidrift_enabled?: boolean;
+  gyro_one_euro_filter_enabled?: boolean;
+  haptic_strength_left?: number;
+  haptic_strength_right?: number;
+  pad_pressure_curve_left?: number;
+  pad_pressure_curve_right?: number;
+  left_stick_touch_disable_lpad?: boolean;
+  right_stick_touch_disable_rpad?: boolean;
+  player_slot_led_setting?: number;
+  has_nintendo_layout?: boolean;
+  has_reversed_layout?: boolean;
+  has_universal_face_button_glyphs?: boolean;
+  gyro_stationary_tolerance?: number;
+  accel_stationary_tolerance?: number;
+  aux_capsense_threshold?: number;
+  aux_capsense_hysterisis?: number;
+  rumble_setting?: number;
+}
+
+export type CSteamInputService_ControllerListChanged_Notification = Record<string, never>;
+
+export type CSteamInputService_InitControllerList_Request = Record<string, never>;
+
+export type CSteamInputService_InitControllerList_Response = Record<string, never>;
+
+export type CSteamInputService_GetControllerList_Request = Record<string, never>;
+
+export interface CSteamInputService_GetControllerList_Response {
+  controllers?: CSteamInputService_RawControllerDetailItem[];
+}
+
 export abstract class SteamInputManagerService {
   abstract NotifyButtonStateChanged(
     request: CSteamInputService_ControllerButtonStateChanged_Notification,
@@ -319,6 +384,9 @@ export abstract class SteamInputManagerService {
   ): Promise<WebUINoResponse>;
   abstract NotifyControllerPairingChanged(
     request: CSteamInputService_ControllerPairingChanged_Notification,
+  ): Promise<WebUINoResponse>;
+  abstract NotifyControllerListChanged(
+    request: CSteamInputService_ControllerListChanged_Notification,
   ): Promise<WebUINoResponse>;
   abstract StartControllerStateFlow(
     request: CSteamInputService_ControllerStateFlow_Request,
@@ -362,4 +430,7 @@ export abstract class SteamInputManagerService {
   abstract GetControllerName(
     request: CSteamInputService_GetControllerName_Request,
   ): Promise<CSteamInputService_GetControllerName_Response>;
+  abstract GetControllerList(
+    request: CSteamInputService_GetControllerList_Request,
+  ): Promise<CSteamInputService_GetControllerList_Response>;
 }

@@ -19,6 +19,7 @@ export const ESource2PlayStatsFieldType = {
   Source2PlayStats_String: 12,
   Source2PlayStats_LowCardinalityString: 13,
   Source2PlayStats_UTCDateTime: 14,
+  Source2PlayStats_SteamIDTrustBucket: 15,
 } as const;
 
 export type ESource2PlayStatsFieldType =
@@ -171,6 +172,7 @@ export interface CMsgSource2PlayStatsPackedRecordList {
   string_vals?: string[];
   low_cardinality_string_vals?: string[];
   utcdatetime_vals?: number[];
+  steamidtrustbucket_vals?: Long[];
 }
 
 export namespace CMsgSource2PlayStatsPackedRecordList {
@@ -183,4 +185,25 @@ export namespace CMsgSource2PlayStatsPackedRecordList {
 export interface CSource2Metrics_RecordPlayStats_Notification {
   record_types?: CMsgSource2PlayStatsPackedRecordList[];
   appid?: number;
+}
+
+export interface CSource2Metrics_FetchMapData_Request {
+  appid?: number;
+  map_name?: string;
+  game_type?: number;
+  game_mode?: number;
+  param?: string;
+  time_span?: number;
+}
+
+export interface CSource2Metrics_FetchMapData_Response {
+  results?: CSource2Metrics_FetchMapData_Response.MapData[];
+}
+
+export namespace CSource2Metrics_FetchMapData_Response {
+  export interface MapData {
+    name?: string;
+    type?: string;
+    data?: string;
+  }
 }

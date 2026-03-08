@@ -180,6 +180,10 @@ export interface CMsgSteamLearn_GetNearestEmbedding_Request {
   fetch_id?: number;
   popularity_weight?: number;
   focus_weight?: number;
+  scope_items?: number[];
+  scope_range?: number;
+  scope_decay_range?: number;
+  scope_decay_strength?: number;
 }
 
 export interface CMsgSteamLearn_GetNearestEmbedding_Response {
@@ -554,6 +558,122 @@ export interface CMsgSteamLearn_LogEvent_TrainSetLive {
 export interface CMsgSteamLearn_LogEvent_TrainStarted {
   fetch_id?: number;
   train_id?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Request {
+  request_all?: CMsgSteamLearn_ProjectStatus_Request_RequestAll;
+  request_specific?: CMsgSteamLearn_ProjectStatus_Request_RequestSpecific;
+  request_train?: CMsgSteamLearn_ProjectStatus_Request_RequestTrain;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Request_RequestAll {
+  timestamp_start?: number;
+  timestamp_end?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Request_RequestSpecific {
+  project_id?: number;
+  published_version?: number;
+  timestamp_start?: number;
+  timestamp_end?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Request_RequestTrain {
+  project_id?: number;
+  published_version?: number;
+  fetch_id?: number;
+  train_id?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response {
+  result?: number;
+  project_status?: CMsgSteamLearn_ProjectStatus_Response_ProjectStatus[];
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_Autosnapshot {
+  autosnapshot_status?: number;
+  autosnapshot_time_started?: number;
+  autosnapshot_time_ended?: number;
+  autosnapshot_key_current?: Long;
+  autosnapshot_key_max?: Long;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_BatchDetails {
+  loss?: number;
+  batch_id?: number;
+  f1_score?: number[];
+  accuracy?: number[];
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_Epoch {
+  epoch_number?: number;
+  train_batch_completed?: number;
+  val_batch_completed?: number;
+  train_loss?: number;
+  train_accuracy?: number;
+  train_f1?: number;
+  val_loss?: number;
+  val_accuracy?: number;
+  val_f1?: number;
+  epoch_timestamp_start?: number;
+  epoch_timestamp_end?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_EpochDetails {
+  epoch_number?: number;
+  train_loss?: number;
+  train_accuracy?: number[];
+  val_loss?: number;
+  val_accuracy?: number[];
+  train_batches?: CMsgSteamLearn_ProjectStatus_Response_BatchDetails[];
+  val_batches?: CMsgSteamLearn_ProjectStatus_Response_BatchDetails[];
+  epoch_timestamp_start?: number;
+  epoch_timestamp_end?: number;
+  val_f1_score?: number[];
+  train_f1_score?: number[];
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_Metadata {
+  phase?: number;
+  phase_name?: string;
+  completion_pct?: number;
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_ProjectStatus {
+  project_id?: number;
+  published_version?: number;
+  live_train_id?: number;
+  live_fetch_id?: number;
+  trains?: CMsgSteamLearn_ProjectStatus_Response_Train[];
+  autosnapshots?: CMsgSteamLearn_ProjectStatus_Response_Autosnapshot[];
+  scheduled_train_timestamps?: number[];
+  scheduled_autosnapshot_timestamps?: number[];
+}
+
+export interface CMsgSteamLearn_ProjectStatus_Response_Train {
+  fetch_id?: number;
+  train_id?: number;
+  fetch_status?: number;
+  train_status?: number;
+  metadata_status?: CMsgSteamLearn_ProjectStatus_Response_Metadata[];
+  timestamp_start?: number;
+  timestamp_end?: number;
+  timestamp_fetch_start?: number;
+  timestamp_fetch_data_start?: number;
+  timestamp_fetch_end?: number;
+  timestamp_train_start?: number;
+  timestamp_train_end?: number;
+  fetch_rows_processed?: number;
+  fetch_rows_written?: number;
+  fetch_rows_total?: number;
+  epochs?: CMsgSteamLearn_ProjectStatus_Response_Epoch[];
+  epoch_details?: CMsgSteamLearn_ProjectStatus_Response_EpochDetails[];
+  total_epochs?: number;
+  train_batches?: number;
+  val_batches?: number;
+  best_loss?: number;
+  best_accuracy?: number;
+  best_f1?: number;
 }
 
 export interface CMsgSteamLearn_PublishProject_Request {
@@ -1219,6 +1339,9 @@ export abstract class SteamLearnService {
   abstract GetProjectConfig(
     request: CMsgSteamLearn_GetProjectConfig_Request,
   ): Promise<CMsgSteamLearn_GetProjectConfig_Response>;
+  abstract GetProjectStatus(
+    request: CMsgSteamLearn_ProjectStatus_Request,
+  ): Promise<CMsgSteamLearn_ProjectStatus_Response>;
   abstract GetSnapshotStatus(
     request: CMsgSteamLearn_GetSnapshotStatus_Request,
   ): Promise<CMsgSteamLearn_GetSnapshotStatus_Response>;

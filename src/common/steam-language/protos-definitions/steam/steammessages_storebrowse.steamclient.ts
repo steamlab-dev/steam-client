@@ -133,7 +133,6 @@ export interface StoreBrowseContext {
   language?: string;
   elanguage?: number;
   country_code?: string;
-  steam_realm?: number;
 }
 
 export interface StoreBrowseItemDataRequest {
@@ -276,6 +275,8 @@ export namespace StoreItem {
     steam_release_date?: number;
     original_release_date?: number;
     original_steam_release_date?: number;
+    release_from_early_access_date?: number;
+    release_from_early_access_style?: number;
     is_coming_soon?: boolean;
     is_preload?: boolean;
     custom_release_date_message?: string;

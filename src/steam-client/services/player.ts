@@ -73,6 +73,8 @@ import type {
   CPlayer_GetTimeSSAAccepted_Response,
   CPlayer_GetTopAchievementsForGames_Request,
   CPlayer_GetTopAchievementsForGames_Response,
+  CPlayer_GetUserStats_Request,
+  CPlayer_GetUserStats_Response,
   CPlayer_IgnoreFriend_Request,
   CPlayer_IgnoreFriend_Response,
   CPlayer_PostStatusToFriends_Request,
@@ -112,6 +114,9 @@ import type SteamProtocol from "@/steam-protocol/steam-protocol";
 
 export default class PlayerService implements IPlayerService {
   constructor(private readonly steamProtocol: SteamProtocol) {}
+  GetUserStats(_request: CPlayer_GetUserStats_Request): Promise<CPlayer_GetUserStats_Response> {
+    throw new Error("Method not implemented.");
+  }
 
   GetRecentPlaytimeSessionsForChild(
     _request: CPlayer_GetRecentPlaytimeSessionsForChild_Request,

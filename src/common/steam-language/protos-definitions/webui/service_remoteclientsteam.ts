@@ -3,6 +3,10 @@
  */
 import type Long from "long";
 
+export type CRemoteClient_DisableSteamBroadcast_Notification = Record<string, never>;
+
+export type CRemoteClient_EnableSteamBroadcast_Notification = Record<string, never>;
+
 export interface CRemoteClient_RegisterStatusUpdate_Notification {
   session_id?: Long;
   steamid?: Long;
@@ -84,6 +88,12 @@ export interface CRemotePlayTogether_Notification_Player {
 }
 
 export abstract class RemoteClientSteamClientService {
+  abstract NotifyDisableSteamBroadcast(
+    request: CRemoteClient_DisableSteamBroadcast_Notification,
+  ): Promise<void>;
+  abstract NotifyEnableSteamBroadcast(
+    request: CRemoteClient_EnableSteamBroadcast_Notification,
+  ): Promise<void>;
   abstract NotifyRegisterStatusUpdate(
     request: CRemoteClient_RegisterStatusUpdate_Notification,
   ): Promise<void>;

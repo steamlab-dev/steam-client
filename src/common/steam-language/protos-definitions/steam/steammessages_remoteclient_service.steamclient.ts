@@ -10,6 +10,8 @@ import type {
   CRemoteClient_CreateRemotePlayTogetherInvitation_Response,
   CRemoteClient_DeleteRemotePlayTogetherInvitation_Request,
   CRemoteClient_DeleteRemotePlayTogetherInvitation_Response,
+  CRemoteClient_DisableSteamBroadcast_Notification,
+  CRemoteClient_EnableSteamBroadcast_Notification,
   CRemoteClient_GetPairingInfo_Request,
   CRemoteClient_GetPairingInfo_Response,
   CRemoteClient_GetRecentClients_Request,
@@ -75,6 +77,12 @@ export abstract class RemoteClientSteamClientService {
     request: CRemoteClient_UnregisterStatusUpdate_Notification,
   ): Promise<void>;
   abstract NotifyRemotePacket(request: CRemoteClient_RemotePacket_Notification): Promise<void>;
+  abstract NotifyEnableSteamBroadcast(
+    request: CRemoteClient_EnableSteamBroadcast_Notification,
+  ): Promise<void>;
+  abstract NotifyDisableSteamBroadcast(
+    request: CRemoteClient_DisableSteamBroadcast_Notification,
+  ): Promise<void>;
   abstract NotifySteamBroadcastPacket(
     request: CRemoteClient_SteamBroadcast_Notification,
   ): Promise<void>;

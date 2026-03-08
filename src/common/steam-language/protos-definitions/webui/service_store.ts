@@ -39,6 +39,7 @@ export interface CReservationPositionMessage {
 export interface CSteamDeckCompatibility_SetFeedback_Request {
   appid?: number;
   feedback?: number;
+  feedback_details?: number;
 }
 
 export type CSteamDeckCompatibility_SetFeedback_Response = Record<string, never>;

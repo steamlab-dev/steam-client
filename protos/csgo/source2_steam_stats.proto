@@ -14,6 +14,7 @@ enum ESource2PlayStatsFieldType {
 	Source2PlayStats_String = 12;
 	Source2PlayStats_LowCardinalityString = 13;
 	Source2PlayStats_UTCDateTime = 14;
+	Source2PlayStats_SteamIDTrustBucket = 15;
 }
 
 message CMsgSource2SystemSpecs {
@@ -164,9 +165,29 @@ message CMsgSource2PlayStatsPackedRecordList {
 	repeated string string_vals = 15;
 	repeated string low_cardinality_string_vals = 16;
 	repeated fixed32 utcdatetime_vals = 17 [packed = true];
+	repeated fixed64 steamidtrustbucket_vals = 18 [packed = true];
 }
 
 message CSource2Metrics_RecordPlayStats_Notification {
 	repeated .CMsgSource2PlayStatsPackedRecordList record_types = 1;
 	optional uint32 appid = 2;
+}
+
+message CSource2Metrics_FetchMapData_Request {
+	optional uint32 appid = 1;
+	optional string map_name = 2;
+	optional uint32 game_type = 3;
+	optional uint32 game_mode = 4;
+	optional string param = 5;
+	optional uint32 time_span = 6;
+}
+
+message CSource2Metrics_FetchMapData_Response {
+	message MapData {
+		optional string name = 1;
+		optional string type = 2;
+		optional string data = 3;
+	}
+
+	repeated .CSource2Metrics_FetchMapData_Response.MapData results = 1;
 }

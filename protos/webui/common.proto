@@ -351,6 +351,7 @@ message CClientMetrics_GamePerformance_Notification_FrameRate {
 	optional fixed64 gameid = 1;
 	optional uint32 frame_rate = 2;
 	optional int32 session_seconds = 3;
+	optional uint32 framegen_frame_rate = 4;
 }
 
 message CClientMetrics_IPv6Connectivity_Notification {
@@ -1325,6 +1326,14 @@ message CMsgClientSettings {
 	optional bool controller_enable_chord = 140011;
 	optional bool controller_poll_rate = 140012;
 	optional bool controller_siapi_config_author_mode = 140013;
+	optional string controller_chat_radial_menu_option_0 = 140030;
+	optional string controller_chat_radial_menu_option_1 = 140031;
+	optional string controller_chat_radial_menu_option_2 = 140032;
+	optional string controller_chat_radial_menu_option_3 = 140033;
+	optional string controller_chat_radial_menu_option_4 = 140034;
+	optional string controller_chat_radial_menu_option_5 = 140035;
+	optional string controller_chat_radial_menu_option_6 = 140036;
+	optional string controller_chat_radial_menu_option_7 = 140037;
 }
 
 message CMsgCloudPendingRemoteOperations {
@@ -2763,6 +2772,7 @@ message CVRGamepadUI_Frame {
 	optional .CVRGamepadUI_Frame_FrameMenu menu = 2;
 	repeated .CVRGamepadUIShared_Action defined_actions = 3;
 	optional .CVRGamepadUI_Frame_FrameControls controls = 4;
+	optional bool is_vrlink_remote = 5;
 	optional string tmp_title = 1000;
 }
 
@@ -2789,6 +2799,12 @@ message CVRGamepadUI_Frame_FrameMenu_Item {
 	optional int32 type = 1 [(.description) = "enum"];
 	optional uint32 action_id = 2;
 	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions steam_main_menu_options = 3;
+	optional .CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions steam_game_overlay_options = 4;
+}
+
+// Used by: common.proto
+message CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions {
+	optional uint32 app_id = 1;
 }
 
 // Used by: common.proto
@@ -3480,7 +3496,7 @@ message UserContentDescriptorPreferences_ContentDescriptor {
 	optional uint32 timestamp_added = 2;
 }
 
-// Used by: User, common.proto
+// Used by: AccountHardware, User, common.proto
 message UserSystemInformation {
 	optional string manufacturer = 1;
 	optional string model = 2;
@@ -3494,7 +3510,6 @@ message UserSystemInformation {
 	optional string cpu_name = 10;
 	optional uint32 gaming_device_type = 11;
 	optional string dx_driver_version = 12;
-	optional string dx_driver_name = 13;
 	optional string adapter_description = 14;
 	optional string driver_version = 15;
 	optional string driver_date = 16;

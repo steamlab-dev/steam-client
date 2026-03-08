@@ -52,6 +52,10 @@ export interface CRemoteClient_CancelPairing_Request {
 
 export type CRemoteClient_CancelPairing_Response = Record<string, never>;
 
+export interface CRemoteClient_CancelPairing_Notification {
+  session_id?: Long;
+}
+
 export interface CRemoteClient_RegisterStatusUpdate_Notification {
   session_id?: Long;
   steamid?: Long;
@@ -164,6 +168,10 @@ export interface CRemoteClient_AllocateSDR_Request {
 }
 
 export type CRemoteClient_AllocateSDR_Response = Record<string, never>;
+
+export type CRemoteClient_EnableSteamBroadcast_Notification = Record<string, never>;
+
+export type CRemoteClient_DisableSteamBroadcast_Notification = Record<string, never>;
 
 export interface CRemoteClient_SteamBroadcast_Notification {
   steamid?: Long;

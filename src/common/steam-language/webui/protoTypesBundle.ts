@@ -292,6 +292,7 @@ import type {
   CVRGamepadUI_Frame_FrameControls_Item,
   CVRGamepadUI_Frame_FrameMenu,
   CVRGamepadUI_Frame_FrameMenu_Item,
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions,
   CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions,
   CVRGamepadUI_Message_DashboardActionInvoked_Request,
   CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request,
@@ -387,6 +388,38 @@ import type {
   CAccountCart_RemoveItemFromCart_Response,
 } from "../protos-definitions/webui/service_accountcart";
 import type {
+  CAccountHardware_CompleteSteamControllerRegistration_Request,
+  CAccountHardware_DeRegisterSteamController_Request,
+  CAccountHardware_GetPersonalizationFile_Request,
+  CAccountHardware_GetPersonalizationFile_Response,
+  CAccountHardware_GetSavedHardwareList_Request,
+  CAccountHardware_GetSavedHardwareList_Response,
+  CAccountHardware_GetSteamDeckComponents_Request,
+  CAccountHardware_GetSteamDeckComponents_Response,
+  CAccountHardware_ManageSavedHardware_Request,
+  CAccountHardware_QueryAccountsRegisteredToSerial_Accounts,
+  CAccountHardware_QueryAccountsRegisteredToSerial_Request,
+  CAccountHardware_QueryAccountsRegisteredToSerial_Response,
+  CAccountHardware_RegisterSteamController_Request,
+  CAccountHardware_RegisterValveIndexComponent_Request,
+  CAccountHardware_SavedHardware_Details,
+  CAccountHardware_SaveHardware_Request,
+  CAccountHardware_SaveHardware_Response,
+  CAccountHardware_SetPersonalizationFile_Request,
+  CAccountHardware_SteamControllerGetConfig_ControllerConfig,
+  CAccountHardware_SteamControllerGetConfig_Request,
+  CAccountHardware_SteamControllerGetConfig_Response,
+  CAccountHardware_SteamControllerSetConfig_ControllerConfig,
+  CAccountHardware_SteamControllerSetConfig_Request,
+  CAccountHardware_UpdateControllerUsageReport_Request,
+  CAccountHardware_UpdateControllerUsageReport_Request_Controller,
+  CAccountHardware_VRCompatibilityCheck_Request,
+  CAccountHardware_VRCompatibilityCheck_Request_Pair,
+  CAccountHardware_VRCompatibilityCheck_Response,
+  CAccountHardware_VRCompatibilityCheck_Response_ComponentDisplay,
+  CAccountHardware_VRCompatibilityCheck_Response_Pair,
+} from "../protos-definitions/webui/service_accounthardware";
+import type {
   CAccountLinking_GetLinkedAccountInfo_Request,
   CAccountLinking_GetLinkedAccountInfo_Response,
   CAccountLinking_GetLinkedAccountInfo_Response_CExternalAccountTuple_Response,
@@ -443,6 +476,10 @@ import type {
   CAuction_Item,
   CAuction_PlaceBid_Request,
 } from "../protos-definitions/webui/service_auction";
+import type {
+  CAudio_PlaySpeakerTestOnChannel_Request,
+  CAudio_PlaySpeakerTestOnChannel_Response,
+} from "../protos-definitions/webui/service_audio";
 import type {
   CAuthentication_AccessToken_GenerateForApp_Request,
   CAuthentication_AccessToken_GenerateForApp_Response,
@@ -897,6 +934,8 @@ import type {
   CCommunity_GetClanEventCrowdInMetadata_Response,
   CCommunity_GetClanLocGroupImages_Request,
   CCommunity_GetClanLocGroupImages_Response,
+  CCommunity_GetClanMetadata_Request,
+  CCommunity_GetClanMetadata_Response,
   CCommunity_GetCommentThread_Request,
   CCommunity_GetCommentThread_Response,
   CCommunity_GetCommentThreadRatings_Request,
@@ -950,6 +989,8 @@ import type {
   CContentModeration_GetModeratorActivity_Response_ModerationActivity,
   CContentModeration_GetModeratorPreferences_Request,
   CContentModeration_GetModeratorPreferences_Response,
+  CContentModeration_GetOneReportSubmittedByUser_Request,
+  CContentModeration_GetOneReportSubmittedByUser_Response,
   CContentModeration_GetReportedSubjectsByOwner_Request,
   CContentModeration_GetReportedSubjectsByOwner_Response,
   CContentModeration_GetReportsSubmittedByUser_Request,
@@ -1612,6 +1653,10 @@ import type {
   CPlayer_GetTopAchievementsForGames_Response,
   CPlayer_GetTopAchievementsForGames_Response_Achievement,
   CPlayer_GetTopAchievementsForGames_Response_Game,
+  CPlayer_GetUserStats_Request,
+  CPlayer_GetUserStats_Response,
+  CPlayer_GetUserStats_Response_Stats,
+  CPlayer_GetUserStats_Response_Unlock_Time,
   CPlayer_IgnoreFriend_Request,
   CPlayer_IgnoreFriend_Response,
   CPlayer_IncomingInviteMutualFriendList,
@@ -2069,8 +2114,10 @@ import type {
   CSteamInputService_ControllerPairingChanged_Notification,
   CSteamInputService_ControllerPowerMenu_Notification,
   CSteamInputService_ControllerStateFlow_Request,
+  CSteamInputService_EnableDockedInput_Request,
   CSteamInputService_ForgetDonglePairingBond_Request,
   CSteamInputService_ForgetTritonPairingBond_Request,
+  CSteamInputService_GetControllerList_Response,
   CSteamInputService_GetControllerName_Request,
   CSteamInputService_GetControllerName_Response,
   CSteamInputService_GetDongles_Request,
@@ -2086,11 +2133,11 @@ import type {
   CSteamInputService_GyroSpeedChanged_Notification,
   CSteamInputService_PairDongleTritonConnected_Request,
   CSteamInputService_PairDongleTritonDocked_Request,
+  CSteamInputService_RawControllerDetailItem,
   CSteamInputService_ShouldTritonPairInOobe_Response,
   CSteamInputService_TritonUndocked_Notification,
   CSteamInputService_UnpairedTritonDocked_Notification,
   CSteamInputService_UnpairedTritonPluggedIn_Notification,
-  CSteamInputService_WaitInitialControllerStateEnumerated_Response,
 } from "../protos-definitions/webui/service_steaminputmanager";
 import type {
   CMsgInferenceIterateBeamSearch,
@@ -2178,6 +2225,18 @@ import type {
   CMsgSteamLearn_LogEvent_TrainEnded,
   CMsgSteamLearn_LogEvent_TrainSetLive,
   CMsgSteamLearn_LogEvent_TrainStarted,
+  CMsgSteamLearn_ProjectStatus_Request,
+  CMsgSteamLearn_ProjectStatus_Request_RequestAll,
+  CMsgSteamLearn_ProjectStatus_Request_RequestSpecific,
+  CMsgSteamLearn_ProjectStatus_Request_RequestTrain,
+  CMsgSteamLearn_ProjectStatus_Response,
+  CMsgSteamLearn_ProjectStatus_Response_Autosnapshot,
+  CMsgSteamLearn_ProjectStatus_Response_BatchDetails,
+  CMsgSteamLearn_ProjectStatus_Response_Epoch,
+  CMsgSteamLearn_ProjectStatus_Response_EpochDetails,
+  CMsgSteamLearn_ProjectStatus_Response_Metadata,
+  CMsgSteamLearn_ProjectStatus_Response_ProjectStatus,
+  CMsgSteamLearn_ProjectStatus_Response_Train,
   CMsgSteamLearn_PublishProject_Request,
   CMsgSteamLearn_PublishProject_Response,
   CMsgSteamLearn_RegisterDataSource_Request,
@@ -2279,6 +2338,7 @@ import type {
   CSteamOSManager_FactoryReset_Request,
   CSteamOSManager_GetState_Response,
   CSteamOSManager_PrepareFactoryImageTest_Request,
+  CSteamOSManager_SetDefaultDesktopSession_Request,
   CSteamOSManagerState,
 } from "../protos-definitions/webui/service_steamosmanager";
 import type {
@@ -2703,9 +2763,14 @@ import type {
 import type {
   CWishlist_AddToWishlist_Request,
   CWishlist_AddToWishlist_Response,
+  CWishlist_AddWishlistItemCategory_Request,
+  CWishlist_AddWishlistItemCategory_Response,
+  CWishlist_GetItemCategories_Request,
+  CWishlist_GetItemCategories_Response,
   CWishlist_GetWishlist_Request,
   CWishlist_GetWishlist_Response,
   CWishlist_GetWishlist_Response_WishlistItem,
+  CWishlist_GetWishlistCategories_Response,
   CWishlist_GetWishlistItemCount_Request,
   CWishlist_GetWishlistItemCount_Response,
   CWishlist_GetWishlistItemsOnSale_Request,
@@ -2716,6 +2781,8 @@ import type {
   CWishlist_GetWishlistSortedFiltered_Response_WishlistItem,
   CWishlist_RemoveFromWishlist_Request,
   CWishlist_RemoveFromWishlist_Response,
+  CWishlist_RemoveWishlistItemCategory_Request,
+  CWishlistCategory,
   CWishlistFilters,
   CWishlistFilters_ExcludeTypeFilters,
   CWishlistFilters_SteamDeckFilters,
@@ -2742,6 +2809,36 @@ export interface WebuiProtos {
   CAccountCart_ModifyLineItem_Response: CAccountCart_ModifyLineItem_Response;
   CAccountCart_RemoveItemFromCart_Request: CAccountCart_RemoveItemFromCart_Request;
   CAccountCart_RemoveItemFromCart_Response: CAccountCart_RemoveItemFromCart_Response;
+  CAccountHardware_CompleteSteamControllerRegistration_Request: CAccountHardware_CompleteSteamControllerRegistration_Request;
+  CAccountHardware_DeRegisterSteamController_Request: CAccountHardware_DeRegisterSteamController_Request;
+  CAccountHardware_GetPersonalizationFile_Request: CAccountHardware_GetPersonalizationFile_Request;
+  CAccountHardware_GetPersonalizationFile_Response: CAccountHardware_GetPersonalizationFile_Response;
+  CAccountHardware_GetSavedHardwareList_Request: CAccountHardware_GetSavedHardwareList_Request;
+  CAccountHardware_GetSavedHardwareList_Response: CAccountHardware_GetSavedHardwareList_Response;
+  CAccountHardware_GetSteamDeckComponents_Request: CAccountHardware_GetSteamDeckComponents_Request;
+  CAccountHardware_GetSteamDeckComponents_Response: CAccountHardware_GetSteamDeckComponents_Response;
+  CAccountHardware_ManageSavedHardware_Request: CAccountHardware_ManageSavedHardware_Request;
+  CAccountHardware_QueryAccountsRegisteredToSerial_Accounts: CAccountHardware_QueryAccountsRegisteredToSerial_Accounts;
+  CAccountHardware_QueryAccountsRegisteredToSerial_Request: CAccountHardware_QueryAccountsRegisteredToSerial_Request;
+  CAccountHardware_QueryAccountsRegisteredToSerial_Response: CAccountHardware_QueryAccountsRegisteredToSerial_Response;
+  CAccountHardware_RegisterSteamController_Request: CAccountHardware_RegisterSteamController_Request;
+  CAccountHardware_RegisterValveIndexComponent_Request: CAccountHardware_RegisterValveIndexComponent_Request;
+  CAccountHardware_SavedHardware_Details: CAccountHardware_SavedHardware_Details;
+  CAccountHardware_SaveHardware_Request: CAccountHardware_SaveHardware_Request;
+  CAccountHardware_SaveHardware_Response: CAccountHardware_SaveHardware_Response;
+  CAccountHardware_SetPersonalizationFile_Request: CAccountHardware_SetPersonalizationFile_Request;
+  CAccountHardware_SteamControllerGetConfig_ControllerConfig: CAccountHardware_SteamControllerGetConfig_ControllerConfig;
+  CAccountHardware_SteamControllerGetConfig_Request: CAccountHardware_SteamControllerGetConfig_Request;
+  CAccountHardware_SteamControllerGetConfig_Response: CAccountHardware_SteamControllerGetConfig_Response;
+  CAccountHardware_SteamControllerSetConfig_ControllerConfig: CAccountHardware_SteamControllerSetConfig_ControllerConfig;
+  CAccountHardware_SteamControllerSetConfig_Request: CAccountHardware_SteamControllerSetConfig_Request;
+  CAccountHardware_UpdateControllerUsageReport_Request: CAccountHardware_UpdateControllerUsageReport_Request;
+  CAccountHardware_UpdateControllerUsageReport_Request_Controller: CAccountHardware_UpdateControllerUsageReport_Request_Controller;
+  CAccountHardware_VRCompatibilityCheck_Request: CAccountHardware_VRCompatibilityCheck_Request;
+  CAccountHardware_VRCompatibilityCheck_Request_Pair: CAccountHardware_VRCompatibilityCheck_Request_Pair;
+  CAccountHardware_VRCompatibilityCheck_Response: CAccountHardware_VRCompatibilityCheck_Response;
+  CAccountHardware_VRCompatibilityCheck_Response_ComponentDisplay: CAccountHardware_VRCompatibilityCheck_Response_ComponentDisplay;
+  CAccountHardware_VRCompatibilityCheck_Response_Pair: CAccountHardware_VRCompatibilityCheck_Response_Pair;
   CAccountLinking_GetLinkedAccountInfo_Request: CAccountLinking_GetLinkedAccountInfo_Request;
   CAccountLinking_GetLinkedAccountInfo_Response: CAccountLinking_GetLinkedAccountInfo_Response;
   CAccountLinking_GetLinkedAccountInfo_Response_CExternalAccountTuple_Response: CAccountLinking_GetLinkedAccountInfo_Response_CExternalAccountTuple_Response;
@@ -2796,6 +2893,8 @@ export interface WebuiProtos {
   CAuction_GetUserBidForItem_Response: CAuction_GetUserBidForItem_Response;
   CAuction_Item: CAuction_Item;
   CAuction_PlaceBid_Request: CAuction_PlaceBid_Request;
+  CAudio_PlaySpeakerTestOnChannel_Request: CAudio_PlaySpeakerTestOnChannel_Request;
+  CAudio_PlaySpeakerTestOnChannel_Response: CAudio_PlaySpeakerTestOnChannel_Response;
   CAuthentication_AccessToken_GenerateForApp_Request: CAuthentication_AccessToken_GenerateForApp_Request;
   CAuthentication_AccessToken_GenerateForApp_Response: CAuthentication_AccessToken_GenerateForApp_Response;
   CAuthentication_AllowedConfirmation: CAuthentication_AllowedConfirmation;
@@ -3266,6 +3365,8 @@ export interface WebuiProtos {
   CCommunity_GetClanEventCrowdInMetadata_Response: CCommunity_GetClanEventCrowdInMetadata_Response;
   CCommunity_GetClanLocGroupImages_Request: CCommunity_GetClanLocGroupImages_Request;
   CCommunity_GetClanLocGroupImages_Response: CCommunity_GetClanLocGroupImages_Response;
+  CCommunity_GetClanMetadata_Request: CCommunity_GetClanMetadata_Request;
+  CCommunity_GetClanMetadata_Response: CCommunity_GetClanMetadata_Response;
   CCommunity_GetCommentThread_Request: CCommunity_GetCommentThread_Request;
   CCommunity_GetCommentThread_Response: CCommunity_GetCommentThread_Response;
   CCommunity_GetCommentThreadRatings_Request: CCommunity_GetCommentThreadRatings_Request;
@@ -3315,6 +3416,8 @@ export interface WebuiProtos {
   CContentModeration_GetModeratorActivity_Response_ModerationActivity: CContentModeration_GetModeratorActivity_Response_ModerationActivity;
   CContentModeration_GetModeratorPreferences_Request: CContentModeration_GetModeratorPreferences_Request;
   CContentModeration_GetModeratorPreferences_Response: CContentModeration_GetModeratorPreferences_Response;
+  CContentModeration_GetOneReportSubmittedByUser_Request: CContentModeration_GetOneReportSubmittedByUser_Request;
+  CContentModeration_GetOneReportSubmittedByUser_Response: CContentModeration_GetOneReportSubmittedByUser_Response;
   CContentModeration_GetReportedSubjectsByOwner_Request: CContentModeration_GetReportedSubjectsByOwner_Request;
   CContentModeration_GetReportedSubjectsByOwner_Response: CContentModeration_GetReportedSubjectsByOwner_Response;
   CContentModeration_GetReportsSubmittedByUser_Request: CContentModeration_GetReportsSubmittedByUser_Request;
@@ -3934,6 +4037,18 @@ export interface WebuiProtos {
   CMsgSteamLearn_LogEvent_TrainEnded: CMsgSteamLearn_LogEvent_TrainEnded;
   CMsgSteamLearn_LogEvent_TrainSetLive: CMsgSteamLearn_LogEvent_TrainSetLive;
   CMsgSteamLearn_LogEvent_TrainStarted: CMsgSteamLearn_LogEvent_TrainStarted;
+  CMsgSteamLearn_ProjectStatus_Request: CMsgSteamLearn_ProjectStatus_Request;
+  CMsgSteamLearn_ProjectStatus_Request_RequestAll: CMsgSteamLearn_ProjectStatus_Request_RequestAll;
+  CMsgSteamLearn_ProjectStatus_Request_RequestSpecific: CMsgSteamLearn_ProjectStatus_Request_RequestSpecific;
+  CMsgSteamLearn_ProjectStatus_Request_RequestTrain: CMsgSteamLearn_ProjectStatus_Request_RequestTrain;
+  CMsgSteamLearn_ProjectStatus_Response: CMsgSteamLearn_ProjectStatus_Response;
+  CMsgSteamLearn_ProjectStatus_Response_Autosnapshot: CMsgSteamLearn_ProjectStatus_Response_Autosnapshot;
+  CMsgSteamLearn_ProjectStatus_Response_BatchDetails: CMsgSteamLearn_ProjectStatus_Response_BatchDetails;
+  CMsgSteamLearn_ProjectStatus_Response_Epoch: CMsgSteamLearn_ProjectStatus_Response_Epoch;
+  CMsgSteamLearn_ProjectStatus_Response_EpochDetails: CMsgSteamLearn_ProjectStatus_Response_EpochDetails;
+  CMsgSteamLearn_ProjectStatus_Response_Metadata: CMsgSteamLearn_ProjectStatus_Response_Metadata;
+  CMsgSteamLearn_ProjectStatus_Response_ProjectStatus: CMsgSteamLearn_ProjectStatus_Response_ProjectStatus;
+  CMsgSteamLearn_ProjectStatus_Response_Train: CMsgSteamLearn_ProjectStatus_Response_Train;
   CMsgSteamLearn_PublishProject_Request: CMsgSteamLearn_PublishProject_Request;
   CMsgSteamLearn_PublishProject_Response: CMsgSteamLearn_PublishProject_Response;
   CMsgSteamLearn_RegisterDataSource_Request: CMsgSteamLearn_RegisterDataSource_Request;
@@ -4246,6 +4361,10 @@ export interface WebuiProtos {
   CPlayer_GetTopAchievementsForGames_Response: CPlayer_GetTopAchievementsForGames_Response;
   CPlayer_GetTopAchievementsForGames_Response_Achievement: CPlayer_GetTopAchievementsForGames_Response_Achievement;
   CPlayer_GetTopAchievementsForGames_Response_Game: CPlayer_GetTopAchievementsForGames_Response_Game;
+  CPlayer_GetUserStats_Request: CPlayer_GetUserStats_Request;
+  CPlayer_GetUserStats_Response: CPlayer_GetUserStats_Response;
+  CPlayer_GetUserStats_Response_Stats: CPlayer_GetUserStats_Response_Stats;
+  CPlayer_GetUserStats_Response_Unlock_Time: CPlayer_GetUserStats_Response_Unlock_Time;
   CPlayer_IgnoreFriend_Request: CPlayer_IgnoreFriend_Request;
   CPlayer_IgnoreFriend_Response: CPlayer_IgnoreFriend_Response;
   CPlayer_IncomingInviteMutualFriendList: CPlayer_IncomingInviteMutualFriendList;
@@ -4623,8 +4742,10 @@ export interface WebuiProtos {
   CSteamInputService_ControllerPairingChanged_Notification: CSteamInputService_ControllerPairingChanged_Notification;
   CSteamInputService_ControllerPowerMenu_Notification: CSteamInputService_ControllerPowerMenu_Notification;
   CSteamInputService_ControllerStateFlow_Request: CSteamInputService_ControllerStateFlow_Request;
+  CSteamInputService_EnableDockedInput_Request: CSteamInputService_EnableDockedInput_Request;
   CSteamInputService_ForgetDonglePairingBond_Request: CSteamInputService_ForgetDonglePairingBond_Request;
   CSteamInputService_ForgetTritonPairingBond_Request: CSteamInputService_ForgetTritonPairingBond_Request;
+  CSteamInputService_GetControllerList_Response: CSteamInputService_GetControllerList_Response;
   CSteamInputService_GetControllerName_Request: CSteamInputService_GetControllerName_Request;
   CSteamInputService_GetControllerName_Response: CSteamInputService_GetControllerName_Response;
   CSteamInputService_GetDongles_Request: CSteamInputService_GetDongles_Request;
@@ -4640,11 +4761,11 @@ export interface WebuiProtos {
   CSteamInputService_GyroSpeedChanged_Notification: CSteamInputService_GyroSpeedChanged_Notification;
   CSteamInputService_PairDongleTritonConnected_Request: CSteamInputService_PairDongleTritonConnected_Request;
   CSteamInputService_PairDongleTritonDocked_Request: CSteamInputService_PairDongleTritonDocked_Request;
+  CSteamInputService_RawControllerDetailItem: CSteamInputService_RawControllerDetailItem;
   CSteamInputService_ShouldTritonPairInOobe_Response: CSteamInputService_ShouldTritonPairInOobe_Response;
   CSteamInputService_TritonUndocked_Notification: CSteamInputService_TritonUndocked_Notification;
   CSteamInputService_UnpairedTritonDocked_Notification: CSteamInputService_UnpairedTritonDocked_Notification;
   CSteamInputService_UnpairedTritonPluggedIn_Notification: CSteamInputService_UnpairedTritonPluggedIn_Notification;
-  CSteamInputService_WaitInitialControllerStateEnumerated_Response: CSteamInputService_WaitInitialControllerStateEnumerated_Response;
   CSteamItemRewardDefinition: CSteamItemRewardDefinition;
   CSteamNotification_GetPreferences_Response: CSteamNotification_GetPreferences_Response;
   CSteamNotification_GetSteamNotifications_Request: CSteamNotification_GetSteamNotifications_Request;
@@ -4660,6 +4781,7 @@ export interface WebuiProtos {
   CSteamOSManager_FactoryReset_Request: CSteamOSManager_FactoryReset_Request;
   CSteamOSManager_GetState_Response: CSteamOSManager_GetState_Response;
   CSteamOSManager_PrepareFactoryImageTest_Request: CSteamOSManager_PrepareFactoryImageTest_Request;
+  CSteamOSManager_SetDefaultDesktopSession_Request: CSteamOSManager_SetDefaultDesktopSession_Request;
   CSteamOSManagerState: CSteamOSManagerState;
   CSteamOSSLS_GetState_Response: CSteamOSSLS_GetState_Response;
   CSteamOSSLS_SetEnabled_Request: CSteamOSSLS_SetEnabled_Request;
@@ -5075,6 +5197,7 @@ export interface WebuiProtos {
   CVRGamepadUI_Frame_FrameControls_Item: CVRGamepadUI_Frame_FrameControls_Item;
   CVRGamepadUI_Frame_FrameMenu: CVRGamepadUI_Frame_FrameMenu;
   CVRGamepadUI_Frame_FrameMenu_Item: CVRGamepadUI_Frame_FrameMenu_Item;
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions;
   CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions: CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions;
   CVRGamepadUI_Message_DashboardActionInvoked_Request: CVRGamepadUI_Message_DashboardActionInvoked_Request;
   CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request: CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request;
@@ -5122,9 +5245,14 @@ export interface WebuiProtos {
   CWebRTCClient_UpdateWebRTCConnection_Response: CWebRTCClient_UpdateWebRTCConnection_Response;
   CWishlist_AddToWishlist_Request: CWishlist_AddToWishlist_Request;
   CWishlist_AddToWishlist_Response: CWishlist_AddToWishlist_Response;
+  CWishlist_AddWishlistItemCategory_Request: CWishlist_AddWishlistItemCategory_Request;
+  CWishlist_AddWishlistItemCategory_Response: CWishlist_AddWishlistItemCategory_Response;
+  CWishlist_GetItemCategories_Request: CWishlist_GetItemCategories_Request;
+  CWishlist_GetItemCategories_Response: CWishlist_GetItemCategories_Response;
   CWishlist_GetWishlist_Request: CWishlist_GetWishlist_Request;
   CWishlist_GetWishlist_Response: CWishlist_GetWishlist_Response;
   CWishlist_GetWishlist_Response_WishlistItem: CWishlist_GetWishlist_Response_WishlistItem;
+  CWishlist_GetWishlistCategories_Response: CWishlist_GetWishlistCategories_Response;
   CWishlist_GetWishlistItemCount_Request: CWishlist_GetWishlistItemCount_Request;
   CWishlist_GetWishlistItemCount_Response: CWishlist_GetWishlistItemCount_Response;
   CWishlist_GetWishlistItemsOnSale_Request: CWishlist_GetWishlistItemsOnSale_Request;
@@ -5135,6 +5263,8 @@ export interface WebuiProtos {
   CWishlist_GetWishlistSortedFiltered_Response_WishlistItem: CWishlist_GetWishlistSortedFiltered_Response_WishlistItem;
   CWishlist_RemoveFromWishlist_Request: CWishlist_RemoveFromWishlist_Request;
   CWishlist_RemoveFromWishlist_Response: CWishlist_RemoveFromWishlist_Response;
+  CWishlist_RemoveWishlistItemCategory_Request: CWishlist_RemoveWishlistItemCategory_Request;
+  CWishlistCategory: CWishlistCategory;
   CWishlistFilters: CWishlistFilters;
   CWishlistFilters_ExcludeTypeFilters: CWishlistFilters_ExcludeTypeFilters;
   CWishlistFilters_SteamDeckFilters: CWishlistFilters_SteamDeckFilters;

@@ -205,6 +205,17 @@ export interface CCommunity_GetClanLocGroupImages_Response {
   images?: CCommunity_ClanLocGroupImage[];
 }
 
+export interface CCommunity_GetClanMetadata_Request {
+  steamid?: Long;
+}
+
+export interface CCommunity_GetClanMetadata_Response {
+  is_ogg?: boolean;
+  name?: string;
+  profile_url?: string;
+  appid?: number;
+}
+
 export interface CCommunity_GetCommentThread_Request {
   steamid?: Long;
   comment_thread_type?: number;
@@ -452,6 +463,9 @@ export abstract class CommunityService {
   abstract GetClanLocGroupImages(
     request: CCommunity_GetClanLocGroupImages_Request,
   ): Promise<CCommunity_GetClanLocGroupImages_Response>;
+  abstract GetClanMetadata(
+    request: CCommunity_GetClanMetadata_Request,
+  ): Promise<CCommunity_GetClanMetadata_Response>;
   abstract GetCommentThread(
     request: CCommunity_GetCommentThread_Request,
   ): Promise<CCommunity_GetCommentThread_Response>;

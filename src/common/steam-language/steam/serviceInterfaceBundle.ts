@@ -120,6 +120,7 @@ import type {
 } from "../protos-definitions/steam/steammessages_video.steamclient";
 import type { WorkshopService } from "../protos-definitions/steam/steammessages_workshop.steamclient";
 import type { AchievementsService } from "../protos-definitions/steam/webuimessages_achievements";
+import type { AudioService } from "../protos-definitions/steam/webuimessages_audio";
 import type { BluetoothManagerService } from "../protos-definitions/steam/webuimessages_bluetooth";
 import type { GameNotesService } from "../protos-definitions/steam/webuimessages_gamenotes";
 import type { GameRecordingService } from "../protos-definitions/steam/webuimessages_gamerecording";
@@ -146,6 +147,7 @@ import type { UserService } from "../protos-definitions/steam/webuimessages_user
 export interface SteamServices {
   AccountHardwareService: AccountHardwareService;
   AchievementsService: AchievementsService;
+  AudioService: AudioService;
   AuthenticationService: AuthenticationService;
   AuthenticationSupportService: AuthenticationSupportService;
   BluetoothManagerService: BluetoothManagerService;

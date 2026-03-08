@@ -13,9 +13,10 @@ export interface CGamePerformanceStats_GetGameFrameRateStats_Response {
 
 export interface CGamePerformanceStats_GetGameFrameRateStats_Response_FrameRate {
   clusterid?: Long;
-  frame_rate?: number;
-  weighted_report_count?: Long;
   report_days?: number;
+  report_count?: Long;
+  mean_frame_rate?: number;
+  mean_frame_rate_stddev?: number;
 }
 
 export abstract class GamePerformanceStatsService {

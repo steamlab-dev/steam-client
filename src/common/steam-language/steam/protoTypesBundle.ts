@@ -1480,6 +1480,8 @@ import type {
   CPlayer_GetTimeSSAAccepted_Response,
   CPlayer_GetTopAchievementsForGames_Request,
   CPlayer_GetTopAchievementsForGames_Response,
+  CPlayer_GetUserStats_Request,
+  CPlayer_GetUserStats_Response,
   CPlayer_IgnoreFriend_Request,
   CPlayer_IgnoreFriend_Response,
   CPlayer_IncomingInviteMutualFriendList,
@@ -1616,6 +1618,7 @@ import type {
   CRemoteClient_AllocateRelayServer_Request,
   CRemoteClient_AllocateRelayServer_Response,
   CRemoteClient_AllocateSDR_Request,
+  CRemoteClient_CancelPairing_Notification,
   CRemoteClient_CancelPairing_Request,
   CRemoteClient_ClientDetails,
   CRemoteClient_ClientLogin,
@@ -2053,6 +2056,10 @@ import type {
   CAchievements_GetInfo_Response,
 } from "../protos-definitions/steam/webuimessages_achievements";
 import type {
+  CAudio_PlaySpeakerTestOnChannel_Request,
+  CAudio_PlaySpeakerTestOnChannel_Response,
+} from "../protos-definitions/steam/webuimessages_audio";
+import type {
   CBluetoothManager_CancelPair_Request,
   CBluetoothManager_Connect_Request,
   CBluetoothManager_Disconnect_Request,
@@ -2214,6 +2221,7 @@ import type {
   CSteamInputService_ControllerStateFlow_Request,
   CSteamInputService_ForgetDonglePairingBond_Request,
   CSteamInputService_ForgetTritonPairingBond_Request,
+  CSteamInputService_GetControllerList_Response,
   CSteamInputService_GetControllerName_Request,
   CSteamInputService_GetControllerName_Response,
   CSteamInputService_GetDongles_Request,
@@ -2227,11 +2235,11 @@ import type {
   CSteamInputService_GyroSpeedChanged_Notification,
   CSteamInputService_PairDongleTritonConnected_Request,
   CSteamInputService_PairDongleTritonDocked_Request,
+  CSteamInputService_RawControllerDetailItem,
   CSteamInputService_ShouldTritonPairInOobe_Response,
   CSteamInputService_TritonUndocked_Notification,
   CSteamInputService_UnpairedTritonDocked_Notification,
   CSteamInputService_UnpairedTritonPluggedIn_Notification,
-  CSteamInputService_WaitInitialControllerStateEnumerated_Response,
 } from "../protos-definitions/steam/webuimessages_steaminput";
 import type {
   CMsgFactoryResetState,
@@ -2242,6 +2250,7 @@ import type {
   CSteamOSManager_IsTelemetryHelperAvailable_Request,
   CSteamOSManager_IsTelemetryHelperAvailable_Response,
   CSteamOSManager_PrepareFactoryImageTest_Request,
+  CSteamOSManager_SetDefaultDesktopSession_Request,
   CSteamOSManagerState,
   CSteamOSSLS_GetState_Response,
   CSteamOSSLS_SetEnabled_Request,
@@ -2325,6 +2334,8 @@ export interface SteamProtos {
   CAppOverview_Change: CAppOverview_Change;
   CAppOverview_PerClientData: CAppOverview_PerClientData;
   CAppPriority: CAppPriority;
+  CAudio_PlaySpeakerTestOnChannel_Request: CAudio_PlaySpeakerTestOnChannel_Request;
+  CAudio_PlaySpeakerTestOnChannel_Response: CAudio_PlaySpeakerTestOnChannel_Response;
   CAudioFormat: CAudioFormat;
   CAuthentication_AccessToken_GenerateForApp_Request: CAuthentication_AccessToken_GenerateForApp_Request;
   CAuthentication_AccessToken_GenerateForApp_Response: CAuthentication_AccessToken_GenerateForApp_Response;
@@ -3847,6 +3858,8 @@ export interface SteamProtos {
   CPlayer_GetTimeSSAAccepted_Response: CPlayer_GetTimeSSAAccepted_Response;
   CPlayer_GetTopAchievementsForGames_Request: CPlayer_GetTopAchievementsForGames_Request;
   CPlayer_GetTopAchievementsForGames_Response: CPlayer_GetTopAchievementsForGames_Response;
+  CPlayer_GetUserStats_Request: CPlayer_GetUserStats_Request;
+  CPlayer_GetUserStats_Response: CPlayer_GetUserStats_Response;
   CPlayer_IgnoreFriend_Request: CPlayer_IgnoreFriend_Request;
   CPlayer_IgnoreFriend_Response: CPlayer_IgnoreFriend_Response;
   CPlayer_IncomingInviteMutualFriendList: CPlayer_IncomingInviteMutualFriendList;
@@ -3936,6 +3949,7 @@ export interface SteamProtos {
   CRemoteClient_AllocateRelayServer_Request: CRemoteClient_AllocateRelayServer_Request;
   CRemoteClient_AllocateRelayServer_Response: CRemoteClient_AllocateRelayServer_Response;
   CRemoteClient_AllocateSDR_Request: CRemoteClient_AllocateSDR_Request;
+  CRemoteClient_CancelPairing_Notification: CRemoteClient_CancelPairing_Notification;
   CRemoteClient_CancelPairing_Request: CRemoteClient_CancelPairing_Request;
   CRemoteClient_ClientDetails: CRemoteClient_ClientDetails;
   CRemoteClient_ClientLogin: CRemoteClient_ClientLogin;
@@ -4046,6 +4060,7 @@ export interface SteamProtos {
   CSteamInputService_ControllerStateFlow_Request: CSteamInputService_ControllerStateFlow_Request;
   CSteamInputService_ForgetDonglePairingBond_Request: CSteamInputService_ForgetDonglePairingBond_Request;
   CSteamInputService_ForgetTritonPairingBond_Request: CSteamInputService_ForgetTritonPairingBond_Request;
+  CSteamInputService_GetControllerList_Response: CSteamInputService_GetControllerList_Response;
   CSteamInputService_GetControllerName_Request: CSteamInputService_GetControllerName_Request;
   CSteamInputService_GetControllerName_Response: CSteamInputService_GetControllerName_Response;
   CSteamInputService_GetDongles_Request: CSteamInputService_GetDongles_Request;
@@ -4059,11 +4074,11 @@ export interface SteamProtos {
   CSteamInputService_GyroSpeedChanged_Notification: CSteamInputService_GyroSpeedChanged_Notification;
   CSteamInputService_PairDongleTritonConnected_Request: CSteamInputService_PairDongleTritonConnected_Request;
   CSteamInputService_PairDongleTritonDocked_Request: CSteamInputService_PairDongleTritonDocked_Request;
+  CSteamInputService_RawControllerDetailItem: CSteamInputService_RawControllerDetailItem;
   CSteamInputService_ShouldTritonPairInOobe_Response: CSteamInputService_ShouldTritonPairInOobe_Response;
   CSteamInputService_TritonUndocked_Notification: CSteamInputService_TritonUndocked_Notification;
   CSteamInputService_UnpairedTritonDocked_Notification: CSteamInputService_UnpairedTritonDocked_Notification;
   CSteamInputService_UnpairedTritonPluggedIn_Notification: CSteamInputService_UnpairedTritonPluggedIn_Notification;
-  CSteamInputService_WaitInitialControllerStateEnumerated_Response: CSteamInputService_WaitInitialControllerStateEnumerated_Response;
   CSteamNotification_NotificationsReceived_Notification: CSteamNotification_NotificationsReceived_Notification;
   CSteamNotification_PreferencesUpdated_Notification: CSteamNotification_PreferencesUpdated_Notification;
   CSteamOS_GetUserHasPassword_Response: CSteamOS_GetUserHasPassword_Response;
@@ -4073,6 +4088,7 @@ export interface SteamProtos {
   CSteamOSManager_IsTelemetryHelperAvailable_Request: CSteamOSManager_IsTelemetryHelperAvailable_Request;
   CSteamOSManager_IsTelemetryHelperAvailable_Response: CSteamOSManager_IsTelemetryHelperAvailable_Response;
   CSteamOSManager_PrepareFactoryImageTest_Request: CSteamOSManager_PrepareFactoryImageTest_Request;
+  CSteamOSManager_SetDefaultDesktopSession_Request: CSteamOSManager_SetDefaultDesktopSession_Request;
   CSteamOSManagerState: CSteamOSManagerState;
   CSteamOSSLS_GetState_Response: CSteamOSSLS_GetState_Response;
   CSteamOSSLS_SetEnabled_Request: CSteamOSSLS_SetEnabled_Request;

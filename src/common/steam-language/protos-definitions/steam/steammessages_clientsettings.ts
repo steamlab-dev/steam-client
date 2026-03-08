@@ -211,6 +211,14 @@ export interface CMsgClientSettings {
   controller_enable_chord?: boolean;
   controller_poll_rate?: boolean;
   controller_siapi_config_author_mode?: boolean;
+  controller_chat_radial_menu_option_0?: string;
+  controller_chat_radial_menu_option_1?: string;
+  controller_chat_radial_menu_option_2?: string;
+  controller_chat_radial_menu_option_3?: string;
+  controller_chat_radial_menu_option_4?: string;
+  controller_chat_radial_menu_option_5?: string;
+  controller_chat_radial_menu_option_6?: string;
+  controller_chat_radial_menu_option_7?: string;
   startup_movie_id?: Long;
   startup_movie_local_path?: string;
   startup_movie_shuffle?: boolean;

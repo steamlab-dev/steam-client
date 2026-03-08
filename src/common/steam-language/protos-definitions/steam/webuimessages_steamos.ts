@@ -41,6 +41,9 @@ export interface CSteamOSManagerState {
   is_vrs_available?: boolean;
   is_wifi_driver_reload_available?: boolean;
   is_password_change_supported?: boolean;
+  is_session_management_supported?: boolean;
+  desktop_sessions_available?: string[];
+  desktop_session_default?: string;
 }
 
 export type CSteamOSManager_GetState_Request = Record<string, never>;
@@ -96,6 +99,16 @@ export interface CSteamOSManager_PrepareFactoryImageTest_Request {
 }
 
 export type CSteamOSManager_PrepareFactoryImageTest_Response = Record<string, never>;
+
+export type CSteamOSManager_SwitchToDesktop_Request = Record<string, never>;
+
+export type CSteamOSManager_SwitchToDesktop_Response = Record<string, never>;
+
+export interface CSteamOSManager_SetDefaultDesktopSession_Request {
+  session_name?: string;
+}
+
+export type CSteamOSManager_SetDefaultDesktopSession_Response = Record<string, never>;
 
 export interface CSteamOSSLSPlugin {
   etype?: ESLSHelper;
@@ -158,6 +171,12 @@ export abstract class SteamOSManagerService {
   abstract GetUserHasPassword(
     request: CSteamOS_GetUserHasPassword_Request,
   ): Promise<CSteamOS_GetUserHasPassword_Response>;
+  abstract SwitchToDesktop(
+    request: CSteamOSManager_SwitchToDesktop_Request,
+  ): Promise<CSteamOSManager_SwitchToDesktop_Response>;
+  abstract SetDefaultDesktopSession(
+    request: CSteamOSManager_SetDefaultDesktopSession_Request,
+  ): Promise<CSteamOSManager_SetDefaultDesktopSession_Response>;
 }
 
 export abstract class SteamOSSLSService {

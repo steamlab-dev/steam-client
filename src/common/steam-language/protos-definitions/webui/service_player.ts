@@ -570,6 +570,31 @@ export interface CPlayer_GetTopAchievementsForGames_Response_Game {
   achievements?: CPlayer_GetTopAchievementsForGames_Response_Achievement[];
 }
 
+export interface CPlayer_GetUserStats_Request {
+  steamid?: Long;
+  appid?: number;
+  sha_schema?: Buffer;
+  crc_stats?: number;
+}
+
+export interface CPlayer_GetUserStats_Response {
+  sha_schema?: Buffer;
+  crc_stats?: number;
+  schema?: Buffer;
+  stats?: CPlayer_GetUserStats_Response_Stats[];
+}
+
+export interface CPlayer_GetUserStats_Response_Stats {
+  stat_id?: number;
+  stat_value?: number;
+  unlock_times?: CPlayer_GetUserStats_Response_Unlock_Time[];
+}
+
+export interface CPlayer_GetUserStats_Response_Unlock_Time {
+  achievement_bit?: number;
+  unlock_time?: number;
+}
+
 export interface CPlayer_IgnoreFriend_Request {
   steamid?: Long;
   unignore?: boolean;
@@ -906,6 +931,9 @@ export abstract class PlayerService {
   abstract GetTopAchievementsForGames(
     request: CPlayer_GetTopAchievementsForGames_Request,
   ): Promise<CPlayer_GetTopAchievementsForGames_Response>;
+  abstract GetUserStats(
+    request: CPlayer_GetUserStats_Request,
+  ): Promise<CPlayer_GetUserStats_Response>;
   abstract IgnoreFriend(
     request: CPlayer_IgnoreFriend_Request,
   ): Promise<CPlayer_IgnoreFriend_Response>;

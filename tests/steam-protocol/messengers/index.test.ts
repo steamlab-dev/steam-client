@@ -4,13 +4,13 @@ import ProtoHeaderBuilder from "@/steam-protocol/senders/common/proto-header-bui
 import ProtoMessenger from "@/steam-protocol/senders/proto-messenger";
 import ServiceCallMessenger from "@/steam-protocol/senders/service-call-messenger";
 
-vi.mock("@/steam-protocol/messengers/common/proto-header-builder", () => ({
+vi.mock("@/steam-protocol/senders/common/proto-header-builder", () => ({
   default: vi.fn(),
 }));
-vi.mock("@/steam-protocol/messengers/proto-messenger", () => ({
+vi.mock("@/steam-protocol/senders/proto-messenger", () => ({
   default: vi.fn(),
 }));
-vi.mock("@/steam-protocol/messengers/service-call-messenger", () => ({
+vi.mock("@/steam-protocol/senders/service-call-messenger", () => ({
   default: vi.fn(),
 }));
 

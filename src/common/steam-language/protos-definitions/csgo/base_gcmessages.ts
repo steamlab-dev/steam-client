@@ -550,6 +550,7 @@ export interface CMsgOpenCrate {
   subject_item_id?: Long;
   for_rental?: boolean;
   points_remaining?: number;
+  volatile_limit?: number;
 }
 
 export interface CSOEconRentalHistory {

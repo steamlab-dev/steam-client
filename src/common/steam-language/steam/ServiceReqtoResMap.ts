@@ -30,6 +30,7 @@ export const ServiceCallToResMap = {
   CAccountHardware_ManageSavedHardware_Request: "CAccountHardware_ManageSavedHardware_Response",
   CAccountHardware_GetSavedHardwareList_Request: "CAccountHardware_GetSavedHardwareList_Response",
   CAchievements_GetInfo_Request: "CAchievements_GetInfo_Response",
+  CAudio_PlaySpeakerTestOnChannel_Request: "CAudio_PlaySpeakerTestOnChannel_Response",
   CAuthentication_GetPasswordRSAPublicKey_Request:
     "CAuthentication_GetPasswordRSAPublicKey_Response",
   CAuthentication_BeginAuthSessionViaQR_Request: "CAuthentication_BeginAuthSessionViaQR_Response",
@@ -469,6 +470,7 @@ export const ServiceCallToResMap = {
   CPlayer_GetTopAchievementsForGames_Request: "CPlayer_GetTopAchievementsForGames_Response",
   CPlayer_GetAchievementsProgress_Request: "CPlayer_GetAchievementsProgress_Response",
   CPlayer_GetGameAchievements_Request: "CPlayer_GetGameAchievements_Response",
+  CPlayer_GetUserStats_Request: "CPlayer_GetUserStats_Response",
   CPlayer_GetFavoriteBadge_Request: "CPlayer_GetFavoriteBadge_Response",
   CPlayer_SetFavoriteBadge_Request: "CPlayer_SetFavoriteBadge_Response",
   CPlayer_GetProfileCustomization_Request: "CPlayer_GetProfileCustomization_Response",
@@ -597,6 +599,7 @@ export const ServiceCallToResMap = {
   CSteamInputService_ForgetDonglePairingBond_Request:
     "CSteamInputService_ForgetDonglePairingBond_Response",
   CSteamInputService_GetControllerName_Request: "CSteamInputService_GetControllerName_Response",
+  CSteamInputService_GetControllerList_Request: "CSteamInputService_GetControllerList_Response",
   CSteamOSManager_GetState_Request: "CSteamOSManager_GetState_Response",
   CSteamOSManager_OptOutOfSideloadedClient_Request:
     "CSteamOSManager_OptOutOfSideloadedClient_Response",
@@ -608,6 +611,9 @@ export const ServiceCallToResMap = {
     "CSteamOSManager_RefreshScreenReaderAutoLocale_Response",
   CSteamOS_SetUserPassword_Request: "CSteamOS_SetUserPassword_Response",
   CSteamOS_GetUserHasPassword_Request: "CSteamOS_GetUserHasPassword_Response",
+  CSteamOSManager_SwitchToDesktop_Request: "CSteamOSManager_SwitchToDesktop_Response",
+  CSteamOSManager_SetDefaultDesktopSession_Request:
+    "CSteamOSManager_SetDefaultDesktopSession_Response",
   CSteamOSSLS_GetState_Request: "CSteamOSSLS_GetState_Response",
   CSteamOSSLS_SetEnabled_Request: "CSteamOSSLS_SetEnabled_Response",
   CSteamOSSLS_SetPluginEnabled_Request: "CSteamOSSLS_SetPluginEnabled_Response",
@@ -871,6 +877,8 @@ export type ServiceCallsWithOutRes =
   | "CRemoteClient_RegisterStatusUpdate_Notification"
   | "CRemoteClient_UnregisterStatusUpdate_Notification"
   | "CRemoteClient_RemotePacket_Notification"
+  | "CRemoteClient_EnableSteamBroadcast_Notification"
+  | "CRemoteClient_DisableSteamBroadcast_Notification"
   | "CRemoteClient_SteamBroadcast_Notification"
   | "CRemoteClient_SteamToSteam_Notification"
   | "CRemotePlayTogether_Notification"
@@ -897,6 +905,7 @@ export type ServiceCallsWithOutRes =
   | "CSteamInputService_TritonDonglesChanged_Notification"
   | "CSteamInputService_ControllerDisconnected_Notification"
   | "CSteamInputService_ControllerPairingChanged_Notification"
+  | "CSteamInputService_ControllerListChanged_Notification"
   | "CSteamNotification_NotificationsReceived_Notification"
   | "CSteamNotification_PreferencesUpdated_Notification"
   | "CSteamOSManager_StateChanged_Notification"

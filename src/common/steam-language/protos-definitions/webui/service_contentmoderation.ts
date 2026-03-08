@@ -153,6 +153,17 @@ export interface CContentModeration_GetModeratorPreferences_Response {
   enabled_subject_types?: number[];
 }
 
+export interface CContentModeration_GetOneReportSubmittedByUser_Request {
+  steamid?: Long;
+  subject_type?: number;
+  subject_group_id?: Long;
+  subject_id?: Long;
+}
+
+export interface CContentModeration_GetOneReportSubmittedByUser_Response {
+  content_report?: ContentReport;
+}
+
 export interface CContentModeration_GetReportedSubjectsByOwner_Request {
   steamid?: Long;
 }
@@ -163,10 +174,13 @@ export interface CContentModeration_GetReportedSubjectsByOwner_Response {
 
 export interface CContentModeration_GetReportsSubmittedByUser_Request {
   steamid?: Long;
+  start?: number;
+  count?: number;
 }
 
 export interface CContentModeration_GetReportsSubmittedByUser_Response {
   content_report?: ContentReport[];
+  total_count?: number;
 }
 
 export type CContentModeration_GetSubjectOverview_Request = Record<string, never>;
@@ -386,6 +400,9 @@ export abstract class ContentModerationService {
   abstract GetModeratorPreferences(
     request: CContentModeration_GetModeratorPreferences_Request,
   ): Promise<CContentModeration_GetModeratorPreferences_Response>;
+  abstract GetOneReportSubmittedByUser(
+    request: CContentModeration_GetOneReportSubmittedByUser_Request,
+  ): Promise<CContentModeration_GetOneReportSubmittedByUser_Response>;
   abstract GetReportedSubjectsByOwner(
     request: CContentModeration_GetReportedSubjectsByOwner_Request,
   ): Promise<CContentModeration_GetReportedSubjectsByOwner_Response>;

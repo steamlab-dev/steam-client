@@ -53,7 +53,17 @@ export type CSteamOSManager_RefreshScreenReaderAutoLocale_Request = Record<strin
 
 export type CSteamOSManager_RefreshScreenReaderAutoLocale_Response = Record<string, never>;
 
+export interface CSteamOSManager_SetDefaultDesktopSession_Request {
+  session_name?: string;
+}
+
+export type CSteamOSManager_SetDefaultDesktopSession_Response = Record<string, never>;
+
 export type CSteamOSManager_StateChanged_Notification = Record<string, never>;
+
+export type CSteamOSManager_SwitchToDesktop_Request = Record<string, never>;
+
+export type CSteamOSManager_SwitchToDesktop_Response = Record<string, never>;
 
 export interface CSteamOSManagerState {
   is_service_available?: boolean;
@@ -85,6 +95,9 @@ export interface CSteamOSManagerState {
   is_vrs_available?: boolean;
   is_wifi_driver_reload_available?: boolean;
   is_password_change_supported?: boolean;
+  is_session_management_supported?: boolean;
+  desktop_sessions_available?: string[];
+  desktop_session_default?: string;
 }
 
 export abstract class SteamOSManagerService {
@@ -110,7 +123,13 @@ export abstract class SteamOSManagerService {
   abstract RefreshScreenReaderAutoLocale(
     request: CSteamOSManager_RefreshScreenReaderAutoLocale_Request,
   ): Promise<CSteamOSManager_RefreshScreenReaderAutoLocale_Response>;
+  abstract SetDefaultDesktopSession(
+    request: CSteamOSManager_SetDefaultDesktopSession_Request,
+  ): Promise<CSteamOSManager_SetDefaultDesktopSession_Response>;
   abstract SetUserPassword(
     request: CSteamOS_SetUserPassword_Request,
   ): Promise<CSteamOS_SetUserPassword_Response>;
+  abstract SwitchToDesktop(
+    request: CSteamOSManager_SwitchToDesktop_Request,
+  ): Promise<CSteamOSManager_SwitchToDesktop_Response>;
 }

@@ -2,6 +2,7 @@
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
 import type { AccountCartService } from "../protos-definitions/webui/service_accountcart";
+import type { AccountHardwareService } from "../protos-definitions/webui/service_accounthardware";
 import type { AccountLinkingService } from "../protos-definitions/webui/service_accountlinking";
 import type { AccountPrivacyService } from "../protos-definitions/webui/service_accountprivacy";
 import type {
@@ -11,6 +12,7 @@ import type {
 import type { AchievementsService } from "../protos-definitions/webui/service_achievements";
 import type { AssetSetPublishingService } from "../protos-definitions/webui/service_assetsetpublishing";
 import type { AuctionService } from "../protos-definitions/webui/service_auction";
+import type { AudioService } from "../protos-definitions/webui/service_audio";
 import type { AuthenticationService } from "../protos-definitions/webui/service_authentication";
 import type { AuthenticationSupportService } from "../protos-definitions/webui/service_authenticationsupport";
 import type { BillingService } from "../protos-definitions/webui/service_billing";
@@ -165,6 +167,7 @@ import type { WishlistService } from "../protos-definitions/webui/service_wishli
 
 export interface WebuiServices {
   AccountCartService: AccountCartService;
+  AccountHardwareService: AccountHardwareService;
   AccountLinkingService: AccountLinkingService;
   AccountPrivacyService: AccountPrivacyService;
   AccountPrivateAppsClientService: AccountPrivateAppsClientService;
@@ -172,6 +175,7 @@ export interface WebuiServices {
   AchievementsService: AchievementsService;
   AssetSetPublishingService: AssetSetPublishingService;
   AuctionService: AuctionService;
+  AudioService: AudioService;
   AuthenticationService: AuthenticationService;
   AuthenticationSupportService: AuthenticationSupportService;
   BillingService: BillingService;

@@ -3,25 +3,13 @@
  */
 
 import type Long from "long";
-import type { ECommentThreadType, EContentReportReason } from "./enums";
+import type { ECommentDeleteReason, ECommentThreadType, EContentReportReason } from "./enums";
 import type {
   CCDDBAppDetailCommon,
   CClanMatchEventByRange,
   CMsgIPAddress,
   EProtoClanEventType,
 } from "./steammessages_base";
-
-export const ECommentDeleteReason = {
-  k_ECommentDeleteReason_Invalid: 0,
-  k_ECommentDeleteReason_User: 1,
-  k_ECommentDeleteReason_ThreadOwner: 2,
-  k_ECommentDeleteReason_Moderator: 3,
-  k_ECommentDeleteReason_Support: 4,
-  k_ECommentDeleteReason_Spam: 5,
-  k_ECommentDeleteReason_AccountDeletion: 6,
-} as const;
-
-export type ECommentDeleteReason = (typeof ECommentDeleteReason)[keyof typeof ECommentDeleteReason];
 
 export const EClanImageGroup = {
   k_EClanImageGroup_None: 0,

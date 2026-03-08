@@ -362,7 +362,6 @@ export interface UserSystemInformation {
   cpu_name?: string;
   gaming_device_type?: number;
   dx_driver_version?: string;
-  dx_driver_name?: string;
   adapter_description?: string;
   driver_version?: string;
   driver_date?: string;

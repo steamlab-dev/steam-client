@@ -470,6 +470,33 @@ export namespace CPlayer_GetGameAchievements_Response {
   }
 }
 
+export interface CPlayer_GetUserStats_Request {
+  steamid?: Long;
+  appid?: number;
+  sha_schema?: Buffer;
+  crc_stats?: number;
+}
+
+export interface CPlayer_GetUserStats_Response {
+  sha_schema?: Buffer;
+  crc_stats?: number;
+  schema?: Buffer;
+  stats?: CPlayer_GetUserStats_Response.Stats[];
+}
+
+export namespace CPlayer_GetUserStats_Response {
+  export interface Unlock_Time {
+    achievement_bit?: number;
+    unlock_time?: number;
+  }
+
+  export interface Stats {
+    stat_id?: number;
+    stat_value?: number;
+    unlock_times?: CPlayer_GetUserStats_Response.Unlock_Time[];
+  }
+}
+
 export interface CPlayer_GetFavoriteBadge_Request {
   steamid?: Long;
 }
@@ -951,6 +978,9 @@ export abstract class PlayerService {
   abstract GetGameAchievements(
     request: CPlayer_GetGameAchievements_Request,
   ): Promise<CPlayer_GetGameAchievements_Response>;
+  abstract GetUserStats(
+    request: CPlayer_GetUserStats_Request,
+  ): Promise<CPlayer_GetUserStats_Response>;
   abstract GetFavoriteBadge(
     request: CPlayer_GetFavoriteBadge_Request,
   ): Promise<CPlayer_GetFavoriteBadge_Response>;

@@ -18,7 +18,6 @@ export const EMsgToProtoName = {
   [EMsg.k_EMsgClientRedeemGuestPass]: "CMsgClientRedeemGuestPass",
   [EMsg.k_EMsgClientGamesPlayed]: "CMsgClientGamesPlayed",
   [EMsg.k_EMsgClientRegisterKey]: "CMsgClientRegisterKey",
-  [EMsg.k_EMsgClientPurchaseWithMachineID]: "CMsgClientPurchaseWithMachineID",
   [EMsg.k_EMsgClientLogOnResponse]: "CMsgClientLogOnResponse",
   [EMsg.k_EMsgClientLoggedOff]: "CMsgClientLoggedOff",
   [EMsg.k_EMsgGSApprove]: "CMsgGSApprove",
@@ -262,7 +261,6 @@ export const EMsgFromProtoName = {
   CMsgClientRedeemGuestPass: EMsg.k_EMsgClientRedeemGuestPass,
   CMsgClientGamesPlayed: EMsg.k_EMsgClientGamesPlayed,
   CMsgClientRegisterKey: EMsg.k_EMsgClientRegisterKey,
-  CMsgClientPurchaseWithMachineID: EMsg.k_EMsgClientPurchaseWithMachineID,
   CMsgClientLogOnResponse: EMsg.k_EMsgClientLogOnResponse,
   CMsgClientLoggedOff: EMsg.k_EMsgClientLoggedOff,
   CMsgGSApprove: EMsg.k_EMsgGSApprove,
@@ -656,7 +654,6 @@ export interface EMsgToProto {
   [EMsg.k_EMsgClientRedeemGuestPass]: SteamProtos["CMsgClientRedeemGuestPass"];
   [EMsg.k_EMsgClientGamesPlayed]: SteamProtos["CMsgClientGamesPlayed"];
   [EMsg.k_EMsgClientRegisterKey]: SteamProtos["CMsgClientRegisterKey"];
-  [EMsg.k_EMsgClientPurchaseWithMachineID]: SteamProtos["CMsgClientPurchaseWithMachineID"];
   [EMsg.k_EMsgClientLogOnResponse]: SteamProtos["CMsgClientLogOnResponse"];
   [EMsg.k_EMsgClientLoggedOff]: SteamProtos["CMsgClientLoggedOff"];
   [EMsg.k_EMsgGSApprove]: SteamProtos["CMsgGSApprove"];
@@ -885,7 +882,6 @@ export type EMsgReqWithOutRes =
   | EMsgType["k_EMsgClientFriendMsg"]
   | EMsgType["k_EMsgClientGamesPlayed"]
   | EMsgType["k_EMsgClientRegisterKey"]
-  | EMsgType["k_EMsgClientPurchaseWithMachineID"]
   | EMsgType["k_EMsgClientLoggedOff"]
   | EMsgType["k_EMsgGSApprove"]
   | EMsgType["k_EMsgGSDeny"]

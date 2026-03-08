@@ -95,6 +95,7 @@ export interface CEconItem_Description {
   container_properties?: CEconItem_ContainerProperties;
   market_bucket_group_name?: string;
   market_bucket_group_id?: string;
+  sealed_type?: number;
 }
 
 export interface CEconItem_Tag {

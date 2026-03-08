@@ -334,6 +334,7 @@ export interface CClientMetrics_GamePerformance_Notification_FrameRate {
   gameid?: Long;
   frame_rate?: number;
   session_seconds?: number;
+  framegen_frame_rate?: number;
 }
 
 export interface CClientMetrics_IPv6Connectivity_Notification {
@@ -1279,6 +1280,14 @@ export interface CMsgClientSettings {
   controller_enable_chord?: boolean;
   controller_poll_rate?: boolean;
   controller_siapi_config_author_mode?: boolean;
+  controller_chat_radial_menu_option_0?: string;
+  controller_chat_radial_menu_option_1?: string;
+  controller_chat_radial_menu_option_2?: string;
+  controller_chat_radial_menu_option_3?: string;
+  controller_chat_radial_menu_option_4?: string;
+  controller_chat_radial_menu_option_5?: string;
+  controller_chat_radial_menu_option_6?: string;
+  controller_chat_radial_menu_option_7?: string;
 }
 
 export interface CMsgCloudPendingRemoteOperations {
@@ -2609,6 +2618,7 @@ export interface CVRGamepadUI_Frame {
   menu?: CVRGamepadUI_Frame_FrameMenu;
   defined_actions?: CVRGamepadUIShared_Action[];
   controls?: CVRGamepadUI_Frame_FrameControls;
+  is_vrlink_remote?: boolean;
   tmp_title?: string;
 }
 
@@ -2631,6 +2641,11 @@ export interface CVRGamepadUI_Frame_FrameMenu_Item {
   type?: number;
   action_id?: number;
   steam_main_menu_options?: CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions;
+  steam_game_overlay_options?: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions;
+}
+
+export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions {
+  app_id?: number;
 }
 
 export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions {
@@ -3271,7 +3286,6 @@ export interface UserSystemInformation {
   cpu_name?: string;
   gaming_device_type?: number;
   dx_driver_version?: string;
-  dx_driver_name?: string;
   adapter_description?: string;
   driver_version?: string;
   driver_date?: string;

@@ -11,7 +11,7 @@ import SessionManager from "@/steam-protocol/session-manager";
 vi.mock("@/connection", () => ({
   default: { create: vi.fn() },
 }));
-vi.mock("@/steam-protocol/messengers", () => ({
+vi.mock("@/steam-protocol/senders", () => ({
   default: vi.fn(),
 }));
 vi.mock("@/steam-protocol/message-handler", () => ({

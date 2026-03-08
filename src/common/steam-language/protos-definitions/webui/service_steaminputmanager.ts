@@ -1,6 +1,7 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
+import type Long from "long";
 
 export interface CControllerAccessibilityString {
   key?: CControllerOriginKey;
@@ -100,6 +101,8 @@ export interface CSteamInputService_ControllerDisconnected_Notification {
   controller_index?: number;
 }
 
+export type CSteamInputService_ControllerListChanged_Notification = Record<string, never>;
+
 export interface CSteamInputService_ControllerPairingChanged_Notification {
   controller_index?: number;
 }
@@ -115,6 +118,13 @@ export interface CSteamInputService_ControllerStateFlow_Request {
 
 export type CSteamInputService_ControllerStateFlow_Response = Record<string, never>;
 
+export interface CSteamInputService_EnableDockedInput_Request {
+  controller_index?: number;
+  enable?: boolean;
+}
+
+export type CSteamInputService_EnableDockedInput_Response = Record<string, never>;
+
 export interface CSteamInputService_ForgetDonglePairingBond_Request {
   dongle_index?: number;
 }
@@ -127,6 +137,12 @@ export interface CSteamInputService_ForgetTritonPairingBond_Request {
 }
 
 export type CSteamInputService_ForgetTritonPairingBond_Response = Record<string, never>;
+
+export type CSteamInputService_GetControllerList_Request = Record<string, never>;
+
+export interface CSteamInputService_GetControllerList_Response {
+  controllers?: CSteamInputService_RawControllerDetailItem[];
+}
 
 export interface CSteamInputService_GetControllerName_Request {
   serial_number?: string;
@@ -151,6 +167,7 @@ export interface CSteamInputService_GetDongles_Response_Dongle {
   dongle_serial_number?: string;
   paired_serial_number?: string;
   paired?: boolean;
+  docked?: boolean;
 }
 
 export interface CSteamInputService_GetTritonPairingInfo_Request {
@@ -224,6 +241,56 @@ export interface CSteamInputService_PairDongleTritonDocked_Request {
 
 export type CSteamInputService_PairDongleTritonDocked_Response = Record<string, never>;
 
+export interface CSteamInputService_RawControllerDetailItem {
+  controller_index?: number;
+  initialized?: boolean;
+  controller_type?: number;
+  controller_style?: number;
+  xinput_index?: number;
+  is_wireless_steam_dongle?: boolean;
+  vendor_id?: number;
+  product_id?: number;
+  capabilities?: Long;
+  firmware_version?: number;
+  firmware_build_time?: string;
+  serial_number?: string;
+  cpu_id?: string;
+  name?: string;
+  is_remote_device?: boolean;
+  is_bluetooth?: boolean;
+  has_touchscreen?: boolean;
+  mac_addr?: string[];
+  battery_level?: number;
+  is_charging?: boolean;
+  led_brightness?: number;
+  led_saturation?: number;
+  turn_on_sound?: number;
+  turn_off_sound?: number;
+  led_red?: number;
+  led_green?: number;
+  led_blue?: number;
+  deadzone_left_stick?: number;
+  deadzone_right_stick?: number;
+  haptics_enabled?: boolean;
+  gyro_sw_antidrift_enabled?: boolean;
+  gyro_one_euro_filter_enabled?: boolean;
+  haptic_strength_left?: number;
+  haptic_strength_right?: number;
+  pad_pressure_curve_left?: number;
+  pad_pressure_curve_right?: number;
+  left_stick_touch_disable_lpad?: boolean;
+  right_stick_touch_disable_rpad?: boolean;
+  player_slot_led_setting?: number;
+  has_nintendo_layout?: boolean;
+  has_reversed_layout?: boolean;
+  has_universal_face_button_glyphs?: boolean;
+  gyro_stationary_tolerance?: number;
+  accel_stationary_tolerance?: number;
+  aux_capsense_threshold?: number;
+  aux_capsense_hysterisis?: number;
+  rumble_setting?: number;
+}
+
 export type CSteamInputService_ShouldTritonPairInOobe_Request = Record<string, never>;
 
 export interface CSteamInputService_ShouldTritonPairInOobe_Response {
@@ -248,14 +315,18 @@ export interface CSteamInputService_UnpairedTritonPluggedIn_Notification {
 
 export type CSteamInputService_WaitInitialControllerStateEnumerated_Request = Record<string, never>;
 
-export interface CSteamInputService_WaitInitialControllerStateEnumerated_Response {
-  controller?: number[];
-}
+export type CSteamInputService_WaitInitialControllerStateEnumerated_Response = Record<
+  string,
+  never
+>;
 
 export abstract class SteamInputManagerService {
   abstract CancelGyroSoftwareCalibration(
     request: CSteamInputService_GyroSoftwareCalibration_Request,
   ): Promise<CSteamInputService_GyroSoftwareCalibration_Response>;
+  abstract EnableDockedInput(
+    request: CSteamInputService_EnableDockedInput_Request,
+  ): Promise<CSteamInputService_EnableDockedInput_Response>;
   abstract EndControllerStateFlow(
     request: CSteamInputService_ControllerStateFlow_Request,
   ): Promise<CSteamInputService_ControllerStateFlow_Response>;
@@ -268,6 +339,9 @@ export abstract class SteamInputManagerService {
   abstract GetControllerAccessibilityStrings(
     request: CSteamInputService_ControllerAccessibilityStrings_Request,
   ): Promise<CSteamInputService_ControllerAccessibilityStrings_Response>;
+  abstract GetControllerList(
+    request: CSteamInputService_GetControllerList_Request,
+  ): Promise<CSteamInputService_GetControllerList_Response>;
   abstract GetControllerName(
     request: CSteamInputService_GetControllerName_Request,
   ): Promise<CSteamInputService_GetControllerName_Response>;
@@ -285,6 +359,9 @@ export abstract class SteamInputManagerService {
   ): Promise<void>;
   abstract NotifyControllerDisconnected(
     request: CSteamInputService_ControllerDisconnected_Notification,
+  ): Promise<void>;
+  abstract NotifyControllerListChanged(
+    request: CSteamInputService_ControllerListChanged_Notification,
   ): Promise<void>;
   abstract NotifyControllerPairingChanged(
     request: CSteamInputService_ControllerPairingChanged_Notification,
