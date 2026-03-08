@@ -100,6 +100,7 @@ import type {
   CMsgClientEmoticonList_Emoticon,
   CMsgClientEmoticonList_Sticker,
   CMsgClientGetClanActivityCounts,
+  CMsgClientGetEmoticonList,
   CMsgClientHeartBeat,
   CMsgClientInviteToGame,
   CMsgClientItemAnnouncements,
@@ -119,6 +120,7 @@ import type {
   CMsgClientRemoveFriendFromGroup,
   CMsgClientRemoveFriendFromGroupResponse,
   CMsgClientRequestFriendData,
+  CMsgClientRequestOfflineMessageCount,
   CMsgClientSecret,
   CMsgClientServersAvailable,
   CMsgClientServersAvailable_Server_Types_Available,
@@ -2215,7 +2217,9 @@ import type {
   CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_MapValuesEntry,
   CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram,
   CMsgSteamLearn_InferenceMetadata_Response_StdDev,
+  CMsgSteamLearn_ListDataSources_Request,
   CMsgSteamLearn_ListDataSources_Response,
+  CMsgSteamLearn_ListProjectConfigs_Request,
   CMsgSteamLearn_ListProjectConfigs_Response,
   CMsgSteamLearn_ListProjectConfigs_Response_ProjectConfigInfo,
   CMsgSteamLearn_ListProjects_Request,
@@ -2263,26 +2267,36 @@ import type {
   CMsgSteamLearnDataSourceDescObject,
   CMsgSteamLearnDataSourceElementUsage,
   CMsgSteamLearnFetchInfo,
+  CMsgSteamLearnModelNodeBatchNormalization,
+  CMsgSteamLearnModelNodeBert,
   CMsgSteamLearnModelNodeBertFinetune,
   CMsgSteamLearnModelNodeBertTokenizer,
+  CMsgSteamLearnModelNodeCombine,
   CMsgSteamLearnModelNodeConcatenate,
   CMsgSteamLearnModelNodeConditionalExtract,
   CMsgSteamLearnModelNodeConditionalExtract_FilterInfo,
   CMsgSteamLearnModelNodeConditionalExtract_WeightInfo,
+  CMsgSteamLearnModelNodeConditionalSwap,
   CMsgSteamLearnModelNodeConv1D,
   CMsgSteamLearnModelNodeDense,
   CMsgSteamLearnModelNodeDenseStack,
   CMsgSteamLearnModelNodeDot,
   CMsgSteamLearnModelNodeDropout,
   CMsgSteamLearnModelNodeEmbedding,
+  CMsgSteamLearnModelNodeExplode,
   CMsgSteamLearnModelNodeExternalEmbedding,
   CMsgSteamLearnModelNodeExternalModel,
   CMsgSteamLearnModelNodeExtract,
+  CMsgSteamLearnModelNodeFlatten,
+  CMsgSteamLearnModelNodeGlobalAvgPooling1D,
+  CMsgSteamLearnModelNodeGlobalMaxPooling1D,
   CMsgSteamLearnModelNodeInput,
   CMsgSteamLearnModelNodeKMeansCluster,
   CMsgSteamLearnModelNodeLogic,
+  CMsgSteamLearnModelNodeMaskedHead,
   CMsgSteamLearnModelNodeMaxPooling1D,
   CMsgSteamLearnModelNodeNamedInference,
+  CMsgSteamLearnModelNodeNormalize,
   CMsgSteamLearnModelNodeOnehot,
   CMsgSteamLearnModelNodeReshape2D,
   CMsgSteamLearnModelNodeRowExtract,
@@ -3849,6 +3863,7 @@ export interface WebuiProtos {
   CMsgClientFriendsList: CMsgClientFriendsList;
   CMsgClientFriendsList_Friend: CMsgClientFriendsList_Friend;
   CMsgClientGetClanActivityCounts: CMsgClientGetClanActivityCounts;
+  CMsgClientGetEmoticonList: CMsgClientGetEmoticonList;
   CMsgClientHeartBeat: CMsgClientHeartBeat;
   CMsgClientInviteToGame: CMsgClientInviteToGame;
   CMsgClientItemAnnouncements: CMsgClientItemAnnouncements;
@@ -3868,6 +3883,7 @@ export interface WebuiProtos {
   CMsgClientRemoveFriendFromGroup: CMsgClientRemoveFriendFromGroup;
   CMsgClientRemoveFriendFromGroupResponse: CMsgClientRemoveFriendFromGroupResponse;
   CMsgClientRequestFriendData: CMsgClientRequestFriendData;
+  CMsgClientRequestOfflineMessageCount: CMsgClientRequestOfflineMessageCount;
   CMsgClientSecret: CMsgClientSecret;
   CMsgClientServersAvailable: CMsgClientServersAvailable;
   CMsgClientServersAvailable_Server_Types_Available: CMsgClientServersAvailable_Server_Types_Available;
@@ -4027,7 +4043,9 @@ export interface WebuiProtos {
   CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_MapValuesEntry: CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_MapValuesEntry;
   CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram: CMsgSteamLearn_InferenceMetadata_Response_SnapshotHistogram;
   CMsgSteamLearn_InferenceMetadata_Response_StdDev: CMsgSteamLearn_InferenceMetadata_Response_StdDev;
+  CMsgSteamLearn_ListDataSources_Request: CMsgSteamLearn_ListDataSources_Request;
   CMsgSteamLearn_ListDataSources_Response: CMsgSteamLearn_ListDataSources_Response;
+  CMsgSteamLearn_ListProjectConfigs_Request: CMsgSteamLearn_ListProjectConfigs_Request;
   CMsgSteamLearn_ListProjectConfigs_Response: CMsgSteamLearn_ListProjectConfigs_Response;
   CMsgSteamLearn_ListProjectConfigs_Response_ProjectConfigInfo: CMsgSteamLearn_ListProjectConfigs_Response_ProjectConfigInfo;
   CMsgSteamLearn_ListProjects_Request: CMsgSteamLearn_ListProjects_Request;
@@ -4075,26 +4093,36 @@ export interface WebuiProtos {
   CMsgSteamLearnDataSourceDescObject: CMsgSteamLearnDataSourceDescObject;
   CMsgSteamLearnDataSourceElementUsage: CMsgSteamLearnDataSourceElementUsage;
   CMsgSteamLearnFetchInfo: CMsgSteamLearnFetchInfo;
+  CMsgSteamLearnModelNodeBatchNormalization: CMsgSteamLearnModelNodeBatchNormalization;
+  CMsgSteamLearnModelNodeBert: CMsgSteamLearnModelNodeBert;
   CMsgSteamLearnModelNodeBertFinetune: CMsgSteamLearnModelNodeBertFinetune;
   CMsgSteamLearnModelNodeBertTokenizer: CMsgSteamLearnModelNodeBertTokenizer;
+  CMsgSteamLearnModelNodeCombine: CMsgSteamLearnModelNodeCombine;
   CMsgSteamLearnModelNodeConcatenate: CMsgSteamLearnModelNodeConcatenate;
   CMsgSteamLearnModelNodeConditionalExtract: CMsgSteamLearnModelNodeConditionalExtract;
   CMsgSteamLearnModelNodeConditionalExtract_FilterInfo: CMsgSteamLearnModelNodeConditionalExtract_FilterInfo;
   CMsgSteamLearnModelNodeConditionalExtract_WeightInfo: CMsgSteamLearnModelNodeConditionalExtract_WeightInfo;
+  CMsgSteamLearnModelNodeConditionalSwap: CMsgSteamLearnModelNodeConditionalSwap;
   CMsgSteamLearnModelNodeConv1D: CMsgSteamLearnModelNodeConv1D;
   CMsgSteamLearnModelNodeDense: CMsgSteamLearnModelNodeDense;
   CMsgSteamLearnModelNodeDenseStack: CMsgSteamLearnModelNodeDenseStack;
   CMsgSteamLearnModelNodeDot: CMsgSteamLearnModelNodeDot;
   CMsgSteamLearnModelNodeDropout: CMsgSteamLearnModelNodeDropout;
   CMsgSteamLearnModelNodeEmbedding: CMsgSteamLearnModelNodeEmbedding;
+  CMsgSteamLearnModelNodeExplode: CMsgSteamLearnModelNodeExplode;
   CMsgSteamLearnModelNodeExternalEmbedding: CMsgSteamLearnModelNodeExternalEmbedding;
   CMsgSteamLearnModelNodeExternalModel: CMsgSteamLearnModelNodeExternalModel;
   CMsgSteamLearnModelNodeExtract: CMsgSteamLearnModelNodeExtract;
+  CMsgSteamLearnModelNodeFlatten: CMsgSteamLearnModelNodeFlatten;
+  CMsgSteamLearnModelNodeGlobalAvgPooling1D: CMsgSteamLearnModelNodeGlobalAvgPooling1D;
+  CMsgSteamLearnModelNodeGlobalMaxPooling1D: CMsgSteamLearnModelNodeGlobalMaxPooling1D;
   CMsgSteamLearnModelNodeInput: CMsgSteamLearnModelNodeInput;
   CMsgSteamLearnModelNodeKMeansCluster: CMsgSteamLearnModelNodeKMeansCluster;
   CMsgSteamLearnModelNodeLogic: CMsgSteamLearnModelNodeLogic;
+  CMsgSteamLearnModelNodeMaskedHead: CMsgSteamLearnModelNodeMaskedHead;
   CMsgSteamLearnModelNodeMaxPooling1D: CMsgSteamLearnModelNodeMaxPooling1D;
   CMsgSteamLearnModelNodeNamedInference: CMsgSteamLearnModelNodeNamedInference;
+  CMsgSteamLearnModelNodeNormalize: CMsgSteamLearnModelNodeNormalize;
   CMsgSteamLearnModelNodeOnehot: CMsgSteamLearnModelNodeOnehot;
   CMsgSteamLearnModelNodeReshape2D: CMsgSteamLearnModelNodeReshape2D;
   CMsgSteamLearnModelNodeRowExtract: CMsgSteamLearnModelNodeRowExtract;

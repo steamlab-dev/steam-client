@@ -1,9 +1,9 @@
 import type { EMsg, SteamProtos } from "@/common/steam-language";
 import type { CAuthentication_Token_Revoke_Response } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 import type {
-  EMsgFromProtoName,
-  EMsgReqToEMsgRes,
-  EMsgToProto,
+  EMsgMapFromProtoName,
+  EMsgMapToPayload,
+  EMsgMapToResponse,
 } from "@/common/steam-language/steam/EMsgMapping";
 import type {
   ServiceCallsWithOutRes,
@@ -18,13 +18,11 @@ export interface Messenger {
   cleanUp(): void;
 }
 
-// Basic type aliases for better readability
-export type ProtoName = keyof typeof EMsgFromProtoName;
+export type ProtoName = keyof typeof EMsgMapFromProtoName;
 
-// Helper type to get payload for a given EMsg
-export type ProtoPayload<K extends EMsg = EMsg> = K extends keyof EMsgToProto
-  ? EMsgToProto[K]
-  : never;
+type PayloadByEMsg<K extends EMsg> = K extends keyof EMsgMapToPayload ? EMsgMapToPayload[K] : never;
+
+export type ProtoPayload<K extends EMsg = EMsg> = PayloadByEMsg<K>;
 
 // Request message structure
 export type ProtoMessageReq<K extends EMsg = EMsg, T extends EMsg | undefined = undefined> = {
@@ -33,15 +31,14 @@ export type ProtoMessageReq<K extends EMsg = EMsg, T extends EMsg | undefined = 
   payload: ProtoPayload<K>;
 };
 
-// Helper types for response resolution (broken down for clarity)
-type ResolveResponseFromRequest<K extends EMsg> = K extends keyof typeof EMsgReqToEMsgRes
-  ? (typeof EMsgReqToEMsgRes)[K] extends keyof EMsgToProto
-    ? EMsgToProto[(typeof EMsgReqToEMsgRes)[K]]
+type ResolveResponseFromRequest<K extends EMsg> = K extends keyof typeof EMsgMapToResponse
+  ? (typeof EMsgMapToResponse)[K] extends keyof EMsgMapToPayload
+    ? EMsgMapToPayload[(typeof EMsgMapToResponse)[K]]
     : never
   : never;
 
-type ResolveExplicitResponse<T extends EMsg> = T extends keyof EMsgToProto
-  ? EMsgToProto[T]
+type ResolveExplicitResponse<T extends EMsg> = T extends keyof EMsgMapToPayload
+  ? EMsgMapToPayload[T]
   : undefined;
 
 // Response message type - uses explicit response type T if provided, otherwise infers from request K

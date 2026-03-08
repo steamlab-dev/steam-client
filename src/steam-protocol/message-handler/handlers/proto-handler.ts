@@ -1,5 +1,5 @@
 import { EResult } from "@/common/steam-language";
-import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
+import { EMsgMapToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import { SteamProtocolEResultError, SteamProtocolError } from "@/steam-protocol/error";
 import type ProtoManager from "@/steam-protocol/proto-manager";
 import type ProtoMessenger from "@/steam-protocol/senders/proto-messenger";
@@ -17,14 +17,14 @@ export default class ProtoResponseHandler implements MsgHandler {
   }
 
   handle(message: ProtoMessage): DecodedProtoMessage {
-    if (!isKeyOf(EMsgToProtoName, message.eMsg)) {
+    if (!isKeyOf(EMsgMapToProtoName, message.eMsg)) {
       throw new SteamProtocolError(
         `EMsg to Proto name not found: ${JSON.stringify(message, null, 2)}`,
         "handler",
       );
     }
 
-    const protoName = EMsgToProtoName[message.eMsg];
+    const protoName = EMsgMapToProtoName[message.eMsg];
 
     const decodedMessage: DecodedProtoMessage = {
       ...message,

@@ -27,6 +27,7 @@ import type {
   CMsgGCNameItemNotification,
   CMsgGCReportAbuse,
   CMsgGCReportAbuseResponse,
+  CMsgGCRequestAnnouncements,
   CMsgGCRequestAnnouncementsResponse,
   CMsgGCServerVersionUpdated,
   CMsgGCShowItemsPickedUp,
@@ -45,17 +46,22 @@ import type {
   CMsgGCToGCIsTrustedServerResponse,
   CMsgGCToGCRequestPassportItemGrant,
   CMsgGCToGCUpdateSQLKeyValue,
+  CMsgGCToGCWebAPIAccountChanged,
   CMsgIncrementKillCountAttribute,
   CMsgInvitationCreated,
   CMsgInviteToParty,
   CMsgItemAcknowledged__DEPRECATED,
   CMsgKickFromParty,
   CMsgLANServerAvailable,
+  CMsgLeaveParty,
   CMsgModifyItemAttribute,
   CMsgOpenCrate,
   CMsgPartyInviteResponse,
   CMsgReplayUploadedToYouTube,
   CMsgReplicateConVars,
+  CMsgRequestInventoryRefresh,
+  CMsgSDONoMemcached,
+  CMsgServerAvailable,
   CMsgSetItemPositions,
   CMsgSortItems,
   CMsgStoreGetUserData,
@@ -145,6 +151,7 @@ import type {
   CMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin,
   CMsgGCCStrike15_v2_Client2GCStreamUnlock,
   CMsgGCCStrike15_v2_Client2GCTextMsg,
+  CMsgGCCStrike15_v2_Client2GcAckXPShopTracks,
   CMsgGCCStrike15_v2_ClientAccountBalance,
   CMsgGCCStrike15_v2_ClientAuthKeyCode,
   CMsgGCCStrike15_v2_ClientCommendPlayer,
@@ -162,6 +169,7 @@ import type {
   CMsgGCCStrike15_v2_ClientReportValidation,
   CMsgGCCStrike15_v2_ClientRequestJoinFriendData,
   CMsgGCCStrike15_v2_ClientRequestJoinServerData,
+  CMsgGCCStrike15_v2_ClientRequestOffers,
   CMsgGCCStrike15_v2_ClientRequestPlayersProfile,
   CMsgGCCStrike15_v2_ClientRequestSouvenir,
   CMsgGCCStrike15_v2_ClientRequestWatchInfoFriends,
@@ -182,15 +190,18 @@ import type {
   CMsgGCCStrike15_v2_GCToClientChat,
   CMsgGCCStrike15_v2_GetEventFavorites_Request,
   CMsgGCCStrike15_v2_GetEventFavorites_Response,
+  CMsgGCCStrike15_v2_GiftsLeaderboardRequest,
   CMsgGCCStrike15_v2_GiftsLeaderboardResponse,
   CMsgGCCStrike15_v2_MatchEndRewardDropsNotification,
   CMsgGCCStrike15_v2_MatchEndRunRewardDrops,
   CMsgGCCStrike15_v2_MatchList,
+  CMsgGCCStrike15_v2_MatchListRequestCurrentLiveGames,
   CMsgGCCStrike15_v2_MatchListRequestFullGameInfo,
   CMsgGCCStrike15_v2_MatchListRequestLiveGameForUser,
   CMsgGCCStrike15_v2_MatchListRequestRecentUserGames,
   CMsgGCCStrike15_v2_MatchListRequestTournamentGames,
   CMsgGCCStrike15_v2_MatchListTournamentOperatorMgmt,
+  CMsgGCCStrike15_v2_MatchmakingClient2GCHello,
   CMsgGCCStrike15_v2_MatchmakingClient2ServerPing,
   CMsgGCCStrike15_v2_MatchmakingGC2ClientAbandon,
   CMsgGCCStrike15_v2_MatchmakingGC2ClientHello,
@@ -228,6 +239,7 @@ import type {
   CMsgItemAcknowledged,
   CMsgLegacySource1ClientWelcome,
   CMsgRecurringMissionSchema,
+  CMsgRequestRecurringMissionSchedule,
   CPreMatchInfoData,
   CSOAccountItemPersonalStore,
   CSOAccountKeychainRemoveToolCharges,
@@ -1006,6 +1018,7 @@ export interface CsgoProtos {
   CMsgGCCStrike15_v2_AccountPrivacySettings: CMsgGCCStrike15_v2_AccountPrivacySettings;
   CMsgGCCStrike15_v2_AcknowledgePenalty: CMsgGCCStrike15_v2_AcknowledgePenalty;
   CMsgGCCStrike15_v2_BetaEnrollment: CMsgGCCStrike15_v2_BetaEnrollment;
+  CMsgGCCStrike15_v2_Client2GcAckXPShopTracks: CMsgGCCStrike15_v2_Client2GcAckXPShopTracks;
   CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockRequest: CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockRequest;
   CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockResponse: CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockResponse;
   CMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin: CMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin;
@@ -1030,6 +1043,7 @@ export interface CsgoProtos {
   CMsgGCCStrike15_v2_ClientReportValidation: CMsgGCCStrike15_v2_ClientReportValidation;
   CMsgGCCStrike15_v2_ClientRequestJoinFriendData: CMsgGCCStrike15_v2_ClientRequestJoinFriendData;
   CMsgGCCStrike15_v2_ClientRequestJoinServerData: CMsgGCCStrike15_v2_ClientRequestJoinServerData;
+  CMsgGCCStrike15_v2_ClientRequestOffers: CMsgGCCStrike15_v2_ClientRequestOffers;
   CMsgGCCStrike15_v2_ClientRequestPlayersProfile: CMsgGCCStrike15_v2_ClientRequestPlayersProfile;
   CMsgGCCStrike15_v2_ClientRequestSouvenir: CMsgGCCStrike15_v2_ClientRequestSouvenir;
   CMsgGCCStrike15_v2_ClientRequestWatchInfoFriends: CMsgGCCStrike15_v2_ClientRequestWatchInfoFriends;
@@ -1051,15 +1065,18 @@ export interface CsgoProtos {
   CMsgGCCStrike15_v2_GCToClientChat: CMsgGCCStrike15_v2_GCToClientChat;
   CMsgGCCStrike15_v2_GetEventFavorites_Request: CMsgGCCStrike15_v2_GetEventFavorites_Request;
   CMsgGCCStrike15_v2_GetEventFavorites_Response: CMsgGCCStrike15_v2_GetEventFavorites_Response;
+  CMsgGCCStrike15_v2_GiftsLeaderboardRequest: CMsgGCCStrike15_v2_GiftsLeaderboardRequest;
   CMsgGCCStrike15_v2_GiftsLeaderboardResponse: CMsgGCCStrike15_v2_GiftsLeaderboardResponse;
   CMsgGCCStrike15_v2_MatchEndRewardDropsNotification: CMsgGCCStrike15_v2_MatchEndRewardDropsNotification;
   CMsgGCCStrike15_v2_MatchEndRunRewardDrops: CMsgGCCStrike15_v2_MatchEndRunRewardDrops;
   CMsgGCCStrike15_v2_MatchList: CMsgGCCStrike15_v2_MatchList;
+  CMsgGCCStrike15_v2_MatchListRequestCurrentLiveGames: CMsgGCCStrike15_v2_MatchListRequestCurrentLiveGames;
   CMsgGCCStrike15_v2_MatchListRequestFullGameInfo: CMsgGCCStrike15_v2_MatchListRequestFullGameInfo;
   CMsgGCCStrike15_v2_MatchListRequestLiveGameForUser: CMsgGCCStrike15_v2_MatchListRequestLiveGameForUser;
   CMsgGCCStrike15_v2_MatchListRequestRecentUserGames: CMsgGCCStrike15_v2_MatchListRequestRecentUserGames;
   CMsgGCCStrike15_v2_MatchListRequestTournamentGames: CMsgGCCStrike15_v2_MatchListRequestTournamentGames;
   CMsgGCCStrike15_v2_MatchListTournamentOperatorMgmt: CMsgGCCStrike15_v2_MatchListTournamentOperatorMgmt;
+  CMsgGCCStrike15_v2_MatchmakingClient2GCHello: CMsgGCCStrike15_v2_MatchmakingClient2GCHello;
   CMsgGCCStrike15_v2_MatchmakingClient2ServerPing: CMsgGCCStrike15_v2_MatchmakingClient2ServerPing;
   CMsgGCCStrike15_v2_MatchmakingGC2ClientAbandon: CMsgGCCStrike15_v2_MatchmakingGC2ClientAbandon;
   CMsgGCCStrike15_v2_MatchmakingGC2ClientHello: CMsgGCCStrike15_v2_MatchmakingGC2ClientHello;
@@ -1105,6 +1122,7 @@ export interface CsgoProtos {
   CMsgGCNameItemNotification: CMsgGCNameItemNotification;
   CMsgGCReportAbuse: CMsgGCReportAbuse;
   CMsgGCReportAbuseResponse: CMsgGCReportAbuseResponse;
+  CMsgGCRequestAnnouncements: CMsgGCRequestAnnouncements;
   CMsgGCRequestAnnouncementsResponse: CMsgGCRequestAnnouncementsResponse;
   CMsgGCRequestSessionIP: CMsgGCRequestSessionIP;
   CMsgGCRequestSessionIPResponse: CMsgGCRequestSessionIPResponse;
@@ -1126,6 +1144,7 @@ export interface CsgoProtos {
   CMsgGCToGCIsTrustedServerResponse: CMsgGCToGCIsTrustedServerResponse;
   CMsgGCToGCRequestPassportItemGrant: CMsgGCToGCRequestPassportItemGrant;
   CMsgGCToGCUpdateSQLKeyValue: CMsgGCToGCUpdateSQLKeyValue;
+  CMsgGCToGCWebAPIAccountChanged: CMsgGCToGCWebAPIAccountChanged;
   CMsgGCUpdateSessionIP: CMsgGCUpdateSessionIP;
   CMsgGCUserTrackTimePlayedConsecutively: CMsgGCUserTrackTimePlayedConsecutively;
   CMsgICECandidate: CMsgICECandidate;
@@ -1138,6 +1157,7 @@ export interface CsgoProtos {
   CMsgItemAcknowledged__DEPRECATED: CMsgItemAcknowledged__DEPRECATED;
   CMsgKickFromParty: CMsgKickFromParty;
   CMsgLANServerAvailable: CMsgLANServerAvailable;
+  CMsgLeaveParty: CMsgLeaveParty;
   CMsgLegacySource1ClientWelcome: CMsgLegacySource1ClientWelcome;
   CMsgModifyItemAttribute: CMsgModifyItemAttribute;
   CMsgOpenCrate: CMsgOpenCrate;
@@ -1151,8 +1171,12 @@ export interface CsgoProtos {
   CMsgRecurringMissionSchema: CMsgRecurringMissionSchema;
   CMsgReplayUploadedToYouTube: CMsgReplayUploadedToYouTube;
   CMsgReplicateConVars: CMsgReplicateConVars;
+  CMsgRequestInventoryRefresh: CMsgRequestInventoryRefresh;
+  CMsgRequestRecurringMissionSchedule: CMsgRequestRecurringMissionSchedule;
   CMsgRGBA: CMsgRGBA;
+  CMsgSDONoMemcached: CMsgSDONoMemcached;
   CMsgSerializedSOCache: CMsgSerializedSOCache;
+  CMsgServerAvailable: CMsgServerAvailable;
   CMsgServerHello: CMsgServerHello;
   CMsgServerNetworkStats: CMsgServerNetworkStats;
   CMsgServerPeer: CMsgServerPeer;

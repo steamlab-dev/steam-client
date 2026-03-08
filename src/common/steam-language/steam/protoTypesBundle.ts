@@ -129,6 +129,7 @@ import type {
   CMsgRequestFullScreen,
   CMsgRequestProcessInfo,
   CMsgResizeGripChanged,
+  CMsgRestartJSContext,
   CMsgSavePageToJPEG,
   CMsgSavePageToJPEGResponse,
   CMsgScalePageToValue,
@@ -687,6 +688,7 @@ import type {
   CMsgClientAuthorizeLocalDeviceNotification,
   CMsgClientAuthorizeLocalDeviceRequest,
   CMsgClientChatGetFriendMessageHistory,
+  CMsgClientChatGetFriendMessageHistoryForOfflineMessages,
   CMsgClientChatGetFriendMessageHistoryResponse,
   CMsgClientCheckAppBetaPassword,
   CMsgClientCheckAppBetaPasswordResponse,
@@ -703,6 +705,7 @@ import type {
   CMsgClientFriendUserStatusPublished,
   CMsgClientFSGetFriendsSteamLevels,
   CMsgClientFSGetFriendsSteamLevelsResponse,
+  CMsgClientGetAuthorizedDevices,
   CMsgClientGetAuthorizedDevicesResponse,
   CMsgClientGetClanActivityCounts,
   CMsgClientGetClanActivityCountsResponse,
@@ -725,13 +728,17 @@ import type {
   CMsgClientRegisterKey,
   CMsgClientRegisterOEMMachine,
   CMsgClientRegisterOEMMachineResponse,
+  CMsgClientRequestCommentNotifications,
   CMsgClientRequestForgottenPasswordEmail,
   CMsgClientRequestForgottenPasswordEmailResponse,
   CMsgClientRequestFreeLicense,
   CMsgClientRequestFreeLicenseResponse,
+  CMsgClientRequestItemAnnouncements,
+  CMsgClientRequestOfflineMessageCount,
   CMsgClientRichPresenceInfo,
   CMsgClientRichPresenceRequest,
   CMsgClientRichPresenceUpload,
+  CMsgClientSentLogs,
   CMsgClientServiceCall,
   CMsgClientServiceCallResponse,
   CMsgClientServiceMethodLegacy,
@@ -803,6 +810,7 @@ import type {
   CMsgClientFriendProfileInfoResponse,
   CMsgClientFriendsGroupsList,
   CMsgClientFriendsList,
+  CMsgClientGetEmoticonList,
   CMsgClientHideFriend,
   CMsgClientManageFriendsGroup,
   CMsgClientManageFriendsGroupResponse,
@@ -849,6 +857,7 @@ import type {
   CMsgClientHeartBeat,
   CMsgClientHello,
   CMsgClientLoggedOff,
+  CMsgClientLogOff,
   CMsgClientLogOnResponse,
   CMsgClientLogon,
   CMsgClientNewLoginKey,
@@ -887,6 +896,7 @@ import type {
   CMsgClientMMSUserLeftLobby,
 } from "../protos-definitions/steam/steammessages_clientserver_mms";
 import type {
+  CMsgClientScreenshotsChanged,
   CMsgClientUCMAddScreenshot,
   CMsgClientUCMAddScreenshotResponse,
   CMsgClientUCMDeletePublishedFile,
@@ -912,6 +922,7 @@ import type {
   CMsgClientEnableOrDisableDownloadsResponse,
   CMsgClientGetClientAppList,
   CMsgClientGetClientAppListResponse,
+  CMsgClientGetClientDetails,
   CMsgClientGetClientDetailsResponse,
   CMsgClientInstallClientApp,
   CMsgClientInstallClientAppResponse,
@@ -1589,6 +1600,8 @@ import type {
   CMsgRemoteClientGetControllerConfigResponse,
   CMsgRemoteClientPairWifiAP,
   CMsgRemoteClientPairWifiAPResponse,
+  CMsgRemoteClientPing,
+  CMsgRemoteClientPingResponse,
   CMsgRemoteClientStartStream,
   CMsgRemoteClientStartStreamResponse,
   CMsgRemoteClientStatus,
@@ -1600,6 +1613,7 @@ import type {
   CMsgRemoteClientBroadcastDiscovery,
   CMsgRemoteClientBroadcastHeader,
   CMsgRemoteClientBroadcastStatus,
+  CMsgRemoteDeviceAuthorizationCancelRequest,
   CMsgRemoteDeviceAuthorizationConfirmed,
   CMsgRemoteDeviceAuthorizationRequest,
   CMsgRemoteDeviceAuthorizationResponse,
@@ -1779,6 +1793,7 @@ import type {
   CMsgClientSiteLicenseCheckoutResponse,
   CMsgClientSiteLicenseGetAvailableSeats,
   CMsgClientSiteLicenseGetAvailableSeatsResponse,
+  CMsgClientSiteLicenseGetContentCacheInfo,
   CMsgClientSiteLicenseGetContentCacheInfoResponse,
 } from "../protos-definitions/steam/steammessages_sitelicenseclient";
 import type {
@@ -1968,6 +1983,7 @@ import type {
   CMsgTest_MessageToClient_Response,
   CMsgTest_MessageToServer_Request,
   CMsgTest_MessageToServer_Response,
+  CMsgTest_NoBody_Request,
   CMsgTest_NotifyClient_Notification,
   CMsgTest_NotifyServer_Notification,
   CMsgTest_TestClientCall_Request,
@@ -3153,6 +3169,7 @@ export interface SteamProtos {
   CMsgClientChallengeResponse: CMsgClientChallengeResponse;
   CMsgClientChangeStatus: CMsgClientChangeStatus;
   CMsgClientChatGetFriendMessageHistory: CMsgClientChatGetFriendMessageHistory;
+  CMsgClientChatGetFriendMessageHistoryForOfflineMessages: CMsgClientChatGetFriendMessageHistoryForOfflineMessages;
   CMsgClientChatGetFriendMessageHistoryResponse: CMsgClientChatGetFriendMessageHistoryResponse;
   CMsgClientChatInvite: CMsgClientChatInvite;
   CMsgClientCheckAppBetaPassword: CMsgClientCheckAppBetaPassword;
@@ -3190,14 +3207,17 @@ export interface SteamProtos {
   CMsgClientGamesPlayed: CMsgClientGamesPlayed;
   CMsgClientGetAppOwnershipTicket: CMsgClientGetAppOwnershipTicket;
   CMsgClientGetAppOwnershipTicketResponse: CMsgClientGetAppOwnershipTicketResponse;
+  CMsgClientGetAuthorizedDevices: CMsgClientGetAuthorizedDevices;
   CMsgClientGetAuthorizedDevicesResponse: CMsgClientGetAuthorizedDevicesResponse;
   CMsgClientGetClanActivityCounts: CMsgClientGetClanActivityCounts;
   CMsgClientGetClanActivityCountsResponse: CMsgClientGetClanActivityCountsResponse;
   CMsgClientGetClientAppList: CMsgClientGetClientAppList;
   CMsgClientGetClientAppListResponse: CMsgClientGetClientAppListResponse;
+  CMsgClientGetClientDetails: CMsgClientGetClientDetails;
   CMsgClientGetClientDetailsResponse: CMsgClientGetClientDetailsResponse;
   CMsgClientGetDepotDecryptionKey: CMsgClientGetDepotDecryptionKey;
   CMsgClientGetDepotDecryptionKeyResponse: CMsgClientGetDepotDecryptionKeyResponse;
+  CMsgClientGetEmoticonList: CMsgClientGetEmoticonList;
   CMsgClientGetPeerContentInfo: CMsgClientGetPeerContentInfo;
   CMsgClientGetPeerContentInfoResponse: CMsgClientGetPeerContentInfoResponse;
   CMsgClientGetUserStats: CMsgClientGetUserStats;
@@ -3226,6 +3246,7 @@ export interface SteamProtos {
   CMsgClientLBSSetUGCResponse: CMsgClientLBSSetUGCResponse;
   CMsgClientLicenseList: CMsgClientLicenseList;
   CMsgClientLoggedOff: CMsgClientLoggedOff;
+  CMsgClientLogOff: CMsgClientLogOff;
   CMsgClientLogon: CMsgClientLogon;
   CMsgClientLogOnResponse: CMsgClientLogOnResponse;
   CMsgClientManageFriendsGroup: CMsgClientManageFriendsGroup;
@@ -3293,6 +3314,7 @@ export interface SteamProtos {
   CMsgClientRemoveFriendFromGroup: CMsgClientRemoveFriendFromGroup;
   CMsgClientRemoveFriendFromGroupResponse: CMsgClientRemoveFriendFromGroupResponse;
   CMsgClientReportOverlayDetourFailure: CMsgClientReportOverlayDetourFailure;
+  CMsgClientRequestCommentNotifications: CMsgClientRequestCommentNotifications;
   CMsgClientRequestedClientStats: CMsgClientRequestedClientStats;
   CMsgClientRequestEncryptedAppTicket: CMsgClientRequestEncryptedAppTicket;
   CMsgClientRequestEncryptedAppTicketResponse: CMsgClientRequestEncryptedAppTicketResponse;
@@ -3301,12 +3323,16 @@ export interface SteamProtos {
   CMsgClientRequestFreeLicense: CMsgClientRequestFreeLicense;
   CMsgClientRequestFreeLicenseResponse: CMsgClientRequestFreeLicenseResponse;
   CMsgClientRequestFriendData: CMsgClientRequestFriendData;
+  CMsgClientRequestItemAnnouncements: CMsgClientRequestItemAnnouncements;
+  CMsgClientRequestOfflineMessageCount: CMsgClientRequestOfflineMessageCount;
   CMsgClientRequestWebAPIAuthenticateUserNonce: CMsgClientRequestWebAPIAuthenticateUserNonce;
   CMsgClientRequestWebAPIAuthenticateUserNonceResponse: CMsgClientRequestWebAPIAuthenticateUserNonceResponse;
   CMsgClientRichPresenceInfo: CMsgClientRichPresenceInfo;
   CMsgClientRichPresenceRequest: CMsgClientRichPresenceRequest;
   CMsgClientRichPresenceUpload: CMsgClientRichPresenceUpload;
+  CMsgClientScreenshotsChanged: CMsgClientScreenshotsChanged;
   CMsgClientSecret: CMsgClientSecret;
+  CMsgClientSentLogs: CMsgClientSentLogs;
   CMsgClientServersAvailable: CMsgClientServersAvailable;
   CMsgClientServerTimestampRequest: CMsgClientServerTimestampRequest;
   CMsgClientServerTimestampResponse: CMsgClientServerTimestampResponse;
@@ -3330,6 +3356,7 @@ export interface SteamProtos {
   CMsgClientSiteLicenseCheckoutResponse: CMsgClientSiteLicenseCheckoutResponse;
   CMsgClientSiteLicenseGetAvailableSeats: CMsgClientSiteLicenseGetAvailableSeats;
   CMsgClientSiteLicenseGetAvailableSeatsResponse: CMsgClientSiteLicenseGetAvailableSeatsResponse;
+  CMsgClientSiteLicenseGetContentCacheInfo: CMsgClientSiteLicenseGetContentCacheInfo;
   CMsgClientSiteLicenseGetContentCacheInfoResponse: CMsgClientSiteLicenseGetContentCacheInfoResponse;
   CMsgClientStartPeerContentServer: CMsgClientStartPeerContentServer;
   CMsgClientStartPeerContentServerResponse: CMsgClientStartPeerContentServerResponse;
@@ -3528,11 +3555,14 @@ export interface SteamProtos {
   CMsgRemoteClientGetControllerConfigResponse: CMsgRemoteClientGetControllerConfigResponse;
   CMsgRemoteClientPairWifiAP: CMsgRemoteClientPairWifiAP;
   CMsgRemoteClientPairWifiAPResponse: CMsgRemoteClientPairWifiAPResponse;
+  CMsgRemoteClientPing: CMsgRemoteClientPing;
+  CMsgRemoteClientPingResponse: CMsgRemoteClientPingResponse;
   CMsgRemoteClientStartStream: CMsgRemoteClientStartStream;
   CMsgRemoteClientStartStreamResponse: CMsgRemoteClientStartStreamResponse;
   CMsgRemoteClientStatus: CMsgRemoteClientStatus;
   CMsgRemoteClientStreamingEnabled: CMsgRemoteClientStreamingEnabled;
   CMsgRemoteClientWifiAPStatus: CMsgRemoteClientWifiAPStatus;
+  CMsgRemoteDeviceAuthorizationCancelRequest: CMsgRemoteDeviceAuthorizationCancelRequest;
   CMsgRemoteDeviceAuthorizationConfirmed: CMsgRemoteDeviceAuthorizationConfirmed;
   CMsgRemoteDeviceAuthorizationRequest: CMsgRemoteDeviceAuthorizationRequest;
   CMsgRemoteDeviceAuthorizationResponse: CMsgRemoteDeviceAuthorizationResponse;
@@ -3547,6 +3577,7 @@ export interface SteamProtos {
   CMsgRequestFullScreen: CMsgRequestFullScreen;
   CMsgRequestProcessInfo: CMsgRequestProcessInfo;
   CMsgResizeGripChanged: CMsgResizeGripChanged;
+  CMsgRestartJSContext: CMsgRestartJSContext;
   CMsgSavePageToJPEG: CMsgSavePageToJPEG;
   CMsgSavePageToJPEGResponse: CMsgSavePageToJPEGResponse;
   CMsgScalePageToValue: CMsgScalePageToValue;
@@ -3695,6 +3726,7 @@ export interface SteamProtos {
   CMsgTest_MessageToClient_Response: CMsgTest_MessageToClient_Response;
   CMsgTest_MessageToServer_Request: CMsgTest_MessageToServer_Request;
   CMsgTest_MessageToServer_Response: CMsgTest_MessageToServer_Response;
+  CMsgTest_NoBody_Request: CMsgTest_NoBody_Request;
   CMsgTest_NotifyClient_Notification: CMsgTest_NotifyClient_Notification;
   CMsgTest_NotifyServer_Notification: CMsgTest_NotifyServer_Notification;
   CMsgTest_TestClientCall_Request: CMsgTest_TestClientCall_Request;

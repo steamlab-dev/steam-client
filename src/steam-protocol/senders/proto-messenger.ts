@@ -1,5 +1,5 @@
 import { EMsg } from "@/common/steam-language";
-import { EMsgReqToEMsgRes, EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
+import { EMsgMapToProtoName, EMsgMapToResponse } from "@/common/steam-language/steam/EMsgMapping";
 import type Connection from "@/connection/connection";
 import type SteamProtoManager from "@/steam-protocol/proto-manager";
 import { SteamProtocolError } from "../error";
@@ -67,7 +67,7 @@ export default class ProtoMessenger implements Messenger {
   private resolveResponseEMsg<K extends EMsg, T extends EMsg | undefined>(
     req: ProtoMessageReq<K, T>,
   ): EMsg {
-    const eMsgRes = req.eMsgRes ?? EMsgReqToEMsgRes[req.eMsg as keyof typeof EMsgReqToEMsgRes];
+    const eMsgRes = req.eMsgRes ?? EMsgMapToResponse[req.eMsg as keyof typeof EMsgMapToResponse];
     if (eMsgRes === undefined) {
       throw new ProtoMessengerError(`Missing response mapping for eMsg: ${req.eMsg}`);
     }
@@ -80,7 +80,7 @@ export default class ProtoMessenger implements Messenger {
       eMsg = EMsg.k_EMsgClientGamesPlayed;
     }
 
-    const protoName = EMsgToProtoName[eMsg as keyof typeof EMsgToProtoName];
+    const protoName = EMsgMapToProtoName[eMsg as keyof typeof EMsgMapToProtoName];
 
     if (!protoName) {
       throw new ProtoMessengerError(`Missing proto mapping for eMsg: ${eMsg}`);

@@ -3,7 +3,7 @@ import { gunzip } from "node:zlib";
 import Long from "long";
 import { SmartBuffer } from "smart-buffer";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
-import { EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
+import { EMsgMapToProtoName } from "@/common/steam-language/steam/EMsgMapping";
 import SteamProtoConstants from "../constants";
 import { SteamProtocolError } from "../error";
 import type SteamProtoManager from "../proto-manager";
@@ -89,7 +89,7 @@ export default class MessageParser {
   }
 
   private getMsgName(eMsg: EMsg): string {
-    let msg: string = EMsgToProtoName[eMsg as keyof typeof EMsgToProtoName];
+    let msg: string = EMsgMapToProtoName[eMsg as keyof typeof EMsgMapToProtoName];
 
     if (!msg) {
       switch (eMsg) {

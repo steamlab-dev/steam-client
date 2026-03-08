@@ -24,7 +24,7 @@ describe("ProtoMessenger", () => {
     return { messenger, protos, connection, headerBuilder, pendingRequest };
   };
 
-  it("sendWithResponse uses fallback EMsgReqToEMsgRes mapping", () => {
+  it("sendWithResponse uses fallback EMsgMapToResponse mapping", () => {
     const { messenger, pendingRequest } = createMessenger();
 
     messenger.sendWithResponse({

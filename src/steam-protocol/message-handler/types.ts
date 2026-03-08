@@ -1,6 +1,9 @@
 import type Long from "long";
 import type { EMsg, SteamProtos } from "@/common/steam-language";
-import type { EMsgToProto, EMsgToProtoName } from "@/common/steam-language/steam/EMsgMapping";
+import type {
+  EMsgMapToPayload,
+  EMsgMapToProtoName,
+} from "@/common/steam-language/steam/EMsgMapping";
 import type { MessageHandlerError } from "./message-handler";
 
 export interface MessageHandlerEvents {
@@ -22,7 +25,7 @@ export interface NonProtoHeader {
 // Base message structure
 interface BaseMessage {
   eMsg: EMsg;
-  msgName: (typeof EMsgToProtoName)[keyof typeof EMsgToProtoName] | string;
+  msgName: (typeof EMsgMapToProtoName)[keyof typeof EMsgMapToProtoName] | string;
   rawBody: Buffer;
 }
 
@@ -44,7 +47,7 @@ export type ParsedMessage = ProtoMessage | NonProtoMessage;
 // Decoded proto message with typed body
 export interface DecodedProtoMessage<K extends EMsg = EMsg> extends ProtoMessage {
   eMsg: K;
-  body: EMsgToProto[K extends keyof EMsgToProto ? K : never];
+  body: EMsgMapToPayload[K extends keyof EMsgMapToPayload ? K : never];
 }
 
 // Decoded non-proto message with generic body

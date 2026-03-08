@@ -230,13 +230,17 @@ export default async function buildSteamLanguage(): Promise<void> {
     const allExports = (await Promise.all(filesToProcess.map(parseFileExports))).flat();
     console.log(`   - Total exports found: ${allExports.length}`);
 
-    const [enums, services, protos] = [
-      allExports.filter((e) => e.type === "enum"),
-      allExports.filter((e) => e.type === "class"),
-      allExports.filter((e) => e.type === "interface"),
-    ];
+    const enums = allExports.filter((e) => e.type === "enum");
+    const services = allExports.filter((e) => e.type === "class");
+    const protoInterfaces = allExports.filter((e) => e.type === "interface");
+    // Empty proto messages are emitted as type aliases (Record<string, never>).
+    // Include CMsg* aliases so proto bundles remain complete for EMsg mappings.
+    const protoTypeAliases = allExports.filter(
+      (e) => e.type === "type" && e.name.startsWith("CMsg"),
+    );
+    const protos = [...protoInterfaces, ...protoTypeAliases];
     console.log(
-      `   - Categorized: ${protos.length} protos, ${enums.length} enums, ${services.length} services`,
+      `   - Categorized: ${protos.length} protos (${protoInterfaces.length} interfaces + ${protoTypeAliases.length} aliases), ${enums.length} enums, ${services.length} services`,
     );
 
     const groupedEnums = groupByNamespace(enums);
