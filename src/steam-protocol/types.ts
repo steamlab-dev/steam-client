@@ -1,5 +1,6 @@
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
-import type { Connection, ConnectionOptions, DisconnectMsg } from "@/connection/types";
+import type Connection from "@/connection/connection";
+import type { ConnectionOptions, DisconnectMsg } from "@/connection/types";
 import type HeartBeatManager from "./heartbeat-manager";
 import type MessageHandler from "./message-handler/message-handler";
 import type { MessageHandlerEvents } from "./message-handler/types";

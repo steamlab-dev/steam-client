@@ -1,6 +1,6 @@
 import { EMsg } from "@/common/steam-language";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
-import type { Connection } from "@/connection/types";
+import type Connection from "@/connection/connection";
 import { SteamProtocolError } from "../error";
 import type MessageParser from "./parser";
 import type {

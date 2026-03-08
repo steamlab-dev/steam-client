@@ -1,6 +1,5 @@
 import { SmartBuffer } from "smart-buffer";
-import type { SteamProtos } from "@/common/steam-language";
-import type { EMsg } from "@/common/steam-language/protos-definitions/steam/enums_clientserver";
+import type { EMsg, SteamProtos } from "@/common/steam-language";
 import SteamProtoConstants from "@/steam-protocol/constants";
 import type ProtoManager from "@/steam-protocol/proto-manager";
 import type SessionManager from "@/steam-protocol/session-manager";

@@ -1,4 +1,4 @@
-import type { Connection } from "@/connection/types";
+import type Connection from "@/connection/connection";
 import type ProtoManager from "../proto-manager";
 import type SessionManager from "../session-manager";
 import ProtoHeaderBuilder from "./common/proto-header-builder";

@@ -1,6 +1,5 @@
 import type {
   EMsg,
-  EMsgMapFromProtoName,
   EMsgMapRequestPayloadByEMsg,
   EMsgMapResponsePayloadByRequestEMsg,
   EMsgMapToPayload,
@@ -8,7 +7,6 @@ import type {
   ServiceCallToResMap,
   SteamProtos,
 } from "@/common/steam-language";
-import type { CAuthentication_Token_Revoke_Response } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 
 export interface Messenger {
   sendWithResponse(req: unknown): Promise<unknown>;
@@ -18,9 +16,7 @@ export interface Messenger {
   cleanUp(): void;
 }
 
-export type ProtoMessageName = keyof typeof EMsgMapFromProtoName;
-
-export type ProtoMessagePayload<K extends EMsg = EMsg> = EMsgMapRequestPayloadByEMsg<K>;
+type ProtoMessagePayload<K extends EMsg = EMsg> = EMsgMapRequestPayloadByEMsg<K>;
 
 // Request message structure
 export type ProtoRequestMessage<K extends EMsg = EMsg, T extends EMsg | undefined = undefined> = {
@@ -43,8 +39,8 @@ export type ProtoResponseMessage<
 type ServiceCallToResMapType = typeof ServiceCallToResMap;
 export type ServiceCallNamesWithResponse = keyof ServiceCallToResMapType;
 
-export interface ServiceCallProtoOverrides {
-  CAuthentication_Token_Revoke_Response: CAuthentication_Token_Revoke_Response;
+interface ServiceCallProtoOverrides {
+  CAuthentication_Token_Revoke_Response: Record<string, never>;
 }
 
 type ProtoOrUnknown<K> = K extends keyof ServiceCallProtoOverrides
