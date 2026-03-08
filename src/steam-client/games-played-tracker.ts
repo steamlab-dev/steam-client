@@ -1,10 +1,12 @@
 import Long from "long";
-import type { CMsgClientGamesPlayed } from "@/common/steam-language/protos-definitions/steam/steammessages_clientserver";
+import type { SteamProtos } from "@/common/steam-language";
 
 type gameId = string;
+type GamesPlayedEntry = NonNullable<SteamProtos["CMsgClientGamesPlayed"]["games_played"]>[number];
+type ProcessInfo = NonNullable<GamesPlayedEntry["process_id_list"]>[number];
 
 class GamesPlayedTracker {
-  private gamesPlayedTracker = new Map<gameId, CMsgClientGamesPlayed.GamePlayed>();
+  private gamesPlayedTracker = new Map<gameId, GamesPlayedEntry>();
   private processIdCounter: number;
   private readonly steamProcessId: number;
 
@@ -16,7 +18,7 @@ class GamesPlayedTracker {
   track(
     gameId: Long | number | string | (Long | number | string)[],
     steamId: Long,
-  ): CMsgClientGamesPlayed.GamePlayed[] {
+  ): GamesPlayedEntry[] {
     const gameIds = Array.isArray(gameId) ? gameId : [gameId];
 
     for (const id of gameIds) {
@@ -36,9 +38,7 @@ class GamesPlayedTracker {
     return this.getCurrentlyPlayingGames();
   }
 
-  untrack(
-    gameId: Long | number | string | (Long | number | string)[],
-  ): CMsgClientGamesPlayed.GamePlayed[] {
+  untrack(gameId: Long | number | string | (Long | number | string)[]): GamesPlayedEntry[] {
     const gameIds = Array.isArray(gameId) ? gameId : [gameId];
 
     for (const id of gameIds) {
@@ -64,7 +64,7 @@ class GamesPlayedTracker {
     return this.gamesPlayedTracker.has(keyString);
   }
 
-  getCurrentlyPlayingGames(): CMsgClientGamesPlayed.GamePlayed[] {
+  getCurrentlyPlayingGames(): GamesPlayedEntry[] {
     return [...this.gamesPlayedTracker.values()];
   }
 
@@ -75,7 +75,7 @@ class GamesPlayedTracker {
   private addToTracker(game_id: Long, steamId: Long) {
     const process_id = this.getNextProcessId();
 
-    const process_id_list: CMsgClientGamesPlayed.ProcessInfo[] = [
+    const process_id_list: ProcessInfo[] = [
       {
         process_id,
         process_id_parent: this.steamProcessId,
@@ -83,7 +83,7 @@ class GamesPlayedTracker {
       },
     ];
 
-    const gamePlayed: CMsgClientGamesPlayed.GamePlayed = {
+    const gamePlayed: GamesPlayedEntry = {
       game_id,
       owner_id: this.steamId64ToSteamId32(steamId),
       process_id_list,

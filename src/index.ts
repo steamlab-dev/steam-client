@@ -4,13 +4,13 @@ import { isValidRefreshToken } from "./common/utils";
 import ConnectionError, { type ConnectionSubsystem } from "./connection/error";
 import type { DisconnectMsg } from "./connection/event-manager";
 import SteamClientError, { type SteamClientSubsystem } from "./steam-client/error";
+import SteamClientImpl from "./steam-client/steam-client";
 import type {
   AuthenticationEvents,
   LoginViaCredentialsReq,
   SteamAuthTokens,
-} from "./steam-client/services/authentication";
-import SteamClientImpl from "./steam-client/steam-client";
-import type { SteamClientEvents } from "./steam-client/types";
+  SteamClientEvents,
+} from "./steam-client/types";
 import {
   SteamProtocolEResultError,
   SteamProtocolError,

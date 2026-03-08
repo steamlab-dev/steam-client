@@ -1,6 +1,5 @@
 import Long from "long";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
-import type { CMsgClientGamesPlayed } from "@/common/steam-language/protos-definitions/steam/steammessages_clientserver";
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
 import { jwtToJson } from "@/common/utils";
 import type { ConnectionOptions } from "@/connection/types";
@@ -85,7 +84,7 @@ export default class SteamClient {
         this.steamProtocol.getSession().steamId,
       );
 
-      const payload: CMsgClientGamesPlayed = {
+      const payload: SteamProtos["CMsgClientGamesPlayed"] = {
         games_played,
         client_os_type: SteamProtoConstants.Win11,
         cloud_gaming_platform: 0,
@@ -107,7 +106,7 @@ export default class SteamClient {
     try {
       const games_played = this.gamesPlayedTracker.untrack(gameId);
 
-      const payload: CMsgClientGamesPlayed = {
+      const payload: SteamProtos["CMsgClientGamesPlayed"] = {
         games_played: games_played.length > 0 ? games_played : undefined,
         client_os_type: SteamProtoConstants.Win11,
         cloud_gaming_platform: 0,
@@ -163,7 +162,7 @@ export default class SteamClient {
 
       // Steam sends this message after logon
       if (this.recentReauthentication) {
-        const payload: CMsgClientGamesPlayed = {
+        const payload: SteamProtos["CMsgClientGamesPlayed"] = {
           client_os_type: SteamProtoConstants.Win11,
           cloud_gaming_platform: 0,
           recent_reauthentication: this.recentReauthentication,
