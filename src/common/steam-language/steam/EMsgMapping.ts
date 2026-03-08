@@ -357,3 +357,15 @@ export const EMsgMapToResponse = {
 export type EMsgMapToPayload = {
   [K in keyof typeof EMsgMapToProtoName]: SteamProtos[(typeof EMsgMapToProtoName)[K]];
 };
+
+export type EMsgMapRequestPayloadByEMsg<K extends EMsg> = K extends keyof EMsgMapToPayload
+  ? EMsgMapToPayload[K]
+  : never;
+
+export type EMsgMapResponseEMsgByRequestEMsg<K extends EMsg> =
+  K extends keyof typeof EMsgMapToResponse ? (typeof EMsgMapToResponse)[K] : never;
+
+export type EMsgMapResponsePayloadByRequestEMsg<K extends EMsg> =
+  EMsgMapResponseEMsgByRequestEMsg<K> extends keyof EMsgMapToPayload
+    ? EMsgMapToPayload[EMsgMapResponseEMsgByRequestEMsg<K>]
+    : never;

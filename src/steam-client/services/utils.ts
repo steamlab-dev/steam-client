@@ -3,8 +3,6 @@ import { createPublicKey, publicEncrypt, randomBytes } from "node:crypto";
 import type { SteamProtos } from "@/common/steam-language";
 import { EAuthSessionGuardType } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 
-export type RequireSome<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
-
 export type SteamGuardType = string;
 
 const mapSteamGuardToString = (value: number): SteamGuardType =>

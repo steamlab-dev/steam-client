@@ -39,6 +39,7 @@ describe("MessageHandler", () => {
     const firstDecoded = {
       eMsg: 1,
       isProto: true,
+      msgName: "ClientLogOnResponse",
       rawBody: Buffer.alloc(0),
       header: {},
       body: { a: 1 },
@@ -61,7 +62,9 @@ describe("MessageHandler", () => {
 
     expect(firstHandler.handle).toHaveBeenCalledTimes(1);
     expect(secondHandler.handle).toHaveBeenCalledWith(firstDecoded);
-    expect(emitter.emit).toHaveBeenCalledWith("steam-messages", [firstDecoded, secondDecoded]);
+    expect(emitter.emit).toHaveBeenCalledWith("steam-messages", {
+      ClientLogOnResponse: secondDecoded,
+    });
   });
 
   it("emits steam-message-error and stops processing current message when handler throws", async () => {
@@ -166,5 +169,49 @@ describe("MessageHandler", () => {
     expect(skippedHandler.handle).not.toHaveBeenCalled();
     expect(emptyHandler.handle).toHaveBeenCalledTimes(1);
     expect(emitter.emit).not.toHaveBeenCalledWith("steam-messages", expect.anything());
+  });
+
+  it("keeps only one message per msgName", async () => {
+    const { emitter, parser, handler, onData } = createBase();
+    const batchSize = 5_000;
+    let sequence = 0;
+    parser.parse.mockResolvedValue(
+      Array.from({ length: batchSize }, () => ({
+        eMsg: 1,
+        isProto: true,
+        rawBody: Buffer.alloc(0),
+        header: {},
+      })),
+    );
+
+    const decodeHandler = {
+      canHandle: vi.fn().mockReturnValue(true),
+      handle: vi.fn().mockImplementation(() => {
+        const currentSequence = sequence++;
+        return {
+          eMsg: 1,
+          isProto: true,
+          msgName: "ClientLogOnResponse",
+          rawBody: Buffer.alloc(0),
+          header: {},
+          body: { sequence: currentSequence },
+        };
+      }),
+    };
+
+    handler.addHandler(decodeHandler as never);
+
+    await onData?.(Buffer.from([0x03]));
+
+    const steamMessages = emitter.emit.mock.calls.find(
+      (call) => call[0] === "steam-messages",
+    )?.[1] as
+      | {
+          ClientLogOnResponse?: { body: { sequence: number } };
+        }
+      | undefined;
+
+    expect(steamMessages?.ClientLogOnResponse?.body.sequence).toBe(batchSize - 1);
+    expect(decodeHandler.handle).toHaveBeenCalledTimes(batchSize);
   });
 });

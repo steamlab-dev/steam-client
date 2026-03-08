@@ -1,7 +1,14 @@
 import { SmartBuffer } from "smart-buffer";
 import { EMsg } from "@/common/steam-language";
 import { SteamProtocolError } from "@/steam-protocol/error";
-import type { DecodedNonProtoMessage, MsgHandler, NonProtoMessage, ParsedMessage } from "../types";
+import type {
+  ClientUpdateGuestPassesListBody,
+  ClientVacBanStatusBody,
+  DecodedNonProtoMessage,
+  MsgHandler,
+  NonProtoMessage,
+  ParsedMessage,
+} from "../types";
 import { isNonProtoMessage } from "./common/util";
 
 export default class NonProtoResponseHandler implements MsgHandler {
@@ -12,19 +19,21 @@ export default class NonProtoResponseHandler implements MsgHandler {
   handle(message: NonProtoMessage): DecodedNonProtoMessage {
     const rawBody = SmartBuffer.fromBuffer(message.rawBody);
 
-    const decodedNonProtoMessage = {
-      ...message,
-    } as DecodedNonProtoMessage;
-
     switch (message.eMsg) {
       case EMsg.k_EMsgClientVACBanStatus:
-        decodedNonProtoMessage.body = this.decodeClientVacBanStatus(rawBody);
-        decodedNonProtoMessage.msgName = "ClientVacBanStatus";
-        break;
+        return {
+          ...message,
+          eMsg: EMsg.k_EMsgClientVACBanStatus,
+          msgName: "ClientVacBanStatus",
+          body: this.decodeClientVacBanStatus(rawBody),
+        };
       case EMsg.k_EMsgClientUpdateGuestPassesList:
-        decodedNonProtoMessage.body = this.decodeClientUpdateGuestPassesList(rawBody);
-        decodedNonProtoMessage.msgName = "ClientUpdateGuestPassesList";
-        break;
+        return {
+          ...message,
+          eMsg: EMsg.k_EMsgClientUpdateGuestPassesList,
+          msgName: "ClientUpdateGuestPassesList",
+          body: this.decodeClientUpdateGuestPassesList(rawBody),
+        };
       default:
         throw new SteamProtocolError(
           `Unhandled non proto message: ${JSON.stringify(
@@ -38,17 +47,15 @@ export default class NonProtoResponseHandler implements MsgHandler {
           "handler",
         );
     }
-
-    return decodedNonProtoMessage;
   }
 
-  private decodeClientVacBanStatus(rawBody: SmartBuffer) {
+  private decodeClientVacBanStatus(rawBody: SmartBuffer): ClientVacBanStatusBody {
     return {
       numBans: rawBody.readUInt32LE(),
     };
   }
 
-  private decodeClientUpdateGuestPassesList(rawBody: SmartBuffer) {
+  private decodeClientUpdateGuestPassesList(rawBody: SmartBuffer): ClientUpdateGuestPassesListBody {
     return {
       EResult: rawBody.readInt32LE(),
       countGuestPassesToGive: rawBody.readInt32LE(),

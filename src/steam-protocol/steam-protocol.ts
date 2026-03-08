@@ -8,16 +8,20 @@ import ContextCreator from "./context-creator";
 import { SteamProtocolError } from "./error";
 import type { MsgHandler } from "./message-handler/types";
 import type {
-  ProtoMessageReq,
-  ProtoMessageRes,
-  ServiceCallMessage,
-  ServiceCallMessageWithRes,
-  ServiceCallResponse,
-  ServiceCallsWithRes,
+  ProtoRequestMessage,
+  ProtoResponseMessage,
+  ServiceCallNamesWithResponse,
+  ServiceCallRequest,
+  ServiceCallRequestWithResponse,
+  ServiceCallResponsePayload,
 } from "./senders/types";
 import type SessionManager from "./session-manager";
 import type { SteamProtocolSession } from "./session-manager";
-import type { SteamProtoContext, SteamProtoContextImps, SteamProtocolEvents } from "./types";
+import type {
+  SteamProtoContext,
+  SteamProtoContextImplementations,
+  SteamProtocolEvents,
+} from "./types";
 
 export { SteamProtocolError } from "./error";
 
@@ -35,7 +39,7 @@ export { SteamProtocolError } from "./error";
  * 6. Transport/parser failures from `Connection` become `"disconnected"` and trigger protocol cleanup.
  *
  * Protocol events exposed via `getEmitter()`:
- * - `"steam-messages"`: `SteamMessage[]` decoded by the handler chain.
+ * - `"steam-messages"`: `SteamMessages` keyed by decoded message name.
  * - `"steam-message-error"`: `MessageHandlerError` when a handler fails for a parsed message.
  * - `"disconnected"`: `DisconnectMsg` from the underlying connection (`source` is `"socket"` or `"parser"`).
  *
@@ -59,7 +63,7 @@ export default class SteamProtocol {
    */
   constructor(
     private options: ConnectionOptions,
-    private readonly instances?: SteamProtoContextImps,
+    private readonly instances?: SteamProtoContextImplementations,
   ) {
     this.createContext();
   }
@@ -158,13 +162,13 @@ export default class SteamProtocol {
     }
   }
 
-  send(req: Omit<ProtoMessageReq, "eMsgRes">): void {
+  send(req: Omit<ProtoRequestMessage, "eMsgRes">): void {
     this.requireConnectedContext().protoMessenger.send(req);
   }
 
   sendWithResponse<K extends EMsg, T extends EMsg | undefined = undefined>(
-    req: ProtoMessageReq<K, T>,
-  ): Promise<ProtoMessageRes<K, T>> {
+    req: ProtoRequestMessage<K, T>,
+  ): Promise<ProtoResponseMessage<K, T>> {
     return this.requireConnectedContext().protoMessenger.sendWithResponse(req);
   }
 
@@ -172,13 +176,13 @@ export default class SteamProtocol {
     this.requireConnectedContext().session.setSteamId(steamId);
   }
 
-  sendServiceCall(req: ServiceCallMessage) {
+  sendServiceCall(req: ServiceCallRequest) {
     this.requireConnectedContext().serviceCallMessenger.send(req);
   }
 
-  sendServiceCallWithRes<K extends ServiceCallsWithRes>(
-    req: ServiceCallMessageWithRes<K>,
-  ): Promise<ServiceCallResponse<K>> {
+  sendServiceCallWithRes<K extends ServiceCallNamesWithResponse>(
+    req: ServiceCallRequestWithResponse<K>,
+  ): Promise<ServiceCallResponsePayload<K>> {
     return this.requireConnectedContext().serviceCallMessenger.sendWithResponse(req);
   }
 

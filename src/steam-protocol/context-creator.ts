@@ -6,14 +6,18 @@ import MessageHandler from "./message-handler";
 import ProtoManager from "./proto-manager";
 import MessengerFactory from "./senders";
 import SessionManager from "./session-manager";
-import type { SteamProtoContext, SteamProtocolEvents } from "./types";
+import type {
+  SteamProtoContext,
+  SteamProtoContextImplementations,
+  SteamProtocolEvents,
+} from "./types";
 
 export default class ContextCreator {
   private constructor() {}
 
   static create(
     options: ConnectionOptions,
-    instances?: Partial<Omit<SteamProtoContext, "options">>,
+    instances?: SteamProtoContextImplementations,
   ): SteamProtoContext {
     // These instances can be instantiated elsewhere, and passed here
     const connection = instances?.connection ?? Connection.create(options);

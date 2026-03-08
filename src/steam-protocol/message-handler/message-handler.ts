@@ -3,7 +3,15 @@ import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type Connection from "@/connection/connection";
 import { SteamProtocolError } from "../error";
 import type MessageParser from "./parser";
-import type { MessageHandlerEvents, MsgHandler, ParsedMessage, SteamMessage } from "./types";
+import type {
+  MessageHandlerEvents,
+  MsgHandler,
+  ParsedMessage,
+  PublicSteamMessage,
+  SteamMessage,
+  SteamMessageName,
+  SteamMessages,
+} from "./types";
 
 export class MessageHandlerError extends SteamProtocolError {
   constructor(
@@ -37,46 +45,43 @@ export default class MessageHandler {
 
   private async handleIncomingData(data: Buffer): Promise<void> {
     const parsedMessages = await this.parser.parse(data);
-    const steamMessages = this.runHandlers(parsedMessages);
+    const steamMessages = this.collectPublicMessages(parsedMessages);
 
-    // Filter out service method call messages from public emission, they are handled by ServiceCallMessenger
-    const publicMessages = steamMessages.filter(
-      (msg) =>
-        msg.eMsg !== EMsg.k_EMsgServiceMethod && msg.eMsg !== EMsg.k_EMsgServiceMethodResponse,
-    );
-
-    if (publicMessages.length) {
-      this.emitter.emit("steam-messages", publicMessages);
+    if (this.hasMessages(steamMessages)) {
+      this.emitter.emit("steam-messages", steamMessages);
     }
   }
 
-  private runHandlers(messages: ParsedMessage[]): SteamMessage[] {
-    const steamMessages: SteamMessage[] = [];
+  private collectPublicMessages(messages: ParsedMessage[]): SteamMessages {
+    const publicMessages = Object.create(null) as SteamMessages;
 
-    for (const msg of messages) {
-      if (this.isFiltered(msg)) {
+    for (const message of messages) {
+      if (this.isFiltered(message)) {
         continue;
       }
 
-      const decodedMessages = this.runHandlersForMessage(msg);
-      if (decodedMessages.length) {
-        steamMessages.push(...decodedMessages);
-      }
+      this.runHandlersForMessage(message, (decodedMessage) => {
+        if (this.isPublicMessage(decodedMessage)) {
+          this.setMessage(publicMessages, decodedMessage);
+        }
+      });
     }
 
-    return steamMessages;
+    return publicMessages;
   }
 
   /**
    * Executes handler chain for a single parsed message.
    * Stops at the first handler error and emits "steam-message-error".
    */
-  private runHandlersForMessage(message: ParsedMessage): SteamMessage[] {
-    const decodedMessages: SteamMessage[] = [];
-    let currentMessage: ParsedMessage | SteamMessage = message;
+  private runHandlersForMessage(
+    message: ParsedMessage,
+    onDecodedMessage: (decodedMessage: SteamMessage) => void,
+  ): void {
+    let currentMessage: ParsedMessage = message;
 
     for (const handler of this.handlers) {
-      if (!handler.canHandle(currentMessage as ParsedMessage)) {
+      if (!handler.canHandle(currentMessage)) {
         continue;
       }
 
@@ -86,7 +91,7 @@ export default class MessageHandler {
           continue;
         }
         currentMessage = decoded;
-        decodedMessages.push(decoded);
+        onDecodedMessage(decoded);
       } catch (error) {
         const handlerError =
           error instanceof MessageHandlerError
@@ -96,8 +101,6 @@ export default class MessageHandler {
         break;
       }
     }
-
-    return decodedMessages;
   }
 
   /**
@@ -105,5 +108,23 @@ export default class MessageHandler {
    */
   private isFiltered(_message: ParsedMessage): boolean {
     return false;
+  }
+
+  private isPublicMessage(message: SteamMessage): message is PublicSteamMessage {
+    return (
+      message.eMsg !== EMsg.k_EMsgServiceMethod && message.eMsg !== EMsg.k_EMsgServiceMethodResponse
+    );
+  }
+
+  private hasMessages(messages: SteamMessages): boolean {
+    for (const _name in messages) {
+      return true;
+    }
+    return false;
+  }
+
+  private setMessage(messages: SteamMessages, message: PublicSteamMessage): void {
+    const msgName = message.msgName as SteamMessageName;
+    messages[msgName] = message as never;
   }
 }

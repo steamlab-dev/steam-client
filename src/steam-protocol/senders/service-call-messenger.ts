@@ -8,10 +8,10 @@ import PendingRequestMap from "./common/pending-request-map";
 import type ProtoHeaderBuilder from "./common/proto-header-builder";
 import type {
   Messenger,
-  ServiceCallMessage,
-  ServiceCallMessageWithRes,
-  ServiceCallResponse,
-  ServiceCallsWithRes,
+  ServiceCallNamesWithResponse,
+  ServiceCallRequest,
+  ServiceCallRequestWithResponse,
+  ServiceCallResponsePayload,
 } from "./types";
 
 export class ServiceCallMessengerError extends SteamProtocolError {
@@ -37,14 +37,16 @@ export default class ServiceCallMessenger implements Messenger {
     ),
   ) {}
 
-  public async sendWithResponse<K extends ServiceCallsWithRes>(
-    req: ServiceCallMessageWithRes<K>,
-  ): Promise<ServiceCallResponse<K>> {
+  public async sendWithResponse<K extends ServiceCallNamesWithResponse>(
+    req: ServiceCallRequestWithResponse<K>,
+  ): Promise<ServiceCallResponsePayload<K>> {
     const targetJobName = this.buildTargetJobName(req.message);
     const jobIdSource = this.genUniqueJobIdSource();
     const eMsg = this.resolveCallEMsg();
 
-    const promise = this.pendingRequest.add(jobIdSource.toString()) as ServiceCallResponse<K>;
+    const promise = this.pendingRequest.add(jobIdSource.toString()) as Promise<
+      ServiceCallResponsePayload<K>
+    >;
 
     const header = this.headerBuilder.build(eMsg, {
       target_job_name: targetJobName,
@@ -56,7 +58,7 @@ export default class ServiceCallMessenger implements Messenger {
     return promise;
   }
 
-  public send(_req: ServiceCallMessage): void {
+  public send(_req: ServiceCallRequest): void {
     // TODO
   }
 

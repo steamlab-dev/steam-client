@@ -5,7 +5,7 @@ import type SteamProtoManager from "@/steam-protocol/proto-manager";
 import { SteamProtocolError } from "../error";
 import PendingRequestMap from "./common/pending-request-map";
 import type ProtoHeaderBuilder from "./common/proto-header-builder";
-import type { Messenger, ProtoMessageReq, ProtoMessageRes } from "./types";
+import type { Messenger, ProtoRequestMessage, ProtoResponseMessage } from "./types";
 
 export class ProtoMessengerError extends SteamProtocolError {
   constructor(messageOrCause: string | unknown, cause?: unknown) {
@@ -28,17 +28,17 @@ export default class ProtoMessenger implements Messenger {
   ) {}
 
   sendWithResponse<K extends EMsg, T extends EMsg | undefined = undefined>(
-    req: ProtoMessageReq<K, T>,
-  ): Promise<ProtoMessageRes<K, T>> {
+    req: ProtoRequestMessage<K, T>,
+  ): Promise<ProtoResponseMessage<K, T>> {
     const eMsgRes = this.resolveResponseEMsg(req);
 
     const promise = this.pendingRequest.add(eMsgRes);
 
     this.sendProto(req.eMsg, req.payload);
-    return promise as Promise<ProtoMessageRes<K, T>>;
+    return promise as Promise<ProtoResponseMessage<K, T>>;
   }
 
-  public send(req: Omit<ProtoMessageReq, "eMsgRes">): void {
+  public send(req: Omit<ProtoRequestMessage, "eMsgRes">): void {
     this.sendProto(req.eMsg, req.payload);
   }
 
@@ -65,7 +65,7 @@ export default class ProtoMessenger implements Messenger {
   }
 
   private resolveResponseEMsg<K extends EMsg, T extends EMsg | undefined>(
-    req: ProtoMessageReq<K, T>,
+    req: ProtoRequestMessage<K, T>,
   ): EMsg {
     const eMsgRes = req.eMsgRes ?? EMsgMapToResponse[req.eMsg as keyof typeof EMsgMapToResponse];
     if (eMsgRes === undefined) {
@@ -74,7 +74,7 @@ export default class ProtoMessenger implements Messenger {
     return eMsgRes;
   }
 
-  // Get ProtoName while appling special rules for certain eMsg types
+  // Resolve proto message name while applying special rules for certain eMsg types.
   private getProtoName(eMsg: EMsg): string {
     if (eMsg === EMsg.k_EMsgClientGamesPlayedWithDataBlob) {
       eMsg = EMsg.k_EMsgClientGamesPlayed;

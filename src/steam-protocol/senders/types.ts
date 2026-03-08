@@ -2,8 +2,9 @@ import type { EMsg, SteamProtos } from "@/common/steam-language";
 import type { CAuthentication_Token_Revoke_Response } from "@/common/steam-language/protos-definitions/steam/steammessages_auth.steamclient";
 import type {
   EMsgMapFromProtoName,
+  EMsgMapRequestPayloadByEMsg,
+  EMsgMapResponsePayloadByRequestEMsg,
   EMsgMapToPayload,
-  EMsgMapToResponse,
 } from "@/common/steam-language/steam/EMsgMapping";
 import type {
   ServiceCallsWithOutRes,
@@ -18,37 +19,30 @@ export interface Messenger {
   cleanUp(): void;
 }
 
-export type ProtoName = keyof typeof EMsgMapFromProtoName;
+export type ProtoMessageName = keyof typeof EMsgMapFromProtoName;
 
-type PayloadByEMsg<K extends EMsg> = K extends keyof EMsgMapToPayload ? EMsgMapToPayload[K] : never;
-
-export type ProtoPayload<K extends EMsg = EMsg> = PayloadByEMsg<K>;
+export type ProtoMessagePayload<K extends EMsg = EMsg> = EMsgMapRequestPayloadByEMsg<K>;
 
 // Request message structure
-export type ProtoMessageReq<K extends EMsg = EMsg, T extends EMsg | undefined = undefined> = {
+export type ProtoRequestMessage<K extends EMsg = EMsg, T extends EMsg | undefined = undefined> = {
   eMsg: K;
   eMsgRes?: T; // Expected EMsg Response for non-conventional Req->Res mappings
-  payload: ProtoPayload<K>;
+  payload: ProtoMessagePayload<K>;
 };
 
-type ResolveResponseFromRequest<K extends EMsg> = K extends keyof typeof EMsgMapToResponse
-  ? (typeof EMsgMapToResponse)[K] extends keyof EMsgMapToPayload
-    ? EMsgMapToPayload[(typeof EMsgMapToResponse)[K]]
-    : never
-  : never;
-
-type ResolveExplicitResponse<T extends EMsg> = T extends keyof EMsgMapToPayload
-  ? EMsgMapToPayload[T]
-  : undefined;
-
 // Response message type - uses explicit response type T if provided, otherwise infers from request K
-export type ProtoMessageRes<K extends EMsg, T extends EMsg | undefined = undefined> = T extends EMsg
-  ? ResolveExplicitResponse<T>
-  : ResolveResponseFromRequest<K>;
+export type ProtoResponseMessage<
+  K extends EMsg,
+  T extends EMsg | undefined = undefined,
+> = T extends EMsg
+  ? T extends keyof EMsgMapToPayload
+    ? EMsgMapToPayload[T]
+    : undefined
+  : EMsgMapResponsePayloadByRequestEMsg<K>;
 
 //  service call types
 type ServiceCallToResMapType = typeof ServiceCallToResMap;
-export type ServiceCallsWithRes = keyof ServiceCallToResMapType;
+export type ServiceCallNamesWithResponse = keyof ServiceCallToResMapType;
 
 export interface ServiceCallProtoOverrides {
   CAuthentication_Token_Revoke_Response: CAuthentication_Token_Revoke_Response;
@@ -60,18 +54,21 @@ type ProtoOrUnknown<K> = K extends keyof ServiceCallProtoOverrides
     ? SteamProtos[K]
     : unknown;
 
-export type ServiceCallPayload<K extends ServiceCallsWithOutRes | ServiceCallsWithRes> =
-  ProtoOrUnknown<K>;
-export type ServiceCallResponse<K extends ServiceCallsWithRes> = ProtoOrUnknown<
+export type ServiceCallRequestPayload<
+  K extends ServiceCallsWithOutRes | ServiceCallNamesWithResponse,
+> = ProtoOrUnknown<K>;
+export type ServiceCallResponsePayload<K extends ServiceCallNamesWithResponse> = ProtoOrUnknown<
   ServiceCallToResMapType[K]
 >;
 
-export type ServiceCallMessageWithRes<K extends ServiceCallsWithRes = ServiceCallsWithRes> = {
+export type ServiceCallRequestWithResponse<
+  K extends ServiceCallNamesWithResponse = ServiceCallNamesWithResponse,
+> = {
   message: K;
-  payload: ServiceCallPayload<K>;
+  payload: ServiceCallRequestPayload<K>;
 };
 
-export type ServiceCallMessage<K extends ServiceCallsWithOutRes = ServiceCallsWithOutRes> = {
+export type ServiceCallRequest<K extends ServiceCallsWithOutRes = ServiceCallsWithOutRes> = {
   message: K;
-  payload: ServiceCallPayload<K>;
+  payload: ServiceCallRequestPayload<K>;
 };

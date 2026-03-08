@@ -26,7 +26,7 @@ export interface SteamProtoContext {
   heartBeat: HeartBeatManager;
 }
 
-export type SteamProtoContextImps = Partial<Omit<SteamProtoContext, "options">>;
+export type SteamProtoContextImplementations = Partial<Omit<SteamProtoContext, "options">>;
 
 export interface SteamJWT {
   header: {

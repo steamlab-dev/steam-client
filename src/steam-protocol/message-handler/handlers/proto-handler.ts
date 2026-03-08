@@ -26,10 +26,11 @@ export default class ProtoResponseHandler implements MsgHandler {
 
     const protoName = EMsgMapToProtoName[message.eMsg];
 
-    const decodedMessage: DecodedProtoMessage = {
+    const decodedMessage = {
       ...message,
+      msgName: protoName.replace(/^CMsg/, ""),
       body: this.protos.decode(protoName, message.rawBody),
-    };
+    } as DecodedProtoMessage;
 
     const bodyRecord = decodedMessage.body as Record<string, unknown>;
     const eresult = extractEResult(bodyRecord, decodedMessage.header.eresult);
