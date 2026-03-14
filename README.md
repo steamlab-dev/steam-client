@@ -1,24 +1,27 @@
 # @steamlab/steam-client
 
-A lean, TypeScript Steam client for Node.js with a focus on speed, clean primitives, and extensibility. This is not a full-featured Steam client yet. It provides a solid base for custom integrations and for wiring your own Steam protos and service calls.
+A lean TypeScript Steam client for Node.js. It handles the low-level CM connection, authentication, and message framing — giving you a clean foundation to build Steam integrations on top of.
 
-## Highlights
+## Features
 
-- TypeScript API with typed Steam protos
-- QR and credential login flows
-- Minimal Steam client core with explicit connect and logon steps
-- WebSocket transport
+- Full TypeScript API with typed Steam protos
+- QR code and credential login flows (with Steam Guard support)
+- Logon via refresh token
+- WebSocket transport to Steam CM servers
 - HTTP, HTTPS, and SOCKS5 proxy support
+
+## Requirements
+
+- Node.js `>= 20`
+- npm `>= 9.5.1`
 
 ## Installation
 
-```shell
-npm i @steamlab/steam-client
+```sh
+npm install @steamlab/steam-client
 ```
 
 ## Quick Start
-
-How to connect to a Steam CM server
 
 ```ts
 import { SteamClient } from "@steamlab/steam-client";
@@ -31,13 +34,6 @@ const options: ConnectionOptions = {
 
 const client = new SteamClient(options);
 
-client.emitter.on("steam-message-error", (error) => {
-  console.error("Steam message error:", error);
-  console.error("Subsystem:", error.subsystem);
-  console.error("Raw message:", error.rawMessage);
-  console.error("Cause:", error.cause);
-});
-
 client.emitter.on("disconnected", (msg) => {
   console.log("Disconnected:", msg);
 });
@@ -47,97 +43,79 @@ await client.connect();
 
 ## Authentication
 
-QR login emits the `challengeUrl`. Consumers can render it however they want.
+### QR Login
+
+The `authentication-qr` event fires with a `challengeUrl`. Render the QR code however you like — the client polls Steam in the background and resolves once the user scans it.
 
 ```ts
 client.emitter.once("authentication-qr", ({ challengeUrl }) => {
+  // Render challengeUrl as a QR code in your UI
   console.log(challengeUrl);
 });
 
-// Received after authentication
-client.emitter.once("steam-auth-tokens", ({ refreshToken, accessToken }) => {
-  console.log("Refresh token:", refreshToken);
-  console.log("Access token:", accessToken);
+client.emitter.once("steam-auth-tokens", ({ tokens }) => {
+  console.log("Refresh token:", tokens.refreshToken);
+  console.log("Access token:", tokens.accessToken);
 });
 
-const logonRes = await client.services.authentication.loginViaQr();
+await client.services.authentication.loginViaQr();
 ```
 
-Credential login is a two-step flow:
-1) Start the login.
-2) If Steam Guard is required, the callback is invoked to supply the code.
+### Credential Login
 
-Device or email confirmation does not require a code; just approve the sign-in when notified.
+Credential login is a two-step flow. If Steam Guard is required, the second argument — a callback — is invoked so you can supply the code asynchronously.
 
 ```ts
-// Store pending logins so the code can be supplied later from elsewhere
-const pendingLogins = new Map<string, (code: string) => void>();
-
-// Optional: Listen for 2FA requirement notification
-client.emitter.on("authentication-2fa-required", (guardType) => {
-  if (guardType === "device_code") {
-    console.log("Steam Guard code from mobile app required");
-  } else if (guardType === "email_code") {
-    console.log("Steam Guard code from email required");
-  } else if (guardType === "device_confirmation") {
-    console.log("Approve sign-in from the Steam mobile app");
-  } else if (guardType === "email_confirmation") {
-    console.log("Approve sign-in from the email confirmation link");
-  }
+// Listen for the type of guard required
+client.emitter.on("authentication-2fa-required", ({ guardType }) => {
+  // guardType: "device_code" | "email_code" | "device_confirmation" | "email_confirmation"
+  console.log("Steam Guard required:", guardType);
 });
 
-// Received after authentication
-client.emitter.once("steam-auth-tokens", ({ refreshToken, accessToken }) => {
-  console.log("Refresh token:", refreshToken);
-  console.log("Access token:", accessToken);
+client.emitter.once("steam-auth-tokens", ({ tokens }) => {
+  console.log("Refresh token:", tokens.refreshToken);
+  console.log("Access token:", tokens.accessToken);
 });
 
-// Start the login
-const loginId = crypto.randomUUID();
-
-// Will be invoked by loginViaCredentials when SteamGuard is needed
+// Use a promise to bridge the guard code from wherever it arrives
+let resolveCode!: (code: string) => void;
 const codePromise = new Promise<string>((resolve) => {
-  pendingLogins.set(loginId, resolve);
+  resolveCode = resolve;
 });
 
 const logonPromise = client.services.authentication.loginViaCredentials(
-  {
-    account_name: "your-username",
-    password: "your-password",
-  },
-  async () => {
-    const code = await codePromise;
-    pendingLogins.delete(loginId);
-    return code;
-  }
+  { account_name: "your-username", password: "your-password" },
+  async () => codePromise, // called only when a code is needed
 );
 
-// Helper function to supply the code when it becomes available
-function provideSteamGuardCode(loginId: string, code: string) {
-  const resolver = pendingLogins.get(loginId);
-  if (resolver) {
-    resolver(code);
-  }
-}
+// Supply the code when it arrives (e.g. from user input or your own service)
+resolveCode("AB123");
 
-// logonPromise will resolve once provideSteamGuardCode() is called.
-provideSteamGuardCode(loginId, "123456");
+await logonPromise;
 ```
 
-If you already have a refresh token, you can log on directly.
-This should only be used to login via refreshToken. Do not use it anymore to log on via User/Pass as Steam might deprecate it that functionality.
+Device and email **confirmation** types do not require a code — just approve the sign-in notification when it arrives in the Steam app or email.
+
+### Logon with Refresh Token
+
+If you already have a valid refresh token from a previous session, you can skip the full auth flow:
 
 ```ts
-const logonRes = await client.logonRequest({
-  access_token: refreshToken,
-});
+await client.logonRequest({ access_token: refreshToken });
 ```
 
 ## Connection Options
 
-The client uses WebSocket transport for Steam CM connections.
+All options are passed to the `SteamClient` constructor.
 
-Proxy connections are supported via the proxy property (`http`, `https`, `socks5`).
+| Option | Type | Required | Description |
+|---|---|---|---|
+| `steamCM.host` | `string` | Yes | CM server hostname |
+| `steamCM.port` | `number` | Yes | CM server port |
+| `timeout` | `number` | Yes | Connection timeout in milliseconds |
+| `proxy` | `ProxyConfiguration` | No | HTTP, HTTPS, or SOCKS5 proxy |
+
+### Proxy Example
 
 ```ts
 import type { ConnectionOptions } from "@steamlab/steam-client";
@@ -149,34 +127,41 @@ const options: ConnectionOptions = {
     protocol: "socks5",
     host: "127.0.0.1",
     port: 1080,
-    username: "user",
-    password: "pass",
+    username: "user",   // optional
+    password: "pass",   // optional
   },
 };
 ```
 
-Run deterministic secure CM proxy integration tests:
-
-```shell
-npm run test:cm-proxy:integration
-```
-
-This script sets `NODE_EXTRA_CA_CERTS` to trust the integration test CA bundle.
-
 ## Client API
 
-```ts
-await client.startPlaying(730);
-
-await client.stopPlaying(730);
-```
+| Method | Description |
+|---|---|
+| `client.connect()` | Connects to the Steam CM server |
+| `client.disconnect()` | Disconnects from the CM server |
+| `client.logonRequest(payload)` | Logs on using a refresh token |
+| `client.startPlaying(gameId)` | Reports a game as being played |
+| `client.stopPlaying(gameId)` | Stops reporting a game as being played |
 
 ## Services
 
-Available services are exposed via `client.services`.
+Services are available via `client.services`.
 
-- `authentication`
-- `player`
+| Service | Description |
+|---|---|
+| `client.services.authentication` | QR and credential login flows |
+| `client.services.player` | Player-related Steam service calls |
+
+## Events
+
+Listen to events via `client.emitter`.
+
+| Event | Payload | Description |
+|---|---|---|
+| `disconnected` | `DisconnectMsg` | Fired when the connection drops |
+| `authentication-qr` | `{ challengeUrl: string }` | QR login URL ready to render |
+| `authentication-2fa-required` | `{ guardType: SteamGuardType }` | Steam Guard code or confirmation needed |
+| `steam-auth-tokens` | `{ tokens: SteamAuthTokens }` | Auth tokens received after login |
 
 ## Exports
 
@@ -187,15 +172,18 @@ import {
   EMsg,
   EResult,
   SteamEnums,
-  mapAuthSessionGuardTypeToString,
+  ConnectionError,
+  SteamClientError,
+  SteamProtocolError,
+  SteamProtocolEResultError,
 } from "@steamlab/steam-client";
 ```
 
 ## License
 
-ISC
+[ISC](https://opensource.org/licenses/ISC) — © steamlab-dev
 
 ## Links
 
-- [GitHub Repository](https://github.com/steamlab-dev/steam-client)
+- [GitHub](https://github.com/steamlab-dev/steam-client)
 - [npm Package](https://www.npmjs.com/package/@steamlab/steam-client)
