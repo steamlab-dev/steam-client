@@ -32,7 +32,7 @@ export default class SessionManager {
    * per session, when the current SteamID is the default unset value.
    */
   public setSteamId(steamId?: Long): void {
-    if (this.steamId.equals(Long.UZERO) && steamId && steamId.notEquals(Long.UZERO)) {
+    if (this.steamId.equals(Long.UZERO) && steamId?.notEquals(Long.UZERO)) {
       this.steamId = steamId;
     }
   }

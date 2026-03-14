@@ -20,9 +20,9 @@ const extractEResult = (
 
 export {
   extractEResult,
-  isServiceCallMessage,
-  isRegularProtoMessage,
-  isNonProtoMessage,
   isKeyOf,
+  isNonProtoMessage,
+  isRegularProtoMessage,
+  isServiceCallMessage,
   resolveEResultName,
 };

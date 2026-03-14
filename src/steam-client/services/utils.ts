@@ -74,9 +74,9 @@ const hasConfirmationType = (
 };
 
 export {
-  mapSteamGuardToString,
-  createMachineName,
   createMachineId,
+  createMachineName,
   encryptRsaPassword,
   hasConfirmationType,
+  mapSteamGuardToString,
 };

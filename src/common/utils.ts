@@ -107,4 +107,4 @@ const isValidRefreshToken = (jwt: SteamJWT | string): boolean => {
   );
 };
 
-export { pathExists, findFilesRecursive, listSubdirectories, jwtToJson, isValidRefreshToken };
+export { findFilesRecursive, isValidRefreshToken, jwtToJson, listSubdirectories, pathExists };

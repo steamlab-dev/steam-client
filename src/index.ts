@@ -17,18 +17,18 @@ export { steamEnums as SteamEnums } from "./common/steam-language";
 export * from "./connection/types";
 export * from "./steam-client/types";
 export * from "./steam-protocol/types";
-
+export type { ConnectionSubsystem, SteamClientSubsystem, SteamProtocolSubsystem };
 // Main client API
-export { SteamClientImpl as SteamClient };
-
 // Errors
-export { SteamClientError };
-export type { SteamClientSubsystem };
-export { SteamProtocolError, SteamProtocolEResultError };
-export type { SteamProtocolSubsystem };
-export { ConnectionError };
-export type { ConnectionSubsystem };
-export { GenericError };
-
 // Advanced and utility exports
-export { ProtoManager, TypedEventEmitter, isValidRefreshToken };
+export {
+  ConnectionError,
+  GenericError,
+  isValidRefreshToken,
+  ProtoManager,
+  SteamClientError,
+  SteamClientImpl as SteamClient,
+  SteamProtocolEResultError,
+  SteamProtocolError,
+  TypedEventEmitter,
+};
