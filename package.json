@@ -32,7 +32,7 @@
     "test:package": "./scripts/test-package.sh",
     "build": "tsdown",
     "prepublishOnly": "npm run build",
-    "generate-resources": "tsx ./scripts/index.ts"
+    "generate-resources": "tsx ./scripts/steam-language-generator/index.ts"
   },
   "lint-staged": {
     "*.{ts,js,json,md}": [
