@@ -95,6 +95,7 @@ export interface CSteamInputService_ControllerButtonStateChanged_Notification {
   r4?: boolean;
   r5?: boolean;
   right_aux?: boolean;
+  button_state_bits?: Long;
 }
 
 export interface CSteamInputService_ControllerDisconnected_Notification {
@@ -124,6 +125,15 @@ export interface CSteamInputService_EnableDockedInput_Request {
 }
 
 export type CSteamInputService_EnableDockedInput_Response = Record<string, never>;
+
+export interface CSteamInputService_EnableQosStatus_Request {
+  controller_index?: number;
+  enable?: boolean;
+}
+
+export type CSteamInputService_EnableQosStatus_Response = Record<string, never>;
+
+export type CSteamInputService_FirstSteamControllerConnection_Notification = Record<string, never>;
 
 export interface CSteamInputService_ForgetDonglePairingBond_Request {
   dongle_index?: number;
@@ -301,6 +311,11 @@ export interface CSteamInputService_ShouldTritonPairInOobe_Response {
 
 export type CSteamInputService_TritonDonglesChanged_Notification = Record<string, never>;
 
+export interface CSteamInputService_TritonQos_Notification {
+  controller_index?: number;
+  status?: CTritonQosStatus;
+}
+
 export interface CSteamInputService_TritonUndocked_Notification {
   docked_puck_index?: number;
 }
@@ -320,6 +335,17 @@ export type CSteamInputService_WaitInitialControllerStateEnumerated_Response = R
   never
 >;
 
+export interface CTritonQosStatus {
+  period_ms?: number;
+  packets_sent?: number;
+  packet_retransmissions?: number;
+  interval_max_ms?: number;
+  rssi_measure?: number;
+  reason?: number;
+  rf_channel?: number;
+  backup_channel?: number;
+}
+
 export abstract class SteamInputManagerService {
   abstract CancelGyroSoftwareCalibration(
     request: CSteamInputService_GyroSoftwareCalibration_Request,
@@ -327,6 +353,9 @@ export abstract class SteamInputManagerService {
   abstract EnableDockedInput(
     request: CSteamInputService_EnableDockedInput_Request,
   ): Promise<CSteamInputService_EnableDockedInput_Response>;
+  abstract EnableQosStatus(
+    request: CSteamInputService_EnableQosStatus_Request,
+  ): Promise<CSteamInputService_EnableQosStatus_Response>;
   abstract EndControllerStateFlow(
     request: CSteamInputService_ControllerStateFlow_Request,
   ): Promise<CSteamInputService_ControllerStateFlow_Response>;
@@ -369,6 +398,9 @@ export abstract class SteamInputManagerService {
   abstract NotifyControllerPowerMenu(
     request: CSteamInputService_ControllerPowerMenu_Notification,
   ): Promise<void>;
+  abstract NotifyFirstSteamControllerConnection(
+    request: CSteamInputService_FirstSteamControllerConnection_Notification,
+  ): Promise<void>;
   abstract NotifyGyroAccelerometerStateChanged(
     request: CSteamInputService_GyroAccelerometerChanged_Notification,
   ): Promise<void>;
@@ -384,6 +416,7 @@ export abstract class SteamInputManagerService {
   abstract NotifyTritonDonglesChanged(
     request: CSteamInputService_TritonDonglesChanged_Notification,
   ): Promise<void>;
+  abstract NotifyTritonQos(request: CSteamInputService_TritonQos_Notification): Promise<void>;
   abstract NotifyTritonUndocked(
     request: CSteamInputService_TritonUndocked_Notification,
   ): Promise<void>;

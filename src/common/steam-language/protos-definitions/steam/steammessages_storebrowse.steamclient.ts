@@ -218,6 +218,7 @@ export namespace StoreItem {
   export interface IncludedItems {
     included_apps?: StoreItem[];
     included_packages?: StoreItem[];
+    included_bundles?: StoreItem[];
   }
 
   export interface Categories {

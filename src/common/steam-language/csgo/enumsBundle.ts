@@ -30,8 +30,6 @@ import {
 } from "../protos-definitions/csgo/econ_gcmessages";
 import {
   EClientPersonaStateFlag,
-  ECodecUsagePlatform,
-  ECodecUsageReason,
   EMsg,
   EMsgClanAccountFlags,
   ESteamReviewScore,
@@ -103,8 +101,6 @@ export const csgoEnums = {
   EClientPersonaStateFlag: EClientPersonaStateFlag,
   EClientReportingVersion: EClientReportingVersion,
   EClientUIEvent: EClientUIEvent,
-  ECodecUsagePlatform: ECodecUsagePlatform,
-  ECodecUsageReason: ECodecUsageReason,
   ECommunityItemAttribute: ECommunityItemAttribute,
   ECommunityItemClass: ECommunityItemClass,
   ECsgoGCMsg: ECsgoGCMsg,

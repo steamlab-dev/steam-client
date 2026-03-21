@@ -194,6 +194,7 @@ export const ServiceCallToResMap = {
   CCommunity_RateClanAnnouncement_Request: "CCommunity_RateClanAnnouncement_Response",
   CCommunity_GetClanAnnouncementVoteForUser_Request:
     "CCommunity_GetClanAnnouncementVoteForUser_Response",
+  CCommunity_GetClanMetadata_Request: "CCommunity_GetClanMetadata_Response",
   CCommunity_GetClanLocGroupImages_Request: "CCommunity_GetClanLocGroupImages_Response",
   CCommunity_GetAvatarHistory_Request: "CCommunity_GetAvatarHistory_Response",
   CCommunity_GetClanEventCrowdInMetadata_Request: "CCommunity_GetClanEventCrowdInMetadata_Response",
@@ -556,6 +557,7 @@ export const ServiceCallToResMap = {
     "CRemoteClient_CreateRemotePlayTogetherInvitation_Response",
   CRemoteClient_DeleteRemotePlayTogetherInvitation_Request:
     "CRemoteClient_DeleteRemotePlayTogetherInvitation_Response",
+  CScreensaver_GetActiveState_Request: "CScreensaver_GetActiveState_Response",
   CKeyEscrow_Request: "CKeyEscrow_Response",
   CShader_GetShaderReportingCadence_Request: "CShader_GetShaderReportingCadence_Response",
   CShader_RegisterShader_Request: "CShader_RegisterShader_Response",
@@ -600,6 +602,8 @@ export const ServiceCallToResMap = {
     "CSteamInputService_ForgetDonglePairingBond_Response",
   CSteamInputService_GetControllerName_Request: "CSteamInputService_GetControllerName_Response",
   CSteamInputService_GetControllerList_Request: "CSteamInputService_GetControllerList_Response",
+  CSteamInputService_EnableDockedInput_Request: "CSteamInputService_EnableDockedInput_Response",
+  CSteamInputService_EnableQosStatus_Request: "CSteamInputService_EnableQosStatus_Response",
   CSteamOSManager_GetState_Request: "CSteamOSManager_GetState_Response",
   CSteamOSManager_OptOutOfSideloadedClient_Request:
     "CSteamOSManager_OptOutOfSideloadedClient_Response",
@@ -883,6 +887,7 @@ export type ServiceCallsWithOutRes =
   | "CRemoteClient_SteamToSteam_Notification"
   | "CRemotePlayTogether_Notification"
   | "CRemoteClient_TaskList_Notification"
+  | "CScreensaver_ActiveStateChanged_Notification"
   | "CSiteLicense_ClientSeatCheckout_Notification"
   | "CSiteManagerClient_TrackedPayments_Notification"
   | "CSleepManager_StateChanged_Notification"
@@ -906,6 +911,8 @@ export type ServiceCallsWithOutRes =
   | "CSteamInputService_ControllerDisconnected_Notification"
   | "CSteamInputService_ControllerPairingChanged_Notification"
   | "CSteamInputService_ControllerListChanged_Notification"
+  | "CSteamInputService_FirstSteamControllerConnection_Notification"
+  | "CSteamInputService_TritonQos_Notification"
   | "CSteamNotification_NotificationsReceived_Notification"
   | "CSteamNotification_PreferencesUpdated_Notification"
   | "CSteamOSManager_StateChanged_Notification"

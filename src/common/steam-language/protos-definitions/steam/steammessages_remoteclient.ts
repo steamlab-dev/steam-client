@@ -71,6 +71,9 @@ export interface CMsgRemoteClientStartStream {
   gamepads?: CMsgRemoteClientStartStream.ReservedGamepad[];
   audio_channel_count?: number;
   supported_transport?: EStreamTransport[];
+  maximum_framerate_numerator?: number;
+  maximum_framerate_denominator?: number;
+  display_hdr?: boolean;
 }
 
 export namespace CMsgRemoteClientStartStream {

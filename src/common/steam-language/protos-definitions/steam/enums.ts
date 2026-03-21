@@ -926,7 +926,10 @@ export const EContentModerationSanction = {
   k_EContentModerationSanction_CommentHistoryDeleted: 5,
   k_EContentModerationSanction_Relabelled: 6,
   k_EContentModerationSanction_MarkAsSuspicious: 7,
-  k_EContentModerationSanction_MAX: 8,
+  k_EContentModerationSanction_Warned: 8,
+  k_EContentModerationSanction_KickedFromGroup: 9,
+  k_EContentModerationSanction_HarassmentBanned: 10,
+  k_EContentModerationSanction_MAX: 11,
 } as const;
 
 export type EContentModerationSanction =

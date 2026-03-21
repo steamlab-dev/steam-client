@@ -39,6 +39,15 @@ export interface CWishlist_GetItemCategories_Response {
   categories?: CWishlistCategory[];
 }
 
+export interface CWishlist_GetSharedWishlistCategories_Request {
+  steamid?: Long;
+  share_token?: string;
+}
+
+export interface CWishlist_GetSharedWishlistCategories_Response {
+  categories?: CWishlistCategory[];
+}
+
 export interface CWishlist_GetWishlist_Request {
   steamid?: Long;
 }
@@ -90,6 +99,7 @@ export interface CWishlist_GetWishlistSortedFiltered_Request {
   filters?: CWishlistFilters;
   start_index?: number;
   page_size?: number;
+  share_token?: string;
 }
 
 export interface CWishlist_GetWishlistSortedFiltered_Response {
@@ -162,6 +172,9 @@ export abstract class WishlistService {
   abstract GetItemCategories(
     request: CWishlist_GetItemCategories_Request,
   ): Promise<CWishlist_GetItemCategories_Response>;
+  abstract GetSharedWishlistCategories(
+    request: CWishlist_GetSharedWishlistCategories_Request,
+  ): Promise<CWishlist_GetSharedWishlistCategories_Response>;
   abstract GetWishlist(
     request: CWishlist_GetWishlist_Request,
   ): Promise<CWishlist_GetWishlist_Response>;

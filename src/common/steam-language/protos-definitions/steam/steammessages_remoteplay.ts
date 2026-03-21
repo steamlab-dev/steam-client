@@ -201,6 +201,15 @@ export const EStreamHostPlayAudioPreference = {
 export type EStreamHostPlayAudioPreference =
   (typeof EStreamHostPlayAudioPreference)[keyof typeof EStreamHostPlayAudioPreference];
 
+export const EStreamHostDisplaySetting = {
+  k_EStreamHostDisplaySettingNone: 0,
+  k_EStreamHostDisplaySettingClient: 1,
+  k_EStreamHostDisplaySettingCustom: 2,
+} as const;
+
+export type EStreamHostDisplaySetting =
+  (typeof EStreamHostDisplaySetting)[keyof typeof EStreamHostDisplaySetting];
+
 export const EStreamingDataType = {
   k_EStreamingAudioData: 0,
   k_EStreamingVideoData: 1,
@@ -487,16 +496,19 @@ export interface CStreamingClientConfig {
 }
 
 export interface CStreamingServerConfig {
-  change_desktop_resolution?: boolean;
-  dynamically_adjust_resolution_OBSOLETE?: boolean;
+  host_play_audio?: EStreamHostPlayAudioPreference;
+  custom_display_device?: string;
+  display_resolution_setting?: EStreamHostDisplaySetting;
+  custom_display_resolution_x?: number;
+  custom_display_resolution_y?: number;
+  display_refresh_rate_setting?: EStreamHostDisplaySetting;
+  custom_display_refresh_rate?: string;
+  display_hdr_setting?: EStreamHostDisplaySetting;
+  custom_display_hdr?: boolean;
   enable_capture_nvfbc?: boolean;
-  enable_hardware_encoding_nvidia_OBSOLETE?: boolean;
-  enable_hardware_encoding_amd_OBSOLETE?: boolean;
-  enable_hardware_encoding_intel_OBSOLETE?: boolean;
+  enable_hardware_encoding?: boolean;
   software_encoding_threads?: number;
   enable_traffic_priority?: boolean;
-  host_play_audio?: EStreamHostPlayAudioPreference;
-  enable_hardware_encoding?: boolean;
 }
 
 export interface CNegotiatedConfig {

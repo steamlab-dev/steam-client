@@ -341,6 +341,8 @@ export interface CStore_UserPreferences {
   provide_deck_feedback?: EProvideDeckFeedbackPreference;
   additional_languages?: string;
   game_frame_rate_reporting?: EGameFrameRateReportingPreference;
+  disable_microtrailers?: boolean;
+  disable_animated_marketing?: boolean;
 }
 
 export interface CStore_UserTagPreferences {

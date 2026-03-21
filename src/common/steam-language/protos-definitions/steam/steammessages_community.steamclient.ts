@@ -234,6 +234,17 @@ export interface CCommunity_GetClanAnnouncementVoteForUser_Response {
   voted_down?: boolean;
 }
 
+export interface CCommunity_GetClanMetadata_Request {
+  steamid?: Long;
+}
+
+export interface CCommunity_GetClanMetadata_Response {
+  is_ogg?: boolean;
+  name?: string;
+  profile_url?: string;
+  appid?: number;
+}
+
 export interface CCommunity_GetClanLocGroupImages_Request {
   steamid?: Long;
   group?: EClanImageGroup;
@@ -466,6 +477,9 @@ export abstract class CommunityService {
   abstract GetClanAnnouncementVoteForUser(
     request: CCommunity_GetClanAnnouncementVoteForUser_Request,
   ): Promise<CCommunity_GetClanAnnouncementVoteForUser_Response>;
+  abstract GetClanMetadata(
+    request: CCommunity_GetClanMetadata_Request,
+  ): Promise<CCommunity_GetClanMetadata_Response>;
   abstract GetClanLocGroupImages(
     request: CCommunity_GetClanLocGroupImages_Request,
   ): Promise<CCommunity_GetClanLocGroupImages_Response>;

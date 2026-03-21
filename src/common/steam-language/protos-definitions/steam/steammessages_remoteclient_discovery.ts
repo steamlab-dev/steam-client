@@ -74,11 +74,11 @@ export type EStreamDeviceFormFactor =
 export const EStreamTransport = {
   k_EStreamTransportNone: 0,
   k_EStreamTransportUDP: 1,
-  k_EStreamTransportUDPRelay: 2,
+  k_EStreamTransportUDPRelay_OBSOLETE: 2,
   k_EStreamTransportWebRTC_OBSOLETE: 3,
   k_EStreamTransportSDR: 4,
   k_EStreamTransportUDP_SNS: 5,
-  k_EStreamTransportUDPRelay_SNS: 6,
+  k_EStreamTransportUDPRelay_SNS_OBSOLETE: 6,
 } as const;
 
 export type EStreamTransport = (typeof EStreamTransport)[keyof typeof EStreamTransport];
@@ -231,6 +231,9 @@ export interface CMsgRemoteDeviceStreamingRequest {
   gamepads?: CMsgRemoteDeviceStreamingRequest.ReservedGamepad[];
   gameid?: Long;
   stream_interface?: EStreamInterface;
+  maximum_framerate_numerator?: number;
+  maximum_framerate_denominator?: number;
+  display_hdr?: boolean;
 }
 
 export namespace CMsgRemoteDeviceStreamingRequest {

@@ -679,7 +679,7 @@ export interface CMsgShortcutAppIds {
 }
 
 export interface CMsgMonitorInfo {
-  selected_display_name?: string;
+  selected_device_name?: string;
   monitors?: CMsgMonitorInfo.MonitorInfo[];
 }
 

@@ -152,6 +152,7 @@ export interface CMsgClientSettings {
   enable_gamescope_composer?: boolean;
   enable_gamescope_composer_vr?: boolean;
   show_switch_to_desktop_at_login?: boolean;
+  enable_steamrt64_client?: boolean;
   disable_all_toasts?: boolean;
   disable_toasts_in_game?: boolean;
   play_sound_on_toast?: boolean;
@@ -256,6 +257,7 @@ export interface CMsgClientSettings {
   hdr_compat_testing?: boolean;
   developer_mode_enabled?: boolean;
   show_advanced_update_channels?: boolean;
+  browserview_underlays_allowed?: boolean;
   gamescope_hdr_visualization?: EHDRVisualization;
   gamescope_app_target_framerate?: number;
   gamescope_enable_app_target_framerate?: boolean;
@@ -304,6 +306,8 @@ export interface CMsgClientSettings {
   system_idle_suspend_ac_sec?: number;
   system_enable_low_power_downloads?: boolean;
   system_allow_battery_low_power_downloads?: boolean;
+  system_idle_screensaver_battery_sec?: number;
+  system_idle_screensaver_ac_sec?: number;
   vr_show_perf_graph_in_hmd?: boolean;
   accessibility_debug_visualizer?: boolean;
   accessibility_screen_reader_enabled?: boolean;

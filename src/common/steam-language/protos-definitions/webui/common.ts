@@ -1106,6 +1106,7 @@ export interface CMsgClientSettings {
   enable_gamescope_composer?: boolean;
   enable_gamescope_composer_vr?: boolean;
   show_switch_to_desktop_at_login?: boolean;
+  enable_steamrt64_client?: boolean;
   disable_all_toasts?: boolean;
   disable_toasts_in_game?: boolean;
   play_sound_on_toast?: boolean;
@@ -1199,6 +1200,7 @@ export interface CMsgClientSettings {
   hdr_compat_testing?: boolean;
   developer_mode_enabled?: boolean;
   show_advanced_update_channels?: boolean;
+  browserview_underlays_allowed?: boolean;
   gamescope_hdr_visualization?: number;
   gamescope_app_target_framerate?: number;
   gamescope_enable_app_target_framerate?: boolean;
@@ -1247,6 +1249,8 @@ export interface CMsgClientSettings {
   system_idle_suspend_ac_sec?: number;
   system_enable_low_power_downloads?: boolean;
   system_allow_battery_low_power_downloads?: boolean;
+  system_idle_screensaver_battery_sec?: number;
+  system_idle_screensaver_ac_sec?: number;
   vr_show_perf_graph_in_hmd?: boolean;
   accessibility_debug_visualizer?: boolean;
   accessibility_screen_reader_enabled?: boolean;
@@ -1553,7 +1557,7 @@ export interface CMsgIPAddress {
 }
 
 export interface CMsgMonitorInfo {
-  selected_display_name?: string;
+  selected_device_name?: string;
   monitors?: CMsgMonitorInfo_MonitorInfo[];
 }
 
@@ -2500,16 +2504,19 @@ export interface CStreamingClientConfig {
 }
 
 export interface CStreamingServerConfig {
-  change_desktop_resolution?: boolean;
-  dynamically_adjust_resolution_OBSOLETE?: boolean;
+  host_play_audio?: number;
+  custom_display_device?: string;
+  display_resolution_setting?: number;
+  custom_display_resolution_x?: number;
+  custom_display_resolution_y?: number;
+  display_refresh_rate_setting?: number;
+  custom_display_refresh_rate?: string;
+  display_hdr_setting?: number;
+  custom_display_hdr?: boolean;
   enable_capture_nvfbc?: boolean;
-  enable_hardware_encoding_nvidia_OBSOLETE?: boolean;
-  enable_hardware_encoding_amd_OBSOLETE?: boolean;
-  enable_hardware_encoding_intel_OBSOLETE?: boolean;
+  enable_hardware_encoding?: boolean;
   software_encoding_threads?: number;
   enable_traffic_priority?: boolean;
-  host_play_audio?: number;
-  enable_hardware_encoding?: boolean;
 }
 
 export interface CStreamVideoLimit {
@@ -2641,11 +2648,16 @@ export interface CVRGamepadUI_Frame_FrameMenu_Item {
   type?: number;
   action_id?: number;
   steam_main_menu_options?: CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions;
-  steam_game_overlay_options?: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions;
+  steam_game_info?: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo;
+  steam_game_window_item_options?: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions;
 }
 
-export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions {
+export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo {
   app_id?: number;
+}
+
+export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions {
+  show_for_single_window?: boolean;
 }
 
 export interface CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions {
@@ -2906,6 +2918,18 @@ export interface CVRGamepadUIShared_PathProperty_PowerOptions {
   can_exitvr?: boolean;
 }
 
+export interface CVRGamepadUIShared_PathProperty_RunningApps {
+  apps?: CVRGamepadUIShared_PathProperty_RunningApps_App[];
+}
+
+export interface CVRGamepadUIShared_PathProperty_RunningApps_App {
+  app_id?: number;
+  game_id?: Long;
+  display_name?: string;
+  composition_state?: number;
+  app_overlay_overlay_key?: string;
+}
+
 export interface CVRGamepadUIShared_PathProperty_VRVersionInfo {
   version?: string;
   webpack_build_timestamp?: number;
@@ -3051,6 +3075,7 @@ export interface StoreItem {
   assets_without_overrides?: StoreItem_Assets;
   user_filter_failure?: StoreBrowseFilterFailure;
   links?: StoreItem_Link[];
+  purchase_description?: string;
 }
 
 export interface StoreItem_Assets {
@@ -3100,6 +3125,7 @@ export interface StoreItem_FreeWeekend {
 export interface StoreItem_IncludedItems {
   included_apps?: StoreItem[];
   included_packages?: StoreItem[];
+  included_bundles?: StoreItem[];
 }
 
 export interface StoreItem_Link {

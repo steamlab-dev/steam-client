@@ -780,6 +780,7 @@ export interface CMsgGCCStrike15_v2_ClientRequestJoinFriendData {
   join_ipp?: number;
   res?: CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve;
   errormsg?: string;
+  is_local_server?: boolean;
 }
 
 export interface CMsgGCCStrike15_v2_ClientRequestJoinServerData {

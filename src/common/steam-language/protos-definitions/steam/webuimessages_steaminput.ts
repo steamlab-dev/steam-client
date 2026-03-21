@@ -65,6 +65,7 @@ export interface CSteamInputService_ControllerButtonStateChanged_Notification {
   r4?: boolean;
   r5?: boolean;
   right_aux?: boolean;
+  button_state_bits?: Long;
 }
 
 export interface ControllerVector2 {
@@ -201,6 +202,7 @@ export namespace CSteamInputService_GetDongles_Response {
     dongle_serial_number?: string;
     paired_serial_number?: string;
     paired?: boolean;
+    docked?: boolean;
   }
 }
 
@@ -283,6 +285,13 @@ export interface CSteamInputService_GetControllerName_Response {
   controller_name?: string;
 }
 
+export interface CSteamInputService_EnableDockedInput_Request {
+  controller_index?: number;
+  enable?: boolean;
+}
+
+export type CSteamInputService_EnableDockedInput_Response = Record<string, never>;
+
 export interface CSteamInputService_RawControllerDetailItem {
   controller_index?: number;
   initialized?: boolean;
@@ -345,6 +354,31 @@ export interface CSteamInputService_GetControllerList_Response {
   controllers?: CSteamInputService_RawControllerDetailItem[];
 }
 
+export type CSteamInputService_FirstSteamControllerConnection_Notification = Record<string, never>;
+
+export interface CTritonQosStatus {
+  period_ms?: number;
+  packets_sent?: number;
+  packet_retransmissions?: number;
+  interval_max_ms?: number;
+  rssi_measure?: number;
+  reason?: number;
+  rf_channel?: number;
+  backup_channel?: number;
+}
+
+export interface CSteamInputService_TritonQos_Notification {
+  controller_index?: number;
+  status?: CTritonQosStatus;
+}
+
+export interface CSteamInputService_EnableQosStatus_Request {
+  controller_index?: number;
+  enable?: boolean;
+}
+
+export type CSteamInputService_EnableQosStatus_Response = Record<string, never>;
+
 export abstract class SteamInputManagerService {
   abstract NotifyButtonStateChanged(
     request: CSteamInputService_ControllerButtonStateChanged_Notification,
@@ -387,6 +421,12 @@ export abstract class SteamInputManagerService {
   ): Promise<WebUINoResponse>;
   abstract NotifyControllerListChanged(
     request: CSteamInputService_ControllerListChanged_Notification,
+  ): Promise<WebUINoResponse>;
+  abstract NotifyFirstSteamControllerConnection(
+    request: CSteamInputService_FirstSteamControllerConnection_Notification,
+  ): Promise<WebUINoResponse>;
+  abstract NotifyTritonQos(
+    request: CSteamInputService_TritonQos_Notification,
   ): Promise<WebUINoResponse>;
   abstract StartControllerStateFlow(
     request: CSteamInputService_ControllerStateFlow_Request,
@@ -433,4 +473,10 @@ export abstract class SteamInputManagerService {
   abstract GetControllerList(
     request: CSteamInputService_GetControllerList_Request,
   ): Promise<CSteamInputService_GetControllerList_Response>;
+  abstract EnableDockedInput(
+    request: CSteamInputService_EnableDockedInput_Request,
+  ): Promise<CSteamInputService_EnableDockedInput_Response>;
+  abstract EnableQosStatus(
+    request: CSteamInputService_EnableQosStatus_Request,
+  ): Promise<CSteamInputService_EnableQosStatus_Response>;
 }

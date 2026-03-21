@@ -113,6 +113,7 @@ import type { RemoteClientService } from "../protos-definitions/webui/service_re
 import type { RemoteClientSteamClientService } from "../protos-definitions/webui/service_remoteclientsteam";
 import type { SaleFeatureService } from "../protos-definitions/webui/service_salefeature";
 import type { SaleItemRewardsService } from "../protos-definitions/webui/service_saleitemrewards";
+import type { ScreensaverService } from "../protos-definitions/webui/service_screensaver";
 import type { SharedJSContextService } from "../protos-definitions/webui/service_sharedjscontext";
 import type { ShoppingCartService } from "../protos-definitions/webui/service_shoppingcart";
 import type { SleepManagerService } from "../protos-definitions/webui/service_sleepmanager";
@@ -257,6 +258,7 @@ export interface WebuiServices {
   RemoteClientSteamClientService: RemoteClientSteamClientService;
   SaleFeatureService: SaleFeatureService;
   SaleItemRewardsService: SaleItemRewardsService;
+  ScreensaverService: ScreensaverService;
   SharedJSContextService: SharedJSContextService;
   ShoppingCartService: ShoppingCartService;
   SleepManagerService: SleepManagerService;

@@ -138,6 +138,7 @@ import type {
   CMsgScreenInformationChanged,
   CMsgSearchResults,
   CMsgSetAccessibilitySettings,
+  CMsgSetBrowserViewDomainRequestMapping,
   CMsgSetCookie,
   CMsgSetCursor,
   CMsgSetFocus,
@@ -1027,6 +1028,8 @@ import type {
   CCommunity_GetClanEventCrowdInMetadata_Response,
   CCommunity_GetClanLocGroupImages_Request,
   CCommunity_GetClanLocGroupImages_Response,
+  CCommunity_GetClanMetadata_Request,
+  CCommunity_GetClanMetadata_Response,
   CCommunity_GetCommentThread_Request,
   CCommunity_GetCommentThread_Response,
   CCommunity_GetCommentThreadRatings_Request,
@@ -2201,6 +2204,10 @@ import type {
   CMsgLEDManagerState,
 } from "../protos-definitions/steam/webuimessages_leds";
 import type {
+  CScreensaver_ActiveStateChanged_Notification,
+  CScreensaver_GetActiveState_Response,
+} from "../protos-definitions/steam/webuimessages_screensaver";
+import type {
   CMsgSteamUIBrowserWindow,
   CSharedJSContext_GetDesiredSteamUIWindows_Response,
 } from "../protos-definitions/steam/webuimessages_sharedjscontext";
@@ -2235,6 +2242,8 @@ import type {
   CSteamInputService_ControllerPairingChanged_Notification,
   CSteamInputService_ControllerPowerMenu_Notification,
   CSteamInputService_ControllerStateFlow_Request,
+  CSteamInputService_EnableDockedInput_Request,
+  CSteamInputService_EnableQosStatus_Request,
   CSteamInputService_ForgetDonglePairingBond_Request,
   CSteamInputService_ForgetTritonPairingBond_Request,
   CSteamInputService_GetControllerList_Response,
@@ -2253,9 +2262,11 @@ import type {
   CSteamInputService_PairDongleTritonDocked_Request,
   CSteamInputService_RawControllerDetailItem,
   CSteamInputService_ShouldTritonPairInOobe_Response,
+  CSteamInputService_TritonQos_Notification,
   CSteamInputService_TritonUndocked_Notification,
   CSteamInputService_UnpairedTritonDocked_Notification,
   CSteamInputService_UnpairedTritonPluggedIn_Notification,
+  CTritonQosStatus,
 } from "../protos-definitions/steam/webuimessages_steaminput";
 import type {
   CMsgFactoryResetState,
@@ -2717,6 +2728,8 @@ export interface SteamProtos {
   CCommunity_GetClanEventCrowdInMetadata_Response: CCommunity_GetClanEventCrowdInMetadata_Response;
   CCommunity_GetClanLocGroupImages_Request: CCommunity_GetClanLocGroupImages_Request;
   CCommunity_GetClanLocGroupImages_Response: CCommunity_GetClanLocGroupImages_Response;
+  CCommunity_GetClanMetadata_Request: CCommunity_GetClanMetadata_Request;
+  CCommunity_GetClanMetadata_Response: CCommunity_GetClanMetadata_Response;
   CCommunity_GetCommentThread_Request: CCommunity_GetCommentThread_Request;
   CCommunity_GetCommentThread_Response: CCommunity_GetCommentThread_Response;
   CCommunity_GetCommentThreadRatings_Request: CCommunity_GetCommentThreadRatings_Request;
@@ -3587,6 +3600,7 @@ export interface SteamProtos {
   CMsgSearchResults: CMsgSearchResults;
   CMsgSelectOSBranchParams: CMsgSelectOSBranchParams;
   CMsgSetAccessibilitySettings: CMsgSetAccessibilitySettings;
+  CMsgSetBrowserViewDomainRequestMapping: CMsgSetBrowserViewDomainRequestMapping;
   CMsgSetCookie: CMsgSetCookie;
   CMsgSetCursor: CMsgSetCursor;
   CMsgSetFocus: CMsgSetFocus;
@@ -4021,6 +4035,8 @@ export interface SteamProtos {
   CRemoveAuthenticatorViaChallengeContinue_Replacement_Token: CRemoveAuthenticatorViaChallengeContinue_Replacement_Token;
   CReservationPositionMessage: CReservationPositionMessage;
   CSaveTouchConfigLayoutMsg: CSaveTouchConfigLayoutMsg;
+  CScreensaver_ActiveStateChanged_Notification: CScreensaver_ActiveStateChanged_Notification;
+  CScreensaver_GetActiveState_Response: CScreensaver_GetActiveState_Response;
   CServerHandshakeMsg: CServerHandshakeMsg;
   CSetActivityMsg: CSetActivityMsg;
   CSetBitrateOverrideMsg: CSetBitrateOverrideMsg;
@@ -4090,6 +4106,8 @@ export interface SteamProtos {
   CSteamInputService_ControllerPairingChanged_Notification: CSteamInputService_ControllerPairingChanged_Notification;
   CSteamInputService_ControllerPowerMenu_Notification: CSteamInputService_ControllerPowerMenu_Notification;
   CSteamInputService_ControllerStateFlow_Request: CSteamInputService_ControllerStateFlow_Request;
+  CSteamInputService_EnableDockedInput_Request: CSteamInputService_EnableDockedInput_Request;
+  CSteamInputService_EnableQosStatus_Request: CSteamInputService_EnableQosStatus_Request;
   CSteamInputService_ForgetDonglePairingBond_Request: CSteamInputService_ForgetDonglePairingBond_Request;
   CSteamInputService_ForgetTritonPairingBond_Request: CSteamInputService_ForgetTritonPairingBond_Request;
   CSteamInputService_GetControllerList_Response: CSteamInputService_GetControllerList_Response;
@@ -4108,6 +4126,7 @@ export interface SteamProtos {
   CSteamInputService_PairDongleTritonDocked_Request: CSteamInputService_PairDongleTritonDocked_Request;
   CSteamInputService_RawControllerDetailItem: CSteamInputService_RawControllerDetailItem;
   CSteamInputService_ShouldTritonPairInOobe_Response: CSteamInputService_ShouldTritonPairInOobe_Response;
+  CSteamInputService_TritonQos_Notification: CSteamInputService_TritonQos_Notification;
   CSteamInputService_TritonUndocked_Notification: CSteamInputService_TritonUndocked_Notification;
   CSteamInputService_UnpairedTritonDocked_Notification: CSteamInputService_UnpairedTritonDocked_Notification;
   CSteamInputService_UnpairedTritonPluggedIn_Notification: CSteamInputService_UnpairedTritonPluggedIn_Notification;
@@ -4309,6 +4328,7 @@ export interface SteamProtos {
   CTransportValidation_TriggerSyntheticEvents_Request: CTransportValidation_TriggerSyntheticEvents_Request;
   CTransportValidationClient_AddNumbers_Request: CTransportValidationClient_AddNumbers_Request;
   CTransportValidationClient_AddNumbers_Response: CTransportValidationClient_AddNumbers_Response;
+  CTritonQosStatus: CTritonQosStatus;
   CTwoFactor_AddAuthenticator_Request: CTwoFactor_AddAuthenticator_Request;
   CTwoFactor_AddAuthenticator_Response: CTwoFactor_AddAuthenticator_Response;
   CTwoFactor_FinalizeAddAuthenticator_Request: CTwoFactor_FinalizeAddAuthenticator_Request;

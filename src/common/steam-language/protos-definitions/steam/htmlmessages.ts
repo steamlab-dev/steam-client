@@ -92,11 +92,9 @@ export interface CMsgBrowserCreate {
   user_css?: string;
   native_dropdowns?: boolean;
   dpi_scaling?: number;
-  offscreen?: boolean;
   initial_width?: number;
   initial_height?: number;
   window_icon?: string;
-  borderless?: boolean;
   vroverlay_key?: string;
   browser_type?: number;
   initial_top?: number;
@@ -1087,4 +1085,9 @@ export interface CMsgSetAccessibilitySettings {
   reduced_motion_enabled?: boolean;
   preferred_contrast?: EAccessibilityContrastMode;
   minimum_font_size?: number;
+}
+
+export interface CMsgSetBrowserViewDomainRequestMapping {
+  request_domain?: string;
+  default_local_path?: string;
 }

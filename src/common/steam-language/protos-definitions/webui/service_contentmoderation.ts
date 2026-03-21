@@ -67,6 +67,7 @@ export interface CContentModeration_DisputeModerationForSubject_Request {
   subject_group_id?: Long;
   subject_id?: Long;
   details?: string;
+  steamid?: Long;
 }
 
 export type CContentModeration_DisputeModerationForSubject_Response = Record<string, never>;
@@ -277,6 +278,7 @@ export interface CContentModeration_UpdateSubject_Request {
   csam_status?: number;
   terrorism_status?: number;
   credible_threat_of_violence_status?: number;
+  additional_subject_data?: AdditionalSubjectData;
 }
 
 export type CContentModeration_UpdateSubject_Response = Record<string, never>;

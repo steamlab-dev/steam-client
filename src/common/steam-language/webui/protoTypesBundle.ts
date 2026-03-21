@@ -294,7 +294,8 @@ import type {
   CVRGamepadUI_Frame_FrameControls_Item,
   CVRGamepadUI_Frame_FrameMenu,
   CVRGamepadUI_Frame_FrameMenu_Item,
-  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions,
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo,
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions,
   CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions,
   CVRGamepadUI_Message_DashboardActionInvoked_Request,
   CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request,
@@ -331,6 +332,8 @@ import type {
   CVRGamepadUIShared_PathProperty_DesktopWindows_Window,
   CVRGamepadUIShared_PathProperty_HMDSettings,
   CVRGamepadUIShared_PathProperty_PowerOptions,
+  CVRGamepadUIShared_PathProperty_RunningApps,
+  CVRGamepadUIShared_PathProperty_RunningApps_App,
   CVRGamepadUIShared_PathProperty_VRVersionInfo,
   LoyaltyRewardDefinition,
   LoyaltyRewardDefinition_BadgeData,
@@ -2021,6 +2024,10 @@ import type {
   SaleReward_ItemDefinition,
 } from "../protos-definitions/webui/service_saleitemrewards";
 import type {
+  CScreensaver_ActiveStateChanged_Notification,
+  CScreensaver_GetActiveState_Response,
+} from "../protos-definitions/webui/service_screensaver";
+import type {
   CMsgSteamUIBrowserWindow,
   CSharedJSContext_GetDesiredSteamUIWindows_Response,
 } from "../protos-definitions/webui/service_sharedjscontext";
@@ -2117,6 +2124,7 @@ import type {
   CSteamInputService_ControllerPowerMenu_Notification,
   CSteamInputService_ControllerStateFlow_Request,
   CSteamInputService_EnableDockedInput_Request,
+  CSteamInputService_EnableQosStatus_Request,
   CSteamInputService_ForgetDonglePairingBond_Request,
   CSteamInputService_ForgetTritonPairingBond_Request,
   CSteamInputService_GetControllerList_Response,
@@ -2137,9 +2145,11 @@ import type {
   CSteamInputService_PairDongleTritonDocked_Request,
   CSteamInputService_RawControllerDetailItem,
   CSteamInputService_ShouldTritonPairInOobe_Response,
+  CSteamInputService_TritonQos_Notification,
   CSteamInputService_TritonUndocked_Notification,
   CSteamInputService_UnpairedTritonDocked_Notification,
   CSteamInputService_UnpairedTritonPluggedIn_Notification,
+  CTritonQosStatus,
 } from "../protos-definitions/webui/service_steaminputmanager";
 import type {
   CMsgInferenceIterateBeamSearch,
@@ -2781,6 +2791,8 @@ import type {
   CWishlist_AddWishlistItemCategory_Response,
   CWishlist_GetItemCategories_Request,
   CWishlist_GetItemCategories_Response,
+  CWishlist_GetSharedWishlistCategories_Request,
+  CWishlist_GetSharedWishlistCategories_Response,
   CWishlist_GetWishlist_Request,
   CWishlist_GetWishlist_Response,
   CWishlist_GetWishlist_Response_WishlistItem,
@@ -4692,6 +4704,8 @@ export interface WebuiProtos {
   CSaleItemRewards_GetRewardDefinitions_Response: CSaleItemRewards_GetRewardDefinitions_Response;
   CSaleItemRewards_SetRewardDefinitions_Request: CSaleItemRewards_SetRewardDefinitions_Request;
   CSaleItemRewards_SetRewardDefinitions_Response: CSaleItemRewards_SetRewardDefinitions_Response;
+  CScreensaver_ActiveStateChanged_Notification: CScreensaver_ActiveStateChanged_Notification;
+  CScreensaver_GetActiveState_Response: CScreensaver_GetActiveState_Response;
   CSharedJSContext_GetDesiredSteamUIWindows_Response: CSharedJSContext_GetDesiredSteamUIWindows_Response;
   CShoppingCart_AddBundle_Request: CShoppingCart_AddBundle_Request;
   CShoppingCart_AddBundle_Response: CShoppingCart_AddBundle_Response;
@@ -4771,6 +4785,7 @@ export interface WebuiProtos {
   CSteamInputService_ControllerPowerMenu_Notification: CSteamInputService_ControllerPowerMenu_Notification;
   CSteamInputService_ControllerStateFlow_Request: CSteamInputService_ControllerStateFlow_Request;
   CSteamInputService_EnableDockedInput_Request: CSteamInputService_EnableDockedInput_Request;
+  CSteamInputService_EnableQosStatus_Request: CSteamInputService_EnableQosStatus_Request;
   CSteamInputService_ForgetDonglePairingBond_Request: CSteamInputService_ForgetDonglePairingBond_Request;
   CSteamInputService_ForgetTritonPairingBond_Request: CSteamInputService_ForgetTritonPairingBond_Request;
   CSteamInputService_GetControllerList_Response: CSteamInputService_GetControllerList_Response;
@@ -4791,6 +4806,7 @@ export interface WebuiProtos {
   CSteamInputService_PairDongleTritonDocked_Request: CSteamInputService_PairDongleTritonDocked_Request;
   CSteamInputService_RawControllerDetailItem: CSteamInputService_RawControllerDetailItem;
   CSteamInputService_ShouldTritonPairInOobe_Response: CSteamInputService_ShouldTritonPairInOobe_Response;
+  CSteamInputService_TritonQos_Notification: CSteamInputService_TritonQos_Notification;
   CSteamInputService_TritonUndocked_Notification: CSteamInputService_TritonUndocked_Notification;
   CSteamInputService_UnpairedTritonDocked_Notification: CSteamInputService_UnpairedTritonDocked_Notification;
   CSteamInputService_UnpairedTritonPluggedIn_Notification: CSteamInputService_UnpairedTritonPluggedIn_Notification;
@@ -5103,6 +5119,7 @@ export interface WebuiProtos {
   CTransportValidation_TriggerSyntheticEvents_Request: CTransportValidation_TriggerSyntheticEvents_Request;
   CTransportValidationClient_AddNumbers_Request: CTransportValidationClient_AddNumbers_Request;
   CTransportValidationClient_AddNumbers_Response: CTransportValidationClient_AddNumbers_Response;
+  CTritonQosStatus: CTritonQosStatus;
   CTwoFactor_AddAuthenticator_Request: CTwoFactor_AddAuthenticator_Request;
   CTwoFactor_AddAuthenticator_Response: CTwoFactor_AddAuthenticator_Response;
   CTwoFactor_FinalizeAddAuthenticator_Request: CTwoFactor_FinalizeAddAuthenticator_Request;
@@ -5225,7 +5242,8 @@ export interface WebuiProtos {
   CVRGamepadUI_Frame_FrameControls_Item: CVRGamepadUI_Frame_FrameControls_Item;
   CVRGamepadUI_Frame_FrameMenu: CVRGamepadUI_Frame_FrameMenu;
   CVRGamepadUI_Frame_FrameMenu_Item: CVRGamepadUI_Frame_FrameMenu_Item;
-  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameOverlayOptions;
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameInfo;
+  CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions: CVRGamepadUI_Frame_FrameMenu_Item_SteamGameWindowItemsOptions;
   CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions: CVRGamepadUI_Frame_FrameMenu_Item_SteamMainMenuOptions;
   CVRGamepadUI_Message_DashboardActionInvoked_Request: CVRGamepadUI_Message_DashboardActionInvoked_Request;
   CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request: CVRGamepadUI_Message_DashboardDesktopWindowClicked_Request;
@@ -5262,6 +5280,8 @@ export interface WebuiProtos {
   CVRGamepadUIShared_PathProperty_DesktopWindows_Window: CVRGamepadUIShared_PathProperty_DesktopWindows_Window;
   CVRGamepadUIShared_PathProperty_HMDSettings: CVRGamepadUIShared_PathProperty_HMDSettings;
   CVRGamepadUIShared_PathProperty_PowerOptions: CVRGamepadUIShared_PathProperty_PowerOptions;
+  CVRGamepadUIShared_PathProperty_RunningApps: CVRGamepadUIShared_PathProperty_RunningApps;
+  CVRGamepadUIShared_PathProperty_RunningApps_App: CVRGamepadUIShared_PathProperty_RunningApps_App;
   CVRGamepadUIShared_PathProperty_VRVersionInfo: CVRGamepadUIShared_PathProperty_VRVersionInfo;
   CWebRTC_WebRTCSessionConnected_Notification: CWebRTC_WebRTCSessionConnected_Notification;
   CWebRTC_WebRTCUpdateRemoteDescription_Notification: CWebRTC_WebRTCUpdateRemoteDescription_Notification;
@@ -5277,6 +5297,8 @@ export interface WebuiProtos {
   CWishlist_AddWishlistItemCategory_Response: CWishlist_AddWishlistItemCategory_Response;
   CWishlist_GetItemCategories_Request: CWishlist_GetItemCategories_Request;
   CWishlist_GetItemCategories_Response: CWishlist_GetItemCategories_Response;
+  CWishlist_GetSharedWishlistCategories_Request: CWishlist_GetSharedWishlistCategories_Request;
+  CWishlist_GetSharedWishlistCategories_Response: CWishlist_GetSharedWishlistCategories_Response;
   CWishlist_GetWishlist_Request: CWishlist_GetWishlist_Request;
   CWishlist_GetWishlist_Response: CWishlist_GetWishlist_Response;
   CWishlist_GetWishlist_Response_WishlistItem: CWishlist_GetWishlist_Response_WishlistItem;

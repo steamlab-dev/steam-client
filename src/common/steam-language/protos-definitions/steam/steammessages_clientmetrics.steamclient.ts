@@ -281,6 +281,7 @@ export namespace CClientMetrics_GamePerformance_Notification {
     gameid?: Long;
     frame_rate?: number;
     session_seconds?: number;
+    framegen_frame_rate?: number;
   }
 }
 

@@ -127,6 +127,7 @@ import type { GameRecordingService } from "../protos-definitions/steam/webuimess
 import type { GamescopeService } from "../protos-definitions/steam/webuimessages_gamescope";
 import type { HardwareUpdateService } from "../protos-definitions/steam/webuimessages_hardwareupdate";
 import type { LEDManagerService } from "../protos-definitions/steam/webuimessages_leds";
+import type { ScreensaverService } from "../protos-definitions/steam/webuimessages_screensaver";
 import type { SharedJSContextService } from "../protos-definitions/steam/webuimessages_sharedjscontext";
 import type { SleepManagerService } from "../protos-definitions/steam/webuimessages_sleep";
 import type { SteamEngineService } from "../protos-definitions/steam/webuimessages_steamengine";
@@ -207,6 +208,7 @@ export interface SteamServices {
   QueuedMatchmakingService: QueuedMatchmakingService;
   RemoteClientService: RemoteClientService;
   RemoteClientSteamClientService: RemoteClientSteamClientService;
+  ScreensaverService: ScreensaverService;
   SecretsService: SecretsService;
   ShaderService: ShaderService;
   SharedJSContextService: SharedJSContextService;
