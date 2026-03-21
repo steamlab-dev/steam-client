@@ -4,7 +4,7 @@ import ProtoMessenger, { ProtoMessengerError } from "@/steam-protocol/senders/pr
 
 describe("ProtoMessenger", () => {
   const createMessenger = () => {
-    const protos = { encode: vi.fn().mockReturnValue(Buffer.from([0xbb])) };
+    const protos = { encodeUnsafe: vi.fn().mockReturnValue(Buffer.from([0xbb])) };
     const connection = { send: vi.fn() };
     const headerBuilder = { build: vi.fn().mockReturnValue(Buffer.from([0xaa])) };
     const pendingRequest = {

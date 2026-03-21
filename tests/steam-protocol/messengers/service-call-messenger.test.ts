@@ -6,7 +6,7 @@ import ServiceCallMessenger, {
 
 describe("ServiceCallMessenger", () => {
   const createMessenger = (isLoggedIn: boolean) => {
-    const protos = { encode: vi.fn().mockReturnValue(Buffer.from([0xcc])) };
+    const protos = { encodeUnsafe: vi.fn().mockReturnValue(Buffer.from([0xcc])) };
     const connection = { send: vi.fn() };
     const session = { isLoggedIn: vi.fn().mockReturnValue(isLoggedIn) };
     const headerBuilder = { build: vi.fn().mockReturnValue(Buffer.from([0xdd])) };

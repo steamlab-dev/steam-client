@@ -22,7 +22,7 @@ export default class ProtoHeaderBuilder {
       client_sessionid: session.clientId,
     };
 
-    const encodedHeader = this.protos.encode("CMsgProtoBufHeader", message);
+    const encodedHeader = this.protos.encodeUnsafe("CMsgProtoBufHeader", message);
     sBuffer.writeInt32LE(encodedHeader.length);
     sBuffer.writeBuffer(encodedHeader);
 

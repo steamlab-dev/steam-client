@@ -52,7 +52,7 @@ export default class ServiceCallMessenger implements Messenger {
       target_job_name: targetJobName,
       jobid_source: jobIdSource,
     });
-    const buffer = this.protos.encode(req.message, req.payload as Record<string, unknown>);
+    const buffer = this.protos.encodeUnsafe(req.message, req.payload as Record<string, unknown>);
     this.connection.send(Buffer.concat([header, buffer]));
 
     return promise;
