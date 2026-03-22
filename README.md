@@ -12,7 +12,7 @@ A lean TypeScript Steam client for Node.js. It handles the low-level CM connecti
 
 ## Requirements
 
-- Node.js `>= 20`
+- Node.js `>= 22`
 - npm `>= 9.5.1`
 
 ## Installation

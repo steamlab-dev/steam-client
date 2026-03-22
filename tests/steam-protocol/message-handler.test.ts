@@ -122,6 +122,23 @@ describe("MessageHandler", () => {
     expect(emitter.emit).toHaveBeenCalledWith("steam-message-error", original);
   });
 
+  it("emits steam-message-error when parsing fails without rejecting the data listener", async () => {
+    const { emitter, parser, onData } = createBase();
+    const parseError = new Error("bad packet");
+    parser.parse.mockRejectedValue(parseError);
+
+    await expect(onData?.(Buffer.from([0x04]))).resolves.toBeUndefined();
+
+    expect(emitter.emit).toHaveBeenCalledWith(
+      "steam-message-error",
+      expect.objectContaining({
+        name: "MessageHandlerError",
+        message: expect.stringContaining("Failed to parse incoming steam message"),
+        cause: parseError,
+      }),
+    );
+  });
+
   it("cleanup detaches data listener from connection", () => {
     const { connection, handler } = createBase();
     const onData = connection.on.mock.calls[0]?.[1];

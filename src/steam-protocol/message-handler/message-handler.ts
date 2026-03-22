@@ -16,7 +16,7 @@ import type {
 export class MessageHandlerError extends SteamProtocolError {
   constructor(
     messageOrCause: string | unknown,
-    public readonly rawMessage: ParsedMessage,
+    public readonly rawMessage: ParsedMessage | undefined,
     cause?: unknown,
   ) {
     super(messageOrCause, "handler", cause);
@@ -44,7 +44,18 @@ export default class MessageHandler {
   }
 
   private async handleIncomingData(data: Buffer): Promise<void> {
-    const parsedMessages = await this.parser.parse(data);
+    let parsedMessages: ParsedMessage[];
+
+    try {
+      parsedMessages = await this.parser.parse(data);
+    } catch (error) {
+      this.emitter.emit(
+        "steam-message-error",
+        new MessageHandlerError("Failed to parse incoming steam message", undefined, error),
+      );
+      return;
+    }
+
     const steamMessages = this.collectPublicMessages(parsedMessages);
 
     if (this.hasMessages(steamMessages)) {
