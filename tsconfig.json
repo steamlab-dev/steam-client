@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* 1. Language & Environment */
-    // Node 20+ supports ES2023. This enables modern syntax validation.
+    // Node 22+ supports ES2023. This keeps type-checking aligned with the runtime floor.
     "target": "ES2023",
     "lib": ["ES2023"],
     // 'ESNext' + 'Bundler' is the gold standard for tsdown/Vite/Esbuild users.

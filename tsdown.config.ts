@@ -11,7 +11,7 @@ export default defineConfig({
   // 3. Platform & Target
   // Optimizes the output specifically for Node.js, not the browser.
   platform: "node",
-  target: "node20",
+  target: "node22",
 
   // 4. Bundling Strategy
   // unbundle: false -> Combines all YOUR source files into a single output file (dist/index.js).
