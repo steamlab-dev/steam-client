@@ -1,5 +1,9 @@
-import { SmartBuffer } from "smart-buffer";
 import { EMsg } from "@/common/steam-language";
+import {
+  ensureBytesAvailable,
+  readInt32LE,
+  readUInt32LE,
+} from "@/steam-protocol/common/buffer-read";
 import { SteamProtocolError } from "@/steam-protocol/error";
 import type {
   ClientUpdateGuestPassesListBody,
@@ -11,13 +15,15 @@ import type {
 } from "../types";
 import { isNonProtoMessage } from "./common/util";
 
+const createHandlerError = (message: string) => new SteamProtocolError(message, "handler");
+
 export default class NonProtoResponseHandler implements MsgHandler {
   canHandle(message: ParsedMessage): boolean {
     return isNonProtoMessage(message);
   }
 
   handle(message: NonProtoMessage): DecodedNonProtoMessage {
-    const rawBody = SmartBuffer.fromBuffer(message.rawBody);
+    const rawBody = message.rawBody;
 
     switch (message.eMsg) {
       case EMsg.k_EMsgClientVACBanStatus:
@@ -49,17 +55,33 @@ export default class NonProtoResponseHandler implements MsgHandler {
     }
   }
 
-  private decodeClientVacBanStatus(rawBody: SmartBuffer): ClientVacBanStatusBody {
+  private decodeClientVacBanStatus(rawBody: Buffer): ClientVacBanStatusBody {
     return {
-      numBans: rawBody.readUInt32LE(),
+      numBans: readUInt32LE(rawBody, 0, "VAC ban status body", createHandlerError).value,
     };
   }
 
-  private decodeClientUpdateGuestPassesList(rawBody: SmartBuffer): ClientUpdateGuestPassesListBody {
+  private decodeClientUpdateGuestPassesList(rawBody: Buffer): ClientUpdateGuestPassesListBody {
+    ensureBytesAvailable(rawBody, 0, 12, "guest passes body", createHandlerError);
+
+    const eResult = readInt32LE(rawBody, 0, "guest passes body", createHandlerError);
+    const countToGive = readInt32LE(
+      rawBody,
+      eResult.offset,
+      "guest passes body",
+      createHandlerError,
+    );
+    const countToRedeem = readInt32LE(
+      rawBody,
+      countToGive.offset,
+      "guest passes body",
+      createHandlerError,
+    );
+
     return {
-      EResult: rawBody.readInt32LE(),
-      countGuestPassesToGive: rawBody.readInt32LE(),
-      countGuestPassesToRedeem: rawBody.readInt32LE(),
+      EResult: eResult.value,
+      countGuestPassesToGive: countToGive.value,
+      countGuestPassesToRedeem: countToRedeem.value,
     };
   }
 }

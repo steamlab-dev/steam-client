@@ -55,7 +55,9 @@ describe("MessageParser", () => {
     expect(parsed[0]?.isProto).toBe(true);
     expect(parsed[0]?.eMsg).toBe(EMsg.k_EMsgClientHello);
     expect(parsed[0]?.rawBody).toEqual(Buffer.from([9, 8, 7]));
-    expect(protos.decode).toHaveBeenCalledWith("CMsgProtoBufHeader", Buffer.from([1, 2, 3, 4]));
+    const protoHeader = protos.decode.mock.calls[0]?.[1] as Buffer;
+    expect(protos.decode).toHaveBeenCalledWith("CMsgProtoBufHeader", expect.any(Buffer));
+    expect(protoHeader).toEqual(Buffer.from([1, 2, 3, 4]));
   });
 
   it("parses non-proto header correctly", async () => {
@@ -186,6 +188,36 @@ describe("MessageParser", () => {
 
     await expect(parser.parse(topPacket)).rejects.toThrow(
       "Malformed multi-message chunk: expected 32 bytes but only 4 available",
+    );
+  });
+
+  it("throws when proto header length exceeds remaining bytes", async () => {
+    const protos = { decode: vi.fn() };
+    const parser = new MessageParser(protos as never);
+    const packet = Buffer.concat([
+      encodeRawEMsg(EMsg.k_EMsgClientHello, true),
+      Buffer.from([0x08, 0x00, 0x00, 0x00]),
+      Buffer.from([0x01, 0x02]),
+    ]);
+
+    await expect(parser.parse(packet)).rejects.toThrow(MessageParserError);
+    await expect(parser.parse(packet)).rejects.toThrow(
+      "Malformed message: expected 8 bytes for proto header but only 2 available",
+    );
+    expect(protos.decode).not.toHaveBeenCalled();
+  });
+
+  it("throws when non-proto header is truncated", async () => {
+    const protos = { decode: vi.fn() };
+    const parser = new MessageParser(protos as never);
+    const packet = Buffer.concat([
+      encodeRawEMsg(EMsg.k_EMsgClientVACBanStatus, false),
+      Buffer.alloc(10),
+    ]);
+
+    await expect(parser.parse(packet)).rejects.toThrow(MessageParserError);
+    await expect(parser.parse(packet)).rejects.toThrow(
+      "Malformed message: expected 32 bytes for non-proto header but only 10 available",
     );
   });
 

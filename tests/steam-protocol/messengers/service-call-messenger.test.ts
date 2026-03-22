@@ -29,7 +29,7 @@ describe("ServiceCallMessenger", () => {
   };
 
   it("uses authed eMsg when session is logged in", async () => {
-    const { messenger, headerBuilder } = createMessenger(true);
+    const { messenger, headerBuilder, connection } = createMessenger(true);
 
     await messenger.sendWithResponse({
       message: "CAuthentication_BeginAuthSessionViaQR_Request",
@@ -40,6 +40,7 @@ describe("ServiceCallMessenger", () => {
       EMsg.k_EMsgServiceMethodCallFromClient,
       expect.objectContaining({ target_job_name: "Authentication.BeginAuthSessionViaQR#1" }),
     );
+    expect(connection.send).toHaveBeenCalledWith(Buffer.from([0xdd, 0xcc]));
   });
 
   it("uses non-authed eMsg when session is not logged in", async () => {

@@ -25,7 +25,7 @@ describe("ProtoMessenger", () => {
   };
 
   it("sendWithResponse uses fallback EMsgMapToResponse mapping", () => {
-    const { messenger, pendingRequest } = createMessenger();
+    const { messenger, pendingRequest, connection } = createMessenger();
 
     messenger.sendWithResponse({
       eMsg: EMsg.k_EMsgClientLogon,
@@ -33,6 +33,7 @@ describe("ProtoMessenger", () => {
     });
 
     expect(pendingRequest.add).toHaveBeenCalledWith(EMsg.k_EMsgClientLogOnResponse);
+    expect(connection.send).toHaveBeenCalledWith(Buffer.from([0xaa, 0xbb]));
   });
 
   it("sendWithResponse respects explicit eMsgRes override", () => {

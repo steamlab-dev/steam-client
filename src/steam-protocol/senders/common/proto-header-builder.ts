@@ -1,4 +1,3 @@
-import { SmartBuffer } from "smart-buffer";
 import type { EMsg, SteamProtos } from "@/common/steam-language";
 import SteamProtoConstants from "@/steam-protocol/constants";
 import type ProtoManager from "@/steam-protocol/proto-manager";
@@ -11,9 +10,6 @@ export default class ProtoHeaderBuilder {
   ) {}
 
   public build(eMsg: EMsg, header: Partial<SteamProtos["CMsgProtoBufHeader"]>): Buffer {
-    const sBuffer = new SmartBuffer();
-
-    sBuffer.writeInt32LE(eMsg | SteamProtoConstants.ProtoMask);
     const session = this.session.getSession();
 
     const message: SteamProtos["CMsgProtoBufHeader"] = {
@@ -23,9 +19,12 @@ export default class ProtoHeaderBuilder {
     };
 
     const encodedHeader = this.protos.encode("CMsgProtoBufHeader", message);
-    sBuffer.writeInt32LE(encodedHeader.length);
-    sBuffer.writeBuffer(encodedHeader);
+    const buffer = Buffer.allocUnsafe(4 + 4 + encodedHeader.length);
 
-    return sBuffer.toBuffer();
+    buffer.writeInt32LE(eMsg | SteamProtoConstants.ProtoMask, 0);
+    buffer.writeInt32LE(encodedHeader.length, 4);
+    encodedHeader.copy(buffer, 8);
+
+    return buffer;
   }
 }

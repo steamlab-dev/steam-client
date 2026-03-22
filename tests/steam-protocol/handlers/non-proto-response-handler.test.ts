@@ -63,4 +63,28 @@ describe("NonProtoResponseHandler", () => {
       } as never),
     ).toThrow("Unhandled non proto message");
   });
+
+  it("throws for truncated VAC ban status bodies", () => {
+    expect(() =>
+      handler.handle({
+        eMsg: EMsg.k_EMsgClientVACBanStatus,
+        msgName: "",
+        isProto: false,
+        rawBody: Buffer.alloc(2),
+        header: {},
+      } as never),
+    ).toThrow("Malformed message: expected 4 bytes for VAC ban status body but only 2 available");
+  });
+
+  it("throws for truncated guest passes bodies", () => {
+    expect(() =>
+      handler.handle({
+        eMsg: EMsg.k_EMsgClientUpdateGuestPassesList,
+        msgName: "",
+        isProto: false,
+        rawBody: Buffer.alloc(8),
+        header: {},
+      } as never),
+    ).toThrow("Malformed message: expected 12 bytes for guest passes body but only 8 available");
+  });
 });
