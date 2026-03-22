@@ -36,11 +36,11 @@ const protoToTsTypeMap: Record<string, string> = {
   sint32: "number",
   fixed32: "number",
   sfixed32: "number",
-  int64: "Long",
-  uint64: "Long",
-  sint64: "Long",
-  fixed64: "Long",
-  sfixed64: "Long",
+  int64: "bigint",
+  uint64: "bigint",
+  sint64: "bigint",
+  fixed64: "bigint",
+  sfixed64: "bigint",
   bool: "boolean",
   string: "string",
   bytes: "Buffer",
@@ -506,9 +506,6 @@ function findUnresolvedTypesFromLines(lines: string[]): string[] {
   const unresolved = new Set<string>();
 
   // Direct check for commonly used types that need imports
-  if (/:\s*Long[;[\]?]/.test(content)) {
-    unresolved.add("Long");
-  }
   if (/:\s*Buffer[;[\]?]/.test(content)) {
     unresolved.add("Buffer");
   }
@@ -611,13 +608,6 @@ async function getMissingImportLines(
 
   let missingImports = findUnresolvedTypesFromLines(parsedFile);
   if (missingImports.length) {
-    const hasLong = missingImports.includes("Long");
-    if (hasLong) {
-      missingImports = missingImports.filter((item) => item !== "Long");
-      // Use a value import for Long so generated files can reference the type in all TS configs
-      missingImportLines.push("import Long from 'long'");
-    }
-
     const hasBuffer = missingImports.includes("Buffer");
     if (hasBuffer) {
       missingImports = missingImports.filter((item) => item !== "Buffer");
