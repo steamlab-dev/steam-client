@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   StoreBrowseContext,
   StoreBrowseItemDataRequest,
@@ -99,7 +97,7 @@ export interface CMarketingMessages_GetActiveMarketingMessages_Request {
 }
 
 export interface CMarketingMessageProto {
-  gid?: Long;
+  gid?: bigint;
   title?: string;
   type?: EMarketingMessageType;
   visibility?: EMarketingMessageVisibility;
@@ -151,7 +149,7 @@ export interface CMarketingMessages_GetMarketingMessagesForUser_Request {
 }
 
 export interface CDisplayMarketingMessage {
-  gid?: Long;
+  gid?: bigint;
   title?: string;
   type?: EMarketingMessageType;
   associated_item_id?: StoreItemID;
@@ -185,7 +183,7 @@ export interface CMarketingMessages_DoesUserHavePendingMarketingMessages_Respons
 }
 
 export interface CMarketingMessages_GetDisplayMarketingMessage_Request {
-  gid?: Long;
+  gid?: bigint;
   context?: StoreBrowseContext;
   data_request?: StoreBrowseItemDataRequest;
 }
@@ -195,20 +193,20 @@ export interface CMarketingMessages_GetDisplayMarketingMessage_Response {
 }
 
 export interface CMarketingMessages_MarkMessageSeen_Notification {
-  gid?: Long;
+  gid?: bigint;
   display_index?: number;
   template_type?: EMarketingMessageTemplateType;
 }
 
 export interface CMarketingMessages_MarkMessageClicked_Notification {
-  gid?: Long;
+  gid?: bigint;
   display_index?: number;
   template_type?: EMarketingMessageTemplateType;
   click_location?: EMarketingMessageClickLocation;
 }
 
 export interface CMarketingMessages_GetMarketingMessage_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CMarketingMessages_GetMarketingMessage_Response {
@@ -221,11 +219,11 @@ export interface CMarketingMessages_CreateMarketingMessage_Request {
 }
 
 export interface CMarketingMessages_CreateMarketingMessage_Response {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CMarketingMessages_UpdateMarketingMessage_Request {
-  gid?: Long;
+  gid?: bigint;
   message?: CMarketingMessageProto;
   from_json?: boolean;
 }
@@ -233,16 +231,16 @@ export interface CMarketingMessages_UpdateMarketingMessage_Request {
 export type CMarketingMessages_UpdateMarketingMessage_Response = Record<string, never>;
 
 export interface CMarketingMessages_DeleteMarketingMessage_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export type CMarketingMessages_DeleteMarketingMessage_Response = Record<string, never>;
 
 export interface CMarketingMessages_FindMarketingMessages_Request {
   lookup_type?: EMarketingMessageLookupType;
-  gid?: Long;
+  gid?: bigint;
   message_type?: EMarketingMessageType;
-  gidlist?: Long[];
+  gidlist?: bigint[];
   title?: string;
 }
 
@@ -251,7 +249,7 @@ export interface CMarketingMessages_FindMarketingMessages_Response {
 }
 
 export interface CMarketingMessages_GetMarketingMessageViewerStats_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CMarketingMessageHourlyStats {
@@ -284,7 +282,7 @@ export interface CMarketingMessages_GetMarketingMessagesViewerRangeStats_Respons
 }
 
 export interface CMarketingMessages_GetMarketingMessageClickedStats_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CMarketingMessages_GetMarketingMessageClickedStats_Response {
@@ -300,14 +298,14 @@ export interface CMarketingMessages_GetPartnerReadyToPublishMessages_Response {
 }
 
 export interface CMarketingMessages_PartnerPublishMessage_Request {
-  gid?: Long;
+  gid?: bigint;
   partnerid?: number;
 }
 
 export type CMarketingMessages_PartnerPublishMessage_Response = Record<string, never>;
 
 export interface CMarketingMessages_GetPartnerMessagePreview_Request {
-  gid?: Long;
+  gid?: bigint;
   partnerid?: number;
 }
 

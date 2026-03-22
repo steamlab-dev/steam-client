@@ -1,21 +1,20 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CFriendMessages_AckMessage_Notification {
-  steamid_partner?: Long;
+  steamid_partner?: bigint;
   timestamp?: number;
 }
 
 export interface CFriendMessages_DismissSessionNotice_Notification {
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
   notice_type?: number;
 }
 
 export interface CFriendMessages_GetRecentMessages_Request {
-  steamid1?: Long;
-  steamid2?: Long;
+  steamid1?: bigint;
+  steamid2?: bigint;
   count?: number;
   most_recent_conversation?: boolean;
   rtime32_start_time?: number;
@@ -45,7 +44,7 @@ export interface CFriendMessages_GetRecentMessages_Response_FriendMessage_Messag
 }
 
 export interface CFriendMessages_IncomingMessage_Notification {
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
   chat_entry_type?: number;
   from_limited_account?: boolean;
   message?: string;
@@ -57,7 +56,7 @@ export interface CFriendMessages_IncomingMessage_Notification {
 }
 
 export interface CFriendMessages_IsInFriendsUIBeta_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CFriendMessages_IsInFriendsUIBeta_Response {
@@ -66,18 +65,18 @@ export interface CFriendMessages_IsInFriendsUIBeta_Response {
 }
 
 export interface CFriendMessages_MessageReaction_Notification {
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
   server_timestamp?: number;
   ordinal?: number;
-  reactor?: Long;
+  reactor?: bigint;
   reaction_type?: number;
   reaction?: string;
   is_add?: boolean;
 }
 
 export interface CFriendMessages_ReportMessage_Request {
-  steamid_from?: Long;
-  steamid_to?: Long;
+  steamid_from?: bigint;
+  steamid_to?: bigint;
   timestamp?: number;
   ordinal?: number;
   report_reason?: number;
@@ -88,10 +87,10 @@ export interface CFriendMessages_ReportMessage_Request {
 export type CFriendMessages_ReportMessage_Response = Record<string, never>;
 
 export interface CFriendMessages_ResolveReport_Request {
-  steamid_from?: Long;
-  steamid_to?: Long;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  steamid_from?: bigint;
+  steamid_to?: bigint;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   resolution?: number;
   reason?: number;
   skip_lock?: boolean;
@@ -100,7 +99,7 @@ export interface CFriendMessages_ResolveReport_Request {
 export type CFriendMessages_ResolveReport_Response = Record<string, never>;
 
 export interface CFriendMessages_SendMessage_Request {
-  steamid?: Long;
+  steamid?: bigint;
   chat_entry_type?: number;
   message?: string;
   contains_bbcode?: boolean;
@@ -117,13 +116,13 @@ export interface CFriendMessages_SendMessage_Response {
 }
 
 export interface CFriendMessages_SessionNotice_Notification {
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
   notice_type?: number;
   active?: boolean;
 }
 
 export interface CFriendMessages_UpdateMessageReaction_Request {
-  steamid?: Long;
+  steamid?: bigint;
   server_timestamp?: number;
   ordinal?: number;
   reaction_type?: number;

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   EBroadcastEncoderSetting,
   EBroadcastPermission,
@@ -80,7 +78,7 @@ export interface CMsgSettingVariant {
     | { value_bool: boolean }
     | { value_int32: number }
     | { value_uint32: number }
-    | { value_uint64: Long }
+    | { value_uint64: bigint }
     | { value_float: number }
     | { value_string: string }
     | { value_hotkey: CMsgHotkey };
@@ -168,7 +166,7 @@ export interface CMsgClientSettings {
   show_steam_deck_info?: boolean;
   enable_shader_precache?: boolean;
   enable_shader_background_processing?: boolean;
-  shader_precached_size?: Long;
+  shader_precached_size?: bigint;
   needs_steam_service_repair?: boolean;
   download_peer_content?: number;
   download_rate_bits_per_s?: boolean;
@@ -220,7 +218,7 @@ export interface CMsgClientSettings {
   controller_chat_radial_menu_option_5?: string;
   controller_chat_radial_menu_option_6?: string;
   controller_chat_radial_menu_option_7?: string;
-  startup_movie_id?: Long;
+  startup_movie_id?: bigint;
   startup_movie_local_path?: string;
   startup_movie_shuffle?: boolean;
   startup_movie_used_for_resume?: boolean;
@@ -296,7 +294,7 @@ export interface CMsgClientSettings {
   setting_validation_enum?: EHDRVisualization;
   setting_validation_int32?: number;
   setting_validation_uint32?: number;
-  setting_validation_uint64?: Long;
+  setting_validation_uint64?: bigint;
   setting_validation_float?: number;
   setting_validation_string?: string;
   setting_validation_hotkey?: CMsgHotkey;

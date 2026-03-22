@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./steammessages_base";
 
 export const EMMSLobbyStatus = {
@@ -36,13 +34,13 @@ export interface CMsgClientMMSCreateLobby {
 
 export interface CMsgClientMMSCreateLobbyResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   eresult?: number;
 }
 
 export interface CMsgClientMMSJoinLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   persona_name?: string;
   network_ping_location?: string;
   cell_id?: number;
@@ -50,19 +48,19 @@ export interface CMsgClientMMSJoinLobby {
 
 export interface CMsgClientMMSJoinLobbyResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   chat_room_enter_response?: number;
   max_members?: number;
   lobby_type?: number;
   lobby_flags?: number;
-  steam_id_owner?: Long;
+  steam_id_owner?: bigint;
   metadata?: Buffer;
   members?: CMsgClientMMSJoinLobbyResponse.Member[];
 }
 
 export namespace CMsgClientMMSJoinLobbyResponse {
   export interface Member {
-    steam_id?: Long;
+    steam_id?: bigint;
     persona_name?: string;
     metadata?: Buffer;
   }
@@ -70,12 +68,12 @@ export namespace CMsgClientMMSJoinLobbyResponse {
 
 export interface CMsgClientMMSLeaveLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
 }
 
 export interface CMsgClientMMSLeaveLobbyResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   eresult?: number;
 }
 
@@ -106,14 +104,14 @@ export interface CMsgClientMMSGetLobbyListResponse {
 
 export namespace CMsgClientMMSGetLobbyListResponse {
   export interface Lobby {
-    steam_id?: Long;
+    steam_id?: bigint;
     max_members?: number;
     lobby_type?: number;
     lobby_flags?: number;
     metadata?: Buffer;
     num_members?: number;
     distance?: number;
-    weight?: Long;
+    weight?: bigint;
     ping?: number;
     missing_ping?: number;
   }
@@ -121,8 +119,8 @@ export namespace CMsgClientMMSGetLobbyListResponse {
 
 export interface CMsgClientMMSSetLobbyData {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_member?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_member?: bigint;
   max_members?: number;
   lobby_type?: number;
   lobby_flags?: number;
@@ -132,23 +130,23 @@ export interface CMsgClientMMSSetLobbyData {
 
 export interface CMsgClientMMSSetLobbyDataResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   eresult?: number;
 }
 
 export interface CMsgClientMMSGetLobbyData {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
 }
 
 export interface CMsgClientMMSLobbyData {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   num_members?: number;
   max_members?: number;
   lobby_type?: number;
   lobby_flags?: number;
-  steam_id_owner?: Long;
+  steam_id_owner?: bigint;
   metadata?: Buffer;
   members?: CMsgClientMMSLobbyData.Member[];
   lobby_cellid?: number;
@@ -157,7 +155,7 @@ export interface CMsgClientMMSLobbyData {
 
 export namespace CMsgClientMMSLobbyData {
   export interface Member {
-    steam_id?: Long;
+    steam_id?: bigint;
     persona_name?: string;
     metadata?: Buffer;
     ping_data?: string;
@@ -166,84 +164,84 @@ export namespace CMsgClientMMSLobbyData {
 
 export interface CMsgClientMMSSendLobbyChatMsg {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_target?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_target?: bigint;
   lobby_message?: Buffer;
 }
 
 export interface CMsgClientMMSLobbyChatMsg {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_sender?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_sender?: bigint;
   lobby_message?: Buffer;
 }
 
 export interface CMsgClientMMSSetLobbyOwner {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_new_owner?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_new_owner?: bigint;
 }
 
 export interface CMsgClientMMSSetLobbyOwnerResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   eresult?: number;
 }
 
 export interface CMsgClientMMSSetLobbyLinked {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_lobby2?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_lobby2?: bigint;
 }
 
 export interface CMsgClientMMSSetLobbyGameServer {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   deprecated_game_server_ip?: number;
   game_server_port?: number;
-  game_server_steam_id?: Long;
+  game_server_steam_id?: bigint;
   game_server_ip?: CMsgIPAddress;
   network_ping_location?: string;
 }
 
 export interface CMsgClientMMSLobbyGameServerSet {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   deprecated_game_server_ip?: number;
   game_server_port?: number;
-  game_server_steam_id?: Long;
+  game_server_steam_id?: bigint;
   game_server_ip?: CMsgIPAddress;
 }
 
 export interface CMsgClientMMSUserJoinedLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_user?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_user?: bigint;
   persona_name?: string;
 }
 
 export interface CMsgClientMMSUserLeftLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_user?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_user?: bigint;
   persona_name?: string;
 }
 
 export interface CMsgClientMMSInviteToLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_user_invited?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_user_invited?: bigint;
 }
 
 export interface CMsgClientMMSGetLobbyStatus {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   claim_membership?: boolean;
   claim_ownership?: boolean;
 }
 
 export interface CMsgClientMMSGetLobbyStatusResponse {
   app_id?: number;
-  steam_id_lobby?: Long;
+  steam_id_lobby?: bigint;
   lobby_status?: EMMSLobbyStatus;
 }

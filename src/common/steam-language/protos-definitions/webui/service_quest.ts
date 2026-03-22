@@ -1,30 +1,29 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CQuest_ActivateProfileModifierItem_Request {
   appid?: number;
-  communityitemid?: Long;
+  communityitemid?: bigint;
   activate?: boolean;
 }
 
 export type CQuest_ActivateProfileModifierItem_Response = Record<string, never>;
 
 export interface CQuest_CommunityItem {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   item_type?: number;
   appid?: number;
   owner?: number;
   attributes?: CQuest_CommunityItem_Attribute[];
   used?: boolean;
   owner_origin?: number;
-  amount?: Long;
+  amount?: bigint;
 }
 
 export interface CQuest_CommunityItem_Attribute {
   attributeid?: number;
-  value?: Long;
+  value?: bigint;
 }
 
 export interface CQuest_GetCommunityInventory_Request {
@@ -39,7 +38,7 @@ export interface CQuest_GetCommunityItemDefinitions_Request {
   appid?: number;
   item_type?: number;
   language?: string;
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   keyvalues_as_json?: boolean;
 }
 
@@ -64,7 +63,7 @@ export interface CQuest_GetCommunityItemDefinitions_Response_ItemDefinition {
   item_image_composed_foil?: string;
   deleted?: boolean;
   item_last_changed?: number;
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   item_movie_webm?: string;
   item_movie_mp4?: string;
   item_movie_webm_small?: string;
@@ -105,11 +104,11 @@ export interface CVirtualItemRewardDefinition {
   active?: boolean;
   rarity?: number;
   package_to_grant?: number;
-  game_item_id?: Long;
+  game_item_id?: bigint;
   community_item_class?: number;
   community_item_type?: number;
   loyalty_point_type?: number;
-  amount?: Long;
+  amount?: bigint;
   rtime_time_active?: number;
   loyalty_reward_defid?: number;
   user_badge_to_grant?: number;

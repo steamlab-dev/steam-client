@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ESource2PlayStatsFieldType = {
   Source2PlayStats_Invalid: 0,
@@ -71,9 +70,9 @@ export interface CMsgSource2VProfLiteReport {
 
 export interface CMsgSource2NetworkFlowQuality {
   duration?: number;
-  bytes_total?: Long;
-  bytes_total_reliable?: Long;
-  bytes_total_voice?: Long;
+  bytes_total?: bigint;
+  bytes_total_reliable?: bigint;
+  bytes_total_voice?: bigint;
   bytes_sec_p95?: number;
   bytes_sec_p99?: number;
   enginemsgs_total?: number;
@@ -149,7 +148,7 @@ export namespace CSource2Metrics_MatchPerfSummary_Notification {
     build_id?: number;
     downstream_flow?: CMsgSource2NetworkFlowQuality;
     upstream_flow?: CMsgSource2NetworkFlowQuality;
-    steamid?: Long;
+    steamid?: bigint;
     perf_samples?: CMsgSource2PerfIntervalSample[];
   }
 }
@@ -158,11 +157,11 @@ export interface CMsgSource2PlayStatsPackedRecordList {
   record_name?: string;
   field_defs?: CMsgSource2PlayStatsPackedRecordList.FieldDef[];
   record_count?: number;
-  uint64_vals?: Long[];
+  uint64_vals?: bigint[];
   uint32_vals?: number[];
   uint16_vals?: number[];
   uint8_vals?: number[];
-  int64_vals?: Long[];
+  int64_vals?: bigint[];
   int32_vals?: number[];
   int16_vals?: number[];
   int8_vals?: number[];
@@ -172,7 +171,7 @@ export interface CMsgSource2PlayStatsPackedRecordList {
   string_vals?: string[];
   low_cardinality_string_vals?: string[];
   utcdatetime_vals?: number[];
-  steamidtrustbucket_vals?: Long[];
+  steamidtrustbucket_vals?: bigint[];
 }
 
 export namespace CMsgSource2PlayStatsPackedRecordList {

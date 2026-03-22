@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface ParentalApp {
   appid?: number;
@@ -9,7 +8,7 @@ export interface ParentalApp {
 }
 
 export interface ParentalPlaytimeDay {
-  allowed_time_windows?: Long;
+  allowed_time_windows?: bigint;
   allowed_daily_minutes?: number;
 }
 
@@ -24,7 +23,7 @@ export interface ParentalTemporaryPlaytimeRestrictions {
 }
 
 export interface ParentalSettings {
-  steamid?: Long;
+  steamid?: bigint;
   applist_base_id?: number;
   applist_base_description?: string;
   applist_base?: ParentalApp[];
@@ -46,25 +45,25 @@ export interface ParentalSettings {
 }
 
 export interface ParentalFeatureRequest {
-  requestid?: Long;
-  family_groupid?: Long;
-  steamid?: Long;
+  requestid?: bigint;
+  family_groupid?: bigint;
+  steamid?: bigint;
   features?: number;
   time_requested?: number;
   approved?: boolean;
-  steamid_responder?: Long;
+  steamid_responder?: bigint;
   time_responded?: number;
 }
 
 export interface ParentalPlaytimeRequest {
-  requestid?: Long;
-  family_groupid?: Long;
-  steamid?: Long;
+  requestid?: bigint;
+  family_groupid?: bigint;
+  steamid?: bigint;
   current_playtime_restrictions?: ParentalPlaytimeDay;
   time_expires?: number;
   time_requested?: number;
   approved?: boolean;
-  steamid_responder?: Long;
+  steamid_responder?: bigint;
   time_responded?: number;
   restrictions_approved?: ParentalTemporaryPlaytimeRestrictions;
 }

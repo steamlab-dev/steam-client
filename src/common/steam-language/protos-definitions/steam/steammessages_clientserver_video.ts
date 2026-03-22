@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgVideoGameRecordingRepresentation {
   representation_name?: string;
@@ -25,7 +24,7 @@ export interface CMsgVideoGameRecordingComponent {
 }
 
 export interface CMsgVideoGameRecordingDef {
-  steamid?: Long;
+  steamid?: bigint;
   app_id?: number;
   num_segments?: number;
   length_milliseconds?: number;
@@ -38,7 +37,7 @@ export interface CMsgVideoGameRecordingDef {
 
 export interface CVideo_GameRecordingSegmentInfo {
   segment_number?: number;
-  segment_size_bytes?: Long;
+  segment_size_bytes?: bigint;
   component_name?: string;
   representation_name?: string;
 }

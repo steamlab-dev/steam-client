@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface SiteServerUI_Login_Request {
   username?: string;
@@ -78,12 +77,12 @@ export namespace SiteServerUI_ClientStatus_Response {
     ip?: number;
     hostname?: string;
     connected?: boolean;
-    instance_id?: Long;
+    instance_id?: bigint;
   }
 
   export interface Payment {
-    transid?: Long;
-    steamid?: Long;
+    transid?: bigint;
+    steamid?: bigint;
     amount?: string;
     time_created?: number;
     purchase_status?: number;
@@ -105,8 +104,8 @@ export interface SiteServerUI_ContentCacheStatus_Response {
   explicit_ip_address?: string;
   external_process?: boolean;
   current_size_gb?: number;
-  current_bw?: Long;
-  total_bytes_served?: Long;
+  current_bw?: bigint;
+  total_bytes_served?: bigint;
 }
 
 export interface SiteServerUI_ContentCacheConfig_Request {

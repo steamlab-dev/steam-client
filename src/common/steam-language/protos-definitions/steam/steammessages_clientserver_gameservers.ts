@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./steammessages_base";
 
 export interface CMsgGSServerType {
@@ -29,7 +27,7 @@ export interface CMsgGSPlayerList {
 
 export namespace CMsgGSPlayerList {
   export interface Player {
-    steam_id?: Long;
+    steam_id?: bigint;
     deprecated_public_ip?: number;
     token?: Buffer;
     public_ip?: CMsgIPAddress;
@@ -37,14 +35,14 @@ export namespace CMsgGSPlayerList {
 }
 
 export interface CMsgGSUserPlaying {
-  steam_id?: Long;
+  steam_id?: bigint;
   deprecated_public_ip?: number;
   token?: Buffer;
   public_ip?: CMsgIPAddress;
 }
 
 export interface CMsgGSDisconnectNotice {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CMsgGameServerData {
@@ -76,12 +74,12 @@ export interface CMsgGameServerData {
 
 export namespace CMsgGameServerData {
   export interface Player {
-    steam_id?: Long;
+    steam_id?: bigint;
   }
 }
 
 export interface CMsgGameServerRemove {
-  legacy_steam_id_gs?: Long;
+  legacy_steam_id_gs?: bigint;
   legacy_query_port?: number;
 }
 
@@ -107,7 +105,7 @@ export namespace CMsgGMSClientServerQueryResponse {
     query_port?: number;
     auth_players?: number;
     server_ip?: CMsgIPAddress;
-    steam_id?: Long;
+    steam_id?: bigint;
     revision?: number;
     players?: number;
     game_port?: number;
@@ -143,26 +141,26 @@ export namespace CMsgGMSClientServerQueryResponse {
 }
 
 export interface CMsgGameServerOutOfDate {
-  steam_id_gs?: Long;
+  steam_id_gs?: bigint;
   reject?: boolean;
   message?: string;
 }
 
 export interface CMsgGSAssociateWithClan {
-  steam_id_clan?: Long;
+  steam_id_clan?: bigint;
 }
 
 export interface CMsgGSAssociateWithClanResponse {
-  steam_id_clan?: Long;
+  steam_id_clan?: bigint;
   eresult?: number;
 }
 
 export interface CMsgGSComputeNewPlayerCompatibility {
-  steam_id_candidate?: Long;
+  steam_id_candidate?: bigint;
 }
 
 export interface CMsgGSComputeNewPlayerCompatibilityResponse {
-  steam_id_candidate?: Long;
+  steam_id_candidate?: bigint;
   eresult?: number;
   is_clan_member?: boolean;
   ct_dont_like_you?: number;

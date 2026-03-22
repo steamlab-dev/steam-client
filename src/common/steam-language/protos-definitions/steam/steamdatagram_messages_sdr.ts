@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CMsgSteamDatagramConnectionQuality,
   CMsgSteamDatagramSessionCryptInfoSigned,
@@ -73,7 +71,7 @@ export interface CMsgSteamDatagramRouterPingReply {
   your_public_ip?: number;
   your_public_port?: number;
   server_time?: number;
-  challenge?: Long;
+  challenge?: bigint;
   seconds_until_shutdown?: number;
   client_cookie?: number;
   recv_tos?: number;
@@ -85,7 +83,7 @@ export interface CMsgSteamDatagramRouterPingReply {
   route_exceptions?: CMsgSteamDatagramRouterPingReply.RouteException[];
   alt_addresses?: CMsgSteamDatagramRouterPingReply.AltAddress[];
   dummy_pad?: Buffer;
-  dummy_varint?: Long;
+  dummy_varint?: bigint;
 }
 
 export namespace CMsgSteamDatagramRouterPingReply {
@@ -121,8 +119,8 @@ export interface CMsgSteamDatagramGameserverPingRequestBody {
   relay_popid?: number;
   your_public_ip?: CMsgSteamNetworkingIPAddress;
   your_public_port?: number;
-  relay_unix_time?: Long;
-  routing_secret?: Long;
+  relay_unix_time?: bigint;
+  routing_secret?: bigint;
   my_ips?: CMsgSteamNetworkingIPAddress[];
   echo?: Buffer;
 }
@@ -134,7 +132,7 @@ export interface CMsgSteamDatagramGameserverPingRequestEnvelope {
   legacy_your_public_ip?: number;
   legacy_your_public_port?: number;
   legacy_relay_unix_time?: number;
-  legacy_challenge?: Long;
+  legacy_challenge?: bigint;
   legacy_router_timestamp?: number;
   dummy_pad?: Buffer;
 }
@@ -142,13 +140,13 @@ export interface CMsgSteamDatagramGameserverPingRequestEnvelope {
 export interface CMsgSteamDatagramGameserverPingReplyData {
   echo_relay_unix_time?: number;
   echo?: Buffer;
-  legacy_challenge?: Long;
+  legacy_challenge?: bigint;
   legacy_router_timestamp?: number;
   data_center_id?: number;
   appid?: number;
   protocol_version?: number;
   build?: string;
-  network_config_version?: Long;
+  network_config_version?: bigint;
   my_unix_time?: number;
   routing_blob?: Buffer;
 }
@@ -158,7 +156,7 @@ export interface CMsgSteamDatagramNoSessionRelayToClient {
   your_public_ip?: number;
   your_public_port?: number;
   server_time?: number;
-  challenge?: Long;
+  challenge?: bigint;
   seconds_until_shutdown?: number;
 }
 
@@ -166,7 +164,7 @@ export interface CMsgSteamDatagramNoSessionRelayToPeer {
   legacy_relay_session_id?: number;
   from_relay_session_id?: number;
   from_connection_id?: number;
-  kludge_pad?: Long;
+  kludge_pad?: bigint;
 }
 
 export interface CMsgTOSTreatment {
@@ -246,20 +244,20 @@ export namespace CMsgSteamDatagramClientSwitchedPrimary {
 
 export interface CMsgSteamDatagramConnectRequest {
   connection_id?: number;
-  my_timestamp?: Long;
+  my_timestamp?: bigint;
   ping_est_ms?: number;
   virtual_port?: number;
   gameserver_relay_session_id?: number;
   crypt?: CMsgSteamDatagramSessionCryptInfoSigned;
   cert?: CMsgSteamDatagramCertificateSigned;
-  routing_secret?: Long;
-  legacy_client_steam_id?: Long;
+  routing_secret?: bigint;
+  legacy_client_steam_id?: bigint;
 }
 
 export interface CMsgSteamDatagramConnectOK {
   client_connection_id?: number;
   server_connection_id?: number;
-  your_timestamp?: Long;
+  your_timestamp?: bigint;
   delay_time_usec?: number;
   gameserver_relay_session_id?: number;
   crypt?: CMsgSteamDatagramSessionCryptInfoSigned;
@@ -294,7 +292,7 @@ export interface CMsgSteamDatagramConnectionClosed {
   from_connection_id?: number;
   from_identity_string?: string;
   legacy_from_identity_binary?: CMsgSteamNetworkingIdentityLegacyBinary;
-  legacy_from_steam_id?: Long;
+  legacy_from_steam_id?: bigint;
   legacy_gameserver_relay_session_id?: number;
   to_relay_session_id?: number;
   from_relay_session_id?: number;
@@ -303,7 +301,7 @@ export interface CMsgSteamDatagramConnectionClosed {
   relay_mode?: CMsgSteamDatagramConnectionClosed.ERelayMode;
   debug?: string;
   reason_code?: number;
-  routing_secret?: Long;
+  routing_secret?: bigint;
   not_primary_session?: boolean;
   not_primary_transport?: boolean;
   relay_override_active?: boolean;
@@ -329,7 +327,7 @@ export interface CMsgSteamDatagramNoConnection {
   to_relay_session_id?: number;
   from_relay_session_id?: number;
   from_identity_string?: string;
-  legacy_from_steam_id?: Long;
+  legacy_from_steam_id?: bigint;
   end_to_end?: boolean;
   not_primary_session?: boolean;
   not_primary_transport?: boolean;
@@ -337,17 +335,17 @@ export interface CMsgSteamDatagramNoConnection {
   quality_relay?: CMsgSteamDatagramConnectionQuality;
   quality_e2e?: CMsgSteamDatagramConnectionQuality;
   p2p_routing_summary?: CMsgSteamDatagramP2PRoutingSummary;
-  routing_secret?: Long;
+  routing_secret?: bigint;
   dummy_pad?: number;
 }
 
 export interface CMsgSteamDatagramGameserverSessionRequest {
   ticket?: Buffer;
   challenge_time?: number;
-  challenge?: Long;
+  challenge?: bigint;
   client_connection_id?: number;
   server_connection_id?: number;
-  network_config_version?: Long;
+  network_config_version?: bigint;
   protocol_version?: number;
   platform?: string;
   build?: string;
@@ -361,7 +359,7 @@ export interface CMsgSteamDatagramGameserverSessionEstablished {
   seconds_until_shutdown?: number;
   seq_num_r2c?: number;
   dummy_legacy_identity_binary?: Buffer;
-  legacy_gameserver_steamid?: Long;
+  legacy_gameserver_steamid?: bigint;
 }
 
 export interface CMsgSteamDatagramConnectionStatsClientToRouter {
@@ -421,11 +419,11 @@ export interface CMsgSteamDatagramConnectionStatsRouterToServer {
   seq_num_r2s?: number;
   seq_num_e2e?: number;
   client_identity_string?: string;
-  legacy_client_steam_id?: Long;
+  legacy_client_steam_id?: bigint;
   relay_session_id?: number;
   client_connection_id?: number;
   server_connection_id?: number;
-  routing_secret?: Long;
+  routing_secret?: bigint;
 }
 
 export namespace CMsgSteamDatagramConnectionStatsRouterToServer {
@@ -463,16 +461,16 @@ export namespace CMsgSteamDatagramConnectionStatsServerToRouter {
 
 export interface CMsgSteamDatagramP2PSessionRequestBody {
   challenge_time?: number;
-  challenge?: Long;
+  challenge?: bigint;
   client_connection_id?: number;
-  legacy_peer_steam_id?: Long;
+  legacy_peer_steam_id?: bigint;
   peer_identity_string?: string;
   peer_connection_id?: number;
   encrypted_data?: Buffer;
   encryption_your_public_key_lead_byte?: number;
   encryption_my_ephemeral_public_key?: Buffer;
   protocol_version?: number;
-  network_config_version?: Long;
+  network_config_version?: bigint;
   platform?: string;
   build?: string;
 }
@@ -558,7 +556,7 @@ export interface CMsgSteamDatagramP2PBadRouteRouterToClient {
   connection_id?: number;
   failed_relay_routing_token?: Buffer;
   ack_forward_target_revision?: number;
-  kludge_pad?: Long;
+  kludge_pad?: bigint;
 }
 
 export interface CMsgSteamDatagramP2PRoutes {

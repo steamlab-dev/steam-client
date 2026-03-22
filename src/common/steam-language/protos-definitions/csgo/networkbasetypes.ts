@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const SignonState_t = {
   SIGNONSTATE_NONE: 0,
@@ -87,9 +86,9 @@ export interface CMsgRGBA {
 
 export interface CMsgPlayerInfo {
   name?: string;
-  xuid?: Long;
+  xuid?: bigint;
   userid?: number;
-  steamid?: Long;
+  steamid?: bigint;
   fakeplayer?: boolean;
   ishltv?: boolean;
 }
@@ -161,7 +160,7 @@ export namespace CSVCMsg_GameEvent {
     val_short?: number;
     val_byte?: number;
     val_bool?: boolean;
-    val_uint64?: Long;
+    val_uint64?: bigint;
   }
 }
 
@@ -250,6 +249,6 @@ export interface CNETMsg_DebugOverlay {
   dimensions?: number[];
   times?: number[];
   bools?: boolean[];
-  uint64s?: Long[];
+  uint64s?: bigint[];
   strings?: string[];
 }

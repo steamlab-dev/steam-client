@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgVoiceAudio } from "./netmessages";
 import type { CMsgQAngle, CMsgVector } from "./networkbasetypes";
 
@@ -40,7 +38,7 @@ export namespace CP2P_Voice {
 }
 
 export interface CP2P_Ping {
-  send_time?: Long;
+  send_time?: bigint;
   is_reply?: boolean;
 }
 
@@ -61,7 +59,7 @@ export namespace CP2P_VRAvatarPosition {
 export interface CP2P_WatchSynchronization {
   demo_tick?: number;
   paused?: boolean;
-  tv_listen_voice_indices?: Long;
+  tv_listen_voice_indices?: bigint;
   dota_spectator_mode?: number;
   dota_spectator_watching_broadcaster?: boolean;
   dota_spectator_hero_index?: number;

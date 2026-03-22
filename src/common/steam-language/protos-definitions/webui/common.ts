@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAppOverview {
   appid?: number;
@@ -23,15 +22,15 @@ export interface CAppOverview {
   xbox_controller_support?: number;
   vr_supported?: boolean;
   metacritic_score?: number;
-  size_on_disk?: Long;
+  size_on_disk?: bigint;
   third_party_mod?: boolean;
   icon_data?: string;
   icon_data_format?: string;
   gameid?: string;
   library_capsule_filename?: string;
   per_client_data?: CAppOverview_PerClientData[];
-  most_available_clientid?: Long;
-  selected_clientid?: Long;
+  most_available_clientid?: bigint;
+  selected_clientid?: bigint;
   rt_store_asset_mtime?: number;
   rt_custom_image_mtime?: number;
   optional_parent_app_id?: number;
@@ -55,7 +54,7 @@ export interface CAppOverview {
   album_cover_hash?: string;
   display_name_elanguage?: number;
   has_custom_sort_as?: boolean;
-  bitfield_supported_languages?: Long;
+  bitfield_supported_languages?: bigint;
 }
 
 export interface CAppOverview_Change {
@@ -66,7 +65,7 @@ export interface CAppOverview_Change {
 }
 
 export interface CAppOverview_PerClientData {
-  clientid?: Long;
+  clientid?: bigint;
   client_name?: string;
   display_status?: number;
   status_percentage?: number;
@@ -80,14 +79,14 @@ export interface CAppOverview_PerClientData {
 }
 
 export interface CartAmount {
-  amount_in_cents?: Long;
+  amount_in_cents?: bigint;
   currency_code?: number;
   formatted_amount?: string;
 }
 
 export interface CartCoupon {
   couponid?: number;
-  gidcoupon?: Long;
+  gidcoupon?: bigint;
   title?: string;
   coupon_description?: string;
   large_icon_url?: string;
@@ -109,13 +108,13 @@ export interface CartGiftMessage {
 
 export interface CChatPartyBeacon {
   app_id?: number;
-  steamid_owner?: Long;
-  beacon_id?: Long;
+  steamid_owner?: bigint;
+  beacon_id?: bigint;
   game_metadata?: string;
 }
 
 export interface CChatRoleActions {
-  role_id?: Long;
+  role_id?: bigint;
   can_create_rename_delete_channel?: boolean;
   can_kick?: boolean;
   can_ban?: boolean;
@@ -130,11 +129,11 @@ export interface CChatRoleActions {
 }
 
 export interface CChatRoom_GetChatRoomGroupSummary_Response {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   chat_group_name?: string;
   active_member_count?: number;
   active_voice_member_count?: number;
-  default_chat_id?: Long;
+  default_chat_id?: bigint;
   chat_rooms?: CChatRoomState[];
   clanid?: number;
   chat_group_tagline?: string;
@@ -142,20 +141,20 @@ export interface CChatRoom_GetChatRoomGroupSummary_Response {
   top_members?: number[];
   chat_group_avatar_sha?: Buffer;
   rank?: number;
-  default_role_id?: Long;
-  role_ids?: Long[];
+  default_role_id?: bigint;
+  role_ids?: bigint[];
   role_actions?: CChatRoleActions[];
   watching_broadcast_accountid?: number;
   appid?: number;
   party_beacons?: CChatPartyBeacon[];
-  watching_broadcast_channel_id?: Long;
-  active_minigame_id?: Long;
+  watching_broadcast_channel_id?: bigint;
+  active_minigame_id?: bigint;
   avatar_ugc_url?: string;
   disabled?: boolean;
 }
 
 export interface CChatRoomState {
-  chat_id?: Long;
+  chat_id?: bigint;
   chat_name?: string;
   voice_allowed?: boolean;
   members_in_voice?: number[];
@@ -177,7 +176,7 @@ export interface CClientMetrics_AppInterfaceMethodCounts {
 }
 
 export interface CClientMetrics_AppInterfaceStats_Notification {
-  game_id?: Long;
+  game_id?: bigint;
   interfaces_created?: CClientMetrics_AppInterfaceCreation[];
   methods_called?: CClientMetrics_AppInterfaceMethodCounts[];
   session_length_seconds?: number;
@@ -196,7 +195,7 @@ export interface CClientMetrics_ClientBootstrap_RequestInfo {
   status_code?: number;
   address_of_request_url?: string;
   response_time_ms?: number;
-  bytes_received?: Long;
+  bytes_received?: bigint;
   num_retries?: number;
 }
 
@@ -215,7 +214,7 @@ export interface CClientMetrics_ClipRange_Notification {
   start?: CClientMetrics_ClipRange_Notification_RelativeRangeEdge;
   end?: CClientMetrics_ClipRange_Notification_RelativeRangeEdge;
   seconds?: number;
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export interface CClientMetrics_ClipRange_Notification_RelativeRangeEdge {
@@ -228,8 +227,8 @@ export interface CClientMetrics_ClipShare_Notification {
   eresult?: number;
   share_method?: number;
   seconds?: number;
-  bytes?: Long;
-  gameid?: Long;
+  bytes?: bigint;
+  gameid?: bigint;
 }
 
 export interface CClientMetrics_CloudAppSyncStats_Notification {
@@ -240,18 +239,18 @@ export interface CClientMetrics_CloudAppSyncStats_Notification {
   files_uploaded?: number;
   files_downloaded?: number;
   files_deleted?: number;
-  bytes_uploaded?: Long;
-  bytes_downloaded?: Long;
-  microsec_total?: Long;
-  microsec_init_caches?: Long;
-  microsec_validate_state?: Long;
-  microsec_ac_launch?: Long;
-  microsec_ac_prep_user_files?: Long;
-  microsec_ac_exit?: Long;
-  microsec_build_sync_list?: Long;
-  microsec_delete_files?: Long;
-  microsec_download_files?: Long;
-  microsec_upload_files?: Long;
+  bytes_uploaded?: bigint;
+  bytes_downloaded?: bigint;
+  microsec_total?: bigint;
+  microsec_init_caches?: bigint;
+  microsec_validate_state?: bigint;
+  microsec_ac_launch?: bigint;
+  microsec_ac_prep_user_files?: bigint;
+  microsec_ac_exit?: bigint;
+  microsec_build_sync_list?: bigint;
+  microsec_delete_files?: bigint;
+  microsec_download_files?: bigint;
+  microsec_upload_files?: bigint;
   hardware_type?: number;
   files_managed?: number;
 }
@@ -289,9 +288,9 @@ export interface CClientMetrics_ContentValidation_Notification {
   early_out?: boolean;
   chunks_scanned?: number;
   chunks_corrupt?: number;
-  bytes_scanned?: Long;
-  chunk_bytes_corrupt?: Long;
-  total_file_size_corrupt?: Long;
+  bytes_scanned?: bigint;
+  chunk_bytes_corrupt?: bigint;
+  total_file_size_corrupt?: bigint;
 }
 
 export interface CClientMetrics_DownloadRates_Notification {
@@ -305,23 +304,23 @@ export interface CClientMetrics_DownloadRates_Notification {
 export interface CClientMetrics_DownloadRates_Notification_StatsInfo {
   source_type?: number;
   source_id?: number;
-  bytes?: Long;
+  bytes?: bigint;
   host_name?: string;
-  microseconds?: Long;
+  microseconds?: bigint;
   used_ipv6?: boolean;
   proxied?: boolean;
   used_http2?: boolean;
   cache_hits?: number;
   cache_misses?: number;
-  hit_bytes?: Long;
-  miss_bytes?: Long;
+  hit_bytes?: bigint;
+  miss_bytes?: bigint;
 }
 
 export interface CClientMetrics_EndGameRecording_Notification {
   recording_type?: number;
   seconds?: number;
-  bytes?: Long;
-  gameid?: Long;
+  bytes?: bigint;
+  gameid?: bigint;
   instant_clip?: boolean;
 }
 
@@ -331,7 +330,7 @@ export interface CClientMetrics_GamePerformance_Notification {
 }
 
 export interface CClientMetrics_GamePerformance_Notification_FrameRate {
-  gameid?: Long;
+  gameid?: bigint;
   frame_rate?: number;
   session_seconds?: number;
   framegen_frame_rate?: number;
@@ -359,11 +358,11 @@ export interface CClientMetrics_SteamPipeWorkStats_Notification {
 export interface CClientMetrics_SteamPipeWorkStats_Operation {
   type?: number;
   num_ops?: number;
-  num_bytes?: Long;
-  busy_time_ms?: Long;
-  idle_time_ms?: Long;
-  sum_run_time_ms?: Long;
-  sum_wait_time_ms?: Long;
+  num_bytes?: bigint;
+  busy_time_ms?: bigint;
+  idle_time_ms?: bigint;
+  sum_run_time_ms?: bigint;
+  sum_wait_time_ms?: bigint;
 }
 
 export interface CClientNotificationAchievement {
@@ -417,7 +416,7 @@ export interface CClientNotificationFamilySharingStopPlaying {
 }
 
 export interface CClientNotificationFriendInGame {
-  steamid?: Long;
+  steamid?: bigint;
   game_name?: string;
 }
 
@@ -436,32 +435,32 @@ export interface CClientNotificationFriendMessage {
 }
 
 export interface CClientNotificationFriendOnline {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CClientNotificationGameRecordingError {
-  game_id?: Long;
+  game_id?: bigint;
   error_type?: number;
 }
 
 export interface CClientNotificationGameRecordingInstantClip {
-  game_id?: Long;
+  game_id?: bigint;
   clip_id?: string;
   duration_secs?: number;
 }
 
 export interface CClientNotificationGameRecordingStart {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CClientNotificationGameRecordingStop {
-  game_id?: Long;
+  game_id?: bigint;
   clip_id?: string;
   duration_secs?: number;
 }
 
 export interface CClientNotificationGameRecordingUserMarkerAdded {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CClientNotificationGroupChatMessage {
@@ -483,7 +482,7 @@ export interface CClientNotificationHardwareUpdateAvailable {
 }
 
 export interface CClientNotificationIncomingVoiceChat {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CClientNotificationItemAnnouncement {
@@ -552,7 +551,7 @@ export type CClientNotificationTimerExpired = Record<string, never>;
 
 export interface CCloud_AppExitSyncDone_Notification {
   appid?: number;
-  client_id?: Long;
+  client_id?: bigint;
   uploads_completed?: boolean;
   uploads_required?: boolean;
 }
@@ -560,7 +559,7 @@ export interface CCloud_AppExitSyncDone_Notification {
 export interface CCloud_PendingRemoteOperation {
   operation?: number;
   machine_name?: string;
-  client_id?: Long;
+  client_id?: bigint;
   time_last_updated?: number;
   os_type?: number;
   device_type?: number;
@@ -596,12 +595,12 @@ export interface CGameNetworkingUI_ConnectionState {
   ping_default_internet_route?: number;
   e2e_quality_local?: CMsgSteamDatagramConnectionQuality;
   e2e_quality_remote?: CMsgSteamDatagramConnectionQuality;
-  e2e_quality_remote_instantaneous_time?: Long;
-  e2e_quality_remote_lifetime_time?: Long;
+  e2e_quality_remote_instantaneous_time?: bigint;
+  e2e_quality_remote_lifetime_time?: bigint;
   front_quality_local?: CMsgSteamDatagramConnectionQuality;
   front_quality_remote?: CMsgSteamDatagramConnectionQuality;
-  front_quality_remote_instantaneous_time?: Long;
-  front_quality_remote_lifetime_time?: Long;
+  front_quality_remote_instantaneous_time?: bigint;
+  front_quality_remote_lifetime_time?: bigint;
 }
 
 export interface CGameNetworkingUI_ConnectionSummary {
@@ -639,8 +638,8 @@ export interface CMsgAchievementChange {
 export interface CMsgAuthTicket {
   estate?: number;
   eresult?: number;
-  steamid?: Long;
-  gameid?: Long;
+  steamid?: bigint;
+  gameid?: bigint;
   h_steam_pipe?: number;
   ticket_crc?: number;
   ticket?: Buffer;
@@ -667,7 +666,7 @@ export interface CMsgClientAccountInfo {
 
 export interface CMsgClientAddFriendToGroup {
   groupid?: number;
-  steamiduser?: Long;
+  steamiduser?: bigint;
 }
 
 export interface CMsgClientAddFriendToGroupResponse {
@@ -680,7 +679,7 @@ export interface CMsgClientAMGetPersonaNameHistory {
 }
 
 export interface CMsgClientAMGetPersonaNameHistory_IdInstance {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CMsgClientAMGetPersonaNameHistoryResponse {
@@ -689,7 +688,7 @@ export interface CMsgClientAMGetPersonaNameHistoryResponse {
 
 export interface CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance {
   eresult?: number;
-  steamid?: Long;
+  steamid?: bigint;
   names?: CMsgClientAMGetPersonaNameHistoryResponse_NameTableInstance_NameInstance[];
 }
 
@@ -710,7 +709,7 @@ export interface CMsgClientChangeStatus {
 }
 
 export interface CMsgClientClanState {
-  steamid_clan?: Long;
+  steamid_clan?: bigint;
   clan_account_flags?: number;
   name_info?: CMsgClientClanState_NameInfo;
   user_counts?: CMsgClientClanState_UserCounts;
@@ -720,10 +719,10 @@ export interface CMsgClientClanState {
 }
 
 export interface CMsgClientClanState_Event {
-  gid?: Long;
+  gid?: bigint;
   event_time?: number;
   headline?: string;
-  game_id?: Long;
+  game_id?: bigint;
   just_posted?: boolean;
 }
 
@@ -741,9 +740,9 @@ export interface CMsgClientClanState_UserCounts {
 }
 
 export interface CMsgClientCreateFriendsGroup {
-  steamid?: Long;
+  steamid?: bigint;
   groupname?: string;
-  steamid_friends?: Long[];
+  steamid_friends?: bigint[];
 }
 
 export interface CMsgClientCreateFriendsGroupResponse {
@@ -752,7 +751,7 @@ export interface CMsgClientCreateFriendsGroupResponse {
 }
 
 export interface CMsgClientDeleteFriendsGroup {
-  steamid?: Long;
+  steamid?: bigint;
   groupid?: number;
 }
 
@@ -793,7 +792,7 @@ export interface CMsgClientEmoticonList_Sticker {
 }
 
 export interface CMsgClientGetClanActivityCounts {
-  steamid_clans?: Long[];
+  steamid_clans?: bigint[];
 }
 
 export type CMsgClientGetEmoticonList = Record<string, never>;
@@ -803,8 +802,8 @@ export interface CMsgClientHeartBeat {
 }
 
 export interface CMsgClientInviteToGame {
-  steam_id_dest?: Long;
-  steam_id_src?: Long;
+  steam_id_dest?: bigint;
+  steam_id_src?: bigint;
   connect_string?: string;
   remote_play?: string;
 }
@@ -816,9 +815,9 @@ export interface CMsgClientItemAnnouncements {
 
 export interface CMsgClientItemAnnouncements_UnseenItem {
   appid?: number;
-  context_id?: Long;
-  asset_id?: Long;
-  amount?: Long;
+  context_id?: bigint;
+  asset_id?: bigint;
+  amount?: bigint;
   rtime32_gained?: number;
   source_appid?: number;
 }
@@ -841,7 +840,7 @@ export interface CMsgClientLogon {
   obfuscated_private_ip?: CMsgIPAddress;
   deprecated_public_ip?: number;
   qos_level?: number;
-  client_supplied_steam_id?: Long;
+  client_supplied_steam_id?: bigint;
   public_ip?: CMsgIPAddress;
   machine_id?: Buffer;
   launcher_type?: number;
@@ -856,7 +855,7 @@ export interface CMsgClientLogon {
   login_key?: string;
   was_converted_deprecated_msg?: boolean;
   anon_user_target_account_name?: string;
-  resolved_user_steam_id?: Long;
+  resolved_user_steam_id?: bigint;
   eresult_sentryfile?: number;
   sha_sentryfile?: Buffer;
   auth_code?: string;
@@ -874,7 +873,7 @@ export interface CMsgClientLogon {
   machine_name_userchosen?: string;
   country_override?: string;
   is_steam_box_deprecated?: boolean;
-  client_instance_id?: Long;
+  client_instance_id?: bigint;
   two_factor_code?: string;
   supports_rate_limit_response?: boolean;
   web_logon_nonce?: string;
@@ -904,25 +903,25 @@ export interface CMsgClientLogonResponse {
   vanity_url?: string;
   public_ip?: CMsgIPAddress;
   user_country?: string;
-  client_supplied_steamid?: Long;
+  client_supplied_steamid?: bigint;
   ip_country_code?: string;
   parental_settings?: Buffer;
   parental_setting_signature?: Buffer;
   count_loginfailures_to_migrate?: number;
   count_disconnects_to_migrate?: number;
   ogs_data_report_time_window?: number;
-  client_instance_id?: Long;
+  client_instance_id?: bigint;
   force_client_update_check?: boolean;
   agreement_session_url?: string;
-  token_id?: Long;
-  family_group_id?: Long;
+  token_id?: bigint;
+  family_group_id?: bigint;
 }
 
 export interface CMsgClientManageFriendsGroup {
   groupid?: number;
   groupname?: string;
-  steamid_friends_added?: Long[];
-  steamid_friends_removed?: Long[];
+  steamid_friends_added?: bigint[];
+  steamid_friends_removed?: bigint[];
 }
 
 export interface CMsgClientManageFriendsGroupResponse {
@@ -931,8 +930,8 @@ export interface CMsgClientManageFriendsGroupResponse {
 
 export interface CMsgClientMMSInviteToLobby {
   app_id?: number;
-  steam_id_lobby?: Long;
-  steam_id_user_invited?: Long;
+  steam_id_lobby?: bigint;
+  steam_id_user_invited?: bigint;
 }
 
 export interface CMsgClientOfflineMessageNotification {
@@ -946,7 +945,7 @@ export interface CMsgClientPersonaState {
 }
 
 export interface CMsgClientPersonaState_Friend {
-  friendid?: Long;
+  friendid?: bigint;
   persona_state?: number;
   game_played_app_id?: number;
   game_server_ip?: number;
@@ -956,20 +955,20 @@ export interface CMsgClientPersonaState_Friend {
   persona_set_by_user?: boolean;
   player_name?: string;
   query_port?: number;
-  steamid_source?: Long;
+  steamid_source?: bigint;
   avatar_hash?: Buffer;
   last_logoff?: number;
   last_logon?: number;
   last_seen_online?: number;
   clan_rank?: number;
   game_name?: string;
-  gameid?: Long;
+  gameid?: bigint;
   game_data_blob?: Buffer;
   clan_data?: CMsgClientPersonaState_Friend_ClanData;
   clan_tag?: string;
   rich_presence?: CMsgClientPersonaState_Friend_KV[];
-  broadcast_id?: Long;
-  game_lobby_id?: Long;
+  broadcast_id?: bigint;
+  game_lobby_id?: bigint;
   watching_broadcast_accountid?: number;
   watching_broadcast_appid?: number;
   watching_broadcast_viewers?: number;
@@ -984,7 +983,7 @@ export interface CMsgClientPersonaState_Friend {
 
 export interface CMsgClientPersonaState_Friend_ClanData {
   ogg_app_id?: number;
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CMsgClientPersonaState_Friend_KV {
@@ -993,13 +992,13 @@ export interface CMsgClientPersonaState_Friend_KV {
 }
 
 export interface CMsgClientPersonaState_Friend_OtherGameData {
-  gameid?: Long;
+  gameid?: bigint;
   rich_presence?: CMsgClientPersonaState_Friend_KV[];
 }
 
 export interface CMsgClientRemoveFriendFromGroup {
   groupid?: number;
-  steamiduser?: Long;
+  steamiduser?: bigint;
 }
 
 export interface CMsgClientRemoveFriendFromGroupResponse {
@@ -1008,7 +1007,7 @@ export interface CMsgClientRemoveFriendFromGroupResponse {
 
 export interface CMsgClientRequestFriendData {
   persona_state_requested?: number;
-  friends?: Long[];
+  friends?: bigint[];
 }
 
 export type CMsgClientRequestOfflineMessageCount = Record<string, never>;
@@ -1017,7 +1016,7 @@ export interface CMsgClientSecret {
   version?: number;
   appid?: number;
   deviceid?: number;
-  nonce?: Long;
+  nonce?: bigint;
   hmac?: Buffer;
 }
 
@@ -1032,12 +1031,12 @@ export interface CMsgClientServersAvailable_Server_Types_Available {
 }
 
 export interface CMsgClientServerTimestampRequest {
-  client_request_timestamp?: Long;
+  client_request_timestamp?: bigint;
 }
 
 export interface CMsgClientServerTimestampResponse {
-  client_request_timestamp?: Long;
-  server_timestamp_ms?: Long;
+  client_request_timestamp?: bigint;
+  server_timestamp_ms?: bigint;
 }
 
 export interface CMsgClientSettings {
@@ -1122,7 +1121,7 @@ export interface CMsgClientSettings {
   show_steam_deck_info?: boolean;
   enable_shader_precache?: boolean;
   enable_shader_background_processing?: boolean;
-  shader_precached_size?: Long;
+  shader_precached_size?: bigint;
   needs_steam_service_repair?: boolean;
   download_peer_content?: number;
   download_rate_bits_per_s?: boolean;
@@ -1163,7 +1162,7 @@ export interface CMsgClientSettings {
   controller_power_off_timeout?: number;
   turn_off_controller_on_exit?: boolean;
   controller_combine_nintendo_joycons?: boolean;
-  startup_movie_id?: Long;
+  startup_movie_id?: bigint;
   startup_movie_local_path?: string;
   startup_movie_shuffle?: boolean;
   startup_movie_used_for_resume?: boolean;
@@ -1239,7 +1238,7 @@ export interface CMsgClientSettings {
   setting_validation_enum?: number;
   setting_validation_int32?: number;
   setting_validation_uint32?: number;
-  setting_validation_uint64?: Long;
+  setting_validation_uint64?: bigint;
   setting_validation_float?: number;
   setting_validation_string?: string;
   setting_validation_hotkey?: CMsgHotkey;
@@ -1456,7 +1455,7 @@ export interface CMsgControllerSetting {
   int_max?: number;
   int_default?: number;
   parentset_setting?: CMsgControllerSetting;
-  long_value?: Long;
+  long_value?: bigint;
 }
 
 export interface CMsgControllerSourceGroup {
@@ -1491,7 +1490,7 @@ export interface CMsgCREGetUserPublishedItemVoteDetails {
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetails_PublishedFileId {
-  published_file_id?: Long;
+  published_file_id?: bigint;
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetailsResponse {
@@ -1500,12 +1499,12 @@ export interface CMsgCREGetUserPublishedItemVoteDetailsResponse {
 }
 
 export interface CMsgCREGetUserPublishedItemVoteDetailsResponse_UserItemVoteDetail {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   vote?: number;
 }
 
 export interface CMsgCREUpdateUserPublishedItemVote {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   vote_up?: boolean;
 }
 
@@ -1534,7 +1533,7 @@ export interface CMsgGameActionSet {
 }
 
 export interface CMsgGCRoutingProtoBufHeader {
-  dst_gcid_queue?: Long;
+  dst_gcid_queue?: bigint;
   dst_gc_dir_index?: number;
 }
 
@@ -1682,18 +1681,18 @@ export interface CMsgNetworkDeviceSetOptions_Wireless {
 }
 
 export interface CMsgProtoBufHeader {
-  steamid?: Long;
+  steamid?: bigint;
   client_sessionid?: number;
   routing_appid?: number;
-  jobid_source?: Long;
-  jobid_target?: Long;
+  jobid_source?: bigint;
+  jobid_target?: bigint;
   target_job_name?: string;
   eresult?: number;
   error_message?: string;
   ip?: number;
   auth_account_flags?: number;
   transport_error?: number;
-  messageid?: Long;
+  messageid?: bigint;
   publisher_group_id?: number;
   sysid?: number;
   token_source?: number;
@@ -1709,15 +1708,15 @@ export interface CMsgProtoBufHeader {
   timeout_ms?: number;
   debug_source?: string;
   debug_source_string_index?: number;
-  token_id?: Long;
+  token_id?: bigint;
   routing_gc?: CMsgGCRoutingProtoBufHeader;
   session_disposition?: number;
   wg_token?: string;
   webui_auth_key?: string;
   exclude_client_sessionids?: number[];
-  admin_request_spoofing_steamid?: Long;
+  admin_request_spoofing_steamid?: bigint;
   is_valveds?: boolean;
-  trace_tag?: Long;
+  trace_tag?: bigint;
 }
 
 export interface CMsgSelectOSBranchParams {
@@ -1809,19 +1808,19 @@ export interface CMsgSteamDatagramLinkInstantaneousStats {
 
 export interface CMsgSteamDatagramLinkLifetimeStats {
   connected_seconds?: number;
-  packets_sent?: Long;
-  kb_sent?: Long;
-  packets_recv?: Long;
-  kb_recv?: Long;
-  packets_recv_sequenced?: Long;
-  packets_recv_dropped?: Long;
-  packets_recv_out_of_order?: Long;
-  packets_recv_duplicate?: Long;
-  packets_recv_lurch?: Long;
-  multipath_packets_recv_sequenced?: Long[];
-  multipath_packets_recv_later?: Long[];
+  packets_sent?: bigint;
+  kb_sent?: bigint;
+  packets_recv?: bigint;
+  kb_recv?: bigint;
+  packets_recv_sequenced?: bigint;
+  packets_recv_dropped?: bigint;
+  packets_recv_out_of_order?: bigint;
+  packets_recv_duplicate?: bigint;
+  packets_recv_lurch?: bigint;
+  multipath_packets_recv_sequenced?: bigint[];
+  multipath_packets_recv_later?: bigint[];
   multipath_send_enabled?: number;
-  packets_recv_out_of_order_corrected?: Long;
+  packets_recv_out_of_order_corrected?: bigint;
   quality_histogram_100?: number;
   quality_histogram_99?: number;
   quality_histogram_97?: number;
@@ -2124,8 +2123,8 @@ export interface CMsgSystemPerfLimits {
 export interface CMsgSystemPerfNetworkInterface {
   name?: string;
   timestamp?: number;
-  tx_bytes_total?: Long;
-  rx_bytes_total?: Long;
+  tx_bytes_total?: bigint;
+  rx_bytes_total?: bigint;
   tx_bytes_per_sec?: number;
   rx_bytes_per_sec?: number;
 }
@@ -2178,12 +2177,12 @@ export interface CMsgSystemPerfSettingsPerApp {
 export interface CMsgSystemPerfState {
   limits?: CMsgSystemPerfLimits;
   settings?: CMsgSystemPerfSettings;
-  current_game_id?: Long;
-  active_profile_game_id?: Long;
+  current_game_id?: bigint;
+  active_profile_game_id?: bigint;
 }
 
 export interface CMsgSystemPerfUpdateSettings {
-  gameid?: Long;
+  gameid?: bigint;
   reset_to_default?: boolean;
   settings_delta?: CMsgSystemPerfSettings;
   skip_storage_update?: boolean;
@@ -2212,7 +2211,7 @@ export interface CMsgSystemUpdateCheckResult {
 
 export interface CMsgSystemUpdateProgress {
   stage_progress?: number;
-  stage_size_bytes?: Long;
+  stage_size_bytes?: bigint;
   rtime_estimated_completion?: number;
 }
 
@@ -2239,7 +2238,7 @@ export interface CProductImpressionsFromClient_Notification_Impression {
 }
 
 export interface CRemotePlay_SessionStopped_Notification {
-  record_id?: Long;
+  record_id?: bigint;
   used_x264?: boolean;
   used_h264?: boolean;
   used_hevc?: boolean;
@@ -2297,14 +2296,14 @@ export interface CSteamVR_VoiceChat_ConfigureVideo_Request {
 export type CSteamVR_VoiceChat_ConfigureVideo_Response = Record<string, never>;
 
 export interface CSteamVR_VoiceChat_ExitRoomChat_Request {
-  chat_group_id?: Long;
-  chat_room_id?: Long;
+  chat_group_id?: bigint;
+  chat_room_id?: bigint;
 }
 
 export type CSteamVR_VoiceChat_ExitRoomChat_Response = Record<string, never>;
 
 export interface CSteamVR_VoiceChat_GetAvatarUrl_Request {
-  profile_steamid?: Long;
+  profile_steamid?: bigint;
   avatar_type?: number;
 }
 
@@ -2319,15 +2318,15 @@ export interface CSteamVR_VoiceChat_GroupName_Notification {
 export type CSteamVR_VoiceChat_Inactive_Notification = Record<string, never>;
 
 export interface CSteamVR_VoiceChat_InitiateRoomChat_Request {
-  chat_group_id?: Long;
-  chat_room_id?: Long;
+  chat_group_id?: bigint;
+  chat_room_id?: bigint;
 }
 
 export type CSteamVR_VoiceChat_InitiateRoomChat_Response = Record<string, never>;
 
 export interface CSteamVR_VoiceChat_NewGroupChatMsgAdded_Notification {
-  chat_group_id?: Long;
-  chat_room_id?: Long;
+  chat_group_id?: bigint;
+  chat_room_id?: bigint;
   sender_accountid?: number;
   timestamp?: number;
   ordinal?: number;
@@ -2355,8 +2354,8 @@ export interface CSteamVR_VoiceChat_SendGroupChatMessage_Request {
 export type CSteamVR_VoiceChat_SendGroupChatMessage_Response = Record<string, never>;
 
 export interface CSteamVR_VoiceChat_SetDefaultSession_Notification {
-  chat_group_id?: Long;
-  chat_room_id?: Long;
+  chat_group_id?: bigint;
+  chat_room_id?: bigint;
 }
 
 export interface CSteamVR_VoiceChat_SetPerUserMuting_Request {
@@ -2380,7 +2379,7 @@ export interface CSteamVR_VoiceChat_SetSpatialAudioListener_Notification {
 }
 
 export interface CSteamVR_VoiceChat_SetSpatialAudioSource_Notification {
-  steamid?: Long;
+  steamid?: bigint;
   position?: CSteamVR_Vector3;
 }
 
@@ -2429,7 +2428,7 @@ export interface CSteamVR_WebRTC_DataChannel_Open_Notification {
 export type CSteamVR_WebRTC_Inactive_Notification = Record<string, never>;
 
 export interface CSteamVR_WebRTC_OnDataChannel_Notification {
-  source_steamid?: Long;
+  source_steamid?: bigint;
   channel_id?: number;
   label?: string;
 }
@@ -2544,7 +2543,7 @@ export interface CTransportValidation_AppendToString_Response {
 
 export interface CUserInterface_CuratorData {
   clanid?: number;
-  listid?: Long;
+  listid?: bigint;
 }
 
 export interface CUserInterface_NavData {
@@ -2555,7 +2554,7 @@ export interface CUserInterface_NavData {
   feature?: string;
   depth?: number;
   countrycode?: string;
-  webkey?: Long;
+  webkey?: bigint;
   is_client?: boolean;
   curator_data?: CUserInterface_CuratorData;
   is_likely_bot?: boolean;
@@ -2564,7 +2563,7 @@ export interface CUserInterface_NavData {
 
 export interface CVideo_GameRecordingSegmentInfo {
   segment_number?: number;
-  segment_size_bytes?: Long;
+  segment_size_bytes?: bigint;
   component_name?: string;
   representation_name?: string;
 }
@@ -2924,7 +2923,7 @@ export interface CVRGamepadUIShared_PathProperty_RunningApps {
 
 export interface CVRGamepadUIShared_PathProperty_RunningApps_App {
   app_id?: number;
-  game_id?: Long;
+  game_id?: bigint;
   display_name?: string;
   composition_state?: number;
   app_overlay_overlay_key?: string;
@@ -2942,11 +2941,11 @@ export interface LoyaltyRewardDefinition {
   type?: number;
   community_item_class?: number;
   community_item_type?: number;
-  point_cost?: Long;
+  point_cost?: bigint;
   timestamp_created?: number;
   timestamp_updated?: number;
   timestamp_available?: number;
-  quantity?: Long;
+  quantity?: bigint;
   internal_description?: string;
   active?: boolean;
   community_item_data?: LoyaltyRewardDefinition_CommunityItemData;
@@ -3156,14 +3155,14 @@ export interface StoreItem_PurchaseOption {
   packageid?: number;
   bundleid?: number;
   purchase_option_name?: string;
-  final_price_in_cents?: Long;
-  original_price_in_cents?: Long;
+  final_price_in_cents?: bigint;
+  original_price_in_cents?: bigint;
   formatted_final_price?: string;
   formatted_original_price?: string;
   discount_pct?: number;
   bundle_discount_pct?: number;
   is_free_to_keep?: boolean;
-  price_before_bundle_discount?: Long;
+  price_before_bundle_discount?: bigint;
   formatted_price_before_bundle_discount?: string;
   active_discounts?: StoreItem_PurchaseOption_Discount[];
   user_can_purchase_as_gift?: boolean;
@@ -3171,7 +3170,7 @@ export interface StoreItem_PurchaseOption {
   should_suppress_discount_pct?: boolean;
   hide_discount_pct_for_compliance?: boolean;
   included_game_count?: number;
-  lowest_recent_price_in_cents?: Long;
+  lowest_recent_price_in_cents?: bigint;
   requires_shipping?: boolean;
   recurrence_info?: StoreItem_PurchaseOption_RecurrenceInfo;
   free_to_keep_ends?: number;
@@ -3179,7 +3178,7 @@ export interface StoreItem_PurchaseOption {
 }
 
 export interface StoreItem_PurchaseOption_Discount {
-  discount_amount?: Long;
+  discount_amount?: bigint;
   discount_description?: string;
   discount_end_date?: number;
 }
@@ -3189,7 +3188,7 @@ export interface StoreItem_PurchaseOption_RecurrenceInfo {
   billing_agreement_type?: number;
   renewal_time_unit?: number;
   renewal_time_period?: number;
-  renewal_price_in_cents?: Long;
+  renewal_price_in_cents?: bigint;
   formatted_renewal_price?: string;
 }
 
@@ -3306,7 +3305,7 @@ export interface UserSystemInformation {
   dx_vendorid?: number;
   dx_deviceid?: number;
   num_gpu?: number;
-  system_ram?: Long;
+  system_ram?: bigint;
   os?: string;
   cpu_vendor?: string;
   cpu_name?: string;

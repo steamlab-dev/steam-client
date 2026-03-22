@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EKeyEscrowUsage = {
   k_EKeyEscrowUsageStreamingDevice: 0,
@@ -18,7 +17,7 @@ export interface CKeyEscrow_Request {
 
 export interface CKeyEscrow_Ticket {
   password?: Buffer;
-  identifier?: Long;
+  identifier?: bigint;
   payload?: Buffer;
   timestamp?: number;
   usage?: EKeyEscrowUsage;

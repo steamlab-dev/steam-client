@@ -1,14 +1,13 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CSteamEngine_GetGameIDForPID_Request {
   pid?: number;
 }
 
 export interface CSteamEngine_GetGameIDForPID_Response {
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export interface CSteamEngine_GetTextFilterDictionary_Request {
@@ -30,7 +29,7 @@ export interface CSteamEngine_SearchAppDataCacheByStoreKeywords_Response {
 }
 
 export interface CSteamEngine_SetOverlayEscapeKeyHandling_Notification {
-  gameid?: Long;
+  gameid?: bigint;
   should_handle?: boolean;
 }
 

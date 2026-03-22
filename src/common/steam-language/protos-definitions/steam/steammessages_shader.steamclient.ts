@@ -1,12 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export type CShader_GetShaderReportingCadence_Request = Record<string, never>;
 
 export interface CShader_GetShaderReportingCadence_Response {
-  rereport_time_threshold?: Long;
+  rereport_time_threshold?: bigint;
   percent_to_rereport?: number;
 }
 
@@ -49,9 +48,9 @@ export interface CShader_GetBucketManifest_Request {
 }
 
 export interface CShader_GetBucketManifest_Response {
-  manifestid?: Long;
-  depotsize?: Long;
-  bucketid?: Long;
+  manifestid?: bigint;
+  depotsize?: bigint;
+  bucketid?: bigint;
 }
 
 export interface CShader_GetStaleBucket_Request {
@@ -60,9 +59,9 @@ export interface CShader_GetStaleBucket_Request {
 }
 
 export interface CShader_GetStaleBucket_Response {
-  bucketid?: Long;
+  bucketid?: bigint;
   appid?: number;
-  manifestid?: Long;
+  manifestid?: bigint;
   gpu_desc?: string;
   driver_desc?: string;
   depot_encryption_key?: Buffer;
@@ -72,10 +71,10 @@ export interface CShader_ReportExternalBuild_Request {
   appid?: number;
   gpu_desc?: string;
   driver_desc?: string;
-  manifestid?: Long;
+  manifestid?: bigint;
   source_gpu_desc?: string;
   source_driver_desc?: string;
-  depotsize?: Long;
+  depotsize?: bigint;
 }
 
 export type CShader_ReportExternalBuild_Response = Record<string, never>;

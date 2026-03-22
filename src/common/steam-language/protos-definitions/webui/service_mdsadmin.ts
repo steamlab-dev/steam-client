@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CBuildManagement_SetAppBuildSortOrder_Request {
   appid?: number;
@@ -30,9 +29,9 @@ export interface CMDSAdmin_AppContentPurgeStatus_Response {
   status?: number;
   accountid_requester?: number;
   accountid_confirmer?: number;
-  time_requested?: Long;
-  time_confirmed?: Long;
-  time_ended?: Long;
+  time_requested?: bigint;
+  time_confirmed?: bigint;
+  time_ended?: bigint;
 }
 
 export interface CMDSAdmin_BeginOriginMigrationJob_Request {
@@ -58,28 +57,28 @@ export interface CMDSAdmin_GetDepotDownloadBytes_Request {
 }
 
 export interface CMDSAdmin_GetDepotDownloadBytes_Response {
-  windows?: Long;
-  macos?: Long;
-  linux?: Long;
+  windows?: bigint;
+  macos?: bigint;
+  linux?: bigint;
 }
 
 export interface CMDSAdmin_InvalidateDepotMetadata_Notification {
   depotid?: number;
   sysid_sender?: number;
-  manifestid?: Long;
+  manifestid?: bigint;
 }
 
 export interface CMDSAdmin_ManifestAppBranchInfo_Request {
   appid?: number;
   depot_id?: number;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   branch?: string;
 }
 
 export interface CMDSAdmin_ManifestAppBranchInfo_Response {
   manifest_part_of_app_branch?: boolean;
   app_was_released_or_is_current_build?: boolean;
-  time_most_recent_release?: Long;
+  time_most_recent_release?: bigint;
 }
 
 export interface CMDSAdmin_MDSFlushDepotCache_Notification {
@@ -88,7 +87,7 @@ export interface CMDSAdmin_MDSFlushDepotCache_Notification {
 
 export interface CMDSAdmin_MDSFlushManifestVersion_Notification {
   depot_id?: number;
-  manifestid?: Long;
+  manifestid?: bigint;
 }
 
 export interface CMDSAdmin_NewChunkAnnouncement_Notification {

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CCloudConfigStore_Change_Notification {
   versions?: CCloudConfigStore_NamespaceVersion[];
@@ -20,19 +19,19 @@ export interface CCloudConfigStore_Entry {
   is_deleted?: boolean;
   value?: string;
   timestamp?: number;
-  version?: Long;
+  version?: bigint;
 }
 
 export interface CCloudConfigStore_NamespaceData {
   enamespace?: number;
-  version?: Long;
+  version?: bigint;
   entries?: CCloudConfigStore_Entry[];
-  horizon?: Long;
+  horizon?: bigint;
 }
 
 export interface CCloudConfigStore_NamespaceVersion {
   enamespace?: number;
-  version?: Long;
+  version?: bigint;
 }
 
 export interface CCloudConfigStore_Upload_Request {

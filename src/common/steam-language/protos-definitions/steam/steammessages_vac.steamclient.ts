@@ -1,12 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CFileVerification_SignatureCheck_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
-  file_size?: Long;
+  file_size?: bigint;
   file_timestamp?: number;
   file_timestamp2?: number;
   signature_result?: number;

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export type CSharedJSContext_GetDesiredSteamUIWindows_Request = Record<string, never>;
 
@@ -12,8 +11,8 @@ export interface CMsgSteamUIBrowserWindow {
   window_type?: number;
   x?: number;
   y?: number;
-  appid?: Long;
-  parent_window_handle?: Long;
+  appid?: bigint;
+  parent_window_handle?: bigint;
   app_name?: string;
   gamepadui_via_gamescope?: boolean;
 }

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CControllerAccessibilityString {
   key?: CControllerOriginKey;
@@ -95,7 +94,7 @@ export interface CSteamInputService_ControllerButtonStateChanged_Notification {
   r4?: boolean;
   r5?: boolean;
   right_aux?: boolean;
-  button_state_bits?: Long;
+  button_state_bits?: bigint;
 }
 
 export interface CSteamInputService_ControllerDisconnected_Notification {
@@ -260,7 +259,7 @@ export interface CSteamInputService_RawControllerDetailItem {
   is_wireless_steam_dongle?: boolean;
   vendor_id?: number;
   product_id?: number;
-  capabilities?: Long;
+  capabilities?: bigint;
   firmware_version?: number;
   firmware_build_time?: string;
   serial_number?: string;

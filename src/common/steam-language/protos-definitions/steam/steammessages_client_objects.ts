@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   EBluetoothDeviceType,
   EColorGamutLabelSet,
@@ -221,7 +219,7 @@ export namespace CMsgStorageDevicesData {
     vendor?: string;
     serial?: string;
     is_ejectable?: boolean;
-    size_bytes?: Long;
+    size_bytes?: bigint;
     media_type?: EStorageDriveMediaType;
   }
 
@@ -231,7 +229,7 @@ export namespace CMsgStorageDevicesData {
     path?: string;
     friendly_path?: string;
     label?: string;
-    size_bytes?: Long;
+    size_bytes?: bigint;
     is_formattable?: boolean;
     is_read_only?: boolean;
     is_root_device?: boolean;
@@ -244,7 +242,7 @@ export namespace CMsgStorageDevicesData {
 export interface CCloud_PendingRemoteOperation {
   operation?: ECloudPendingRemoteOperation;
   machine_name?: string;
-  client_id?: Long;
+  client_id?: bigint;
   time_last_updated?: number;
   os_type?: number;
   device_type?: number;
@@ -296,8 +294,8 @@ export interface CMsgSystemPerfDiagnosticEntry {
 export interface CMsgSystemPerfNetworkInterface {
   name?: string;
   timestamp?: number;
-  tx_bytes_total?: Long;
-  rx_bytes_total?: Long;
+  tx_bytes_total?: bigint;
+  rx_bytes_total?: bigint;
   tx_bytes_per_sec?: number;
   rx_bytes_per_sec?: number;
 }
@@ -405,18 +403,18 @@ export interface CMsgSystemPerfSettingsV1 {
 export interface CMsgSystemPerfState {
   limits?: CMsgSystemPerfLimits;
   settings?: CMsgSystemPerfSettings;
-  current_game_id?: Long;
-  active_profile_game_id?: Long;
+  current_game_id?: bigint;
+  active_profile_game_id?: bigint;
 }
 
 export interface CMsgSystemPerfUpdateSettings {
-  gameid?: Long;
+  gameid?: bigint;
   skip_storage_update?: boolean;
   update?: { reset_to_default: boolean } | { settings_delta: CMsgSystemPerfSettings };
 }
 
 export interface CMsgSystemPerfLegacySettingEntry {
-  profile_game_id?: Long;
+  profile_game_id?: bigint;
   settings?: CMsgSystemPerfSettingsPerApp;
 }
 
@@ -598,7 +596,7 @@ export interface CMsgSelectOSBranchParams {
 
 export interface CMsgSystemUpdateProgress {
   stage_progress?: number;
-  stage_size_bytes?: Long;
+  stage_size_bytes?: bigint;
   rtime_estimated_completion?: number;
 }
 
@@ -657,7 +655,7 @@ export interface CMsgShortcutInfo {
   override_appid?: number;
   flatpak_appid?: string;
   tags?: string[];
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   is_hidden?: boolean;
   is_temporary?: boolean;
   is_openvr?: boolean;
@@ -706,7 +704,7 @@ export interface CMsgWebUITransportFailure {
 export interface CMsgClientShaderHitCacheEntry {
   key_sha?: Buffer;
   code_sha?: Buffer;
-  time_last_reported?: Long;
+  time_last_reported?: bigint;
 }
 
 export interface CMsgClientShaderHitCache {

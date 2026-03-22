@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CLocalizationToken {
   language?: number;
@@ -9,8 +8,8 @@ export interface CLocalizationToken {
 }
 
 export interface CStoreCuration_GetListDetails_Request {
-  steamid?: Long;
-  listid?: Long;
+  steamid?: bigint;
+  listid?: bigint;
 }
 
 export interface CStoreCuration_GetListDetails_Response {
@@ -18,14 +17,14 @@ export interface CStoreCuration_GetListDetails_Response {
 }
 
 export interface CStoreCuration_GetLists_Request {
-  steamid?: Long;
+  steamid?: bigint;
   list_state?: number;
   start?: number;
   count?: number;
   return_total_only?: boolean;
   return_metadata_only?: boolean;
   max_apps?: number;
-  sale_clan_event_gid?: Long;
+  sale_clan_event_gid?: bigint;
 }
 
 export interface CStoreCuration_GetLists_Response {
@@ -34,7 +33,7 @@ export interface CStoreCuration_GetLists_Response {
 }
 
 export interface CStoreCuration_ListDetails {
-  listid?: Long;
+  listid?: bigint;
   title?: string;
   blurb?: string;
   link?: string;
@@ -48,8 +47,8 @@ export interface CStoreCuration_ListDetails {
   title_localization?: CLocalizationToken[];
   blurb_localization?: CLocalizationToken[];
   link_localization?: CLocalizationToken[];
-  sale_clan_steamid?: Long;
-  sale_clan_event_gid?: Long;
+  sale_clan_steamid?: bigint;
+  sale_clan_event_gid?: bigint;
   list_jsondata?: string;
   clan_account_id?: number;
 }

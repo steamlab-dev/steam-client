@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CUserInterface_NavData,
   StoreBrowseContext,
@@ -21,12 +19,12 @@ export interface CWishlist_AddToWishlist_Response {
 
 export interface CWishlist_AddWishlistItemCategory_Request {
   appid?: number;
-  categoryid?: Long;
+  categoryid?: bigint;
   category_name?: string;
 }
 
 export interface CWishlist_AddWishlistItemCategory_Response {
-  categoryid?: Long;
+  categoryid?: bigint;
   name?: string;
   item_count?: number;
 }
@@ -40,7 +38,7 @@ export interface CWishlist_GetItemCategories_Response {
 }
 
 export interface CWishlist_GetSharedWishlistCategories_Request {
-  steamid?: Long;
+  steamid?: bigint;
   share_token?: string;
 }
 
@@ -49,7 +47,7 @@ export interface CWishlist_GetSharedWishlistCategories_Response {
 }
 
 export interface CWishlist_GetWishlist_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CWishlist_GetWishlist_Response {
@@ -69,7 +67,7 @@ export interface CWishlist_GetWishlistCategories_Response {
 }
 
 export interface CWishlist_GetWishlistItemCount_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CWishlist_GetWishlistItemCount_Response {
@@ -92,7 +90,7 @@ export interface CWishlist_GetWishlistItemsOnSale_Response_WishlistItem {
 }
 
 export interface CWishlist_GetWishlistSortedFiltered_Request {
-  steamid?: Long;
+  steamid?: bigint;
   context?: StoreBrowseContext;
   data_request?: StoreBrowseItemDataRequest;
   sort_order?: number;
@@ -111,7 +109,7 @@ export interface CWishlist_GetWishlistSortedFiltered_Response_WishlistItem {
   priority?: number;
   date_added?: number;
   store_item?: StoreItem;
-  category_ids?: Long[];
+  category_ids?: bigint[];
 }
 
 export interface CWishlist_RemoveFromWishlist_Request {
@@ -124,13 +122,13 @@ export interface CWishlist_RemoveFromWishlist_Response {
 
 export interface CWishlist_RemoveWishlistItemCategory_Request {
   appid?: number;
-  categoryid?: Long;
+  categoryid?: bigint;
 }
 
 export type CWishlist_RemoveWishlistItemCategory_Response = Record<string, never>;
 
 export interface CWishlistCategory {
-  categoryid?: Long;
+  categoryid?: bigint;
   name?: string;
   item_count?: number;
 }
@@ -142,13 +140,13 @@ export interface CWishlistFilters {
   only_software?: boolean;
   only_dlc?: boolean;
   only_free?: boolean;
-  max_price_in_cents?: Long;
+  max_price_in_cents?: bigint;
   min_discount_percent?: number;
   exclude_types?: CWishlistFilters_ExcludeTypeFilters;
   steam_deck_filters?: CWishlistFilters_SteamDeckFilters;
   tagids_must_match?: number[];
   excluded_content_descriptors?: number[];
-  category_ids?: Long[];
+  category_ids?: bigint[];
 }
 
 export interface CWishlistFilters_ExcludeTypeFilters {

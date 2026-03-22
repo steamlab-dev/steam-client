@@ -1,69 +1,68 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CVoiceChat_AllMembersStatus_Notification {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
   users?: CVoiceChat_UserVoiceStatus_Notification[];
 }
 
 export interface CVoiceChat_AnswerOneOnOneChat_Request {
-  voice_chatid?: Long;
-  steamid_partner?: Long;
+  voice_chatid?: bigint;
+  steamid_partner?: bigint;
   accepted_request?: boolean;
 }
 
 export type CVoiceChat_AnswerOneOnOneChat_Response = Record<string, never>;
 
 export interface CVoiceChat_EndOneOnOneChat_Request {
-  steamid_partner?: Long;
+  steamid_partner?: bigint;
 }
 
 export type CVoiceChat_EndOneOnOneChat_Response = Record<string, never>;
 
 export interface CVoiceChat_LeaveOneOnOneChat_Request {
-  steamid_partner?: Long;
-  voice_chatid?: Long;
+  steamid_partner?: bigint;
+  voice_chatid?: bigint;
 }
 
 export type CVoiceChat_LeaveOneOnOneChat_Response = Record<string, never>;
 
 export interface CVoiceChat_LeaveVoiceChat_Request {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
 }
 
 export type CVoiceChat_LeaveVoiceChat_Response = Record<string, never>;
 
 export interface CVoiceChat_OneOnOneChatRequested_Notification {
-  voice_chatid?: Long;
-  steamid_partner?: Long;
+  voice_chatid?: bigint;
+  steamid_partner?: bigint;
 }
 
 export interface CVoiceChat_OneOnOneChatRequestResponse_Notification {
-  voicechat_id?: Long;
-  steamid_partner?: Long;
+  voicechat_id?: bigint;
+  steamid_partner?: bigint;
   accepted_request?: boolean;
 }
 
 export interface CVoiceChat_RequestOneOnOneChat_Request {
-  steamid_partner?: Long;
+  steamid_partner?: bigint;
 }
 
 export interface CVoiceChat_RequestOneOnOneChat_Response {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
 }
 
 export interface CVoiceChat_UpdateUserVideoStatus_Request {
-  voice_chatid?: Long;
-  user_steamid?: Long;
+  voice_chatid?: bigint;
+  user_steamid?: bigint;
   accept_webrtc_video?: boolean;
 }
 
 export type CVoiceChat_UpdateUserVideoStatus_Response = Record<string, never>;
 
 export interface CVoiceChat_UpdateVoiceChatWebRTCData_Request {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
   ip_webrtc_server?: number;
   port_webrtc_server?: number;
   ip_webrtc_client?: number;
@@ -81,35 +80,35 @@ export interface CVoiceChat_UpdateVoiceChatWebRTCData_Response {
 }
 
 export interface CVoiceChat_UploadClientVoiceChatLogs_Request {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
   client_voice_logs_new_lines?: string;
 }
 
 export type CVoiceChat_UploadClientVoiceChatLogs_Response = Record<string, never>;
 
 export interface CVoiceChat_UserJoinedVoiceChat_Notification {
-  voice_chatid?: Long;
-  user_steamid?: Long;
-  chatid?: Long;
-  one_on_one_steamid_lower?: Long;
-  one_on_one_steamid_higher?: Long;
-  chat_group_id?: Long;
+  voice_chatid?: bigint;
+  user_steamid?: bigint;
+  chatid?: bigint;
+  one_on_one_steamid_lower?: bigint;
+  one_on_one_steamid_higher?: bigint;
+  chat_group_id?: bigint;
   user_sessionid?: number;
 }
 
 export interface CVoiceChat_UserLeftVoiceChat_Notification {
-  voice_chatid?: Long;
-  user_steamid?: Long;
-  chatid?: Long;
-  one_on_one_steamid_lower?: Long;
-  one_on_one_steamid_higher?: Long;
-  chat_group_id?: Long;
+  voice_chatid?: bigint;
+  user_steamid?: bigint;
+  chatid?: bigint;
+  one_on_one_steamid_lower?: bigint;
+  one_on_one_steamid_higher?: bigint;
+  chat_group_id?: bigint;
   user_sessionid?: number;
 }
 
 export interface CVoiceChat_UserVoiceStatus_Notification {
-  voice_chatid?: Long;
-  user_steamid?: Long;
+  voice_chatid?: bigint;
+  user_steamid?: bigint;
   user_muted_mic_locally?: boolean;
   user_muted_output_locally?: boolean;
   user_has_no_mic_for_session?: boolean;
@@ -118,11 +117,11 @@ export interface CVoiceChat_UserVoiceStatus_Notification {
 }
 
 export interface CVoiceChat_VoiceChatEnded_Notification {
-  voice_chatid?: Long;
-  one_on_one_steamid_lower?: Long;
-  one_on_one_steamid_higher?: Long;
-  chatid?: Long;
-  chat_group_id?: Long;
+  voice_chatid?: bigint;
+  one_on_one_steamid_lower?: bigint;
+  one_on_one_steamid_higher?: bigint;
+  chatid?: bigint;
+  chat_group_id?: bigint;
 }
 
 export abstract class VoiceChatService {

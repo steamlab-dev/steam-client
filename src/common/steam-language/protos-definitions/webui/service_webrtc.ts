@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CWebRTC_WebRTCSessionConnected_Notification {
   ssrc?: number;
@@ -13,7 +12,7 @@ export interface CWebRTC_WebRTCSessionConnected_Notification {
 
 export interface CWebRTC_WebRTCUpdateRemoteDescription_Notification {
   remote_description?: string;
-  remote_description_version?: Long;
+  remote_description_version?: bigint;
   ssrcs_to_accountids?: CWebRTC_WebRTCUpdateRemoteDescription_Notification_CSSRCToAccountIDMapping[];
 }
 
@@ -27,7 +26,7 @@ export interface CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Request {
   port_webrtc_server?: number;
   ip_webrtc_session_client?: number;
   port_webrtc_session_client?: number;
-  remote_description_version?: Long;
+  remote_description_version?: bigint;
 }
 
 export type CWebRTCClient_AcknowledgeUpdatedRemoteDescription_Response = Record<string, never>;

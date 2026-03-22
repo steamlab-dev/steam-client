@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EBanContentCheckResult = {
   k_EBanContentCheckResult_NotScanned: 0,
@@ -74,20 +73,20 @@ export interface CMsgIPAddress {
 
 export interface CMsgIPAddressBucket {
   original_ip_address?: CMsgIPAddress;
-  bucket?: Long;
+  bucket?: bigint;
 }
 
 export interface CMsgGCRoutingProtoBufHeader {
-  dst_gcid_queue?: Long;
+  dst_gcid_queue?: bigint;
   dst_gc_dir_index?: number;
 }
 
 export interface CMsgProtoBufHeader {
-  steamid?: Long;
+  steamid?: bigint;
   client_sessionid?: number;
   routing_appid?: number;
-  jobid_source?: Long;
-  jobid_target?: Long;
+  jobid_source?: bigint;
+  jobid_target?: bigint;
   target_job_name?: string;
   seq_num?: number;
   eresult?: number;
@@ -96,7 +95,7 @@ export interface CMsgProtoBufHeader {
   token_source?: number;
   admin_spoofing_user?: boolean;
   transport_error?: number;
-  messageid?: Long;
+  messageid?: bigint;
   publisher_group_id?: number;
   sysid?: number;
   webapi_key_id?: number;
@@ -108,15 +107,15 @@ export interface CMsgProtoBufHeader {
   timeout_ms?: number;
   debug_source?: string;
   debug_source_string_index?: number;
-  token_id?: Long;
+  token_id?: bigint;
   routing_gc?: CMsgGCRoutingProtoBufHeader;
   session_disposition?: CMsgProtoBufHeader.ESessionDisposition;
   wg_token?: string;
   webui_auth_key?: string;
   exclude_client_sessionids?: number[];
-  admin_request_spoofing_steamid?: Long;
+  admin_request_spoofing_steamid?: bigint;
   is_valveds?: boolean;
-  trace_tag?: Long;
+  trace_tag?: bigint;
   ip_addr?: { ip: number } | { ip_v6: Buffer };
 }
 
@@ -136,8 +135,8 @@ export interface CMsgKubeRPCPacket {
 
 export namespace CMsgKubeRPCPacket {
   export interface Hdr {
-    jobid_source?: Long;
-    jobid_target?: Long;
+    jobid_source?: bigint;
+    jobid_target?: bigint;
     eresult?: number;
     target_job_name?: string;
     error_message?: string;
@@ -157,8 +156,8 @@ export interface CMsgProtobufWrapped {
 export interface CMsgAuthTicket {
   estate?: number;
   eresult?: number;
-  steamid?: Long;
-  gameid?: Long;
+  steamid?: bigint;
+  gameid?: bigint;
   h_steam_pipe?: number;
   ticket_crc?: number;
   ticket?: Buffer;
@@ -229,8 +228,8 @@ export interface CLocalizationToken {
 
 export interface CClanEventUserNewsTuple {
   clanid?: number;
-  event_gid?: Long;
-  announcement_gid?: Long;
+  event_gid?: bigint;
+  announcement_gid?: bigint;
   rtime_start?: number;
   rtime_end?: number;
   priority_score?: number;
@@ -248,9 +247,9 @@ export interface CClanMatchEventByRange {
 }
 
 export interface CCommunity_ClanAnnouncementInfo {
-  gid?: Long;
-  clanid?: Long;
-  posterid?: Long;
+  gid?: bigint;
+  clanid?: bigint;
+  posterid?: bigint;
   headline?: string;
   posttime?: number;
   updatetime?: number;
@@ -259,8 +258,8 @@ export interface CCommunity_ClanAnnouncementInfo {
   tags?: string[];
   language?: number;
   hidden?: boolean;
-  forum_topic_id?: Long;
-  event_gid?: Long;
+  forum_topic_id?: bigint;
+  event_gid?: bigint;
   voteupcount?: number;
   votedowncount?: number;
   ban_check_result?: EBanContentCheckResult;
@@ -268,8 +267,8 @@ export interface CCommunity_ClanAnnouncementInfo {
 }
 
 export interface CClanEventData {
-  gid?: Long;
-  clan_steamid?: Long;
+  gid?: bigint;
+  clan_steamid?: bigint;
   event_name?: string;
   event_type?: EProtoClanEventType;
   appid?: number;
@@ -278,8 +277,8 @@ export interface CClanEventData {
   rtime32_start_time?: number;
   rtime32_end_time?: number;
   comment_count?: number;
-  creator_steamid?: Long;
-  last_update_steamid?: Long;
+  creator_steamid?: bigint;
+  last_update_steamid?: bigint;
   event_notes?: string;
   jsondata?: string;
   announcement_body?: CCommunity_ClanAnnouncementInfo;
@@ -290,9 +289,9 @@ export interface CClanEventData {
   broadcaster_accountid?: number;
   follower_count?: number;
   ignore_count?: number;
-  forum_topic_id?: Long;
+  forum_topic_id?: bigint;
   rtime32_last_modified?: number;
-  news_post_gid?: Long;
+  news_post_gid?: bigint;
   rtime_mod_reviewed?: number;
   featured_app_tagid?: number;
   referenced_appids?: number[];
@@ -356,7 +355,7 @@ export interface UserSystemInformation {
   dx_vendorid?: number;
   dx_deviceid?: number;
   num_gpu?: number;
-  system_ram?: Long;
+  system_ram?: bigint;
   os?: string;
   cpu_vendor?: string;
   cpu_name?: string;

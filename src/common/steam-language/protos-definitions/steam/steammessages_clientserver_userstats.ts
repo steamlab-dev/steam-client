@@ -1,17 +1,16 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientGetUserStats {
-  game_id?: Long;
+  game_id?: bigint;
   crc_stats?: number;
   schema_local_version?: number;
-  steam_id_for_user?: Long;
+  steam_id_for_user?: bigint;
 }
 
 export interface CMsgClientGetUserStatsResponse {
-  game_id?: Long;
+  game_id?: bigint;
   eresult?: number;
   crc_stats?: number;
   schema?: Buffer;
@@ -32,7 +31,7 @@ export namespace CMsgClientGetUserStatsResponse {
 }
 
 export interface CMsgClientStoreUserStatsResponse {
-  game_id?: Long;
+  game_id?: bigint;
   eresult?: number;
   crc_stats?: number;
   stats_failed_validation?: CMsgClientStoreUserStatsResponse.Stats_Failed_Validation[];
@@ -47,9 +46,9 @@ export namespace CMsgClientStoreUserStatsResponse {
 }
 
 export interface CMsgClientStoreUserStats2 {
-  game_id?: Long;
-  settor_steam_id?: Long;
-  settee_steam_id?: Long;
+  game_id?: bigint;
+  settor_steam_id?: bigint;
+  settee_steam_id?: bigint;
   crc_stats?: number;
   explicit_reset?: boolean;
   stats?: CMsgClientStoreUserStats2.Stats[];
@@ -63,8 +62,8 @@ export namespace CMsgClientStoreUserStats2 {
 }
 
 export interface CMsgClientStatsUpdated {
-  steam_id?: Long;
-  game_id?: Long;
+  steam_id?: bigint;
+  game_id?: bigint;
   crc_stats?: number;
   updated_stats?: CMsgClientStatsUpdated.Updated_Stats[];
 }

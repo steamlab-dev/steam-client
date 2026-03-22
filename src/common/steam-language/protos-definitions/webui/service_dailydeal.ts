@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CDailyDeal_CancelDailyDeal_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export type CDailyDeal_CancelDailyDeal_Response = Record<string, never>;
@@ -12,21 +11,21 @@ export type CDailyDeal_CancelDailyDeal_Response = Record<string, never>;
 export interface CDailyDeal_CreateDailyDeal_Request {
   daily_deal?: CDailyDealDetails;
   partnerid?: number;
-  inviteid?: Long;
+  inviteid?: bigint;
 }
 
 export interface CDailyDeal_CreateDailyDeal_Response {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CDailyDeal_DeleteDailyDeal_Request {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export type CDailyDeal_DeleteDailyDeal_Response = Record<string, never>;
 
 export interface CDailyDeal_GetDailyDeals_Request {
-  gid?: Long;
+  gid?: bigint;
   rtime32_start_date?: number;
   rtime32_end_date?: number;
   appid?: number;
@@ -63,13 +62,13 @@ export interface CDailyDeal_GetDailyDealsForApps_Response {
 
 export interface CDailyDeal_UpdateDailyDeal_Request {
   daily_deal?: CDailyDealDetails;
-  gid?: Long;
+  gid?: bigint;
 }
 
 export type CDailyDeal_UpdateDailyDeal_Response = Record<string, never>;
 
 export interface CDailyDealDetails {
-  gid?: Long;
+  gid?: bigint;
   store_item_type?: number;
   store_item_id?: number;
   store_item_name?: string;
@@ -83,7 +82,7 @@ export interface CDailyDealDetails {
   deleted?: boolean;
   cancelled?: boolean;
   rtime32_cancel_time?: number;
-  asset_request_id?: Long;
+  asset_request_id?: bigint;
   descids?: string;
 }
 

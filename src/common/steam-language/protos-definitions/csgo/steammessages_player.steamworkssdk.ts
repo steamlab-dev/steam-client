@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ENotificationSetting = {
   k_ENotificationSettingNotifyUseDefault: 0,
@@ -14,7 +13,7 @@ export type ENotificationSetting = (typeof ENotificationSetting)[keyof typeof EN
 export type CPlayer_GetMutualFriendsForIncomingInvites_Request = Record<string, never>;
 
 export interface CPlayer_IncomingInviteMutualFriendList {
-  steamid?: Long;
+  steamid?: bigint;
   mutual_friend_account_ids?: number[];
 }
 
@@ -37,13 +36,13 @@ export interface CPlayer_GetFriendsGameplayInfo_Response {
 
 export namespace CPlayer_GetFriendsGameplayInfo_Response {
   export interface FriendsGameplayInfo {
-    steamid?: Long;
+    steamid?: bigint;
     minutes_played?: number;
     minutes_played_forever?: number;
   }
 
   export interface OwnGameplayInfo {
-    steamid?: Long;
+    steamid?: bigint;
     minutes_played?: number;
     minutes_played_forever?: number;
     in_wishlist?: boolean;
@@ -128,7 +127,7 @@ export interface CPlayer_SetPerFriendPreferences_Request {
 export type CPlayer_SetPerFriendPreferences_Response = Record<string, never>;
 
 export interface CPlayer_AddFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_AddFriend_Response {
@@ -137,7 +136,7 @@ export interface CPlayer_AddFriend_Response {
 }
 
 export interface CPlayer_RemoveFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_RemoveFriend_Response {
@@ -145,7 +144,7 @@ export interface CPlayer_RemoveFriend_Response {
 }
 
 export interface CPlayer_IgnoreFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
   unignore?: boolean;
 }
 
@@ -181,11 +180,11 @@ export interface CPlayer_GetNewSteamAnnouncementState_Response {
   announcement_headline?: string;
   announcement_url?: string;
   time_posted?: number;
-  announcement_gid?: Long;
+  announcement_gid?: bigint;
 }
 
 export interface CPlayer_UpdateSteamAnnouncementLastRead_Request {
-  announcement_gid?: Long;
+  announcement_gid?: bigint;
   time_posted?: number;
 }
 

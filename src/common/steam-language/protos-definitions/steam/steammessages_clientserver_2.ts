@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientUpdateUserGameInfo {
-  steamid_idgs?: Long;
-  gameid?: Long;
+  steamid_idgs?: bigint;
+  gameid?: bigint;
   game_ip?: number;
   game_port?: number;
   token?: Buffer;
@@ -13,11 +12,11 @@ export interface CMsgClientUpdateUserGameInfo {
 
 export interface CMsgClientRichPresenceUpload {
   rich_presence_kv?: Buffer;
-  steamid_broadcast?: Long[];
+  steamid_broadcast?: bigint[];
 }
 
 export interface CMsgClientRichPresenceRequest {
-  steamid_request?: Long[];
+  steamid_request?: bigint[];
 }
 
 export interface CMsgClientRichPresenceInfo {
@@ -31,7 +30,7 @@ export namespace CMsgClientRichPresenceInfo {
   }
 
   export interface RichPresence {
-    steamid_user?: Long;
+    steamid_user?: bigint;
     rich_presense?: CMsgClientRichPresenceInfo.KV[];
   }
 }
@@ -87,14 +86,14 @@ export interface CMsgClientPurchaseWithMachineID {
 
 export interface CMsgTrading_InitiateTradeRequest {
   trade_request_id?: number;
-  other_steamid?: Long;
+  other_steamid?: bigint;
   other_name?: string;
 }
 
 export interface CMsgTrading_InitiateTradeResponse {
   response?: number;
   trade_request_id?: number;
-  other_steamid?: Long;
+  other_steamid?: bigint;
   steamguard_required_days?: number;
   new_device_cooldown_days?: number;
   default_password_reset_probation_days?: number;
@@ -104,11 +103,11 @@ export interface CMsgTrading_InitiateTradeResponse {
 }
 
 export interface CMsgTrading_CancelTradeRequest {
-  other_steamid?: Long;
+  other_steamid?: bigint;
 }
 
 export interface CMsgTrading_StartSession {
-  other_steamid?: Long;
+  other_steamid?: bigint;
 }
 
 export interface CMsgClientGetDepotDecryptionKey {
@@ -142,7 +141,7 @@ export namespace CMsgClientCheckAppBetaPasswordResponse {
 }
 
 export interface CMsgClientUGSGetGlobalStats {
-  gameid?: Long;
+  gameid?: bigint;
   history_days_requested?: number;
   time_last_requested?: number;
   first_day_cached?: number;
@@ -164,13 +163,13 @@ export namespace CMsgClientUGSGetGlobalStatsResponse {
   export namespace Day {
     export interface Stat {
       stat_id?: number;
-      data?: Long;
+      data?: bigint;
     }
   }
 }
 
 export interface CMsgClientRedeemGuestPass {
-  guest_pass_id?: Long;
+  guest_pass_id?: bigint;
 }
 
 export interface CMsgClientRedeemGuestPassResponse {
@@ -180,7 +179,7 @@ export interface CMsgClientRedeemGuestPassResponse {
 }
 
 export interface CMsgClientGetClanActivityCounts {
-  steamid_clans?: Long[];
+  steamid_clans?: bigint[];
 }
 
 export interface CMsgClientGetClanActivityCountsResponse {
@@ -189,14 +188,14 @@ export interface CMsgClientGetClanActivityCountsResponse {
 
 export interface CMsgClientOGSReportString {
   accumulated?: boolean;
-  sessionid?: Long;
+  sessionid?: bigint;
   severity?: number;
   formatter?: string;
   varargs?: Buffer;
 }
 
 export interface CMsgClientOGSReportBug {
-  sessionid?: Long;
+  sessionid?: bigint;
   bugtext?: string;
   screenshot?: Buffer;
 }
@@ -207,7 +206,7 @@ export interface CMsgGCClient {
   appid?: number;
   msgtype?: number;
   payload?: Buffer;
-  steamid?: Long;
+  steamid?: bigint;
   gcname?: string;
   ip?: number;
   flags?: number;
@@ -305,9 +304,9 @@ export interface CMsgClientItemAnnouncements {
 export namespace CMsgClientItemAnnouncements {
   export interface UnseenItem {
     appid?: number;
-    context_id?: Long;
-    asset_id?: Long;
-    amount?: Long;
+    context_id?: bigint;
+    asset_id?: bigint;
+    amount?: bigint;
     rtime32_gained?: number;
     source_appid?: number;
   }
@@ -342,11 +341,11 @@ export interface CMsgClientOfflineMessageNotification {
 export type CMsgClientRequestOfflineMessageCount = Record<string, never>;
 
 export interface CMsgClientChatGetFriendMessageHistory {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CMsgClientChatGetFriendMessageHistoryResponse {
-  steamid?: Long;
+  steamid?: bigint;
   success?: number;
   messages?: CMsgClientChatGetFriendMessageHistoryResponse.FriendMessage[];
 }
@@ -391,7 +390,7 @@ export interface CMsgCREItemVoteSummary {
 
 export namespace CMsgCREItemVoteSummary {
   export interface PublishedFileId {
-    published_file_id?: Long;
+    published_file_id?: bigint;
   }
 }
 
@@ -402,7 +401,7 @@ export interface CMsgCREItemVoteSummaryResponse {
 
 export namespace CMsgCREItemVoteSummaryResponse {
   export interface ItemVoteSummary {
-    published_file_id?: Long;
+    published_file_id?: bigint;
     votes_for?: number;
     votes_against?: number;
     reports?: number;
@@ -411,7 +410,7 @@ export namespace CMsgCREItemVoteSummaryResponse {
 }
 
 export interface CMsgCREUpdateUserPublishedItemVote {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   vote_up?: boolean;
 }
 
@@ -425,7 +424,7 @@ export interface CMsgCREGetUserPublishedItemVoteDetails {
 
 export namespace CMsgCREGetUserPublishedItemVoteDetails {
   export interface PublishedFileId {
-    published_file_id?: Long;
+    published_file_id?: bigint;
   }
 }
 
@@ -436,13 +435,13 @@ export interface CMsgCREGetUserPublishedItemVoteDetailsResponse {
 
 export namespace CMsgCREGetUserPublishedItemVoteDetailsResponse {
   export interface UserItemVoteDetail {
-    published_file_id?: Long;
+    published_file_id?: bigint;
     vote?: number;
   }
 }
 
 export interface CMsgFSGetFollowerCount {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CMsgFSGetFollowerCountResponse {
@@ -451,7 +450,7 @@ export interface CMsgFSGetFollowerCountResponse {
 }
 
 export interface CMsgFSGetIsFollowing {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CMsgFSGetIsFollowingResponse {
@@ -466,7 +465,7 @@ export interface CMsgFSEnumerateFollowingList {
 export interface CMsgFSEnumerateFollowingListResponse {
   eresult?: number;
   total_results?: number;
-  steam_ids?: Long[];
+  steam_ids?: bigint[];
 }
 
 export interface CMsgDPGetNumberOfCurrentPlayers {
@@ -479,7 +478,7 @@ export interface CMsgDPGetNumberOfCurrentPlayersResponse {
 }
 
 export interface CMsgClientFriendUserStatusPublished {
-  friend_steamid?: Long;
+  friend_steamid?: bigint;
   appid?: number;
   status_text?: string;
 }
@@ -507,24 +506,24 @@ export interface CMsgClientVanityURLChangedNotification {
 export interface CMsgClientAuthorizeLocalDeviceRequest {
   device_description?: string;
   owner_account_id?: number;
-  local_device_token?: Long;
+  local_device_token?: bigint;
 }
 
 export interface CMsgClientAuthorizeLocalDevice {
   eresult?: number;
   owner_account_id?: number;
-  authed_device_token?: Long;
+  authed_device_token?: bigint;
 }
 
 export interface CMsgClientAuthorizeLocalDeviceNotification {
   eresult?: number;
   owner_account_id?: number;
-  local_device_token?: Long;
+  local_device_token?: bigint;
 }
 
 export interface CMsgClientDeauthorizeDeviceRequest {
   deauthorization_account_id?: number;
-  deauthorization_device_token?: Long;
+  deauthorization_device_token?: bigint;
 }
 
 export interface CMsgClientDeauthorizeDevice {
@@ -540,7 +539,7 @@ export interface CMsgClientUseLocalDeviceAuthorizations {
 export namespace CMsgClientUseLocalDeviceAuthorizations {
   export interface DeviceToken {
     owner_account_id?: number;
-    token_id?: Long;
+    token_id?: bigint;
   }
 }
 
@@ -553,7 +552,7 @@ export interface CMsgClientGetAuthorizedDevicesResponse {
 
 export namespace CMsgClientGetAuthorizedDevicesResponse {
   export interface AuthorizedDevice {
-    auth_device_token?: Long;
+    auth_device_token?: bigint;
     device_name?: string;
     last_access_time?: number;
     borrower_id?: number;
@@ -615,7 +614,7 @@ export interface CMsgClientServiceCallResponse {
   result_content?: Buffer;
   os_version_info?: Buffer;
   system_info?: Buffer;
-  load_address?: Long;
+  load_address?: bigint;
   exception_record?: Buffer;
   portable_os_version_info?: Buffer;
   portable_system_info?: Buffer;
@@ -651,15 +650,15 @@ export interface CMsgClientKickPlayingSession {
 }
 
 export interface CMsgClientVoiceCallPreAuthorize {
-  caller_steamid?: Long;
-  receiver_steamid?: Long;
+  caller_steamid?: bigint;
+  receiver_steamid?: bigint;
   caller_id?: number;
   hangup?: boolean;
 }
 
 export interface CMsgClientVoiceCallPreAuthorizeResponse {
-  caller_steamid?: Long;
-  receiver_steamid?: Long;
+  caller_steamid?: bigint;
+  receiver_steamid?: bigint;
   eresult?: number;
   caller_id?: number;
 }
@@ -670,8 +669,8 @@ export interface CMsgBadgeCraftedNotification {
 }
 
 export interface CMsgClientStartPeerContentServer {
-  steamid?: Long;
-  client_remote_id?: Long;
+  steamid?: bigint;
+  client_remote_id?: bigint;
   app_id?: number;
   current_build_id?: number;
 }
@@ -680,12 +679,12 @@ export interface CMsgClientStartPeerContentServerResponse {
   result?: number;
   server_port?: number;
   installed_depots?: number[];
-  access_token?: Long;
+  access_token?: bigint;
 }
 
 export interface CMsgClientGetPeerContentInfo {
-  steamid?: Long;
-  client_remote_id?: Long;
+  steamid?: bigint;
+  client_remote_id?: bigint;
   owned_games_visible?: boolean;
 }
 

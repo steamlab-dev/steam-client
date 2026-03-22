@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ERemoteClientBroadcastMsg = {
   k_ERemoteClientBroadcastMsgDiscovery: 0,
@@ -116,10 +115,10 @@ export type ERemoteDeviceStreamingResult =
   (typeof ERemoteDeviceStreamingResult)[keyof typeof ERemoteDeviceStreamingResult];
 
 export interface CMsgRemoteClientBroadcastHeader {
-  client_id?: Long;
+  client_id?: bigint;
   msg_type?: ERemoteClientBroadcastMsg;
-  instance_id?: Long;
-  device_id_OBSOLETE?: Long;
+  instance_id?: bigint;
+  device_id_OBSOLETE?: bigint;
   device_token?: Buffer;
 }
 
@@ -146,27 +145,27 @@ export interface CMsgRemoteClientBroadcastStatus {
   remoteplay_active?: boolean;
   supported_services?: number;
   steam_deck?: boolean;
-  steam_version?: Long;
+  steam_version?: bigint;
   vr_link_caps?: EVRLinkCaps;
-  vr_link_invite_client_id?: Long;
-  connected_paired_network_hash?: Long;
+  vr_link_invite_client_id?: bigint;
+  connected_paired_network_hash?: bigint;
   wifi_dongle_present?: boolean;
 }
 
 export namespace CMsgRemoteClientBroadcastStatus {
   export interface User {
-    steamid?: Long;
+    steamid?: bigint;
     auth_key_id?: number;
   }
 }
 
 export interface CMsgRemoteClientBroadcastDiscovery {
   seq_num?: number;
-  client_ids?: Long[];
+  client_ids?: bigint[];
 }
 
 export interface CMsgRemoteClientBroadcastClientIDDeconflict {
-  client_ids?: Long[];
+  client_ids?: bigint[];
 }
 
 export interface CMsgRemoteDeviceAuthorizationRequest {
@@ -180,7 +179,7 @@ export interface CMsgRemoteDeviceAuthorizationRequest {
 export namespace CMsgRemoteDeviceAuthorizationRequest {
   export interface CKeyEscrow_Ticket {
     password?: Buffer;
-    identifier?: Long;
+    identifier?: bigint;
     payload?: Buffer;
     timestamp?: number;
     usage?: CMsgRemoteDeviceAuthorizationRequest.EKeyEscrowUsage;
@@ -201,7 +200,7 @@ export type CMsgRemoteDeviceAuthorizationCancelRequest = Record<string, never>;
 
 export interface CMsgRemoteDeviceAuthorizationResponse {
   result?: ERemoteDeviceAuthorizationResult;
-  steamid?: Long;
+  steamid?: bigint;
   auth_key?: Buffer;
   device_token?: Buffer;
 }
@@ -223,13 +222,13 @@ export interface CMsgRemoteDeviceStreamingRequest {
   enable_audio_streaming?: boolean;
   enable_input_streaming?: boolean;
   network_test?: boolean;
-  client_id?: Long;
+  client_id?: bigint;
   supported_transport?: EStreamTransport[];
   restricted?: boolean;
   form_factor?: EStreamDeviceFormFactor;
   gamepad_count?: number;
   gamepads?: CMsgRemoteDeviceStreamingRequest.ReservedGamepad[];
-  gameid?: Long;
+  gameid?: bigint;
   stream_interface?: EStreamInterface;
   maximum_framerate_numerator?: number;
   maximum_framerate_denominator?: number;

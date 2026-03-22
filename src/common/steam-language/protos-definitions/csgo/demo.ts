@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EDemoCommands = {
   DEM_Stop: 0,
@@ -54,7 +53,7 @@ export interface CGameInfo {
 
 export namespace CGameInfo {
   export interface CDotaGameInfo {
-    match_id?: Long;
+    match_id?: bigint;
     game_mode?: number;
     game_winner?: number;
     leagueid?: number;
@@ -70,7 +69,7 @@ export namespace CGameInfo {
       hero_name?: string;
       player_name?: string;
       is_fake_client?: boolean;
-      steamid?: Long;
+      steamid?: bigint;
       game_team?: number;
     }
 
@@ -103,8 +102,8 @@ export interface CDemoFullPacket {
 
 export interface CDemoSaveGame {
   data?: Buffer;
-  steam_id?: Long;
-  signature?: Long;
+  steam_id?: bigint;
+  signature?: bigint;
   version?: number;
 }
 
@@ -150,7 +149,7 @@ export interface CDemoAnimationData {
   start_tick?: number;
   end_tick?: number;
   data?: Buffer;
-  data_checksum?: Long;
+  data_checksum?: bigint;
 }
 
 export interface CDemoStringTables {

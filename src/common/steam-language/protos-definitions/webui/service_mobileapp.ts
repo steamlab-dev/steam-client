@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMobileApp_GetMobileSummary_Request {
-  authenticator_gid?: Long;
+  authenticator_gid?: bigint;
   device_identifier?: string;
 }
 

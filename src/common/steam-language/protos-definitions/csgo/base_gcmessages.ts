@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EGCBaseMsg = {
   k_EMsgGCSystemMessage: 4001,
@@ -41,9 +40,9 @@ export type GC_BannedWordType = (typeof GC_BannedWordType)[keyof typeof GC_Banne
 export interface CGCStorePurchaseInit_LineItem {
   item_def_id?: number;
   quantity?: number;
-  cost_in_local_currency?: Long;
+  cost_in_local_currency?: bigint;
   purchase_type?: number;
-  supplemental_data?: Long;
+  supplemental_data?: bigint;
 }
 
 export interface CMsgGCStorePurchaseInit {
@@ -55,20 +54,20 @@ export interface CMsgGCStorePurchaseInit {
 
 export interface CMsgGCStorePurchaseInitResponse {
   result?: number;
-  txn_id?: Long;
+  txn_id?: bigint;
   url?: string;
-  item_ids?: Long[];
+  item_ids?: bigint[];
 }
 
 export interface CSOPartyInvite {
-  group_id?: Long;
-  sender_id?: Long;
+  group_id?: bigint;
+  sender_id?: bigint;
   sender_name?: string;
 }
 
 export interface CSOLobbyInvite {
-  group_id?: Long;
-  sender_id?: Long;
+  group_id?: bigint;
+  sender_id?: bigint;
   sender_name?: string;
 }
 
@@ -77,25 +76,25 @@ export interface CMsgSystemBroadcast {
 }
 
 export interface CMsgInviteToParty {
-  steam_id?: Long;
+  steam_id?: bigint;
   client_version?: number;
   team_invite?: number;
 }
 
 export interface CMsgInvitationCreated {
-  group_id?: Long;
-  steam_id?: Long;
+  group_id?: bigint;
+  steam_id?: bigint;
 }
 
 export interface CMsgPartyInviteResponse {
-  party_id?: Long;
+  party_id?: bigint;
   accept?: boolean;
   client_version?: number;
   team_invite?: number;
 }
 
 export interface CMsgKickFromParty {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export type CMsgLeaveParty = Record<string, never>;
@@ -103,7 +102,7 @@ export type CMsgLeaveParty = Record<string, never>;
 export type CMsgServerAvailable = Record<string, never>;
 
 export interface CMsgLANServerAvailable {
-  lobby_id?: Long;
+  lobby_id?: bigint;
 }
 
 export interface CSOEconGameAccountClient {
@@ -160,21 +159,21 @@ export interface CSOItemRecipe {
 }
 
 export interface CMsgDevNewItemRequest {
-  receiver?: Long;
+  receiver?: bigint;
   criteria?: CSOItemCriteria;
 }
 
 export interface CMsgIncrementKillCountAttribute {
   killer_account_id?: number;
   victim_account_id?: number;
-  item_id?: Long;
+  item_id?: bigint;
   event_type?: number;
   amount?: number;
 }
 
 export interface CMsgApplySticker {
-  sticker_item_id?: Long;
-  item_item_id?: Long;
+  sticker_item_id?: bigint;
+  item_item_id?: bigint;
   sticker_slot?: number;
   baseitem_defidx?: number;
   sticker_wear?: number;
@@ -187,30 +186,30 @@ export interface CMsgApplySticker {
 }
 
 export interface CMsgModifyItemAttribute {
-  item_id?: Long;
+  item_id?: bigint;
   attr_defidx?: number;
   attr_value?: number;
 }
 
 export interface CMsgApplyStatTrakSwap {
-  tool_item_id?: Long;
-  item_1_item_id?: Long;
-  item_2_item_id?: Long;
+  tool_item_id?: bigint;
+  item_1_item_id?: bigint;
+  item_2_item_id?: bigint;
 }
 
 export interface CMsgApplyStrangePart {
-  strange_part_item_id?: Long;
-  item_item_id?: Long;
+  strange_part_item_id?: bigint;
+  item_item_id?: bigint;
 }
 
 export interface CMsgApplyPennantUpgrade {
-  upgrade_item_id?: Long;
-  pennant_item_id?: Long;
+  upgrade_item_id?: bigint;
+  pennant_item_id?: bigint;
 }
 
 export interface CMsgApplyEggEssence {
-  essence_item_id?: Long;
-  egg_item_id?: Long;
+  essence_item_id?: bigint;
+  egg_item_id?: bigint;
 }
 
 export interface CSOEconItemAttribute {
@@ -225,7 +224,7 @@ export interface CSOEconItemEquipped {
 }
 
 export interface CSOEconItem {
-  id?: Long;
+  id?: bigint;
   account_id?: number;
   inventory?: number;
   def_index?: number;
@@ -240,7 +239,7 @@ export interface CSOEconItem {
   interior_item?: CSOEconItem;
   in_use?: boolean;
   style?: number;
-  original_id?: Long;
+  original_id?: bigint;
   equipped_state?: CSOEconItemEquipped[];
   rarity?: number;
 }
@@ -291,17 +290,17 @@ export interface CMsgReplicateConVars {
 }
 
 export interface CMsgUseItem {
-  item_id?: Long;
-  target_steam_id?: Long;
+  item_id?: bigint;
+  target_steam_id?: bigint;
   gift__potential_targets?: number[];
   duel__class_lock?: number;
-  initiator_steam_id?: Long;
+  initiator_steam_id?: bigint;
 }
 
 export interface CMsgReplayUploadedToYouTube {
   youtube_url?: string;
   youtube_account_name?: string;
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CMsgConsumableExhausted {
@@ -315,7 +314,7 @@ export interface CMsgItemAcknowledged__DEPRECATED {
   quality?: number;
   rarity?: number;
   origin?: number;
-  item_id?: Long;
+  item_id?: bigint;
 }
 
 export interface CMsgSetItemPositions {
@@ -326,14 +325,14 @@ export namespace CMsgSetItemPositions {
   export interface ItemPosition {
     legacy_item_id?: number;
     position?: number;
-    item_id?: Long;
+    item_id?: bigint;
   }
 }
 
 export interface CMsgGCReportAbuse {
-  target_steam_id?: Long;
+  target_steam_id?: bigint;
   description?: string;
-  gid?: Long;
+  gid?: bigint;
   abuse_type?: number;
   content_type?: number;
   target_game_server_ip?: number;
@@ -341,13 +340,13 @@ export interface CMsgGCReportAbuse {
 }
 
 export interface CMsgGCReportAbuseResponse {
-  target_steam_id?: Long;
+  target_steam_id?: bigint;
   result?: number;
   error_message?: string;
 }
 
 export interface CMsgGCNameItemNotification {
-  player_steamid?: Long;
+  player_steamid?: bigint;
   item_def_index?: number;
   item_name_custom?: string;
 }
@@ -360,7 +359,7 @@ export interface CMsgGCClientDisplayNotification {
 }
 
 export interface CMsgGCShowItemsPickedUp {
-  player_steamid?: Long;
+  player_steamid?: bigint;
 }
 
 export interface CMsgGCIncrementKillCountResponse {
@@ -375,7 +374,7 @@ export interface CSOEconItemDropRateBonus {
   expiration_date?: number;
   bonus?: number;
   bonus_count?: number;
-  item_id?: Long;
+  item_id?: bigint;
   def_index?: number;
 }
 
@@ -389,7 +388,7 @@ export interface CSOEconItemLeagueViewPass {
 export interface CSOEconItemEventTicket {
   account_id?: number;
   event_id?: number;
-  item_id?: Long;
+  item_id?: bigint;
 }
 
 export interface CMsgGCItemPreviewItemBoughtNotification {
@@ -397,7 +396,7 @@ export interface CMsgGCItemPreviewItemBoughtNotification {
 }
 
 export interface CMsgGCStorePurchaseCancel {
-  txn_id?: Long;
+  txn_id?: bigint;
 }
 
 export interface CMsgGCStorePurchaseCancelResponse {
@@ -405,12 +404,12 @@ export interface CMsgGCStorePurchaseCancelResponse {
 }
 
 export interface CMsgGCStorePurchaseFinalize {
-  txn_id?: Long;
+  txn_id?: bigint;
 }
 
 export interface CMsgGCStorePurchaseFinalizeResponse {
   result?: number;
-  item_ids?: Long[];
+  item_ids?: bigint[];
 }
 
 export interface CMsgGCBannedWordListRequest {
@@ -448,17 +447,17 @@ export interface CMsgGCToGCBannedWordListUpdated {
 
 export interface CMsgGCToGCDirtySDOCache {
   sdo_type?: number;
-  key_uint64?: Long;
+  key_uint64?: bigint;
 }
 
 export interface CMsgGCToGCDirtyMultipleSDOCache {
   sdo_type?: number;
-  key_uint64?: Long[];
+  key_uint64?: bigint[];
 }
 
 export interface CMsgGCCollectItem {
-  collection_item_id?: Long;
-  subject_item_id?: Long;
+  collection_item_id?: bigint;
+  subject_item_id?: bigint;
 }
 
 export type CMsgSDONoMemcached = Record<string, never>;
@@ -468,7 +467,7 @@ export interface CMsgGCToGCUpdateSQLKeyValue {
 }
 
 export interface CMsgGCToGCIsTrustedServer {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CMsgGCToGCIsTrustedServerResponse {
@@ -490,7 +489,7 @@ export interface CMsgGCClientVersionUpdated {
 export type CMsgGCToGCWebAPIAccountChanged = Record<string, never>;
 
 export interface CMsgGCToGCRequestPassportItemGrant {
-  steam_id?: Long;
+  steam_id?: bigint;
   league_id?: number;
   reward_flag?: number;
 }
@@ -507,13 +506,13 @@ export interface CMsgGameServerInfo {
   server_loadavg?: number;
   server_tv_broadcast_time?: number;
   server_game_time?: number;
-  server_relay_connected_steam_id?: Long;
+  server_relay_connected_steam_id?: bigint;
   relay_slots_max?: number;
   relays_connected?: number;
   relay_clients_connected?: number;
-  relayed_game_server_steam_id?: Long;
+  relayed_game_server_steam_id?: bigint;
   parent_relay_count?: number;
-  tv_secret_code?: Long;
+  tv_secret_code?: bigint;
 }
 
 export namespace CMsgGameServerInfo {
@@ -530,14 +529,14 @@ export interface CSOEconEquipSlot {
   account_id?: number;
   class_id?: number;
   slot_id?: number;
-  item_id?: Long;
+  item_id?: bigint;
   item_definition?: number;
 }
 
 export interface CMsgAdjustEquipSlot {
   class_id?: number;
   slot_id?: number;
-  item_id?: Long;
+  item_id?: bigint;
 }
 
 export interface CMsgAdjustEquipSlots {
@@ -546,8 +545,8 @@ export interface CMsgAdjustEquipSlots {
 }
 
 export interface CMsgOpenCrate {
-  tool_item_id?: Long;
-  subject_item_id?: Long;
+  tool_item_id?: bigint;
+  subject_item_id?: bigint;
   for_rental?: boolean;
   points_remaining?: number;
   volatile_limit?: number;
@@ -555,12 +554,12 @@ export interface CMsgOpenCrate {
 
 export interface CSOEconRentalHistory {
   account_id?: number;
-  crate_item_id?: Long;
+  crate_item_id?: bigint;
   crate_def_index?: number;
   issue_date?: number;
   expiration_date?: number;
 }
 
 export interface CMsgAcknowledgeRentalExpiration {
-  crate_item_id?: Long;
+  crate_item_id?: bigint;
 }

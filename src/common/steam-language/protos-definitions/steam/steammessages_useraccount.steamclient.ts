@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CUserAccount_GetAvailableValveDiscountPromotions_Request {
   country_code?: string;
@@ -15,9 +14,9 @@ export namespace CUserAccount_GetAvailableValveDiscountPromotions_Response {
   export interface ValveDiscountPromotionDetails {
     promotionid?: number;
     promotion_description?: string;
-    minimum_cart_amount?: Long;
-    minimum_cart_amount_for_display?: Long;
-    discount_amount?: Long;
+    minimum_cart_amount?: bigint;
+    minimum_cart_amount_for_display?: bigint;
+    discount_amount?: bigint;
     currency_code?: number;
     available_use_count?: number;
     promotional_discount_type?: number;
@@ -38,13 +37,13 @@ export interface CUserAccount_GetWalletDetails_Response {
   user_country_code?: string;
   wallet_country_code?: string;
   wallet_state?: string;
-  balance?: Long;
-  delayed_balance?: Long;
+  balance?: bigint;
+  delayed_balance?: bigint;
   currency_code?: number;
   time_most_recent_txn?: number;
-  most_recent_txnid?: Long;
-  balance_in_usd?: Long;
-  delayed_balance_in_usd?: Long;
+  most_recent_txnid?: bigint;
+  balance_in_usd?: bigint;
+  delayed_balance_in_usd?: bigint;
   has_wallet_in_other_regions?: boolean;
   other_regions?: number[];
   formatted_balance?: string;
@@ -69,7 +68,7 @@ export interface CUserAccount_CancelLicenseForApp_Request {
 export type CUserAccount_CancelLicenseForApp_Response = Record<string, never>;
 
 export interface CUserAccount_GetUserCountry_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CUserAccount_GetUserCountry_Response {
@@ -84,8 +83,8 @@ export interface CUserAccount_CreateFriendInviteToken_Request {
 
 export interface CUserAccount_CreateFriendInviteToken_Response {
   invite_token?: string;
-  invite_limit?: Long;
-  invite_duration?: Long;
+  invite_limit?: bigint;
+  invite_duration?: bigint;
   time_created?: number;
   valid?: boolean;
 }
@@ -97,18 +96,18 @@ export interface CUserAccount_GetFriendInviteTokens_Response {
 }
 
 export interface CUserAccount_ViewFriendInviteToken_Request {
-  steamid?: Long;
+  steamid?: bigint;
   invite_token?: string;
 }
 
 export interface CUserAccount_ViewFriendInviteToken_Response {
   valid?: boolean;
-  steamid?: Long;
-  invite_duration?: Long;
+  steamid?: bigint;
+  invite_duration?: bigint;
 }
 
 export interface CUserAccount_RedeemFriendInviteToken_Request {
-  steamid?: Long;
+  steamid?: bigint;
   invite_token?: string;
 }
 
@@ -127,14 +126,14 @@ export interface CUserAccount_RegisterCompatTool_Request {
 export type CUserAccount_RegisterCompatTool_Response = Record<string, never>;
 
 export interface CEmbeddedClient_AuthorizeCurrentDevice_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   device_info?: string;
   deviceid?: number;
 }
 
 export interface CEmbeddedClient_Token {
-  steamid?: Long;
+  steamid?: bigint;
   client_token?: Buffer;
   expiry?: number;
   deviceid?: number;

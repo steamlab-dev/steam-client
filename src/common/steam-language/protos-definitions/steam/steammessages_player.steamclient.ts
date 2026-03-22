@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   ECommunityItemClass,
   ENewSteamAnnouncementState,
@@ -50,7 +48,7 @@ export const ETextFilterSetting = {
 export type ETextFilterSetting = (typeof ETextFilterSetting)[keyof typeof ETextFilterSetting];
 
 export interface CPlayer_GetRecentPlaytimeSessionsForChild_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_GetRecentPlaytimeSessionsForChild_Response {
@@ -68,7 +66,7 @@ export namespace CPlayer_GetRecentPlaytimeSessionsForChild_Response {
 }
 
 export interface CPlayer_GetPlayerLinkDetails_Request {
-  steamids?: Long[];
+  steamids?: bigint[];
 }
 
 export interface CPlayer_GetPlayerLinkDetails_Response {
@@ -80,7 +78,7 @@ export namespace CPlayer_GetPlayerLinkDetails_Response {
 
   export namespace PlayerLinkDetails {
     export interface AccountPublicData {
-      steamid?: Long;
+      steamid?: bigint;
       visibility_state?: number;
       privacy_state?: number;
       profile_state?: number;
@@ -96,15 +94,15 @@ export namespace CPlayer_GetPlayerLinkDetails_Response {
       persona_state?: number;
       persona_state_flags?: number;
       time_created?: number;
-      game_id?: Long;
-      game_server_steam_id?: Long;
+      game_id?: bigint;
+      game_server_steam_id?: bigint;
       game_server_ip_address?: number;
       game_server_port?: number;
       game_extra_info?: string;
       account_name?: string;
-      lobby_steam_id?: Long;
+      lobby_steam_id?: bigint;
       rich_presence_kv?: string;
-      broadcast_session_id?: Long;
+      broadcast_session_id?: bigint;
       watching_broadcast_accountid?: number;
       watching_broadcast_appid?: number;
       watching_broadcast_viewers?: number;
@@ -122,7 +120,7 @@ export namespace CPlayer_GetPlayerLinkDetails_Response {
 export type CPlayer_GetMutualFriendsForIncomingInvites_Request = Record<string, never>;
 
 export interface CPlayer_IncomingInviteMutualFriendList {
-  steamid?: Long;
+  steamid?: bigint;
   mutual_friend_account_ids?: number[];
 }
 
@@ -131,7 +129,7 @@ export interface CPlayer_GetMutualFriendsForIncomingInvites_Response {
 }
 
 export interface CPlayer_GetOwnedGames_Request {
-  steamid?: Long;
+  steamid?: bigint;
   include_appinfo?: boolean;
   include_played_free_games?: boolean;
   appids_filter?: number[];
@@ -195,13 +193,13 @@ export interface CPlayer_GetFriendsGameplayInfo_Response {
 
 export namespace CPlayer_GetFriendsGameplayInfo_Response {
   export interface FriendsGameplayInfo {
-    steamid?: Long;
+    steamid?: bigint;
     minutes_played?: number;
     minutes_played_forever?: number;
   }
 
   export interface OwnGameplayInfo {
-    steamid?: Long;
+    steamid?: bigint;
     minutes_played?: number;
     minutes_played_forever?: number;
     in_wishlist?: boolean;
@@ -227,12 +225,12 @@ export namespace CPlayer_GetGameBadgeLevels_Response {
 }
 
 export interface CPlayer_GetProfileBackground_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
 export interface ProfileItem {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   image_small?: string;
   image_large?: string;
   name?: string;
@@ -262,13 +260,13 @@ export interface CPlayer_GetProfileBackground_Response {
 }
 
 export interface CPlayer_SetProfileBackground_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export type CPlayer_SetProfileBackground_Response = Record<string, never>;
 
 export interface CPlayer_GetMiniProfileBackground_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -277,13 +275,13 @@ export interface CPlayer_GetMiniProfileBackground_Response {
 }
 
 export interface CPlayer_SetMiniProfileBackground_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export type CPlayer_SetMiniProfileBackground_Response = Record<string, never>;
 
 export interface CPlayer_GetAvatarFrame_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -292,13 +290,13 @@ export interface CPlayer_GetAvatarFrame_Response {
 }
 
 export interface CPlayer_SetAvatarFrame_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export type CPlayer_SetAvatarFrame_Response = Record<string, never>;
 
 export interface CPlayer_GetAnimatedAvatar_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -307,13 +305,13 @@ export interface CPlayer_GetAnimatedAvatar_Response {
 }
 
 export interface CPlayer_SetAnimatedAvatar_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export type CPlayer_SetAnimatedAvatar_Response = Record<string, never>;
 
 export interface CPlayer_GetSteamDeckKeyboardSkin_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -322,7 +320,7 @@ export interface CPlayer_GetSteamDeckKeyboardSkin_Response {
 }
 
 export interface CPlayer_SetSteamDeckKeyboardSkin_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export type CPlayer_SetSteamDeckKeyboardSkin_Response = Record<string, never>;
@@ -343,7 +341,7 @@ export interface CPlayer_GetProfileItemsOwned_Response {
 }
 
 export interface CPlayer_GetProfileItemsEquipped_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -357,7 +355,7 @@ export interface CPlayer_GetProfileItemsEquipped_Response {
 }
 
 export interface CPlayer_SetEquippedProfileItemFlags_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   flags?: number;
 }
 
@@ -381,7 +379,7 @@ export namespace CPlayer_GetEmoticonList_Response {
 }
 
 export interface CPlayer_GetCommunityBadgeProgress_Request {
-  steamid?: Long;
+  steamid?: bigint;
   badgeid?: number;
 }
 
@@ -397,7 +395,7 @@ export namespace CPlayer_GetCommunityBadgeProgress_Response {
 }
 
 export interface CPlayer_GetTopAchievementsForGames_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
   max_achievements?: number;
   appids?: number[];
@@ -427,7 +425,7 @@ export namespace CPlayer_GetTopAchievementsForGames_Response {
 }
 
 export interface CPlayer_GetAchievementsProgress_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
   appids?: number[];
   include_unvetted_apps?: boolean;
@@ -471,7 +469,7 @@ export namespace CPlayer_GetGameAchievements_Response {
 }
 
 export interface CPlayer_GetUserStats_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   sha_schema?: Buffer;
   crc_stats?: number;
@@ -498,13 +496,13 @@ export namespace CPlayer_GetUserStats_Response {
 }
 
 export interface CPlayer_GetFavoriteBadge_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_GetFavoriteBadge_Response {
   has_favorite_badge?: boolean;
   badgeid?: number;
-  communityitemid?: Long;
+  communityitemid?: bigint;
   item_type?: number;
   border_color?: number;
   appid?: number;
@@ -512,14 +510,14 @@ export interface CPlayer_GetFavoriteBadge_Response {
 }
 
 export interface CPlayer_SetFavoriteBadge_Request {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   badgeid?: number;
 }
 
 export type CPlayer_SetFavoriteBadge_Response = Record<string, never>;
 
 export interface CPlayer_GetProfileCustomization_Request {
-  steamid?: Long;
+  steamid?: bigint;
   include_inactive_customizations?: boolean;
   include_purchased_customizations?: boolean;
 }
@@ -527,16 +525,16 @@ export interface CPlayer_GetProfileCustomization_Request {
 export interface ProfileCustomizationSlot {
   slot?: number;
   appid?: number;
-  publishedfileid?: Long;
-  item_assetid?: Long;
-  item_contextid?: Long;
+  publishedfileid?: bigint;
+  item_assetid?: bigint;
+  item_contextid?: bigint;
   notes?: string;
   title?: string;
   accountid?: number;
   badgeid?: number;
   border_color?: number;
-  item_classid?: Long;
-  item_instanceid?: Long;
+  item_classid?: bigint;
+  item_instanceid?: bigint;
   ban_check_result?: EBanContentCheckResult;
   replay_year?: number;
 }
@@ -547,7 +545,7 @@ export interface ProfileCustomization {
   slots?: ProfileCustomizationSlot[];
   active?: boolean;
   customization_style?: EProfileCustomizationStyle;
-  purchaseid?: Long;
+  purchaseid?: bigint;
   level?: number;
 }
 
@@ -570,14 +568,14 @@ export interface CPlayer_GetProfileCustomization_Response {
 
 export namespace CPlayer_GetProfileCustomization_Response {
   export interface PurchasedCustomization {
-    purchaseid?: Long;
+    purchaseid?: bigint;
     customization_type?: EProfileCustomizationType;
     level?: number;
   }
 }
 
 export interface CPlayer_GetPurchasedProfileCustomizations_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_GetPurchasedProfileCustomizations_Response {
@@ -586,13 +584,13 @@ export interface CPlayer_GetPurchasedProfileCustomizations_Response {
 
 export namespace CPlayer_GetPurchasedProfileCustomizations_Response {
   export interface PurchasedCustomization {
-    purchaseid?: Long;
+    purchaseid?: bigint;
     customization_type?: EProfileCustomizationType;
   }
 }
 
 export interface CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_GetPurchasedAndUpgradedProfileCustomizations_Response {
@@ -638,20 +636,20 @@ export interface CPlayer_PostStatusToFriends_Request {
 export type CPlayer_PostStatusToFriends_Response = Record<string, never>;
 
 export interface CPlayer_GetPostedStatus_Request {
-  steamid?: Long;
-  postid?: Long;
+  steamid?: bigint;
+  postid?: bigint;
 }
 
 export interface CPlayer_GetPostedStatus_Response {
   accountid?: number;
-  postid?: Long;
+  postid?: bigint;
   status_text?: string;
   deleted?: boolean;
   appid?: number;
 }
 
 export interface CPlayer_DeletePostedStatus_Request {
-  postid?: Long;
+  postid?: bigint;
 }
 
 export type CPlayer_DeletePostedStatus_Response = Record<string, never>;
@@ -740,7 +738,7 @@ export interface CPlayer_SetPerFriendPreferences_Request {
 export type CPlayer_SetPerFriendPreferences_Response = Record<string, never>;
 
 export interface CPlayer_AddFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_AddFriend_Response {
@@ -750,7 +748,7 @@ export interface CPlayer_AddFriend_Response {
 }
 
 export interface CPlayer_RemoveFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlayer_RemoveFriend_Response {
@@ -758,7 +756,7 @@ export interface CPlayer_RemoveFriend_Response {
 }
 
 export interface CPlayer_IgnoreFriend_Request {
-  steamid?: Long;
+  steamid?: bigint;
   unignore?: boolean;
 }
 
@@ -808,11 +806,11 @@ export interface CPlayer_GetNewSteamAnnouncementState_Response {
   announcement_headline?: string;
   announcement_url?: string;
   time_posted?: number;
-  announcement_gid?: Long;
+  announcement_gid?: bigint;
 }
 
 export interface CPlayer_UpdateSteamAnnouncementLastRead_Request {
-  announcement_gid?: Long;
+  announcement_gid?: bigint;
   time_posted?: number;
 }
 
@@ -883,7 +881,7 @@ export interface CPlayer_NewSteamAnnouncementState_Notification {
   announcement_headline?: string;
   announcement_url?: string;
   time_posted?: number;
-  announcement_gid?: Long;
+  announcement_gid?: bigint;
 }
 
 export interface CPlayer_CommunityPreferencesChanged_Notification {

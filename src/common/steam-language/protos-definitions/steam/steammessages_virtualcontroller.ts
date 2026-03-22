@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EInputMode = {
   k_EInputModeUnknown: 0,
@@ -135,7 +134,7 @@ export namespace CVirtualControllerConfig {
 
 export interface CVirtualControllerLayoutPackage {
   appid?: number;
-  creator?: Long;
+  creator?: bigint;
   initial_revision?: number;
   saved_revision?: number;
   config?: CVirtualControllerConfig;

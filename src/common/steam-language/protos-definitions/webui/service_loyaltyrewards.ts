@@ -1,13 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { LoyaltyRewardDefinition } from "./common";
 
 export interface CLoyaltyRewards_AddReaction_Request {
   target_type?: number;
-  targetid?: Long;
+  targetid?: bigint;
   reactionid?: number;
 }
 
@@ -47,7 +45,7 @@ export interface CLoyaltyRewards_GetEligibleApps_Response_EligibleApp {
 }
 
 export interface CLoyaltyRewards_GetEquippedProfileItems_Request {
-  steamid?: Long;
+  steamid?: bigint;
   language?: string;
 }
 
@@ -58,12 +56,12 @@ export interface CLoyaltyRewards_GetEquippedProfileItems_Response {
 }
 
 export interface CLoyaltyRewards_GetPointsForSpend_Request {
-  amount?: Long;
+  amount?: bigint;
   ecurrency?: number;
 }
 
 export interface CLoyaltyRewards_GetPointsForSpend_Response {
-  points?: Long;
+  points?: bigint;
 }
 
 export type CLoyaltyRewards_GetProfileCustomizationsConfig_Request = Record<string, never>;
@@ -99,7 +97,7 @@ export interface CLoyaltyRewards_GetReactionConfig_Response_ReactionConfig {
 
 export interface CLoyaltyRewards_GetReactions_Request {
   target_type?: number;
-  targetid?: Long;
+  targetid?: bigint;
 }
 
 export interface CLoyaltyRewards_GetReactions_Response {
@@ -107,7 +105,7 @@ export interface CLoyaltyRewards_GetReactions_Response {
 }
 
 export interface CLoyaltyRewards_GetReactionsSummaryForUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CLoyaltyRewards_GetReactionsSummaryForUser_Response {
@@ -119,33 +117,33 @@ export interface CLoyaltyRewards_GetReactionsSummaryForUser_Response {
   comments?: CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown[];
   total_given?: number;
   total_received?: number;
-  total_points_given?: Long;
-  total_points_received?: Long;
+  total_points_given?: bigint;
+  total_points_received?: bigint;
 }
 
 export interface CLoyaltyRewards_GetReactionsSummaryForUser_Response_Breakdown {
   reactionid?: number;
   given?: number;
   received?: number;
-  points_given?: Long;
-  points_received?: Long;
+  points_given?: bigint;
+  points_received?: bigint;
   purchaseable?: boolean;
 }
 
 export interface CLoyaltyRewards_GetSummary_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CLoyaltyRewards_GetSummary_Response {
   summary?: CLoyaltyRewards_GetSummary_Response_Summary;
   timestamp_updated?: number;
-  auditid_highwater?: Long;
+  auditid_highwater?: bigint;
 }
 
 export interface CLoyaltyRewards_GetSummary_Response_Summary {
-  points?: Long;
-  points_earned?: Long;
-  points_spent?: Long;
+  points?: bigint;
+  points_earned?: bigint;
+  points_spent?: bigint;
 }
 
 export interface CLoyaltyRewards_QueryRewardItems_Request {
@@ -181,12 +179,12 @@ export interface CLoyaltyRewards_QueryRewardItems_Response {
 
 export interface CLoyaltyRewards_RedeemPoints_Request {
   defid?: number;
-  expected_points_cost?: Long;
+  expected_points_cost?: bigint;
 }
 
 export interface CLoyaltyRewards_RedeemPoints_Response {
-  communityitemid?: Long;
-  bundle_community_item_ids?: Long[];
+  communityitemid?: bigint;
+  bundle_community_item_ids?: bigint[];
 }
 
 export interface CLoyaltyRewards_RedeemPointsForBadgeLevel_Request {
@@ -199,7 +197,7 @@ export interface CLoyaltyRewards_RedeemPointsForProfileCustomization_Request {
 }
 
 export interface CLoyaltyRewards_RedeemPointsForProfileCustomization_Response {
-  purchaseid?: Long;
+  purchaseid?: bigint;
 }
 
 export interface CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Request {
@@ -214,7 +212,7 @@ export type CLoyaltyRewards_RedeemPointsForProfileCustomizationUpgrade_Response 
 
 export interface CLoyaltyRewards_RedeemPointsToUpgradeItem_Request {
   defid?: number;
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export interface CLoyaltyRewards_RegisterForSteamDeckRewards_Request {
@@ -227,7 +225,7 @@ export interface CLoyaltyRewards_RegisterForSteamDeckRewards_Response {
 }
 
 export interface LoyaltyRewardPurchaseBonus {
-  bonusid?: Long;
+  bonusid?: bigint;
   appid?: number;
   active?: boolean;
   points?: number;

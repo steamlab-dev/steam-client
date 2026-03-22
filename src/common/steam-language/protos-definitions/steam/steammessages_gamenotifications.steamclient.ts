@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CGameNotifications_Variable {
   key?: string;
@@ -15,7 +14,7 @@ export interface CGameNotifications_LocalizedText {
 }
 
 export interface CGameNotifications_UserStatus {
-  steamid?: Long;
+  steamid?: bigint;
   state?: string;
   title?: CGameNotifications_LocalizedText;
   message?: CGameNotifications_LocalizedText;
@@ -23,30 +22,30 @@ export interface CGameNotifications_UserStatus {
 
 export interface CGameNotifications_CreateSession_Request {
   appid?: number;
-  context?: Long;
+  context?: bigint;
   title?: CGameNotifications_LocalizedText;
   users?: CGameNotifications_UserStatus[];
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CGameNotifications_CreateSession_Response {
-  sessionid?: Long;
+  sessionid?: bigint;
 }
 
 export interface CGameNotifications_DeleteSession_Request {
-  sessionid?: Long;
+  sessionid?: bigint;
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CGameNotifications_DeleteSession_Response = Record<string, never>;
 
 export interface CGameNotifications_UpdateSession_Request {
-  sessionid?: Long;
+  sessionid?: bigint;
   appid?: number;
   title?: CGameNotifications_LocalizedText;
   users?: CGameNotifications_UserStatus[];
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CGameNotifications_UpdateSession_Response = Record<string, never>;
@@ -59,9 +58,9 @@ export interface CGameNotifications_EnumerateSessions_Request {
 }
 
 export interface CGameNotifications_Session {
-  sessionid?: Long;
-  appid?: Long;
-  context?: Long;
+  sessionid?: bigint;
+  appid?: bigint;
+  context?: bigint;
   title?: CGameNotifications_LocalizedText;
   time_created?: number;
   time_updated?: number;
@@ -80,7 +79,7 @@ export interface CGameNotifications_GetSessionDetails_Request {
 
 export namespace CGameNotifications_GetSessionDetails_Request {
   export interface RequestedSession {
-    sessionid?: Long;
+    sessionid?: bigint;
     include_auth_user_message?: boolean;
   }
 }
@@ -101,13 +100,13 @@ export interface CGameNotifications_UpdateNotificationSettings_Request {
 export type CGameNotifications_UpdateNotificationSettings_Response = Record<string, never>;
 
 export interface CGameNotifications_OnNotificationsRequested_Notification {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
 }
 
 export interface CGameNotifications_OnUserStatusChanged_Notification {
-  steamid?: Long;
-  sessionid?: Long;
+  steamid?: bigint;
+  sessionid?: bigint;
   appid?: number;
   status?: CGameNotifications_UserStatus;
   removed?: boolean;

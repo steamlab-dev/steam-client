@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CEmbeddedClient_AuthorizeCurrentDevice_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   device_info?: string;
   deviceid?: number;
@@ -16,7 +15,7 @@ export interface CEmbeddedClient_AuthorizeDevice_Response {
 }
 
 export interface CEmbeddedClient_Token {
-  steamid?: Long;
+  steamid?: bigint;
   client_token?: Buffer;
   expiry?: number;
   deviceid?: number;

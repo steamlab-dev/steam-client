@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./steammessages_base";
 
 export interface CCredentials_GetSteamGuardDetails_Request {
@@ -18,7 +16,7 @@ export interface CCredentials_GetSteamGuardDetails_Response {
   deprecated_machine_name_userchosen?: string;
   deprecated_timestamp_machine_steamguard_enabled?: number;
   deprecated_authentication_exists_from_geoloc_before_mintime?: boolean;
-  deprecated_machine_id?: Long;
+  deprecated_machine_id?: bigint;
   session_data?: CCredentials_GetSteamGuardDetails_Response.SessionData[];
   is_twofactor_enabled?: boolean;
   timestamp_twofactor_enabled?: number;
@@ -27,7 +25,7 @@ export interface CCredentials_GetSteamGuardDetails_Response {
 
 export namespace CCredentials_GetSteamGuardDetails_Response {
   export interface SessionData {
-    machine_id?: Long;
+    machine_id?: bigint;
     machine_name_userchosen?: string;
     timestamp_machine_steamguard_enabled?: number;
     authentication_exists_from_geoloc_before_mintime?: boolean;

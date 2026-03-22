@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAchievements_GetInfo_Request {
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export interface CAchievements_GetInfo_Response {

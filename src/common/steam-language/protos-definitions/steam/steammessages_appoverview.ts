@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { EProtoAppType } from "./enums";
 
 export const EDisplayStatus = {
@@ -94,7 +92,7 @@ export const EAppHDRSupport = {
 export type EAppHDRSupport = (typeof EAppHDRSupport)[keyof typeof EAppHDRSupport];
 
 export interface CAppOverview_PerClientData {
-  clientid?: Long;
+  clientid?: bigint;
   client_name?: string;
   display_status?: EDisplayStatus;
   status_percentage?: number;
@@ -127,15 +125,15 @@ export interface CAppOverview {
   xbox_controller_support?: EAppControllerSupportLevel;
   vr_supported?: boolean;
   metacritic_score?: number;
-  size_on_disk?: Long;
+  size_on_disk?: bigint;
   third_party_mod?: boolean;
   icon_data?: string;
   icon_data_format?: string;
   gameid?: string;
   library_capsule_filename?: string;
   per_client_data?: CAppOverview_PerClientData[];
-  most_available_clientid?: Long;
-  selected_clientid?: Long;
+  most_available_clientid?: bigint;
+  selected_clientid?: bigint;
   rt_store_asset_mtime?: number;
   rt_custom_image_mtime?: number;
   optional_parent_app_id?: number;
@@ -159,7 +157,7 @@ export interface CAppOverview {
   album_cover_hash?: string;
   display_name_elanguage?: number;
   has_custom_sort_as?: boolean;
-  bitfield_supported_languages?: Long;
+  bitfield_supported_languages?: bigint;
 }
 
 export interface CAppOverview_Change {

@@ -1,16 +1,15 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CInventory_GetInventory_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CInventory_Response {
   etag?: string;
-  removeditemids?: Long[];
+  removeditemids?: bigint[];
   item_json?: string;
   itemdef_json?: string;
   ticket?: Buffer;
@@ -19,47 +18,47 @@ export interface CInventory_Response {
 
 export interface CInventory_ExchangeItem_Request {
   appid?: number;
-  steamid?: Long;
-  materialsitemid?: Long[];
+  steamid?: bigint;
+  materialsitemid?: bigint[];
   materialsquantity?: number[];
-  outputitemdefid?: Long;
+  outputitemdefid?: bigint;
 }
 
 export interface CInventory_GetEligiblePromoItemDefIDs_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CInventory_GetEligiblePromoItemDefIDs_Response {
-  itemdefids?: Long[];
+  itemdefids?: bigint[];
 }
 
 export interface CInventory_AddItem_Request {
   appid?: number;
-  itemdefid?: Long[];
+  itemdefid?: bigint[];
   itempropsjson?: string[];
   itemquantity?: number[];
-  steamid?: Long;
+  steamid?: bigint;
   notify?: boolean;
-  requestid?: Long;
+  requestid?: bigint;
   trade_restriction?: boolean;
   is_purchase?: boolean;
 }
 
 export interface CInventory_ModifyItems_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
   updates?: CInventory_ModifyItems_Request.ItemPropertyUpdate[];
   timestamp?: number;
 }
 
 export namespace CInventory_ModifyItems_Request {
   export interface ItemPropertyUpdate {
-    itemid?: Long;
+    itemid?: bigint;
     remove_property?: boolean;
     property_name?: string;
     property_value_bool?: boolean;
-    property_value_int?: Long;
+    property_value_int?: bigint;
     property_value_string?: string;
     property_value_float?: number;
   }
@@ -67,37 +66,37 @@ export namespace CInventory_ModifyItems_Request {
 
 export interface CInventory_ConsumePlaytime_Request {
   appid?: number;
-  itemdefid?: Long;
+  itemdefid?: bigint;
 }
 
 export interface CInventory_ConsumeItem_Request {
   appid?: number;
-  itemid?: Long;
+  itemid?: bigint;
   quantity?: number;
   timestamp?: string;
-  steamid?: Long;
-  requestid?: Long;
+  steamid?: bigint;
+  requestid?: bigint;
 }
 
 export interface CInventory_DevSetNextDrop_Request {
   appid?: number;
-  itemdefid?: Long;
+  itemdefid?: bigint;
   droptime?: string;
 }
 
 export interface CInventory_SplitItemStack_Request {
   appid?: number;
-  itemid?: Long;
+  itemid?: bigint;
   quantity?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CInventory_CombineItemStacks_Request {
   appid?: number;
-  fromitemid?: Long;
-  destitemid?: Long;
+  fromitemid?: bigint;
+  destitemid?: bigint;
   quantity?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CInventory_GetItemDefMeta_Request {
@@ -123,25 +122,25 @@ export interface CInventory_PurchaseInit_Request {
 
 export namespace CInventory_PurchaseInit_Request {
   export interface LineItem {
-    itemdefid?: Long;
+    itemdefid?: bigint;
     quantity?: number;
   }
 }
 
 export interface CInventory_PurchaseInit_Response {
-  orderid?: Long;
-  transid?: Long;
+  orderid?: bigint;
+  transid?: bigint;
 }
 
 export interface CInventory_PurchaseFinalize_Request {
   appid?: number;
   language?: number;
-  orderid?: Long;
+  orderid?: bigint;
 }
 
 export interface CInventory_InspectItem_Request {
-  itemdefid?: Long;
-  itemid?: Long;
+  itemdefid?: bigint;
+  itemid?: bigint;
   tags?: string;
 }
 

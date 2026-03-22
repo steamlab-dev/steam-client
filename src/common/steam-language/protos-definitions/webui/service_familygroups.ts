@@ -1,63 +1,62 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CFamilyGroups_CancelFamilyGroupInvite_Request {
-  family_groupid?: Long;
-  steamid_to_cancel?: Long;
+  family_groupid?: bigint;
+  steamid_to_cancel?: bigint;
 }
 
 export type CFamilyGroups_CancelFamilyGroupInvite_Response = Record<string, never>;
 
 export interface CFamilyGroups_ClearCooldownSkip_Request {
-  steamid?: Long;
-  invite_id?: Long;
+  steamid?: bigint;
+  invite_id?: bigint;
 }
 
 export type CFamilyGroups_ClearCooldownSkip_Response = Record<string, never>;
 
 export interface CFamilyGroups_ConfirmInviteToFamilyGroup_Request {
-  family_groupid?: Long;
-  invite_id?: Long;
-  nonce?: Long;
+  family_groupid?: bigint;
+  invite_id?: bigint;
+  nonce?: bigint;
 }
 
 export type CFamilyGroups_ConfirmInviteToFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_ConfirmJoinFamilyGroup_Request {
-  family_groupid?: Long;
-  invite_id?: Long;
-  nonce?: Long;
+  family_groupid?: bigint;
+  invite_id?: bigint;
+  nonce?: bigint;
 }
 
 export type CFamilyGroups_ConfirmJoinFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_CreateFamilyGroup_Request {
   name?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CFamilyGroups_CreateFamilyGroup_Response {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   cooldown_skip_granted?: boolean;
 }
 
 export interface CFamilyGroups_DeleteFamilyGroup_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export type CFamilyGroups_DeleteFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_ForceAcceptInvite_Request {
-  family_groupid?: Long;
-  steamid?: Long;
+  family_groupid?: bigint;
+  steamid?: bigint;
 }
 
 export type CFamilyGroups_ForceAcceptInvite_Response = Record<string, never>;
 
 export interface CFamilyGroups_GetChangeLog_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export interface CFamilyGroups_GetChangeLog_Response {
@@ -65,15 +64,15 @@ export interface CFamilyGroups_GetChangeLog_Response {
 }
 
 export interface CFamilyGroups_GetChangeLog_Response_Change {
-  timestamp?: Long;
-  actor_steamid?: Long;
+  timestamp?: bigint;
+  actor_steamid?: bigint;
   type?: number;
   body?: string;
   by_support?: boolean;
 }
 
 export interface CFamilyGroups_GetFamilyGroup_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   send_running_apps?: boolean;
 }
 
@@ -89,15 +88,15 @@ export interface CFamilyGroups_GetFamilyGroup_Response {
 }
 
 export interface CFamilyGroups_GetFamilyGroupForUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
   include_family_group_response?: boolean;
 }
 
 export interface CFamilyGroups_GetFamilyGroupForUser_Response {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   is_not_member_of_any_group?: boolean;
   latest_time_joined?: number;
-  latest_joined_family_groupid?: Long;
+  latest_joined_family_groupid?: bigint;
   pending_group_invites?: FamilyGroupPendingInviteForUser[];
   role?: number;
   cooldown_seconds_remaining?: number;
@@ -107,8 +106,8 @@ export interface CFamilyGroups_GetFamilyGroupForUser_Response {
 }
 
 export interface CFamilyGroups_GetInviteCheckResults_Request {
-  family_groupid?: Long;
-  steamid?: Long;
+  family_groupid?: bigint;
+  steamid?: bigint;
 }
 
 export interface CFamilyGroups_GetInviteCheckResults_Response {
@@ -118,7 +117,7 @@ export interface CFamilyGroups_GetInviteCheckResults_Response {
 }
 
 export interface CFamilyGroups_GetPlaytimeSummary_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export interface CFamilyGroups_GetPlaytimeSummary_Response {
@@ -127,7 +126,7 @@ export interface CFamilyGroups_GetPlaytimeSummary_Response {
 }
 
 export interface CFamilyGroups_GetPreferredLenders_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export interface CFamilyGroups_GetPreferredLenders_Response {
@@ -135,13 +134,13 @@ export interface CFamilyGroups_GetPreferredLenders_Response {
 }
 
 export interface CFamilyGroups_GetPreferredLenders_Response_FamilyMember {
-  steamid?: Long;
+  steamid?: bigint;
   preferred_appids?: number[];
 }
 
 export interface CFamilyGroups_GetPurchaseRequests_Request {
-  family_groupid?: Long;
-  request_ids?: Long[];
+  family_groupid?: bigint;
+  request_ids?: bigint[];
   rt_include_completed_since?: number;
 }
 
@@ -150,23 +149,23 @@ export interface CFamilyGroups_GetPurchaseRequests_Response {
 }
 
 export interface CFamilyGroups_GetSharedLibraryApps_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   include_own?: boolean;
   include_excluded?: boolean;
   language?: string;
   max_apps?: number;
   include_non_games?: boolean;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CFamilyGroups_GetSharedLibraryApps_Response {
   apps?: CFamilyGroups_GetSharedLibraryApps_Response_SharedApp[];
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
 }
 
 export interface CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
   appid?: number;
-  owner_steamids?: Long[];
+  owner_steamids?: bigint[];
   name?: string;
   sort_as?: string;
   capsule_filename?: string;
@@ -180,28 +179,28 @@ export interface CFamilyGroups_GetSharedLibraryApps_Response_SharedApp {
 }
 
 export interface CFamilyGroups_GetUsersSharingDevice_Request {
-  family_groupid?: Long;
-  client_instance_id?: Long;
+  family_groupid?: bigint;
+  client_instance_id?: bigint;
 }
 
 export interface CFamilyGroups_GetUsersSharingDevice_Response {
-  users?: Long[];
+  users?: bigint[];
 }
 
 export interface CFamilyGroups_InviteToFamilyGroup_Request {
-  family_groupid?: Long;
-  receiver_steamid?: Long;
+  family_groupid?: bigint;
+  receiver_steamid?: bigint;
   receiver_role?: number;
 }
 
 export interface CFamilyGroups_InviteToFamilyGroup_Response {
-  invite_id?: Long;
+  invite_id?: bigint;
   two_factor_method?: number;
 }
 
 export interface CFamilyGroups_JoinFamilyGroup_Request {
-  family_groupid?: Long;
-  nonce?: Long;
+  family_groupid?: bigint;
+  nonce?: bigint;
 }
 
 export interface CFamilyGroups_JoinFamilyGroup_Response {
@@ -212,14 +211,14 @@ export interface CFamilyGroups_JoinFamilyGroup_Response {
 }
 
 export interface CFamilyGroups_ModifyFamilyGroupDetails_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   name?: string;
 }
 
 export type CFamilyGroups_ModifyFamilyGroupDetails_Response = Record<string, never>;
 
 export interface CFamilyGroups_PlaytimeEntry {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   first_played?: number;
   latest_played?: number;
@@ -227,81 +226,81 @@ export interface CFamilyGroups_PlaytimeEntry {
 }
 
 export interface CFamilyGroups_RemoveFromFamilyGroup_Request {
-  family_groupid?: Long;
-  steamid_to_remove?: Long;
+  family_groupid?: bigint;
+  steamid_to_remove?: bigint;
 }
 
 export type CFamilyGroups_RemoveFromFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_RequestPurchase_Request {
-  family_groupid?: Long;
-  gidshoppingcart?: Long;
+  family_groupid?: bigint;
+  gidshoppingcart?: bigint;
   store_country_code?: string;
   use_account_cart?: boolean;
 }
 
 export interface CFamilyGroups_RequestPurchase_Response {
-  gidshoppingcart?: Long;
-  request_id?: Long;
+  gidshoppingcart?: bigint;
+  request_id?: bigint;
 }
 
 export interface CFamilyGroups_ResendInvitationToFamilyGroup_Request {
-  family_groupid?: Long;
-  steamid?: Long;
+  family_groupid?: bigint;
+  steamid?: bigint;
 }
 
 export type CFamilyGroups_ResendInvitationToFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_RespondToRequestedPurchase_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   action?: number;
-  request_id?: Long;
+  request_id?: bigint;
 }
 
 export type CFamilyGroups_RespondToRequestedPurchase_Response = Record<string, never>;
 
 export interface CFamilyGroups_RollbackFamilyGroup_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   rtime32_target?: number;
 }
 
 export type CFamilyGroups_RollbackFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroups_SetFamilyCooldownOverrides_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   cooldown_count?: number;
 }
 
 export type CFamilyGroups_SetFamilyCooldownOverrides_Response = Record<string, never>;
 
 export interface CFamilyGroups_SetPreferredLender_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   appid?: number;
-  lender_steamid?: Long;
+  lender_steamid?: bigint;
 }
 
 export type CFamilyGroups_SetPreferredLender_Response = Record<string, never>;
 
 export interface CFamilyGroups_UndeleteFamilyGroup_Request {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export type CFamilyGroups_UndeleteFamilyGroup_Response = Record<string, never>;
 
 export interface CFamilyGroupsClient_GroupChanged_Notification {
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export type CFamilyGroupsClient_InviteStatus_Notification = Record<string, never>;
 
 export interface CFamilyGroupsClient_NotifyRunningApps_Notification {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   running_apps?: CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp[];
 }
 
 export interface CFamilyGroupsClient_NotifyRunningApps_Notification_PlayingMember {
-  member_steamid?: Long;
-  owner_steamid?: Long;
+  member_steamid?: bigint;
+  owner_steamid?: bigint;
 }
 
 export interface CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp {
@@ -310,18 +309,18 @@ export interface CFamilyGroupsClient_NotifyRunningApps_Notification_RunningApp {
 }
 
 export interface FamilyGroupFormerMember {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface FamilyGroupMember {
-  steamid?: Long;
+  steamid?: bigint;
   role?: number;
   time_joined?: number;
   cooldown_seconds_remaining?: number;
 }
 
 export interface FamilyGroupMembership {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   rtime_joined?: number;
   rtime_left?: number;
   role?: number;
@@ -329,27 +328,27 @@ export interface FamilyGroupMembership {
 }
 
 export interface FamilyGroupPendingInvite {
-  steamid?: Long;
+  steamid?: bigint;
   role?: number;
 }
 
 export interface FamilyGroupPendingInviteForUser {
-  family_groupid?: Long;
+  family_groupid?: bigint;
   role?: number;
-  inviter_steamid?: Long;
+  inviter_steamid?: bigint;
   awaiting_2fa?: boolean;
-  invite_id?: Long;
+  invite_id?: bigint;
 }
 
 export interface PurchaseRequest {
-  requester_steamid?: Long;
-  gidshoppingcart?: Long;
+  requester_steamid?: bigint;
+  gidshoppingcart?: bigint;
   time_requested?: number;
   time_responded?: number;
-  responder_steamid?: Long;
+  responder_steamid?: bigint;
   response_action?: number;
   is_completed?: boolean;
-  request_id?: Long;
+  request_id?: bigint;
   requested_packageids?: number[];
   purchased_packageids?: number[];
   requested_bundleids?: number[];

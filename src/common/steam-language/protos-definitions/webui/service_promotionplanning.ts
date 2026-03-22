@@ -1,17 +1,16 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPromoAssociation {
   type?: number;
-  gid?: Long;
-  promotion_planid?: Long;
+  gid?: bigint;
+  promotion_planid?: bigint;
 }
 
 export interface CPromotionNotificationResults {
-  notification_id?: Long;
-  tracking_id?: Long;
+  notification_id?: bigint;
+  tracking_id?: bigint;
   email_address?: string;
   accountid?: number;
   status?: number;
@@ -20,7 +19,7 @@ export interface CPromotionNotificationResults {
 }
 
 export interface CPromotionPlan {
-  promotion_id?: Long;
+  promotion_id?: bigint;
   admin_jsondata?: string;
   partner_jsondata?: string;
   input_jsondata?: string;
@@ -37,11 +36,11 @@ export interface CPromotionPlan {
 
 export interface CPromotionPlan_CreateSalePageForPromo_Request {
   clan_account_id?: number;
-  clan_event_gid?: Long;
+  clan_event_gid?: bigint;
   rtime_sale_start?: number;
   rtime_sale_end?: number;
-  daily_deal_gid?: Long;
-  promotion_gid?: Long;
+  daily_deal_gid?: bigint;
+  promotion_gid?: bigint;
   create_asset_request?: boolean;
   partner_id?: number;
   advertising_appid?: number;
@@ -49,15 +48,15 @@ export interface CPromotionPlan_CreateSalePageForPromo_Request {
 
 export interface CPromotionPlan_CreateSalePageForPromo_Response {
   clan_account_id?: number;
-  clan_event_gid?: Long;
-  daily_deal_gid?: Long;
-  promotion_gid?: Long;
-  asset_request_gid?: Long;
+  clan_event_gid?: bigint;
+  daily_deal_gid?: bigint;
+  promotion_gid?: bigint;
+  asset_request_gid?: bigint;
   advertising_appid?: number;
 }
 
 export interface CPromotionPlan_GetPromotionPlanSalesDaily_Request {
-  promotionids?: Long[];
+  promotionids?: bigint[];
   partnerid?: number;
 }
 
@@ -82,28 +81,28 @@ export interface CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product {
 }
 
 export interface CPromotionPlan_GetPromotionPlanSalesDaily_Response_PromotionSaleData {
-  promotionid?: Long;
+  promotionid?: bigint;
   daily_promo_sales?: CPromotionPlan_GetPromotionPlanSalesDaily_Response_DailyPromotionSales[];
   summary_sales?: CPromotionPlan_SummarySaleResult;
   products?: CPromotionPlan_GetPromotionPlanSalesDaily_Response_Product[];
 }
 
 export interface CPromotionPlan_SummarySaleResult {
-  total_gross_sales_usdx100?: Long;
-  total_gross_returns_usdx100?: Long;
-  total_net_tax_usdx100?: Long;
-  steam_gross_sales_usdx100?: Long;
-  steam_gross_returns_usdx100?: Long;
-  steam_net_tax_usdx100?: Long;
-  in_game_gross_sales_usdx100?: Long;
-  in_game_gross_returns_usdx100?: Long;
-  in_game_net_tax_usdx100?: Long;
-  total_net_sales_usdx100?: Long;
-  steam_net_sales_usdx100?: Long;
-  in_game_net_sales_usdx100?: Long;
-  steam_gross_units_sold?: Long;
-  steam_gross_units_returned?: Long;
-  gross_units_activated?: Long;
+  total_gross_sales_usdx100?: bigint;
+  total_gross_returns_usdx100?: bigint;
+  total_net_tax_usdx100?: bigint;
+  steam_gross_sales_usdx100?: bigint;
+  steam_gross_returns_usdx100?: bigint;
+  steam_net_tax_usdx100?: bigint;
+  in_game_gross_sales_usdx100?: bigint;
+  in_game_gross_returns_usdx100?: bigint;
+  in_game_net_tax_usdx100?: bigint;
+  total_net_sales_usdx100?: bigint;
+  steam_net_sales_usdx100?: bigint;
+  in_game_net_sales_usdx100?: bigint;
+  steam_gross_units_sold?: bigint;
+  steam_gross_units_returned?: bigint;
+  gross_units_activated?: bigint;
 }
 
 export interface CPromotionPlanning_CreatePlan_Request {
@@ -111,12 +110,12 @@ export interface CPromotionPlanning_CreatePlan_Request {
 }
 
 export interface CPromotionPlanning_CreatePlan_Response {
-  promotion_id?: Long;
+  promotion_id?: bigint;
   input_access_key?: string;
 }
 
 export interface CPromotionPlanning_DeletePlan_Request {
-  promotion_id?: Long;
+  promotion_id?: bigint;
 }
 
 export type CPromotionPlanning_DeletePlan_Response = Record<string, never>;
@@ -154,7 +153,7 @@ export interface CPromotionPlanning_GetAllPlansForApps_Response {
 
 export interface CPromotionPlanning_GetAllPlansForApps_Response_CAppIncludedInSales {
   appids?: number[];
-  clan_event_gid?: Long;
+  clan_event_gid?: bigint;
 }
 
 export interface CPromotionPlanning_GetAllPlansForPartner_Request {
@@ -169,7 +168,7 @@ export interface CPromotionPlanning_GetAllPlansForPartner_Response {
 }
 
 export interface CPromotionPlanning_GetPlan_Request {
-  promotion_id?: Long;
+  promotion_id?: bigint;
 }
 
 export interface CPromotionPlanning_GetPlan_Response {
@@ -210,7 +209,7 @@ export interface CPromotionPlanning_GetPlansUpdatedSince_Request {
 
 export interface CPromotionPlanning_GetPlansUpdatedSince_Response {
   plans?: CPromotionPlan[];
-  deleted_plan_ids?: Long[];
+  deleted_plan_ids?: bigint[];
 }
 
 export interface CPromotionPlanning_GetPromotionPlanForSalePages_Request {
@@ -219,7 +218,7 @@ export interface CPromotionPlanning_GetPromotionPlanForSalePages_Request {
 
 export interface CPromotionPlanning_GetPromotionPlanForSalePages_Request_CSalePage {
   clan_account_id?: number;
-  gid_clan_event?: Long;
+  gid_clan_event?: bigint;
 }
 
 export interface CPromotionPlanning_GetPromotionPlanForSalePages_Response {
@@ -244,7 +243,7 @@ export interface CPromotionPlanning_GetSalePageCandidatesForPromo_Response_clan 
 
 export interface CPromotionPlanning_GetSalePageCandidatesForPromo_Response_salepage {
   clan_account_id?: number;
-  gid_clan_event?: Long;
+  gid_clan_event?: bigint;
   name?: string;
   published?: boolean;
   start_time?: number;
@@ -253,8 +252,8 @@ export interface CPromotionPlanning_GetSalePageCandidatesForPromo_Response_salep
 }
 
 export interface CPromotionPlanning_GetSentNotification_Request {
-  promotion_id?: Long;
-  notification_id?: Long;
+  promotion_id?: bigint;
+  notification_id?: bigint;
 }
 
 export interface CPromotionPlanning_GetSentNotification_Response {
@@ -299,15 +298,15 @@ export interface CPromotionPlanning_GetUpcomingScheduledDiscounts_Response_CUpco
 }
 
 export interface CPromotionPlanning_MarkLocalizationAssetComplete_Request {
-  promotion_id?: Long;
+  promotion_id?: bigint;
   value?: boolean;
 }
 
 export type CPromotionPlanning_MarkLocalizationAssetComplete_Response = Record<string, never>;
 
 export interface CPromotionPlanning_ResendNotification_Request {
-  promotion_id?: Long;
-  notification_id?: Long;
+  promotion_id?: bigint;
+  notification_id?: bigint;
 }
 
 export type CPromotionPlanning_ResendNotification_Response = Record<string, never>;
@@ -321,7 +320,7 @@ export interface CPromotionPlanning_SearchPlan_Response {
 }
 
 export interface CPromotionPlanning_SendNotification_Request {
-  promotion_id?: Long;
+  promotion_id?: bigint;
   notification_type?: number;
   only_explicit_email_addresses?: boolean;
 }
@@ -329,7 +328,7 @@ export interface CPromotionPlanning_SendNotification_Request {
 export type CPromotionPlanning_SendNotification_Response = Record<string, never>;
 
 export interface CPromotionPlanning_SetPromotionEmailTarget_Request {
-  promotion_id?: Long;
+  promotion_id?: bigint;
   add?: boolean;
   email_address?: string;
 }
@@ -338,7 +337,7 @@ export type CPromotionPlanning_SetPromotionEmailTarget_Response = Record<string,
 
 export interface CPromotionPlanning_UpdatePlan_Request {
   plan?: CPromotionPlan;
-  promotion_id?: Long;
+  promotion_id?: bigint;
 }
 
 export type CPromotionPlanning_UpdatePlan_Response = Record<string, never>;

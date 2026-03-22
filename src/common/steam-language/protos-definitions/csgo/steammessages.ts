@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const GCProtoBufMsgSrc = {
   GCProtoBufMsgSrc_Unspecified: 0,
@@ -14,11 +13,11 @@ export const GCProtoBufMsgSrc = {
 export type GCProtoBufMsgSrc = (typeof GCProtoBufMsgSrc)[keyof typeof GCProtoBufMsgSrc];
 
 export interface CMsgProtoBufHeader {
-  client_steam_id?: Long;
+  client_steam_id?: bigint;
   client_session_id?: number;
   source_app_id?: number;
-  job_id_source?: Long;
-  job_id_target?: Long;
+  job_id_source?: bigint;
+  job_id_target?: bigint;
   target_job_name?: string;
   eresult?: number;
   error_message?: string;
@@ -29,7 +28,7 @@ export interface CMsgProtoBufHeader {
 
 export interface CChinaAgreementSessions_StartAgreementSessionInGame_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
   client_ipaddress?: string;
 }
 

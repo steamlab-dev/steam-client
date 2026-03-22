@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientLANP2PRequestChunks {
   chunk_keys?: CMsgClientLANP2PRequestChunks.ChunkKey[];
@@ -33,7 +32,7 @@ export interface CMsgClientPeerChunkRequest {
   app_id?: number;
   depot_id?: number;
   sha?: Buffer;
-  access_token?: Long;
+  access_token?: bigint;
 }
 
 export interface CMsgClientPeerChunkResponse {

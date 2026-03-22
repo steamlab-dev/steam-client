@@ -1,15 +1,14 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientUDSP2PSessionStarted {
-  steamid_remote?: Long;
+  steamid_remote?: bigint;
   appid?: number;
 }
 
 export interface CMsgClientUDSP2PSessionEnded {
-  steamid_remote?: Long;
+  steamid_remote?: bigint;
   appid?: number;
   session_length_sec?: number;
   session_error?: number;
@@ -30,7 +29,7 @@ export interface CMsgClientGetClientDetailsResponse {
   ip_public?: string;
   ip_private?: string;
   games_running?: CMsgClientGetClientDetailsResponse.Game[];
-  bytes_available?: Long;
+  bytes_available?: bigint;
   protocol_version?: number;
   clientcomm_version?: number;
   local_users?: number[];
@@ -57,7 +56,7 @@ export interface CMsgClientGetClientAppList {
 
 export interface CMsgClientGetClientAppListResponse {
   apps?: CMsgClientGetClientAppListResponse.App[];
-  bytes_available?: Long;
+  bytes_available?: bigint;
   client_info?: CMsgClientGetClientDetailsResponse;
 }
 
@@ -69,16 +68,16 @@ export namespace CMsgClientGetClientAppListResponse {
     favorite?: boolean;
     installed?: boolean;
     auto_update?: boolean;
-    bytes_downloaded?: Long;
-    bytes_to_download?: Long;
+    bytes_downloaded?: bigint;
+    bytes_to_download?: bigint;
     bytes_download_rate?: number;
     download_paused?: boolean;
     num_downloading?: number;
     changing?: boolean;
     available_on_platform?: boolean;
-    bytes_staged?: Long;
-    bytes_to_stage?: Long;
-    bytes_required?: Long;
+    bytes_staged?: bigint;
+    bytes_to_stage?: bigint;
+    bytes_required?: bigint;
     source_buildid?: number;
     target_buildid?: number;
     estimated_seconds_remaining?: number;

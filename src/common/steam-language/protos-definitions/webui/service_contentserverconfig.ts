@@ -1,15 +1,14 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CContentServerConfig_GetManifestRequestCode_Request {
   depot_id?: number;
-  manifest_id?: Long;
+  manifest_id?: bigint;
 }
 
 export interface CContentServerConfig_GetManifestRequestCode_Response {
-  manifest_request_code?: Long;
+  manifest_request_code?: bigint;
 }
 
 export abstract class ContentServerConfigService {

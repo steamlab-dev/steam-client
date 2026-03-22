@@ -1,20 +1,19 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CContentBuilder_InitDepotBuild_Request {
   appid?: number;
   depotid?: number;
-  workshop_itemid?: Long;
+  workshop_itemid?: bigint;
   for_local_cs?: boolean;
   target_branch?: string;
   shader_depot?: boolean;
-  baseline_manifest_id?: Long;
+  baseline_manifest_id?: bigint;
 }
 
 export interface CContentBuilder_InitDepotBuild_Response {
-  baseline_manifestid?: Long;
+  baseline_manifestid?: bigint;
   chunk_size?: number;
   aes_key?: Buffer;
   rsa_key?: Buffer;
@@ -27,7 +26,7 @@ export interface CContentBuilder_InitDepotBuild_Response {
   offset_detection_max_distance_post?: number;
   compression_method?: number;
   download_host?: string;
-  manifest_request_code?: Long;
+  manifest_request_code?: bigint;
   chunk_upload_host?: string;
   manifest_upload_host?: string;
 }
@@ -35,25 +34,25 @@ export interface CContentBuilder_InitDepotBuild_Response {
 export interface CContentBuilder_StartDepotUpload_Request {
   appid?: number;
   depotid?: number;
-  workshop_itemid?: Long;
+  workshop_itemid?: bigint;
   for_local_cs?: boolean;
-  baseline_manifestid?: Long;
+  baseline_manifestid?: bigint;
   manifest_size?: number;
 }
 
 export interface CContentBuilder_StartDepotUpload_Response {
-  depot_build_handle?: Long;
+  depot_build_handle?: bigint;
 }
 
 export interface CContentBuilder_GetMissingDepotChunks_Request {
   appid?: number;
-  depot_build_handle?: Long;
+  depot_build_handle?: bigint;
 }
 
 export interface CContentBuilder_GetMissingDepotChunks_Response {
   missing_chunks?: CContentBuilder_GetMissingDepotChunks_Response.Chunks[];
   total_missing_chunks?: number;
-  total_missing_bytes?: Long;
+  total_missing_bytes?: bigint;
 }
 
 export namespace CContentBuilder_GetMissingDepotChunks_Response {
@@ -64,13 +63,13 @@ export namespace CContentBuilder_GetMissingDepotChunks_Response {
 
 export interface CContentBuilder_FinishDepotUpload_Request {
   appid?: number;
-  depot_build_handle?: Long;
+  depot_build_handle?: bigint;
 }
 
 export interface CContentBuilder_FinishDepotUpload_Response {
-  manifestid?: Long;
+  manifestid?: bigint;
   prev_reused?: boolean;
-  manifest_request_code?: Long;
+  manifest_request_code?: bigint;
 }
 
 export interface CContentBuilder_CommitAppBuild_Request {
@@ -85,7 +84,7 @@ export interface CContentBuilder_CommitAppBuild_Request {
 export namespace CContentBuilder_CommitAppBuild_Request {
   export interface Depots {
     depotid?: number;
-    manifestid?: Long;
+    manifestid?: bigint;
   }
 }
 

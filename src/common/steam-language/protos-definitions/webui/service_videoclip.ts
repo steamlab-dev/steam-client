@@ -1,12 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CVideo_GameRecordingSegmentInfo } from "./common";
 
 export interface CVideo_BeginGameRecordingSegmentsUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   component_name?: string;
   representation_name?: string;
   segments_to_store?: CVideo_GameRecordingSegmentInfo[];
@@ -18,7 +16,7 @@ export interface CVideo_BeginGameRecordingSegmentsUpload_Response {
 }
 
 export interface CVideo_CommitGameRecordingSegmentsUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   component_name?: string;
   representation_name?: string;
   first_segment_number?: number;
@@ -29,14 +27,14 @@ export interface CVideo_CommitGameRecordingSegmentsUpload_Request {
 export type CVideo_CommitGameRecordingSegmentsUpload_Response = Record<string, never>;
 
 export interface CVideo_GameRecordingCommitSegmentUploads_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   segments_uploaded?: CVideo_GameRecordingSegmentInfo[];
 }
 
 export type CVideo_GameRecordingCommitSegmentUploads_Response = Record<string, never>;
 
 export interface CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
 }
 
 export interface CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response {

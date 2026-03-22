@@ -1,24 +1,23 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CVideo_ClientGetVideoURL_Request {
-  video_id?: Long;
+  video_id?: bigint;
   client_cellid?: number;
 }
 
 export interface CVideo_ClientGetVideoURL_Response {
-  video_id?: Long;
+  video_id?: bigint;
   video_url?: string;
 }
 
 export interface VideoBookmark {
   app_id?: number;
   playback_position_in_seconds?: number;
-  video_track_id?: Long;
-  audio_track_id?: Long;
-  timedtext_track_id?: Long;
+  video_track_id?: bigint;
+  audio_track_id?: bigint;
+  timedtext_track_id?: bigint;
   last_modified?: number;
   hide_from_watch_history?: boolean;
   hide_from_library?: boolean;

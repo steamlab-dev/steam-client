@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAssetSet {
   appid?: number;
-  assetset_id?: Long;
+  assetset_id?: bigint;
   name?: string;
   desc?: string;
   branches?: string[];
@@ -16,7 +15,7 @@ export interface CAssetSet {
 
 export interface CAssetSetPublishing_AddBranchToAssetSet_Request {
   appid?: number;
-  assetset_id?: Long;
+  assetset_id?: bigint;
   branch?: string;
 }
 
@@ -35,7 +34,7 @@ export interface CAssetSetPublishing_CreateAssetSet_Response {
 
 export interface CAssetSetPublishing_DeleteAssetSet_Request {
   appid?: number;
-  assetset_id?: Long;
+  assetset_id?: bigint;
 }
 
 export type CAssetSetPublishing_DeleteAssetSet_Response = Record<string, never>;
@@ -54,14 +53,14 @@ export interface CAssetSetPublishing_RemoseBranchFromAssetSet_Response {
 
 export interface CAssetSetPublishing_RemoveBranchFromAssetSet_Request {
   appid?: number;
-  assetset_id?: Long;
+  assetset_id?: bigint;
   branch?: string;
 }
 
 export interface CAssetSetPublishing_SwapAssetSetPriority_Request {
   appid?: number;
-  first_assetset_id?: Long;
-  second_assetset_id?: Long;
+  first_assetset_id?: bigint;
+  second_assetset_id?: bigint;
 }
 
 export interface CAssetSetPublishing_SwapAssetSetPriority_Response {
@@ -78,7 +77,7 @@ export type CAssetSetPublishing_UpdateAssetSet_Response = Record<string, never>;
 
 export interface CAssetSetPublishing_UpdatePublishTime_Request {
   appid?: number;
-  assetset_id?: Long;
+  assetset_id?: bigint;
 }
 
 export interface CAssetSetPublishing_UpdatePublishTime_Response {

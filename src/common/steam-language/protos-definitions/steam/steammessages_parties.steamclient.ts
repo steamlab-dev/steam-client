@@ -1,21 +1,20 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CParties_JoinParty_Request {
-  steamid?: Long;
-  beacon_id?: Long;
+  steamid?: bigint;
+  beacon_id?: bigint;
 }
 
 export interface CParties_JoinParty_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
   connect_string?: string;
 }
 
 export interface CParties_BeaconLocation {
   location_type?: number;
-  location_id?: Long;
+  location_id?: bigint;
 }
 
 export interface CParties_CreateBeacon_Request {
@@ -27,42 +26,42 @@ export interface CParties_CreateBeacon_Request {
 }
 
 export interface CParties_CreateBeacon_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export interface CParties_OnReservationCompleted_Request {
-  beacon_id?: Long;
-  user_steamid?: Long;
+  beacon_id?: bigint;
+  user_steamid?: bigint;
 }
 
 export interface CParties_OnReservationCompleted_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export interface CParties_CancelReservation_Request {
-  beacon_id?: Long;
-  user_steamid?: Long;
+  beacon_id?: bigint;
+  user_steamid?: bigint;
 }
 
 export interface CParties_CancelReservation_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export interface CParties_ChangeNumOpenSlots_Request {
-  beacon_id?: Long;
+  beacon_id?: bigint;
   num_open_slots?: number;
 }
 
 export interface CParties_ChangeNumOpenSlots_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export interface CParties_DestroyBeacon_Request {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export interface CParties_DestroyBeacon_Response {
-  beacon_id?: Long;
+  beacon_id?: bigint;
 }
 
 export abstract class PartiesService {

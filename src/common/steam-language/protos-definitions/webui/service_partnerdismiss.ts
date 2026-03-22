@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CDismissPinData {
   state?: number;
@@ -10,7 +9,7 @@ export interface CDismissPinData {
   partnerid?: number;
   rtime_create?: number;
   rtime_validity?: number;
-  dismiss_id?: Long;
+  dismiss_id?: bigint;
 }
 
 export interface CPartnerDismiss_CreateDismiss_Request {
@@ -22,7 +21,7 @@ export interface CPartnerDismiss_CreateDismiss_Response {
 }
 
 export interface CPartnerDismiss_DeleteDismiss_Request {
-  dismiss_id?: Long;
+  dismiss_id?: bigint;
 }
 
 export type CPartnerDismiss_DeleteDismiss_Response = Record<string, never>;

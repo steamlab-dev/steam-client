@@ -1,25 +1,24 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAuction_Bid {
   accountid?: number;
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
   state?: number;
   time_created?: number;
   time_updated?: number;
-  amount_bid?: Long;
-  amount_paid?: Long;
-  auctionbidid?: Long;
+  amount_bid?: bigint;
+  amount_paid?: bigint;
+  auctionbidid?: bigint;
 }
 
 export interface CAuction_CancelBid_Request {
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
 }
 
 export interface CAuction_CancelBid_Response {
-  amount_returned?: Long;
+  amount_returned?: bigint;
 }
 
 export type CAuction_GetAllItems_Request = Record<string, never>;
@@ -29,7 +28,7 @@ export interface CAuction_GetAllItems_Response {
 }
 
 export interface CAuction_GetBidsForItem_Request {
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
 }
 
 export interface CAuction_GetBidsForItem_Response {
@@ -40,7 +39,7 @@ export interface CAuction_GetBidsForItem_Response {
 }
 
 export interface CAuction_GetBidsForUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CAuction_GetBidsForUser_Response {
@@ -48,7 +47,7 @@ export interface CAuction_GetBidsForUser_Response {
 }
 
 export interface CAuction_GetItemDetails_Request {
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
 }
 
 export interface CAuction_GetItemDetails_Response {
@@ -56,7 +55,7 @@ export interface CAuction_GetItemDetails_Response {
 }
 
 export interface CAuction_GetUserBidForItem_Request {
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
 }
 
 export interface CAuction_GetUserBidForItem_Response {
@@ -64,23 +63,23 @@ export interface CAuction_GetUserBidForItem_Response {
 }
 
 export interface CAuction_Item {
-  auctiondescriptionid?: Long;
+  auctiondescriptionid?: bigint;
   time_start?: number;
   time_end?: number;
-  amount_total?: Long;
-  amount_remaining?: Long;
-  highest_amount?: Long;
+  amount_total?: bigint;
+  amount_remaining?: bigint;
+  highest_amount?: bigint;
   highest_bidder_accountid?: number;
   community_item_appid?: number;
   community_item_type?: number;
   store_appid?: number;
   store_packageids?: number[];
-  reserve_price?: Long;
+  reserve_price?: bigint;
 }
 
 export interface CAuction_PlaceBid_Request {
-  auctiondescriptionid?: Long;
-  amount_bid?: Long;
+  auctiondescriptionid?: bigint;
+  amount_bid?: bigint;
   expected_amount_remaining?: number;
 }
 

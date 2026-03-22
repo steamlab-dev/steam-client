@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientLBSSetScore {
   app_id?: number;
@@ -22,7 +21,7 @@ export interface CMsgClientLBSSetScoreResponse {
 export interface CMsgClientLBSSetUGC {
   app_id?: number;
   leaderboard_id?: number;
-  ugc_id?: Long;
+  ugc_id?: bigint;
 }
 
 export interface CMsgClientLBSSetUGCResponse {
@@ -52,7 +51,7 @@ export interface CMsgClientLBSGetLBEntries {
   range_start?: number;
   range_end?: number;
   leaderboard_data_request?: number;
-  steamids?: Long[];
+  steamids?: bigint[];
 }
 
 export interface CMsgClientLBSGetLBEntriesResponse {
@@ -63,10 +62,10 @@ export interface CMsgClientLBSGetLBEntriesResponse {
 
 export namespace CMsgClientLBSGetLBEntriesResponse {
   export interface Entry {
-    steam_id_user?: Long;
+    steam_id_user?: bigint;
     global_rank?: number;
     score?: number;
     details?: Buffer;
-    ugc_id?: Long;
+    ugc_id?: bigint;
   }
 }

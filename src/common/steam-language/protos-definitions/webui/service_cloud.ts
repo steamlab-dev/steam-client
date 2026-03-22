@@ -1,20 +1,18 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CCloud_PendingRemoteOperation } from "./common";
 import type { NotImplemented } from "./common_base";
 
 export interface CCloud_AppCloudStateChange_Notification {
   appid?: number;
-  app_change_number?: Long;
+  app_change_number?: bigint;
 }
 
 export interface CCloud_AppFileInfo {
   file_name?: string;
   sha_file?: Buffer;
-  time_stamp?: Long;
+  time_stamp?: bigint;
   raw_file_size?: number;
   persist_state?: number;
   platforms_to_sync?: number;
@@ -24,7 +22,7 @@ export interface CCloud_AppFileInfo {
 
 export interface CCloud_AppLaunchIntent_Request {
   appid?: number;
-  client_id?: Long;
+  client_id?: bigint;
   machine_name?: string;
   ignore_pending_operations?: boolean;
   os_type?: number;
@@ -37,14 +35,14 @@ export interface CCloud_AppLaunchIntent_Response {
 
 export interface CCloud_AppSessionResume_Request {
   appid?: number;
-  client_id?: Long;
+  client_id?: bigint;
 }
 
 export type CCloud_AppSessionResume_Response = Record<string, never>;
 
 export interface CCloud_AppSessionSuspend_Request {
   appid?: number;
-  client_id?: Long;
+  client_id?: bigint;
   machine_name?: string;
   cloud_sync_completed?: boolean;
 }
@@ -56,13 +54,13 @@ export interface CCloud_BeginAppUploadBatch_Request {
   machine_name?: string;
   files_to_upload?: string[];
   files_to_delete?: string[];
-  client_id?: Long;
-  app_build_id?: Long;
+  client_id?: bigint;
+  app_build_id?: bigint;
 }
 
 export interface CCloud_BeginAppUploadBatch_Response {
-  batch_id?: Long;
-  app_change_number?: Long;
+  batch_id?: bigint;
+  app_change_number?: bigint;
 }
 
 export interface CCloud_BeginHTTPUpload_Request {
@@ -74,11 +72,11 @@ export interface CCloud_BeginHTTPUpload_Request {
   platforms_to_sync?: string[];
   request_headers_names?: string[];
   request_headers_values?: string[];
-  upload_batch_id?: Long;
+  upload_batch_id?: bigint;
 }
 
 export interface CCloud_BeginHTTPUpload_Response {
-  ugcid?: Long;
+  ugcid?: bigint;
   timestamp?: number;
   url_host?: string;
   url_path?: string;
@@ -101,7 +99,7 @@ export interface CCloud_BeginUGCUpload_Request {
 
 export interface CCloud_BeginUGCUpload_Response {
   storage_system?: number;
-  ugcid?: Long;
+  ugcid?: bigint;
   timestamp?: number;
   url_host?: string;
   url_path?: string;
@@ -115,12 +113,12 @@ export interface CCloud_BeginUGCUpload_Response_HTTPHeaders {
 }
 
 export interface CCloud_CDNReport_Notification {
-  steamid?: Long;
+  steamid?: bigint;
   url?: string;
   success?: boolean;
   http_status_code?: number;
-  expected_bytes?: Long;
-  received_bytes?: Long;
+  expected_bytes?: bigint;
+  received_bytes?: bigint;
   duration?: number;
 }
 
@@ -129,14 +127,14 @@ export interface CCloud_ClientBeginFileUpload_Request {
   file_size?: number;
   raw_file_size?: number;
   file_sha?: Buffer;
-  time_stamp?: Long;
+  time_stamp?: bigint;
   filename?: string;
   platforms_to_sync?: number;
   cell_id?: number;
   can_encrypt?: boolean;
   is_shared_file?: boolean;
   deprecated_realm?: number;
-  upload_batch_id?: Long;
+  upload_batch_id?: bigint;
 }
 
 export interface CCloud_ClientBeginFileUpload_Response {
@@ -164,7 +162,7 @@ export interface CCloud_ClientDeleteFile_Request {
   appid?: number;
   filename?: string;
   is_explicit_delete?: boolean;
-  upload_batch_id?: Long;
+  upload_batch_id?: bigint;
 }
 
 export type CCloud_ClientDeleteFile_Response = Record<string, never>;
@@ -181,7 +179,7 @@ export interface CCloud_ClientFileDownload_Response {
   file_size?: number;
   raw_file_size?: number;
   sha_file?: Buffer;
-  time_stamp?: Long;
+  time_stamp?: bigint;
   is_explicit_delete?: boolean;
   url_host?: string;
   url_path?: string;
@@ -201,22 +199,22 @@ export interface CCloud_ClientGetAppQuotaUsage_Request {
 
 export interface CCloud_ClientGetAppQuotaUsage_Response {
   existing_files?: number;
-  existing_bytes?: Long;
+  existing_bytes?: bigint;
   max_num_files?: number;
-  max_num_bytes?: Long;
+  max_num_bytes?: bigint;
 }
 
 export interface CCloud_ClientLogUploadCheck_Notification {
-  client_id?: Long;
+  client_id?: bigint;
 }
 
 export interface CCloud_ClientLogUploadComplete_Notification {
-  client_id?: Long;
-  request_id?: Long;
+  client_id?: bigint;
+  request_id?: bigint;
 }
 
 export interface CCloud_ClientLogUploadRequest_Notification {
-  request_id?: Long;
+  request_id?: bigint;
 }
 
 export interface CCloud_CommitHTTPUpload_Request {
@@ -233,7 +231,7 @@ export interface CCloud_CommitHTTPUpload_Response {
 export interface CCloud_CommitUGCUpload_Request {
   transfer_succeeded?: boolean;
   appid?: number;
-  ugcid?: Long;
+  ugcid?: bigint;
 }
 
 export interface CCloud_CommitUGCUpload_Response {
@@ -242,13 +240,13 @@ export interface CCloud_CommitUGCUpload_Response {
 
 export interface CCloud_CompleteAppUploadBatch_Notification {
   appid?: number;
-  batch_id?: Long;
+  batch_id?: bigint;
   batch_eresult?: number;
 }
 
 export interface CCloud_CompleteAppUploadBatch_Request {
   appid?: number;
-  batch_id?: Long;
+  batch_id?: bigint;
   batch_eresult?: number;
 }
 
@@ -257,7 +255,7 @@ export type CCloud_CompleteAppUploadBatch_Response = Record<string, never>;
 export interface CCloud_Delete_Request {
   filename?: string;
   appid?: number;
-  upload_batch_id?: Long;
+  upload_batch_id?: bigint;
 }
 
 export type CCloud_Delete_Response = Record<string, never>;
@@ -280,8 +278,8 @@ export interface CCloud_ExternalStorageTransferReport_Notification {
   is_upload?: boolean;
   success?: boolean;
   http_status_code?: number;
-  bytes_expected?: Long;
-  bytes_actual?: Long;
+  bytes_expected?: bigint;
+  bytes_actual?: bigint;
   duration_ms?: number;
   cellid?: number;
   proxied?: boolean;
@@ -295,16 +293,16 @@ export interface CCloud_ExternalStorageTransferReport_Notification {
 
 export interface CCloud_GetAppFileChangelist_Request {
   appid?: number;
-  synced_change_number?: Long;
+  synced_change_number?: bigint;
 }
 
 export interface CCloud_GetAppFileChangelist_Response {
-  current_change_number?: Long;
+  current_change_number?: bigint;
   files?: CCloud_AppFileInfo[];
   is_only_delta?: boolean;
   path_prefixes?: string[];
   machine_names?: string[];
-  app_buildid_hwm?: Long;
+  app_buildid_hwm?: bigint;
 }
 
 export type CCloud_GetClientEncryptionKey_Request = Record<string, never>;
@@ -315,7 +313,7 @@ export interface CCloud_GetClientEncryptionKey_Response {
 }
 
 export interface CCloud_GetFileDetails_Request {
-  ugcid?: Long;
+  ugcid?: bigint;
   appid?: number;
 }
 
@@ -333,7 +331,7 @@ export interface CCloud_GetSingleFileInfo_Response {
   app_id?: number;
   file_name?: string;
   sha_file?: Buffer;
-  time_stamp?: Long;
+  time_stamp?: bigint;
   raw_file_size?: number;
   is_explicit_delete?: boolean;
 }
@@ -344,17 +342,17 @@ export interface CCloud_ShareFile_Request {
 }
 
 export interface CCloud_ShareFile_Response {
-  hcontent?: Long;
+  hcontent?: bigint;
 }
 
 export interface CCloud_UserFile {
   appid?: number;
-  ugcid?: Long;
+  ugcid?: bigint;
   filename?: string;
-  timestamp?: Long;
+  timestamp?: bigint;
   file_size?: number;
   url?: string;
-  steamid_creator?: Long;
+  steamid_creator?: bigint;
   flags?: number;
   platforms_to_sync?: string[];
   file_sha?: string;
@@ -367,7 +365,7 @@ export interface ClientCloudFileUploadBlockDetails {
   use_https?: boolean;
   http_method?: number;
   request_headers?: ClientCloudFileUploadBlockDetails_HTTPHeaders[];
-  block_offset?: Long;
+  block_offset?: bigint;
   block_length?: number;
   explicit_body_data?: Buffer;
   may_parallelize?: boolean;

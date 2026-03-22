@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgVector } from "./networkbasetypes";
 
 export const EBaseGameEvents = {
@@ -40,7 +38,7 @@ export interface CMsgPlaceDecalEvent {
   decal_group_name?: number;
   size_override?: number;
   entityhandle?: number;
-  material_id?: Long;
+  material_id?: bigint;
   sequence_name?: number;
 }
 
@@ -96,7 +94,7 @@ export namespace CMsgSource1LegacyGameEvent {
     val_short?: number;
     val_byte?: number;
     val_bool?: boolean;
-    val_uint64?: Long;
+    val_uint64?: bigint;
   }
 }
 

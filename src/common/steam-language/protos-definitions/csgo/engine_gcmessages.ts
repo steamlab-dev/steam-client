@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CEngineGotvSyncPacket {
-  match_id?: Long;
+  match_id?: bigint;
   instance_id?: number;
   signupfragment?: number;
   currentfragment?: number;

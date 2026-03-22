@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientSiteInfo {
-  site_id?: Long;
+  site_id?: bigint;
   site_name?: string;
   allow_cached_credentials?: boolean;
 }

@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientFriendMsg {
-  steamid?: Long;
+  steamid?: bigint;
   chat_entry_type?: number;
   message?: Buffer;
   rtime32_server_timestamp?: number;
@@ -12,7 +11,7 @@ export interface CMsgClientFriendMsg {
 }
 
 export interface CMsgClientFriendMsgIncoming {
-  steamid_from?: Long;
+  steamid_from?: bigint;
   chat_entry_type?: number;
   from_limited_account?: boolean;
   message?: Buffer;
@@ -20,22 +19,22 @@ export interface CMsgClientFriendMsgIncoming {
 }
 
 export interface CMsgClientAddFriend {
-  steamid_to_add?: Long;
+  steamid_to_add?: bigint;
   accountname_or_email_to_add?: string;
 }
 
 export interface CMsgClientAddFriendResponse {
   eresult?: number;
-  steam_id_added?: Long;
+  steam_id_added?: bigint;
   persona_name_added?: string;
 }
 
 export interface CMsgClientRemoveFriend {
-  friendid?: Long;
+  friendid?: bigint;
 }
 
 export interface CMsgClientHideFriend {
-  friendid?: Long;
+  friendid?: bigint;
   hide?: boolean;
 }
 
@@ -49,7 +48,7 @@ export interface CMsgClientFriendsList {
 
 export namespace CMsgClientFriendsList {
   export interface Friend {
-    ulfriendid?: Long;
+    ulfriendid?: bigint;
     efriendrelationship?: number;
   }
 }
@@ -68,7 +67,7 @@ export namespace CMsgClientFriendsGroupsList {
   }
 
   export interface FriendGroupsMembership {
-    ulSteamID?: Long;
+    ulSteamID?: bigint;
     nGroupID?: number;
   }
 }
@@ -81,13 +80,13 @@ export interface CMsgClientPlayerNicknameList {
 
 export namespace CMsgClientPlayerNicknameList {
   export interface PlayerNickname {
-    steamid?: Long;
+    steamid?: bigint;
     nickname?: string;
   }
 }
 
 export interface CMsgClientSetPlayerNickname {
-  steamid?: Long;
+  steamid?: bigint;
   nickname?: string;
 }
 
@@ -97,7 +96,7 @@ export interface CMsgClientSetPlayerNicknameResponse {
 
 export interface CMsgClientRequestFriendData {
   persona_state_requested?: number;
-  friends?: Long[];
+  friends?: bigint[];
 }
 
 export interface CMsgClientChangeStatus {
@@ -123,7 +122,7 @@ export interface CMsgClientPersonaState {
 
 export namespace CMsgClientPersonaState {
   export interface Friend {
-    friendid?: Long;
+    friendid?: bigint;
     persona_state?: number;
     game_played_app_id?: number;
     game_server_ip?: number;
@@ -133,18 +132,18 @@ export namespace CMsgClientPersonaState {
     persona_set_by_user?: boolean;
     player_name?: string;
     query_port?: number;
-    steamid_source?: Long;
+    steamid_source?: bigint;
     avatar_hash?: Buffer;
     last_logoff?: number;
     last_logon?: number;
     last_seen_online?: number;
     clan_rank?: number;
     game_name?: string;
-    gameid?: Long;
+    gameid?: bigint;
     game_data_blob?: Buffer;
     clan_tag?: string;
-    broadcast_id?: Long;
-    game_lobby_id?: Long;
+    broadcast_id?: bigint;
+    game_lobby_id?: bigint;
     watching_broadcast_accountid?: number;
     watching_broadcast_appid?: number;
     watching_broadcast_viewers?: number;
@@ -159,7 +158,7 @@ export namespace CMsgClientPersonaState {
   export namespace Friend {
     export interface ClanData {
       ogg_app_id?: number;
-      chat_group_id?: Long;
+      chat_group_id?: bigint;
     }
 
     export interface KV {
@@ -168,18 +167,18 @@ export namespace CMsgClientPersonaState {
     }
 
     export interface OtherGameData {
-      gameid?: Long;
+      gameid?: bigint;
     }
   }
 }
 
 export interface CMsgClientFriendProfileInfo {
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
 }
 
 export interface CMsgClientFriendProfileInfoResponse {
   eresult?: number;
-  steamid_friend?: Long;
+  steamid_friend?: bigint;
   time_created?: number;
   real_name?: string;
   city_name?: string;
@@ -190,9 +189,9 @@ export interface CMsgClientFriendProfileInfoResponse {
 }
 
 export interface CMsgClientCreateFriendsGroup {
-  steamid?: Long;
+  steamid?: bigint;
   groupname?: string;
-  steamid_friends?: Long[];
+  steamid_friends?: bigint[];
 }
 
 export interface CMsgClientCreateFriendsGroupResponse {
@@ -201,7 +200,7 @@ export interface CMsgClientCreateFriendsGroupResponse {
 }
 
 export interface CMsgClientDeleteFriendsGroup {
-  steamid?: Long;
+  steamid?: bigint;
   groupid?: number;
 }
 
@@ -212,8 +211,8 @@ export interface CMsgClientDeleteFriendsGroupResponse {
 export interface CMsgClientManageFriendsGroup {
   groupid?: number;
   groupname?: string;
-  steamid_friends_added?: Long[];
-  steamid_friends_removed?: Long[];
+  steamid_friends_added?: bigint[];
+  steamid_friends_removed?: bigint[];
 }
 
 export interface CMsgClientManageFriendsGroupResponse {
@@ -222,7 +221,7 @@ export interface CMsgClientManageFriendsGroupResponse {
 
 export interface CMsgClientAddFriendToGroup {
   groupid?: number;
-  steamiduser?: Long;
+  steamiduser?: bigint;
 }
 
 export interface CMsgClientAddFriendToGroupResponse {
@@ -231,7 +230,7 @@ export interface CMsgClientAddFriendToGroupResponse {
 
 export interface CMsgClientRemoveFriendFromGroup {
   groupid?: number;
-  steamiduser?: Long;
+  steamiduser?: bigint;
 }
 
 export interface CMsgClientRemoveFriendFromGroupResponse {

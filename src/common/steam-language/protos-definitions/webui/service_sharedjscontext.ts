@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgSteamUIBrowserWindow {
   id?: number;
@@ -10,8 +9,8 @@ export interface CMsgSteamUIBrowserWindow {
   window_type?: number;
   x?: number;
   y?: number;
-  appid?: Long;
-  parent_window_handle?: Long;
+  appid?: bigint;
+  parent_window_handle?: bigint;
   app_name?: string;
   gamepadui_via_gamescope?: boolean;
 }

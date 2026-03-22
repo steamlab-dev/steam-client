@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CVideo_GameRecordingSegmentInfo } from "./common";
 
 export interface CGameRecording_CreateShareClip_Request {
@@ -15,13 +13,13 @@ export interface CGameRecording_CreateShareClip_Response {
 }
 
 export interface CGameRecording_DeleteSharedClip_Request {
-  clip_id?: Long;
+  clip_id?: bigint;
 }
 
 export type CGameRecording_DeleteSharedClip_Response = Record<string, never>;
 
 export interface CGameRecording_GetSingleSharedClip_Request {
-  clip_id?: Long;
+  clip_id?: bigint;
 }
 
 export interface CGameRecording_GetSingleSharedClip_Response {
@@ -29,12 +27,12 @@ export interface CGameRecording_GetSingleSharedClip_Response {
 }
 
 export interface CGameRecordingClip {
-  clip_id?: Long;
-  gameid?: Long;
+  clip_id?: bigint;
+  gameid?: bigint;
   date_recorded?: number;
-  total_file_size_bytes?: Long;
+  total_file_size_bytes?: bigint;
   video_ids?: CVideoManagerClipID[];
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
   upload_complete?: boolean;
   duration_ms?: number;
 }
@@ -48,7 +46,7 @@ export interface CMsgVideoGameRecordingComponent {
 }
 
 export interface CMsgVideoGameRecordingDef {
-  steamid?: Long;
+  steamid?: bigint;
   app_id?: number;
   num_segments?: number;
   length_milliseconds?: number;
@@ -73,9 +71,9 @@ export interface CMsgVideoGameRecordingRepresentation {
 }
 
 export interface CVideoManagerClipID {
-  video_manager_clip_id?: Long;
-  video_manager_video_id?: Long;
-  server_timeline_id?: Long;
+  video_manager_clip_id?: bigint;
+  video_manager_video_id?: bigint;
+  server_timeline_id?: bigint;
   manifest_url?: string;
   duration_ms?: number;
   start_offset_ms?: number;

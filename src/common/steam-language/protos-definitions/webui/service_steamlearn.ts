@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgInferenceIterateBeamSearch {
   beam_length?: number;
@@ -230,8 +229,8 @@ export interface CMsgSteamLearn_GetSnapshotStatus_Response {
   autosnapshot_status?: number;
   autosnapshot_time_started?: number;
   autosnapshot_time_ended?: number;
-  autosnapshot_key_current?: Long;
-  autosnapshot_key_max?: Long;
+  autosnapshot_key_current?: bigint;
+  autosnapshot_key_max?: bigint;
 }
 
 export interface CMsgSteamLearn_GetTrainLogs_Request {
@@ -311,7 +310,7 @@ export interface CMsgSteamLearn_Inference_Request {
   override_train_id?: number;
   data?: CMsgSteamLearnDataList;
   additional_data?: number[];
-  keys?: Long[];
+  keys?: bigint[];
   named_inference?: string;
   iterate_beam_search?: CMsgInferenceIterateBeamSearch;
   debug_spew?: number;
@@ -320,7 +319,7 @@ export interface CMsgSteamLearn_Inference_Request {
 export interface CMsgSteamLearn_Inference_Response {
   inference_result?: number;
   backend_response?: CMsgSteamLearn_InferenceBackend_Response;
-  keys?: Long[];
+  keys?: bigint[];
 }
 
 export interface CMsgSteamLearn_InferenceBackend_Request {
@@ -328,7 +327,7 @@ export interface CMsgSteamLearn_InferenceBackend_Request {
   fetch_id?: number;
   train_id?: number;
   data?: CMsgSteamLearnRawDataElement[];
-  keys?: Long[];
+  keys?: bigint[];
   additional_data?: number[];
   named_inference?: string;
   iterate_beam_search?: CMsgInferenceIterateBeamSearch;
@@ -414,13 +413,13 @@ export interface CMsgSteamLearn_InferenceMetadata_Response_CompactTable {
   name?: string;
   map_values?: CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapValuesEntry[];
   map_mappings?: CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry[];
-  total_count?: Long;
+  total_count?: bigint;
 }
 
 export interface CMsgSteamLearn_InferenceMetadata_Response_CompactTable_Entry {
   value?: number;
   mapping?: number;
-  count?: Long;
+  count?: bigint;
 }
 
 export interface CMsgSteamLearn_InferenceMetadata_Response_CompactTable_MapMappingsEntry {
@@ -454,15 +453,15 @@ export interface CMsgSteamLearn_InferenceMetadata_Response_Range {
 }
 
 export interface CMsgSteamLearn_InferenceMetadata_Response_RowRange {
-  min_row?: Long;
-  max_row?: Long;
+  min_row?: bigint;
+  max_row?: bigint;
 }
 
 export interface CMsgSteamLearn_InferenceMetadata_Response_SequenceTable {
   name?: string;
   map_values?: CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_MapValuesEntry[];
   map_mappings?: CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_MapMappingsEntry[];
-  total_count?: Long;
+  total_count?: bigint;
 }
 
 export interface CMsgSteamLearn_InferenceMetadata_Response_SequenceTable_Entry {
@@ -534,9 +533,9 @@ export interface CMsgSteamLearn_LogEvent {
 
 export interface CMsgSteamLearn_LogEvent_Autosnapshot {
   status?: number;
-  key_completed?: Long;
-  key_end?: Long;
-  num_snapshot_requests?: Long;
+  key_completed?: bigint;
+  key_end?: bigint;
+  num_snapshot_requests?: bigint;
 }
 
 export interface CMsgSteamLearn_LogEvent_TrainEnded {
@@ -594,8 +593,8 @@ export interface CMsgSteamLearn_ProjectStatus_Response_Autosnapshot {
   autosnapshot_status?: number;
   autosnapshot_time_started?: number;
   autosnapshot_time_ended?: number;
-  autosnapshot_key_current?: Long;
-  autosnapshot_key_max?: Long;
+  autosnapshot_key_current?: bigint;
+  autosnapshot_key_max?: bigint;
 }
 
 export interface CMsgSteamLearn_ProjectStatus_Response_BatchDetails {
@@ -710,7 +709,7 @@ export interface CMsgSteamLearn_SetTrainLive_Response {
 export interface CMsgSteamLearn_SnapshotProject_Request {
   access_token?: string;
   project_id?: number;
-  keys?: Long[];
+  keys?: bigint[];
   data?: CMsgSteamLearnData[];
   pending_data_limit_seconds?: number;
   published_version?: number;
@@ -765,7 +764,7 @@ export interface CMsgSteamLearnAccessTokens_SnapshotProjectAccessToken {
 
 export interface CMsgSteamLearnData {
   data_source_id?: number;
-  keys?: Long[];
+  keys?: bigint[];
   data_object?: CMsgSteamLearnDataObject;
 }
 

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CStorePageFilter } from "./contenthubs";
 import type { ESteamDeckCompatibilityCategory, ESteamOSCompatibilityCategory } from "./enums";
 import type { EContentDescriptorID } from "./enums_productinfo";
@@ -311,21 +309,21 @@ export namespace StoreItem {
     packageid?: number;
     bundleid?: number;
     purchase_option_name?: string;
-    final_price_in_cents?: Long;
-    original_price_in_cents?: Long;
+    final_price_in_cents?: bigint;
+    original_price_in_cents?: bigint;
     formatted_final_price?: string;
     formatted_original_price?: string;
     discount_pct?: number;
     bundle_discount_pct?: number;
     is_free_to_keep?: boolean;
-    price_before_bundle_discount?: Long;
+    price_before_bundle_discount?: bigint;
     formatted_price_before_bundle_discount?: string;
     user_can_purchase_as_gift?: boolean;
     is_commercial_license?: boolean;
     should_suppress_discount_pct?: boolean;
     hide_discount_pct_for_compliance?: boolean;
     included_game_count?: number;
-    lowest_recent_price_in_cents?: Long;
+    lowest_recent_price_in_cents?: bigint;
     requires_shipping?: boolean;
     free_to_keep_ends?: number;
     must_purchase_as_set?: boolean;
@@ -333,7 +331,7 @@ export namespace StoreItem {
 
   export namespace PurchaseOption {
     export interface Discount {
-      discount_amount?: Long;
+      discount_amount?: bigint;
       discount_description?: string;
       discount_end_date?: number;
     }
@@ -343,7 +341,7 @@ export namespace StoreItem {
       billing_agreement_type?: number;
       renewal_time_unit?: number;
       renewal_time_period?: number;
-      renewal_price_in_cents?: Long;
+      renewal_price_in_cents?: bigint;
       formatted_renewal_price?: string;
     }
   }
@@ -488,7 +486,7 @@ export interface CStoreBrowse_GetPriceStops_Response {
 export namespace CStoreBrowse_GetPriceStops_Response {
   export interface PriceStop {
     formatted_amount?: string;
-    amount_in_cents?: Long;
+    amount_in_cents?: bigint;
   }
 }
 
@@ -496,7 +494,7 @@ export interface CStoreBrowse_GetDLCForApps_Request {
   context?: StoreBrowseContext;
   store_page_filter?: CStorePageFilter;
   appids?: StoreItemID[];
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CStoreBrowse_GetDLCForApps_Response {
@@ -510,7 +508,7 @@ export namespace CStoreBrowse_GetDLCForApps_Response {
     parentappid?: number;
     release_date?: number;
     coming_soon?: boolean;
-    price?: Long;
+    price?: bigint;
     discount?: number;
     free?: boolean;
   }

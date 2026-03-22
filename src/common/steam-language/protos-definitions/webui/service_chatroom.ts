@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CChatPartyBeacon,
   CChatRoleActions,
@@ -18,28 +16,28 @@ export interface CChatMentions {
 }
 
 export interface CChatRole {
-  role_id?: Long;
+  role_id?: bigint;
   name?: string;
   ordinal?: number;
 }
 
 export interface CChatRoom_AckChatMessage_Notification {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   timestamp?: number;
 }
 
 export interface CChatRoom_AddRoleToUser_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
+  steamid?: bigint;
 }
 
 export type CChatRoom_AddRoleToUser_Response = Record<string, never>;
 
 export interface CChatRoom_ChatMessageModified_Notification {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   messages?: CChatRoom_ChatMessageModified_Notification_ChatMessage[];
 }
 
@@ -50,8 +48,8 @@ export interface CChatRoom_ChatMessageModified_Notification_ChatMessage {
 }
 
 export interface CChatRoom_ChatRoomGroupRoomsChange_Notification {
-  chat_group_id?: Long;
-  default_chat_id?: Long;
+  chat_group_id?: bigint;
+  default_chat_id?: bigint;
   chat_rooms?: CChatRoomState[];
 }
 
@@ -60,7 +58,7 @@ export interface CChatRoom_ChatRoomHeaderState_Notification {
 }
 
 export interface CChatRoom_CreateChatRoom_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   name?: string;
   allow_voice?: boolean;
 }
@@ -70,24 +68,24 @@ export interface CChatRoom_CreateChatRoom_Response {
 }
 
 export interface CChatRoom_CreateChatRoomGroup_Request {
-  steamid_partner?: Long;
-  steamid_invited?: Long;
+  steamid_partner?: bigint;
+  steamid_invited?: bigint;
   name?: string;
-  steamid_invitees?: Long[];
+  steamid_invitees?: bigint[];
   watching_broadcast_accountid?: number;
-  watching_broadcast_channel_id?: Long;
+  watching_broadcast_channel_id?: bigint;
 }
 
 export interface CChatRoom_CreateChatRoomGroup_Response {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   state?: CChatRoomGroupState;
   user_chat_state?: CUserChatRoomGroupState;
 }
 
 export interface CChatRoom_CreateInviteLink_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   seconds_valid?: number;
-  chat_id?: Long;
+  chat_id?: bigint;
 }
 
 export interface CChatRoom_CreateInviteLink_Response {
@@ -96,7 +94,7 @@ export interface CChatRoom_CreateInviteLink_Response {
 }
 
 export interface CChatRoom_CreateRole_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   name?: string;
 }
 
@@ -105,8 +103,8 @@ export interface CChatRoom_CreateRole_Response {
 }
 
 export interface CChatRoom_DeleteChatMessages_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   messages?: CChatRoom_DeleteChatMessages_Request_Message[];
 }
 
@@ -118,44 +116,44 @@ export interface CChatRoom_DeleteChatMessages_Request_Message {
 export type CChatRoom_DeleteChatMessages_Response = Record<string, never>;
 
 export interface CChatRoom_DeleteChatRoom_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
 }
 
 export type CChatRoom_DeleteChatRoom_Response = Record<string, never>;
 
 export interface CChatRoom_DeleteInviteLink_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   invite_code?: string;
 }
 
 export type CChatRoom_DeleteInviteLink_Response = Record<string, never>;
 
 export interface CChatRoom_DeleteRole_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
 }
 
 export type CChatRoom_DeleteRole_Response = Record<string, never>;
 
 export interface CChatRoom_DeleteRoleFromUser_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
+  steamid?: bigint;
 }
 
 export type CChatRoom_DeleteRoleFromUser_Response = Record<string, never>;
 
 export interface CChatRoom_EndMiniGameForChatRoomGroup_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
-  minigame_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
+  minigame_id?: bigint;
 }
 
 export type CChatRoom_EndMiniGameForChatRoomGroup_Response = Record<string, never>;
 
 export interface CChatRoom_GetBanList_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_GetBanList_Response {
@@ -170,7 +168,7 @@ export interface CChatRoom_GetBanList_Response_BanInfo {
 }
 
 export interface CChatRoom_GetChatRoomGroupState_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_GetChatRoomGroupState_Response {
@@ -178,9 +176,9 @@ export interface CChatRoom_GetChatRoomGroupState_Response {
 }
 
 export interface CChatRoom_GetInviteInfo_Request {
-  steamid_invitee?: Long;
-  chat_group_id?: Long;
-  chat_id?: Long;
+  steamid_invitee?: bigint;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   invite_code?: string;
 }
 
@@ -195,9 +193,9 @@ export interface CChatRoom_GetInviteLinkInfo_Request {
 }
 
 export interface CChatRoom_GetInviteLinkInfo_Response {
-  steamid_sender?: Long;
+  steamid_sender?: bigint;
   time_expires?: number;
-  chat_id?: Long;
+  chat_id?: bigint;
   group_summary?: CChatRoom_GetChatRoomGroupSummary_Response;
   user_chat_group_state?: CUserChatRoomGroupState;
   time_kick_expire?: number;
@@ -205,7 +203,7 @@ export interface CChatRoom_GetInviteLinkInfo_Response {
 }
 
 export interface CChatRoom_GetInviteLinksForGroup_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_GetInviteLinksForGroup_Response {
@@ -214,13 +212,13 @@ export interface CChatRoom_GetInviteLinksForGroup_Response {
 
 export interface CChatRoom_GetInviteLinksForGroup_Response_LinkInfo {
   invite_code?: string;
-  steamid_creator?: Long;
+  steamid_creator?: bigint;
   time_expires?: number;
-  chat_id?: Long;
+  chat_id?: bigint;
 }
 
 export interface CChatRoom_GetInviteList_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_GetInviteList_Response {
@@ -228,8 +226,8 @@ export interface CChatRoom_GetInviteList_Response {
 }
 
 export interface CChatRoom_GetMessageHistory_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   last_time?: number;
   last_ordinal?: number;
   start_time?: number;
@@ -260,8 +258,8 @@ export interface CChatRoom_GetMessageHistory_Response_ChatMessage_MessageReactio
 }
 
 export interface CChatRoom_GetMessageReactionReactors_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   server_timestamp?: number;
   ordinal?: number;
   reaction_type?: number;
@@ -280,8 +278,8 @@ export interface CChatRoom_GetMyChatRoomGroups_Response {
 }
 
 export interface CChatRoom_GetRoleActions_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
 }
 
 export interface CChatRoom_GetRoleActions_Response {
@@ -289,7 +287,7 @@ export interface CChatRoom_GetRoleActions_Response {
 }
 
 export interface CChatRoom_GetRoles_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_GetRoles_Response {
@@ -297,18 +295,18 @@ export interface CChatRoom_GetRoles_Response {
 }
 
 export interface CChatRoom_GetRolesForUser_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
 }
 
 export interface CChatRoom_GetRolesForUser_Response {
-  role_ids?: Long[];
+  role_ids?: bigint[];
 }
 
 export interface CChatRoom_IncomingChatMessage_Notification {
-  chat_group_id?: Long;
-  chat_id?: Long;
-  steamid_sender?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
+  steamid_sender?: bigint;
   message?: string;
   timestamp?: number;
   mentions?: CChatMentions;
@@ -320,106 +318,106 @@ export interface CChatRoom_IncomingChatMessage_Notification {
 }
 
 export interface CChatRoom_InviteFriendToChatRoomGroup_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
+  chat_id?: bigint;
   skip_friendsui_check?: boolean;
 }
 
 export type CChatRoom_InviteFriendToChatRoomGroup_Response = Record<string, never>;
 
 export interface CChatRoom_JoinChatRoomGroup_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   invite_code?: string;
-  chat_id?: Long;
+  chat_id?: bigint;
 }
 
 export interface CChatRoom_JoinChatRoomGroup_Response {
   state?: CChatRoomGroupState;
   user_chat_state?: CUserChatRoomGroupState;
-  join_chat_id?: Long;
+  join_chat_id?: bigint;
   time_expire?: number;
 }
 
 export interface CChatRoom_JoinMiniGameForChatRoomGroup_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
 }
 
 export interface CChatRoom_JoinMiniGameForChatRoomGroup_Response {
-  minigame_id?: Long;
+  minigame_id?: bigint;
 }
 
 export interface CChatRoom_JoinVoiceChat_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
 }
 
 export interface CChatRoom_JoinVoiceChat_Response {
-  voice_chatid?: Long;
+  voice_chatid?: bigint;
 }
 
 export interface CChatRoom_KickUser_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
   expiration?: number;
 }
 
 export type CChatRoom_KickUser_Response = Record<string, never>;
 
 export interface CChatRoom_LeaveChatRoomGroup_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export type CChatRoom_LeaveChatRoomGroup_Response = Record<string, never>;
 
 export interface CChatRoom_LeaveVoiceChat_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
 }
 
 export type CChatRoom_LeaveVoiceChat_Response = Record<string, never>;
 
 export interface CChatRoom_MemberStateChange_Notification {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   member?: CChatRoomMember;
   change?: number;
 }
 
 export interface CChatRoom_MessageReaction_Notification {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   server_timestamp?: number;
   ordinal?: number;
-  reactor?: Long;
+  reactor?: bigint;
   reaction_type?: number;
   reaction?: string;
   is_add?: boolean;
 }
 
 export interface CChatRoom_MuteUser_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
   expiration?: number;
 }
 
 export type CChatRoom_MuteUser_Response = Record<string, never>;
 
 export interface CChatRoom_NotifyShouldRejoinChatRoomVoiceChat_Notification {
-  chat_id?: Long;
-  chat_group_id?: Long;
+  chat_id?: bigint;
+  chat_group_id?: bigint;
 }
 
 export interface CChatRoom_RenameChatRoom_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   name?: string;
 }
 
 export type CChatRoom_RenameChatRoom_Response = Record<string, never>;
 
 export interface CChatRoom_RenameChatRoomGroup_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   name?: string;
 }
 
@@ -428,41 +426,41 @@ export interface CChatRoom_RenameChatRoomGroup_Response {
 }
 
 export interface CChatRoom_RenameRole_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
   name?: string;
 }
 
 export type CChatRoom_RenameRole_Response = Record<string, never>;
 
 export interface CChatRoom_ReorderChatRoom_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
-  move_after_chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
+  move_after_chat_id?: bigint;
 }
 
 export type CChatRoom_ReorderChatRoom_Response = Record<string, never>;
 
 export interface CChatRoom_ReorderRole_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
   ordinal?: number;
 }
 
 export type CChatRoom_ReorderRole_Response = Record<string, never>;
 
 export interface CChatRoom_ReplaceRoleActions_Request {
-  chat_group_id?: Long;
-  role_id?: Long;
+  chat_group_id?: bigint;
+  role_id?: bigint;
   actions?: CChatRoleActions;
 }
 
 export type CChatRoom_ReplaceRoleActions_Response = Record<string, never>;
 
 export interface CChatRoom_ReportMessage_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
-  steamid_from?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
+  steamid_from?: bigint;
   timestamp?: number;
   ordinal?: number;
   report_reason?: number;
@@ -474,12 +472,12 @@ export interface CChatRoom_ReportMessage_Request {
 export type CChatRoom_ReportMessage_Response = Record<string, never>;
 
 export interface CChatRoom_ResolveReport_Request {
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   resolution?: number;
   reason?: number;
   subject_type?: number;
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   kick_expiration_time?: number;
   skip_lock?: boolean;
 }
@@ -487,22 +485,22 @@ export interface CChatRoom_ResolveReport_Request {
 export type CChatRoom_ResolveReport_Response = Record<string, never>;
 
 export interface CChatRoom_RevokeInvite_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
 }
 
 export type CChatRoom_RevokeInvite_Response = Record<string, never>;
 
 export interface CChatRoom_SaveChatRoomGroup_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   name?: string;
 }
 
 export type CChatRoom_SaveChatRoomGroup_Response = Record<string, never>;
 
 export interface CChatRoom_SearchMembers_Request {
-  chat_group_id?: Long;
-  search_id?: Long;
+  chat_group_id?: bigint;
+  search_id?: bigint;
   search_text?: string;
   max_results?: number;
 }
@@ -518,8 +516,8 @@ export interface CChatRoom_SearchMembers_Response_MemberMatch {
 }
 
 export interface CChatRoom_SendChatMessage_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   message?: string;
   echo_to_sender?: boolean;
 }
@@ -532,7 +530,7 @@ export interface CChatRoom_SendChatMessage_Response {
 }
 
 export interface CChatRoom_SetAppChatRoomGroupForceActive_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   requesting_app_id?: number;
 }
 
@@ -542,53 +540,53 @@ export interface CChatRoom_SetAppChatRoomGroupForceActive_Response {
 }
 
 export interface CChatRoom_SetAppChatRoomGroupStopForceActive_Notification {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   requesting_app_id?: number;
 }
 
 export interface CChatRoom_SetChatRoomGroupAvatar_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   avatar_sha?: Buffer;
 }
 
 export type CChatRoom_SetChatRoomGroupAvatar_Response = Record<string, never>;
 
 export interface CChatRoom_SetChatRoomGroupTagline_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   tagline?: string;
 }
 
 export type CChatRoom_SetChatRoomGroupTagline_Response = Record<string, never>;
 
 export interface CChatRoom_SetChatRoomGroupWatchingBroadcast_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   watching_broadcast_accountid?: number;
-  watching_broadcast_channel_id?: Long;
+  watching_broadcast_channel_id?: bigint;
 }
 
 export type CChatRoom_SetChatRoomGroupWatchingBroadcast_Response = Record<string, never>;
 
 export interface CChatRoom_SetSessionActiveChatRoomGroups_Request {
-  chat_group_ids?: Long[];
-  chat_groups_data_requested?: Long[];
+  chat_group_ids?: bigint[];
+  chat_groups_data_requested?: bigint[];
   virtualize_members_threshold?: number;
 }
 
 export interface CChatRoom_SetSessionActiveChatRoomGroups_Response {
   chat_states?: CChatRoomGroupState[];
-  virtualize_members_chat_group_ids?: Long[];
+  virtualize_members_chat_group_ids?: bigint[];
 }
 
 export interface CChatRoom_SetUserBanState_Request {
-  chat_group_id?: Long;
-  steamid?: Long;
+  chat_group_id?: bigint;
+  steamid?: bigint;
   ban_state?: boolean;
 }
 
 export type CChatRoom_SetUserBanState_Response = Record<string, never>;
 
 export interface CChatRoom_SetUserChatGroupPreferences_Request {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   chat_group_preferences?: CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferences;
   chat_room_preferences?: CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences[];
 }
@@ -601,7 +599,7 @@ export interface CChatRoom_SetUserChatGroupPreferences_Request_ChatGroupPreferen
 }
 
 export interface CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferences {
-  chat_id?: Long;
+  chat_id?: bigint;
   desktop_notification_level?: number;
   mobile_notification_level?: number;
   unread_indicator_muted?: boolean;
@@ -610,8 +608,8 @@ export interface CChatRoom_SetUserChatGroupPreferences_Request_ChatRoomPreferenc
 export type CChatRoom_SetUserChatGroupPreferences_Response = Record<string, never>;
 
 export interface CChatRoom_UpdateMemberListView_Notification {
-  chat_group_id?: Long;
-  view_id?: Long;
+  chat_group_id?: bigint;
+  view_id?: bigint;
   start?: number;
   end?: number;
   client_changenumber?: number;
@@ -621,8 +619,8 @@ export interface CChatRoom_UpdateMemberListView_Notification {
 }
 
 export interface CChatRoom_UpdateMessageReaction_Request {
-  chat_group_id?: Long;
-  chat_id?: Long;
+  chat_group_id?: bigint;
+  chat_id?: bigint;
   server_timestamp?: number;
   ordinal?: number;
   reaction_type?: number;
@@ -635,8 +633,8 @@ export interface CChatRoom_UpdateMessageReaction_Response {
 }
 
 export interface CChatRoomClient_MemberListViewUpdated_Notification {
-  chat_group_id?: Long;
-  view_id?: Long;
+  chat_group_id?: bigint;
+  view_id?: bigint;
   view?: CChatRoomMemberListView;
   members?: CChatRoomClient_MemberListViewUpdated_Notification_MemberListViewEntry[];
   status_flags?: number;
@@ -651,20 +649,20 @@ export interface CChatRoomClient_MemberListViewUpdated_Notification_MemberListVi
 }
 
 export interface CChatRoomGroupHeaderState {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   chat_name?: string;
   clanid?: number;
   accountid_owner?: number;
   tagline?: string;
   avatar_sha?: Buffer;
-  default_role_id?: Long;
+  default_role_id?: bigint;
   roles?: CChatRole[];
   role_actions?: CChatRoleActions[];
   watching_broadcast_accountid?: number;
   appid?: number;
   party_beacons?: CChatPartyBeacon[];
-  watching_broadcast_channel_id?: Long;
-  active_minigame_id?: Long;
+  watching_broadcast_channel_id?: bigint;
+  active_minigame_id?: bigint;
   avatar_ugc_url?: string;
   disabled?: boolean;
 }
@@ -678,7 +676,7 @@ export interface CChatRoomGroupInvite {
 export interface CChatRoomGroupState {
   header_state?: CChatRoomGroupHeaderState;
   members?: CChatRoomMember[];
-  default_chat_id?: Long;
+  default_chat_id?: bigint;
   chat_rooms?: CChatRoomState[];
   kicked?: CChatRoomMember[];
 }
@@ -688,7 +686,7 @@ export interface CChatRoomMember {
   state?: number;
   rank?: number;
   time_kick_expire?: number;
-  role_ids?: Long[];
+  role_ids?: bigint[];
 }
 
 export interface CChatRoomMemberListView {
@@ -711,18 +709,18 @@ export interface CChatRoomSummaryPair {
 }
 
 export interface ChatRoomClient_NotifyChatGroupUserStateChanged_Notification {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   user_chat_group_state?: CUserChatRoomGroupState;
   group_summary?: CChatRoom_GetChatRoomGroupSummary_Response;
   user_action?: number;
 }
 
 export interface ChatRoomClient_NotifyChatRoomDisconnect_Notification {
-  chat_group_ids?: Long[];
+  chat_group_ids?: bigint[];
 }
 
 export interface CUserChatRoomGroupState {
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
   time_joined?: number;
   user_chat_room_state?: CUserChatRoomState[];
   desktop_notification_level?: number;
@@ -733,7 +731,7 @@ export interface CUserChatRoomGroupState {
 }
 
 export interface CUserChatRoomState {
-  chat_id?: Long;
+  chat_id?: bigint;
   time_joined?: number;
   time_last_ack?: number;
   desktop_notification_level?: number;

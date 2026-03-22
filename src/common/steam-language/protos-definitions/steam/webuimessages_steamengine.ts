@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { WebUINoResponse } from "./webuimessages_base";
 
 export interface CSteamEngine_UpdateTextFilterDictionary_Notification {
@@ -29,11 +27,11 @@ export interface CSteamEngine_GetGameIDForPID_Request {
 }
 
 export interface CSteamEngine_GetGameIDForPID_Response {
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export interface CSteamEngine_SetOverlayEscapeKeyHandling_Notification {
-  gameid?: Long;
+  gameid?: bigint;
   should_handle?: boolean;
 }
 

@@ -1,18 +1,16 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgQAngle } from "./networkbasetypes";
 
 export interface CInButtonStatePB {
-  buttonstate1?: Long;
-  buttonstate2?: Long;
-  buttonstate3?: Long;
+  buttonstate1?: bigint;
+  buttonstate2?: bigint;
+  buttonstate3?: bigint;
 }
 
 export interface CSubtickMoveStep {
-  button?: Long;
+  button?: bigint;
   pressed?: boolean;
   when?: number;
   analog_forward_delta?: number;

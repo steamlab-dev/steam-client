@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { NotImplemented } from "./common_base";
 
 export interface CRemoteClient_AllocateRelayServer_Request {
@@ -21,9 +19,9 @@ export interface CRemoteClient_AllocateSDR_Request {
 export type CRemoteClient_AllocateSDR_Response = Record<string, never>;
 
 export interface CRemoteClient_ClientDetails {
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   device_details?: CRemoteClient_DeviceDetails;
-  last_seen?: Long;
+  last_seen?: bigint;
   city?: string;
   state?: string;
   country?: string;
@@ -56,8 +54,8 @@ export interface CRemoteClient_GetPairingInfo_Request {
 }
 
 export interface CRemoteClient_GetPairingInfo_Response {
-  session_id?: Long;
-  device_id?: Long;
+  session_id?: bigint;
+  device_id?: bigint;
   request?: Buffer;
 }
 
@@ -68,21 +66,21 @@ export interface CRemoteClient_GetRecentClients_Response {
 }
 
 export interface CRemoteClient_MarkTaskComplete_Request {
-  remote_client_id?: Long;
-  task_id?: Long;
+  remote_client_id?: bigint;
+  task_id?: bigint;
   content_id?: string;
 }
 
 export type CRemoteClient_MarkTaskComplete_Response = Record<string, never>;
 
 export interface CRemoteClient_Online_Notification {
-  steamid?: Long;
-  remote_client_id?: Long;
+  steamid?: bigint;
+  remote_client_id?: bigint;
   device_details?: CRemoteClient_DeviceDetails;
 }
 
 export interface CRemoteClient_ReplyPacket_Notification {
-  session_id?: Long;
+  session_id?: bigint;
   payload?: Buffer;
 }
 
@@ -96,7 +94,7 @@ export interface CRemotePlay_SessionStarted_Request {
 }
 
 export interface CRemotePlay_SessionStarted_Response {
-  record_id?: Long;
+  record_id?: bigint;
 }
 
 export abstract class RemoteClientService {

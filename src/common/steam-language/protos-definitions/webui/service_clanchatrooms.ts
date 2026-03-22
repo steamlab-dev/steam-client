@@ -1,12 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CChatRoom_GetChatRoomGroupSummary_Response } from "./common";
 
 export interface CClanChatRooms_GetClanChatRoomInfo_Request {
-  steamid?: Long;
+  steamid?: bigint;
   autocreate?: boolean;
 }
 
@@ -15,7 +13,7 @@ export interface CClanChatRooms_GetClanChatRoomInfo_Response {
 }
 
 export interface CClanChatRooms_SetClanChatRoomPrivate_Request {
-  steamid?: Long;
+  steamid?: bigint;
   chat_room_private?: boolean;
 }
 

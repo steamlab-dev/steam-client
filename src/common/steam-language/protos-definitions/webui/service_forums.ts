@@ -1,14 +1,13 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CForums_DeleteModeratedComment_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: number;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
   reason?: number;
   resolution?: number;
 }
@@ -16,10 +15,10 @@ export interface CForums_DeleteModeratedComment_Request {
 export type CForums_DeleteModeratedComment_Response = Record<string, never>;
 
 export interface CForums_DeleteModeratedTopic_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: number;
-  gidfeature?: Long;
-  gidfeature2?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
   reason?: number;
   resolution?: number;
 }
@@ -27,9 +26,9 @@ export interface CForums_DeleteModeratedTopic_Request {
 export type CForums_DeleteModeratedTopic_Response = Record<string, never>;
 
 export interface CForums_GetForumDetails_Response {
-  gidforum?: Long;
+  gidforum?: bigint;
   clanidowner?: number;
-  gidfeature?: Long;
+  gidfeature?: bigint;
   forumtype?: string;
   appid?: number;
   name?: string;
@@ -44,11 +43,11 @@ export interface CForums_GetForumDetails_Response {
 }
 
 export interface CForums_GetTopicDetails_Request {
-  steamid?: Long;
-  gidforum?: Long;
+  steamid?: bigint;
+  gidforum?: bigint;
   forumtype?: string;
-  gidfeature?: Long;
-  gidtopics?: Long[];
+  gidfeature?: bigint;
+  gidtopics?: bigint[];
   include_preview?: boolean;
   include_full_text?: boolean;
 }
@@ -59,12 +58,12 @@ export interface CForums_GetTopicDetails_Response {
 }
 
 export interface CForums_ReportPost_Request {
-  steamid?: Long;
+  steamid?: bigint;
   forum_type?: string;
-  gidfeature?: Long;
-  gidforum?: Long;
-  gidtopic?: Long;
-  gidcomment?: Long;
+  gidfeature?: bigint;
+  gidforum?: bigint;
+  gidtopic?: bigint;
+  gidcomment?: bigint;
   authorname?: string;
   reportername?: string;
   report?: string;
@@ -73,24 +72,24 @@ export interface CForums_ReportPost_Request {
 }
 
 export interface CForums_ReportPost_Response {
-  gidreportforum?: Long;
-  gidreportthread?: Long;
+  gidreportforum?: bigint;
+  gidreportthread?: bigint;
 }
 
 export interface CForums_ResolveReportedPost_Request {
-  steamid?: Long;
-  gidforum?: Long;
-  gidtopic?: Long;
-  gidpost?: Long;
+  steamid?: bigint;
+  gidforum?: bigint;
+  gidtopic?: bigint;
+  gidpost?: bigint;
 }
 
 export type CForums_ResolveReportedPost_Response = Record<string, never>;
 
 export interface CForums_ResolveReportedPosts_Request {
-  steamid?: Long;
+  steamid?: bigint;
   forumtype?: string;
-  gidfeature?: Long;
-  gidtopic?: Long;
+  gidfeature?: bigint;
+  gidtopic?: bigint;
   audit_note?: string;
 }
 
@@ -99,9 +98,9 @@ export interface CForums_ResolveReportedPosts_Response {
 }
 
 export interface CForums_SetTopicLocked_Request {
-  steamid?: Long;
-  gidforum?: Long;
-  gidtopic?: Long;
+  steamid?: bigint;
+  gidforum?: bigint;
+  gidtopic?: bigint;
   locked?: boolean;
   audit_note?: string;
 }
@@ -109,7 +108,7 @@ export interface CForums_SetTopicLocked_Request {
 export type CForums_SetTopicLocked_Response = Record<string, never>;
 
 export interface CForums_Topic {
-  gidforumtopic?: Long;
+  gidforumtopic?: bigint;
   originalpost_accountid?: number;
   originalpost_date?: number;
   lastpost_accountid?: number;
@@ -126,7 +125,7 @@ export interface CForums_Topic {
   title?: string;
   textpreview?: string;
   ipaddress?: number;
-  answer_comment?: Long;
+  answer_comment?: bigint;
   ipaddress_string?: string;
   ban_check_result?: number;
   reactions?: CForums_Topic_Reaction[];
@@ -140,20 +139,20 @@ export interface CForums_Topic_Reaction {
 }
 
 export interface CForums_UndeleteDisputedComment_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: number;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
 }
 
 export type CForums_UndeleteDisputedComment_Response = Record<string, never>;
 
 export interface CForums_UndeleteDisputedTopic_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: number;
-  gidfeature?: Long;
-  gidfeature2?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
 }
 
 export type CForums_UndeleteDisputedTopic_Response = Record<string, never>;

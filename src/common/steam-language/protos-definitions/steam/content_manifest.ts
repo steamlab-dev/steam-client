@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EContentDeltaChunkDataLocation = {
   k_EContentDeltaChunkDataLocationInProtobuf: 0,
@@ -18,7 +17,7 @@ export interface ContentManifestPayload {
 export namespace ContentManifestPayload {
   export interface FileMapping {
     filename?: string;
-    size?: Long;
+    size?: bigint;
     flags?: number;
     sha_filename?: Buffer;
     sha_content?: Buffer;
@@ -29,7 +28,7 @@ export namespace ContentManifestPayload {
     export interface ChunkData {
       sha?: Buffer;
       crc?: number;
-      offset?: Long;
+      offset?: bigint;
       cb_original?: number;
       cb_compressed?: number;
     }
@@ -38,11 +37,11 @@ export namespace ContentManifestPayload {
 
 export interface ContentManifestMetadata {
   depot_id?: number;
-  gid_manifest?: Long;
+  gid_manifest?: bigint;
   creation_time?: number;
   filenames_encrypted?: boolean;
-  cb_disk_original?: Long;
-  cb_disk_compressed?: Long;
+  cb_disk_original?: bigint;
+  cb_disk_compressed?: bigint;
   unique_chunks?: number;
   crc_encrypted?: number;
   crc_clear?: number;
@@ -54,8 +53,8 @@ export interface ContentManifestSignature {
 
 export interface ContentDeltaChunks {
   depot_id?: number;
-  manifest_id_source?: Long;
-  manifest_id_target?: Long;
+  manifest_id_source?: bigint;
+  manifest_id_target?: bigint;
   deltaChunks?: ContentDeltaChunks.DeltaChunk[];
   chunk_data_location?: EContentDeltaChunkDataLocation;
 }

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CSteamAwards_GetNominationRecommendations_Request {
   category_id?: number;
@@ -25,7 +24,7 @@ export interface CSteamAwards_GetNominationRecommendations_Response_SuggestedApp
 
 export interface CSteamAwards_GetNominationRecommendations_Response_SuggestedEvent {
   clanid?: number;
-  event_gid?: Long;
+  event_gid?: bigint;
   appid?: number;
 }
 
@@ -34,12 +33,12 @@ export interface CSteamAwards_GetNominationShareLink_Request {
 }
 
 export interface CSteamAwards_GetNominationShareLink_Response {
-  code?: Long;
+  code?: bigint;
 }
 
 export interface CSteamAwards_GetOtherUserNominations_Request {
-  steamid?: Long;
-  code?: Long;
+  steamid?: bigint;
+  code?: bigint;
 }
 
 export type CSteamAwards_GetUserNominations_Request = Record<string, never>;

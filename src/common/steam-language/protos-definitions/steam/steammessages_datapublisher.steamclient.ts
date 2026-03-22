@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CDataPublisher_ClientContentCorruptionReport_Notification {
   appid?: number;
@@ -10,7 +9,7 @@ export interface CDataPublisher_ClientContentCorruptionReport_Notification {
   objectid?: string;
   cellid?: number;
   is_manifest?: boolean;
-  object_size?: Long;
+  object_size?: bigint;
   corruption_type?: number;
   used_https?: boolean;
   oc_proxy_detected?: boolean;
@@ -24,19 +23,19 @@ export interface CDataPublisher_ClientUpdateAppJob_Notification {
   error_details?: string;
   job_duration?: number;
   files_validation_failed?: number;
-  job_bytes_downloaded?: Long;
-  job_bytes_staged?: Long;
-  bytes_comitted?: Long;
+  job_bytes_downloaded?: bigint;
+  job_bytes_staged?: bigint;
+  bytes_comitted?: bigint;
   start_app_state?: number;
-  stats_machine_id?: Long;
+  stats_machine_id?: bigint;
   branch_name?: string;
-  total_bytes_downloaded?: Long;
-  total_bytes_staged?: Long;
-  total_bytes_restored?: Long;
+  total_bytes_downloaded?: bigint;
+  total_bytes_staged?: bigint;
+  total_bytes_restored?: bigint;
   is_borrowed?: boolean;
   is_free_weekend?: boolean;
-  total_bytes_patched?: Long;
-  total_bytes_saved?: Long;
+  total_bytes_patched?: bigint;
+  total_bytes_saved?: bigint;
   cell_id?: number;
   is_workshop?: boolean;
   is_shader?: boolean;
@@ -86,12 +85,12 @@ export interface CDataPublisher_AddVRDeviceInfo_Response {
 
 export interface CValveHWSurvey_GetSurveySchedule_Request {
   surveydatetoken?: string;
-  surveydatetokenversion?: Long;
+  surveydatetokenversion?: bigint;
 }
 
 export interface CValveHWSurvey_GetSurveySchedule_Response {
   surveydatetoken?: number;
-  surveydatetokenversion?: Long;
+  surveydatetokenversion?: bigint;
 }
 
 export abstract class DataPublisherService {

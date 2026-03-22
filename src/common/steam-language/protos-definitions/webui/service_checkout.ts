@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CartAmount,
   CartCoupon,
@@ -45,11 +43,11 @@ export interface CCheckout_GetFriendOwnershipForGifting_Response_OwnershipInfo {
 }
 
 export interface CCheckout_ValidateCart_Request {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   context?: StoreBrowseContext;
   data_request?: StoreBrowseItemDataRequest;
   gift_info?: CartGiftInfo;
-  gidreplayoftransid?: Long;
+  gidreplayoftransid?: bigint;
   for_init_purchase?: boolean;
 }
 
@@ -59,7 +57,7 @@ export interface CCheckout_ValidateCart_Response {
 }
 
 export interface CCheckout_ValidateCart_Response_CartItem {
-  line_item_id?: Long;
+  line_item_id?: bigint;
   item_id?: StoreItemID;
   store_item?: StoreItem;
   gift_info?: CartGiftInfo;

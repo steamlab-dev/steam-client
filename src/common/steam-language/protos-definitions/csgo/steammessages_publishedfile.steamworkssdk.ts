@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPublishedFile_Subscribe_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   list_type?: number;
   appid?: number;
   notify_client?: boolean;
@@ -13,7 +12,7 @@ export interface CPublishedFile_Subscribe_Request {
 export type CPublishedFile_Subscribe_Response = Record<string, never>;
 
 export interface CPublishedFile_Unsubscribe_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   list_type?: number;
   appid?: number;
   notify_client?: boolean;
@@ -41,12 +40,12 @@ export interface CPublishedFile_Publish_Request {
 }
 
 export interface CPublishedFile_Publish_Response {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   redirect_uri?: string;
 }
 
 export interface CPublishedFile_GetDetails_Request {
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
   includetags?: boolean;
   includeadditionalpreviews?: boolean;
   includechildren?: boolean;
@@ -57,20 +56,20 @@ export interface CPublishedFile_GetDetails_Request {
 
 export interface PublishedFileDetails {
   result?: number;
-  publishedfileid?: Long;
-  creator?: Long;
+  publishedfileid?: bigint;
+  creator?: bigint;
   creator_appid?: number;
   consumer_appid?: number;
   consumer_shortcutid?: number;
   filename?: string;
-  file_size?: Long;
-  preview_file_size?: Long;
+  file_size?: bigint;
+  preview_file_size?: bigint;
   file_url?: string;
   preview_url?: string;
   youtubevideoid?: string;
   url?: string;
-  hcontent_file?: Long;
-  hcontent_preview?: Long;
+  hcontent_file?: bigint;
+  hcontent_preview?: bigint;
   title?: string;
   file_description?: string;
   short_description?: string;
@@ -85,7 +84,7 @@ export interface PublishedFileDetails {
   num_comments_public?: number;
   banned?: boolean;
   ban_reason?: string;
-  banner?: Long;
+  banner?: bigint;
   can_be_deleted?: boolean;
   incompatible?: boolean;
   app_name?: string;
@@ -121,7 +120,7 @@ export namespace PublishedFileDetails {
   }
 
   export interface Preview {
-    previewid?: Long;
+    previewid?: bigint;
     sortorder?: number;
     url?: string;
     size?: number;
@@ -130,7 +129,7 @@ export namespace PublishedFileDetails {
   }
 
   export interface Child {
-    publishedfileid?: Long;
+    publishedfileid?: bigint;
     sortorder?: number;
     file_type?: number;
   }
@@ -181,7 +180,7 @@ export namespace CPublishedFile_GetUserFiles_Response {
 
 export interface CPublishedFile_Update_Request {
   appid?: number;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   title?: string;
   file_description?: string;
   visibility?: number;

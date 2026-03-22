@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CSteamTV_AddChatBan_Request {
-  broadcast_channel_id?: Long;
-  chatter_steamid?: Long;
+  broadcast_channel_id?: bigint;
+  chatter_steamid?: bigint;
   duration?: number;
   permanent?: boolean;
   undo?: boolean;
@@ -14,15 +13,15 @@ export interface CSteamTV_AddChatBan_Request {
 export type CSteamTV_AddChatBan_Response = Record<string, never>;
 
 export interface CSteamTV_AddChatModerator_Request {
-  broadcast_channel_id?: Long;
-  moderator_steamid?: Long;
+  broadcast_channel_id?: bigint;
+  moderator_steamid?: bigint;
   undo?: boolean;
 }
 
 export type CSteamTV_AddChatModerator_Response = Record<string, never>;
 
 export interface CSteamTV_AddWordBan_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   word?: string;
   undo?: boolean;
 }
@@ -31,7 +30,7 @@ export type CSteamTV_AddWordBan_Response = Record<string, never>;
 
 export interface CSteamTV_AppCheer_Request {
   app_id?: number;
-  cheer_target_id?: Long;
+  cheer_target_id?: bigint;
   cheers?: CSteamTV_AppCheer_SingleCheerType[];
 }
 
@@ -45,11 +44,11 @@ export interface CSteamTV_AppCheer_SingleCheerType {
 }
 
 export interface CSteamTV_BroadcastClipInfo {
-  broadcast_clip_id?: Long;
-  channel_id?: Long;
+  broadcast_clip_id?: bigint;
+  channel_id?: bigint;
   app_id?: number;
-  broadcaster_steamid?: Long;
-  creator_steamid?: Long;
+  broadcaster_steamid?: bigint;
+  creator_steamid?: bigint;
   video_description?: string;
   live_time?: number;
   length_ms?: number;
@@ -57,15 +56,15 @@ export interface CSteamTV_BroadcastClipInfo {
 }
 
 export interface CSteamTV_ChatBan {
-  issuer_steamid?: Long;
-  chatter_steamid?: Long;
+  issuer_steamid?: bigint;
+  chatter_steamid?: bigint;
   time_expires?: string;
   permanent?: boolean;
   name?: string;
 }
 
 export interface CSteamTV_ChatModerator {
-  steamid?: Long;
+  steamid?: bigint;
   name?: string;
 }
 
@@ -74,11 +73,11 @@ export interface CSteamTV_CreateBroadcastChannel_Request {
 }
 
 export interface CSteamTV_CreateBroadcastChannel_Response {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_FollowBroadcastChannel_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   undo?: boolean;
 }
 
@@ -90,7 +89,7 @@ export interface CSteamTV_Game {
   appid?: number;
   name?: string;
   image?: string;
-  viewers?: Long;
+  viewers?: bigint;
   channels?: GetBroadcastChannelEntry[];
   release_date?: string;
   developer?: string;
@@ -98,7 +97,7 @@ export interface CSteamTV_Game {
 }
 
 export interface CSteamTV_GetBroadcastChannelBroadcasters_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelBroadcasters_Response {
@@ -106,13 +105,13 @@ export interface CSteamTV_GetBroadcastChannelBroadcasters_Response {
 }
 
 export interface CSteamTV_GetBroadcastChannelBroadcasters_Response_Broadcaster {
-  steamid?: Long;
+  steamid?: bigint;
   name?: string;
   rtmp_token?: string;
 }
 
 export interface CSteamTV_GetBroadcastChannelClips_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelClips_Response {
@@ -125,13 +124,13 @@ export interface CSteamTV_GetBroadcastChannelID_Request {
 }
 
 export interface CSteamTV_GetBroadcastChannelID_Response {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   unique_name?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelImages_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   image_types?: number[];
 }
 
@@ -146,7 +145,7 @@ export interface CSteamTV_GetBroadcastChannelImages_Response_Images {
 }
 
 export interface CSteamTV_GetBroadcastChannelInteraction_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelInteraction_Response {
@@ -155,7 +154,7 @@ export interface CSteamTV_GetBroadcastChannelInteraction_Response {
 }
 
 export interface CSteamTV_GetBroadcastChannelLinks_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelLinks_Response {
@@ -173,12 +172,12 @@ export interface CSteamTV_GetBroadcastChannelLinks_Response_Links {
 }
 
 export interface CSteamTV_GetBroadcastChannelProfile_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelProfile_Response {
   unique_name?: string;
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
   name?: string;
   language?: string;
   headline?: string;
@@ -190,21 +189,21 @@ export interface CSteamTV_GetBroadcastChannelProfile_Response {
 }
 
 export interface CSteamTV_GetBroadcastChannelStatus_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetBroadcastChannelStatus_Response {
   is_live?: boolean;
   is_disabled?: boolean;
   appid?: number;
-  viewers?: Long;
-  views?: Long;
-  broadcaster_steamid?: Long;
+  viewers?: bigint;
+  views?: bigint;
+  broadcaster_steamid?: bigint;
   thumbnail_url?: string;
-  followers?: Long;
-  subscribers?: Long;
+  followers?: bigint;
+  subscribers?: bigint;
   unique_name?: string;
-  broadcast_session_id?: Long;
+  broadcast_session_id?: bigint;
 }
 
 export interface CSteamTV_GetChannels_Request {
@@ -218,7 +217,7 @@ export interface CSteamTV_GetChannels_Response {
 }
 
 export interface CSteamTV_GetChatBans_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetChatBans_Response {
@@ -226,7 +225,7 @@ export interface CSteamTV_GetChatBans_Response {
 }
 
 export interface CSteamTV_GetChatModerators_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetChatModerators_Response {
@@ -275,7 +274,7 @@ export interface CSteamTV_GetSubscribedChannels_Response {
 }
 
 export interface CSteamTV_GetWordBans_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_GetWordBans_Response {
@@ -331,21 +330,21 @@ export interface CSteamTV_HomePageTemplate_Takeover {
 export interface CSteamTV_HomePageTemplate_WatchParty {
   broadcast?: GetBroadcastChannelEntry;
   title?: string;
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CSteamTV_JoinChat_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_JoinChat_Response {
-  chat_id?: Long;
+  chat_id?: bigint;
   view_url_template?: string;
-  flair_group_ids?: Long[];
+  flair_group_ids?: bigint[];
 }
 
 export interface CSteamTV_ReportBroadcastChannel_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   reason?: string;
 }
 
@@ -360,7 +359,7 @@ export interface CSteamTV_Search_Response {
 }
 
 export interface CSteamTV_SetBroadcastChannelImage_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   image_type?: number;
   image_index?: number;
   image_width?: number;
@@ -376,7 +375,7 @@ export interface CSteamTV_SetBroadcastChannelImage_Response {
 }
 
 export interface CSteamTV_SetBroadcastChannelLinkRegions_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   links?: CSteamTV_SetBroadcastChannelLinkRegions_Request_Links[];
 }
 
@@ -393,7 +392,7 @@ export interface CSteamTV_SetBroadcastChannelLinkRegions_Request_Links {
 export type CSteamTV_SetBroadcastChannelLinkRegions_Response = Record<string, never>;
 
 export interface CSteamTV_SetBroadcastChannelProfile_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   name?: string;
   language?: string;
   headline?: string;
@@ -414,7 +413,7 @@ export interface CSteamTV_SetSteamTVUserSettings_Request {
 export type CSteamTV_SetSteamTVUserSettings_Response = Record<string, never>;
 
 export interface CSteamTV_SubscribeBroadcastChannel_Request {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
 }
 
 export interface CSteamTV_SubscribeBroadcastChannel_Response {
@@ -428,18 +427,18 @@ export interface GameListEntry {
 }
 
 export interface GetBroadcastChannelEntry {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   unique_name?: string;
   name?: string;
   appid?: number;
-  viewers?: Long;
-  views?: Long;
+  viewers?: bigint;
+  views?: bigint;
   thumbnail_url?: string;
-  followers?: Long;
+  followers?: bigint;
   headline?: string;
   avatar_url?: string;
-  broadcaster_steamid?: Long;
-  subscribers?: Long;
+  broadcaster_steamid?: bigint;
+  subscribers?: bigint;
   background_url?: string;
   is_featured?: boolean;
   is_disabled?: boolean;

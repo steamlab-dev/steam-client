@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface COptInDef {
   opt_in_name?: string;
@@ -43,8 +42,8 @@ export interface CPartnerAppOptInData {
 
 export interface CPartnerAppOptInEmailDef {
   opt_in_name?: string;
-  targeting_flag?: Long;
-  settings_flag?: Long;
+  targeting_flag?: bigint;
+  settings_flag?: bigint;
   email_templates?: string;
   start_rtime?: number;
   end_rtime?: number;
@@ -52,7 +51,7 @@ export interface CPartnerAppOptInEmailDef {
   creator_accountid?: number;
   create_time?: number;
   last_update_time?: number;
-  email_def_id?: Long;
+  email_def_id?: bigint;
   completed?: boolean;
   aborted?: boolean;
   deleted?: boolean;
@@ -81,19 +80,19 @@ export interface CPartnerOptInEmailTracking {
 
 export interface CPublishing_CreatePartnerAppOptInEmail_Request {
   opt_in_name?: string;
-  targeting_flag?: Long;
-  settings_flag?: Long;
+  targeting_flag?: bigint;
+  settings_flag?: bigint;
   email_templates?: string;
   start_rtime?: number;
   end_rtime?: number;
 }
 
 export interface CPublishing_CreatePartnerAppOptInEmail_Response {
-  email_def_id?: Long;
+  email_def_id?: bigint;
 }
 
 export interface CPublishing_GetEstimatePartnerAppOptInEmail_Request {
-  email_def_id?: Long;
+  email_def_id?: bigint;
 }
 
 export interface CPublishing_GetEstimatePartnerAppOptInEmail_Response {
@@ -117,11 +116,11 @@ export interface CPublishing_GetOptInAppealsSummaryStats_Response_CSummary {
 }
 
 export interface CPublishing_GetOptInEmailTracking_Request {
-  email_def_id?: Long;
+  email_def_id?: bigint;
 }
 
 export interface CPublishing_GetOptInEmailTracking_Response {
-  email_def_id?: Long;
+  email_def_id?: bigint;
   results?: CPartnerOptInEmailTracking[];
 }
 
@@ -175,7 +174,7 @@ export interface CPublishing_GetSinglePartnerAppOptIns_Response {
 }
 
 export interface CPublishing_SendPartnerAppOptInEmailAndWait_Request {
-  email_def_id?: Long;
+  email_def_id?: bigint;
   force_resend?: boolean;
 }
 
@@ -194,7 +193,7 @@ export interface CPublishing_SetFeaturingOnPartnerAppOptIn_Response {
 }
 
 export interface CPublishing_TestFirePartnerAppOptInEmail_Request {
-  email_def_id?: Long;
+  email_def_id?: bigint;
   appid?: number;
   partnerid?: number;
   language_override?: number;
@@ -203,9 +202,9 @@ export interface CPublishing_TestFirePartnerAppOptInEmail_Request {
 export type CPublishing_TestFirePartnerAppOptInEmail_Response = Record<string, never>;
 
 export interface CPublishing_UpdatePartnerAppOptInEmail_Request {
-  email_def_id?: Long;
-  targeting_flag?: Long;
-  settings_flag?: Long;
+  email_def_id?: bigint;
+  targeting_flag?: bigint;
+  settings_flag?: bigint;
   email_templates?: string;
   start_rtime?: number;
   end_rtime?: number;

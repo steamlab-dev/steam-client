@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CStorePageFilter } from "./contenthubs";
 import type {
   EGameFrameRateReportingPreference,
@@ -97,16 +95,16 @@ export interface CStore_RegisterCDKey_Request {
 }
 
 export interface CStore_PurchaseReceiptInfo {
-  transactionid?: Long;
+  transactionid?: bigint;
   packageid?: number;
   purchase_status?: number;
   result_detail?: number;
   transaction_time?: number;
   payment_method?: number;
-  base_price?: Long;
-  total_discount?: Long;
-  tax?: Long;
-  shipping?: Long;
+  base_price?: bigint;
+  total_discount?: bigint;
+  tax?: bigint;
+  shipping?: bigint;
   currency_code?: number;
   country_code?: string;
   error_headline?: string;
@@ -291,7 +289,7 @@ export namespace CStore_GetUserGameInterestState_Response {
 }
 
 export interface CStore_GetGamesFollowed_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CStore_GetGamesFollowed_Response {
@@ -299,7 +297,7 @@ export interface CStore_GetGamesFollowed_Response {
 }
 
 export interface CStore_GetGamesFollowedCount_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CStore_GetGamesFollowedCount_Response {
@@ -307,7 +305,7 @@ export interface CStore_GetGamesFollowedCount_Response {
 }
 
 export interface CStore_GetDiscoveryQueueSkippedApps_Request {
-  steamid?: Long;
+  steamid?: bigint;
   queue_type?: EStoreDiscoveryQueueType;
   store_page_filter?: CStorePageFilter;
 }
@@ -375,14 +373,14 @@ export interface CStore_GetTrendingAppsAmongFriends_Response {
 export namespace CStore_GetTrendingAppsAmongFriends_Response {
   export interface TrendingAppData {
     appid?: number;
-    steamids_top_friends?: Long[];
+    steamids_top_friends?: bigint[];
     total_friends?: number;
   }
 }
 
 export interface CStore_MigratePartnerLinkTracking_Notification {
   accountid?: number;
-  browserid?: Long;
+  browserid?: bigint;
   backfill_source?: EPartnerLinkTrackingBackfillSource;
 }
 

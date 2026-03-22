@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export type CSteamNotification_GetPreferences_Request = Record<string, never>;
 
@@ -28,18 +27,18 @@ export interface CSteamNotification_GetSteamNotifications_Response {
 }
 
 export interface CSteamNotification_HideNotification_Notification {
-  notification_ids?: Long[];
+  notification_ids?: bigint[];
 }
 
 export interface CSteamNotification_MarkNotificationsRead_Notification {
   timestamp?: number;
   notification_type?: number;
-  notification_ids?: Long[];
+  notification_ids?: bigint[];
   mark_all_read?: boolean;
 }
 
 export interface CSteamNotification_MarkNotificationsViewed_Notification {
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   target_client_type?: number;
 }
 
@@ -61,7 +60,7 @@ export interface CSteamNotification_SetPreferences_Request {
 export type CSteamNotification_SetPreferences_Response = Record<string, never>;
 
 export interface SteamNotificationData {
-  notification_id?: Long;
+  notification_id?: bigint;
   notification_targets?: number;
   notification_type?: number;
   body_data?: string;

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientAppInfoUpdate {
   last_changenumber?: number;
@@ -72,13 +71,13 @@ export interface CMsgClientPICSProductInfoRequest {
 export namespace CMsgClientPICSProductInfoRequest {
   export interface AppInfo {
     appid?: number;
-    access_token?: Long;
+    access_token?: bigint;
     only_public_obsolete?: boolean;
   }
 
   export interface PackageInfo {
     packageid?: number;
-    access_token?: Long;
+    access_token?: bigint;
   }
 }
 
@@ -129,18 +128,18 @@ export interface CMsgClientPICSAccessTokenResponse {
 export namespace CMsgClientPICSAccessTokenResponse {
   export interface PackageToken {
     packageid?: number;
-    access_token?: Long;
+    access_token?: bigint;
   }
 
   export interface AppToken {
     appid?: number;
-    access_token?: Long;
+    access_token?: bigint;
   }
 }
 
 export interface CMsgClientPICSPrivateBetaRequest {
   appid?: number;
-  access_token?: Long;
+  access_token?: bigint;
   beta_name?: string;
   password_hash?: Buffer;
 }

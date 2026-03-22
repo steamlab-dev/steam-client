@@ -1,12 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./common";
 
 export interface CAuthenticationSupport_GetTokenHistory_Request {
-  token_id?: Long;
+  token_id?: bigint;
 }
 
 export interface CAuthenticationSupport_GetTokenHistory_Response {
@@ -14,14 +12,14 @@ export interface CAuthenticationSupport_GetTokenHistory_Response {
 }
 
 export interface CAuthenticationSupport_MarkTokenCompromised_Request {
-  steamid?: Long;
-  token_id?: Long;
+  steamid?: bigint;
+  token_id?: bigint;
 }
 
 export type CAuthenticationSupport_MarkTokenCompromised_Response = Record<string, never>;
 
 export interface CAuthenticationSupport_QueryRefreshTokenByID_Request {
-  token_id?: Long;
+  token_id?: bigint;
 }
 
 export interface CAuthenticationSupport_QueryRefreshTokenByID_Response {
@@ -29,7 +27,7 @@ export interface CAuthenticationSupport_QueryRefreshTokenByID_Response {
 }
 
 export interface CAuthenticationSupport_QueryRefreshTokensByAccount_Request {
-  steamid?: Long;
+  steamid?: bigint;
   include_revoked_tokens?: boolean;
 }
 
@@ -39,8 +37,8 @@ export interface CAuthenticationSupport_QueryRefreshTokensByAccount_Response {
 }
 
 export interface CAuthenticationSupport_RevokeToken_Request {
-  token_id?: Long;
-  steamid?: Long;
+  token_id?: bigint;
+  steamid?: bigint;
 }
 
 export type CAuthenticationSupport_RevokeToken_Response = Record<string, never>;
@@ -49,16 +47,16 @@ export interface CSupportRefreshTokenAudit {
   action?: number;
   time?: number;
   ip?: CMsgIPAddress;
-  actor?: Long;
+  actor?: bigint;
 }
 
 export interface CSupportRefreshTokenDescription {
-  token_id?: Long;
+  token_id?: bigint;
   token_description?: string;
   time_updated?: number;
   platform_type?: number;
   token_state?: number;
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
   os_platform?: number;
   os_type?: number;
   auth_type?: number;

@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CSiteManagerClient_IncomingClient_Request {
-  site_instanceid?: Long;
-  client_steamid?: Long;
+  site_instanceid?: bigint;
+  client_steamid?: bigint;
   client_local_ip?: number;
   connection_key?: Buffer;
 }
@@ -18,15 +17,15 @@ export interface CSiteLicense_ClientSeatCheckout_Notification {
 }
 
 export interface CSiteManagerClient_TrackedPayments_Notification {
-  site_id?: Long;
+  site_id?: bigint;
   payments?: CSiteManagerClient_TrackedPayments_Notification.Payment[];
 }
 
 export namespace CSiteManagerClient_TrackedPayments_Notification {
   export interface Payment {
-    transid?: Long;
-    steamid?: Long;
-    amount?: Long;
+    transid?: bigint;
+    steamid?: bigint;
+    amount?: bigint;
     ecurrency?: number;
     time_created?: number;
     purchase_status?: number;
@@ -38,8 +37,8 @@ export namespace CSiteManagerClient_TrackedPayments_Notification {
 }
 
 export interface CSiteLicense_InitiateAssociation_Request {
-  site_steamid?: Long;
-  site_instanceid?: Long;
+  site_steamid?: bigint;
+  site_instanceid?: bigint;
   client_local_ip?: number;
 }
 
@@ -48,36 +47,36 @@ export interface CSiteLicense_InitiateAssociation_Response {
 }
 
 export interface CSiteLicense_LCSAuthenticate_Request {
-  instanceid?: Long;
+  instanceid?: bigint;
 }
 
 export interface CSiteLicense_LCSAuthenticate_Response {
-  site_id?: Long;
+  site_id?: bigint;
   site_name?: string;
   new_session?: boolean;
   no_site_licenses?: boolean;
 }
 
 export interface CSiteLicense_LCSAssociateUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
   local_ip?: number;
-  instanceid?: Long;
+  instanceid?: bigint;
   machine_name?: string;
 }
 
 export type CSiteLicense_LCSAssociateUser_Response = Record<string, never>;
 
 export interface CSiteLicense_ClientSeatCheckout_Request {
-  steamid?: Long;
-  instanceid?: Long;
+  steamid?: bigint;
+  instanceid?: bigint;
   appid?: number;
 }
 
 export type CSiteLicense_ClientSeatCheckout_Response = Record<string, never>;
 
 export interface CSiteLicense_ClientGetAvailableSeats_Request {
-  steamid?: Long;
-  instanceid?: Long;
+  steamid?: bigint;
+  instanceid?: bigint;
   appid?: number;
 }
 

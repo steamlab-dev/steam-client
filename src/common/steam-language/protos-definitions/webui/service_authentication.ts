@@ -1,13 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./common";
 
 export interface CAuthentication_AccessToken_GenerateForApp_Request {
   refresh_token?: string;
-  steamid?: Long;
+  steamid?: bigint;
   renewal_type?: number;
 }
 
@@ -25,7 +23,7 @@ export interface CAuthentication_BeginAuthSessionViaCredentials_Request {
   device_friendly_name?: string;
   account_name?: string;
   encrypted_password?: string;
-  encryption_timestamp?: Long;
+  encryption_timestamp?: bigint;
   remember_login?: boolean;
   platform_type?: number;
   persistence?: number;
@@ -37,11 +35,11 @@ export interface CAuthentication_BeginAuthSessionViaCredentials_Request {
 }
 
 export interface CAuthentication_BeginAuthSessionViaCredentials_Response {
-  client_id?: Long;
+  client_id?: bigint;
   request_id?: Buffer;
   interval?: number;
   allowed_confirmations?: CAuthentication_AllowedConfirmation[];
-  steamid?: Long;
+  steamid?: bigint;
   weak_token?: string;
   agreement_session_url?: string;
   extended_error_message?: string;
@@ -55,7 +53,7 @@ export interface CAuthentication_BeginAuthSessionViaQR_Request {
 }
 
 export interface CAuthentication_BeginAuthSessionViaQR_Response {
-  client_id?: Long;
+  client_id?: bigint;
   challenge_url?: string;
   request_id?: Buffer;
   interval?: number;
@@ -74,7 +72,7 @@ export interface CAuthentication_DeviceDetails {
 }
 
 export interface CAuthentication_GetAuthSessionInfo_Request {
-  client_id?: Long;
+  client_id?: bigint;
 }
 
 export interface CAuthentication_GetAuthSessionInfo_Response {
@@ -95,7 +93,7 @@ export interface CAuthentication_GetAuthSessionInfo_Response {
 }
 
 export interface CAuthentication_GetAuthSessionRiskInfo_Request {
-  client_id?: Long;
+  client_id?: bigint;
   language?: number;
 }
 
@@ -109,7 +107,7 @@ export interface CAuthentication_GetAuthSessionRiskInfo_Response {
 export type CAuthentication_GetAuthSessionsForAccount_Request = Record<string, never>;
 
 export interface CAuthentication_GetAuthSessionsForAccount_Response {
-  client_ids?: Long[];
+  client_ids?: bigint[];
 }
 
 export interface CAuthentication_GetPasswordRSAPublicKey_Request {
@@ -119,11 +117,11 @@ export interface CAuthentication_GetPasswordRSAPublicKey_Request {
 export interface CAuthentication_GetPasswordRSAPublicKey_Response {
   publickey_mod?: string;
   publickey_exp?: string;
-  timestamp?: Long;
+  timestamp?: bigint;
 }
 
 export interface CAuthentication_MigrateMobileSession_Request {
-  steamid?: Long;
+  steamid?: bigint;
   token?: string;
   signature?: string;
 }
@@ -134,7 +132,7 @@ export interface CAuthentication_MigrateMobileSession_Response {
 }
 
 export interface CAuthentication_NotifyRiskQuizResults_Notification {
-  client_id?: Long;
+  client_id?: bigint;
   results?: CAuthentication_NotifyRiskQuizResults_Notification_RiskQuizResults;
   selected_action?: string;
   did_confirm_login?: boolean;
@@ -147,13 +145,13 @@ export interface CAuthentication_NotifyRiskQuizResults_Notification_RiskQuizResu
 }
 
 export interface CAuthentication_PollAuthSessionStatus_Request {
-  client_id?: Long;
+  client_id?: bigint;
   request_id?: Buffer;
-  token_to_revoke?: Long;
+  token_to_revoke?: bigint;
 }
 
 export interface CAuthentication_PollAuthSessionStatus_Response {
-  new_client_id?: Long;
+  new_client_id?: bigint;
   new_challenge_url?: string;
   refresh_token?: string;
   access_token?: string;
@@ -169,11 +167,11 @@ export interface CAuthentication_RefreshToken_Enumerate_Request {
 
 export interface CAuthentication_RefreshToken_Enumerate_Response {
   refresh_tokens?: CAuthentication_RefreshToken_Enumerate_Response_RefreshTokenDescription[];
-  requesting_token?: Long;
+  requesting_token?: bigint;
 }
 
 export interface CAuthentication_RefreshToken_Enumerate_Response_RefreshTokenDescription {
-  token_id?: Long;
+  token_id?: bigint;
   token_description?: string;
   time_updated?: number;
   platform_type?: number;
@@ -198,8 +196,8 @@ export interface CAuthentication_RefreshToken_Enumerate_Response_TokenUsageEvent
 }
 
 export interface CAuthentication_RefreshToken_Revoke_Request {
-  token_id?: Long;
-  steamid?: Long;
+  token_id?: bigint;
+  steamid?: bigint;
   revoke_action?: number;
   signature?: Buffer;
 }
@@ -215,8 +213,8 @@ export type CAuthentication_Token_Revoke_Response = Record<string, never>;
 
 export interface CAuthentication_UpdateAuthSessionWithMobileConfirmation_Request {
   version?: number;
-  client_id?: Long;
-  steamid?: Long;
+  client_id?: bigint;
+  steamid?: bigint;
   signature?: Buffer;
   confirm?: boolean;
   persistence?: number;
@@ -228,8 +226,8 @@ export type CAuthentication_UpdateAuthSessionWithMobileConfirmation_Response = R
 >;
 
 export interface CAuthentication_UpdateAuthSessionWithSteamGuardCode_Request {
-  client_id?: Long;
-  steamid?: Long;
+  client_id?: bigint;
+  steamid?: bigint;
   code?: string;
   code_type?: number;
 }

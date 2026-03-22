@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { UserSystemInformation } from "./common";
 
 export interface CAccountHardware_CompleteSteamControllerRegistration_Request {
@@ -26,11 +24,11 @@ export interface CAccountHardware_GetPersonalizationFile_Request {
 }
 
 export interface CAccountHardware_GetPersonalizationFile_Response {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
 }
 
 export interface CAccountHardware_GetSavedHardwareList_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CAccountHardware_GetSavedHardwareList_Response {
@@ -47,7 +45,7 @@ export interface CAccountHardware_GetSteamDeckComponents_Response {
 }
 
 export interface CAccountHardware_ManageSavedHardware_Request {
-  hardware_id?: Long;
+  hardware_id?: bigint;
   delete_hardware?: boolean;
   friendly_name_update?: string;
 }
@@ -86,10 +84,10 @@ export interface CAccountHardware_RegisterValveIndexComponent_Request {
 export type CAccountHardware_RegisterValveIndexComponent_Response = Record<string, never>;
 
 export interface CAccountHardware_SavedHardware_Details {
-  hardware_id?: Long;
+  hardware_id?: bigint;
   friendly_name?: string;
   timestamp_created?: number;
-  hardware_cluster_id?: Long;
+  hardware_cluster_id?: bigint;
   system_info?: UserSystemInformation;
 }
 
@@ -100,12 +98,12 @@ export interface CAccountHardware_SaveHardware_Request {
 }
 
 export interface CAccountHardware_SaveHardware_Response {
-  hardware_id?: Long;
+  hardware_id?: bigint;
 }
 
 export interface CAccountHardware_SetPersonalizationFile_Request {
   serial_number?: string;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   accountid?: number;
 }
 
@@ -113,7 +111,7 @@ export type CAccountHardware_SetPersonalizationFile_Response = Record<string, ne
 
 export interface CAccountHardware_SteamControllerGetConfig_ControllerConfig {
   appidorname?: string;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   templatename?: string;
   serial_number?: string;
   autosave?: boolean;
@@ -134,7 +132,7 @@ export interface CAccountHardware_SteamControllerGetConfig_Response {
 
 export interface CAccountHardware_SteamControllerSetConfig_ControllerConfig {
   appidorname?: string;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   templatename?: string;
 }
 

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CNews_ConvertHTMLToBBCode_Request {
   content?: string;
@@ -14,16 +13,16 @@ export interface CNews_ConvertHTMLToBBCode_Response {
 }
 
 export interface CNews_GetBatchPublishedPartnerEvent_Request {
-  news_feed_gid?: Long;
+  news_feed_gid?: bigint;
   start_index?: number;
   amount?: number;
 }
 
 export interface CNews_GetBatchPublishedPartnerEvent_Response {
   clan_account_id?: number;
-  news_feed_gid?: Long;
-  clan_event_gid?: Long[];
-  news_post_gid?: Long[];
+  news_feed_gid?: bigint;
+  clan_event_gid?: bigint[];
+  news_post_gid?: bigint[];
   news_url?: string[];
 }
 
@@ -52,12 +51,12 @@ export interface CNews_PublishPartnerEvent_Request {
 }
 
 export interface CNews_PublishPartnerEvent_Response {
-  clan_event_gid?: Long;
-  news_post_gid?: Long;
+  clan_event_gid?: bigint;
+  news_post_gid?: bigint;
 }
 
 export interface CNewsFeedDef {
-  gid?: Long;
+  gid?: bigint;
   name?: string;
   type?: number;
   url?: string;
@@ -73,8 +72,8 @@ export interface CNewsFeedDef {
 }
 
 export interface CNewsFeedPostDef {
-  gid?: Long;
-  news_feed_gid?: Long;
+  gid?: bigint;
+  news_feed_gid?: bigint;
   title?: string;
   url?: string;
   author?: string;

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CHelpRequestLogs_UploadUserApplicationLog_Request {
   appid?: number;
@@ -11,7 +10,7 @@ export interface CHelpRequestLogs_UploadUserApplicationLog_Request {
 }
 
 export interface CHelpRequestLogs_UploadUserApplicationLog_Response {
-  id?: Long;
+  id?: bigint;
 }
 
 export abstract class HelpRequestLogsService {

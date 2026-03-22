@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPromotionEventInvitation {
-  inviteid?: Long;
+  inviteid?: bigint;
   appid?: number;
   invite_account?: number;
   rtinvitetime?: number;
@@ -36,7 +35,7 @@ export interface CPromotionEventInviteReceive {
 }
 
 export interface CPromotionEventInvites_AcceptInvite_Request {
-  inviteid?: Long;
+  inviteid?: bigint;
   rtdatechosen?: number;
   discount_days?: number;
   discount_info?: string;
@@ -44,17 +43,17 @@ export interface CPromotionEventInvites_AcceptInvite_Request {
 }
 
 export interface CPromotionEventInvites_AcceptInvite_Response {
-  gid?: Long;
+  gid?: bigint;
 }
 
 export interface CPromotionEventInvites_CancelInvite_Request {
-  inviteid?: Long;
+  inviteid?: bigint;
 }
 
 export type CPromotionEventInvites_CancelInvite_Response = Record<string, never>;
 
 export interface CPromotionEventInvites_GetEmailTargets_Request {
-  inviteid?: Long;
+  inviteid?: bigint;
 }
 
 export interface CPromotionEventInvites_GetEmailTargets_Response {
@@ -65,7 +64,7 @@ export interface CPromotionEventInvites_GetEmailTargets_Response {
 }
 
 export interface CPromotionEventInvites_GetInvite_Request {
-  inviteid?: Long;
+  inviteid?: bigint;
   appid?: number;
   packageid?: number;
   bundleid?: number;
@@ -78,7 +77,7 @@ export interface CPromotionEventInvites_GetInvite_Response {
 }
 
 export interface CPromotionEventInvites_ResendEmailInvite_Request {
-  inviteid?: Long;
+  inviteid?: bigint;
   only_notify_additional_email?: boolean;
 }
 
@@ -90,7 +89,7 @@ export interface CPromotionEventInvites_SetInvite_Request {
 }
 
 export interface CPromotionEventInvites_SetInvite_Response {
-  inviteid?: Long;
+  inviteid?: bigint;
 }
 
 export interface CPromotionRequirements {

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { LoyaltyRewardDefinition } from "./common";
 
 export interface CommunityItemDefinition {
@@ -22,7 +20,7 @@ export interface CommunityItemDefinition {
   item_image_composed_foil?: string;
   deleted?: boolean;
   item_last_changed?: number;
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   item_movie_webm?: string;
   item_movie_mp4?: string;
   item_movie_webm_small?: string;
@@ -45,7 +43,7 @@ export interface CSaleItemRewards_ClaimItem_Request {
 }
 
 export interface CSaleItemRewards_ClaimItem_Response {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   next_claim_time?: number;
   reward_item?: LoyaltyRewardDefinition;
 }
@@ -102,7 +100,7 @@ export interface CSteamItemRewardDefinition {
 }
 
 export interface SaleItemRewardGrant {
-  communityitemid?: Long;
+  communityitemid?: bigint;
   time_granted?: number;
   item_definition?: SaleReward_ItemDefinition;
 }

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CEconItemPreviewDataBlock,
   CMsgGCCStrike15_ClientDeepStats,
@@ -451,7 +449,7 @@ export interface CCSUsrMsg_MatchStatsUpdate {
 }
 
 export interface CCSUsrMsg_ItemDrop {
-  itemid?: Long;
+  itemid?: bigint;
   death?: boolean;
 }
 
@@ -469,7 +467,7 @@ export interface CCSUsrMsg_SSUI {
 }
 
 export interface CCSUsrMsg_SurvivalStats {
-  xuid?: Long;
+  xuid?: bigint;
   facts?: CCSUsrMsg_SurvivalStats.Fact[];
   users?: CCSUsrMsg_SurvivalStats.Placement[];
   damages?: CCSUsrMsg_SurvivalStats.Damage[];
@@ -485,13 +483,13 @@ export namespace CCSUsrMsg_SurvivalStats {
   }
 
   export interface Placement {
-    xuid?: Long;
+    xuid?: bigint;
     teamnumber?: number;
     placement?: number;
   }
 
   export interface Damage {
-    xuid?: Long;
+    xuid?: bigint;
     to?: number;
     to_hits?: number;
     from?: number;
@@ -513,7 +511,7 @@ export namespace CCSUsrMsg_EndOfMatchAllPlayersData {
 
   export interface PlayerData {
     slot?: number;
-    xuid?: Long;
+    xuid?: bigint;
     name?: string;
     teamnumber?: number;
     nomination?: CCSUsrMsg_EndOfMatchAllPlayersData.Accolade;
@@ -540,7 +538,7 @@ export namespace CCSUsrMsg_RoundEndReportData {
     export interface Victim {
       team_number?: number;
       playerslot?: number;
-      xuid?: Long;
+      xuid?: bigint;
       color?: number;
       is_bot?: boolean;
       is_dead?: boolean;
@@ -552,7 +550,7 @@ export namespace CCSUsrMsg_RoundEndReportData {
 
     export interface Damage {
       other_playerslot?: number;
-      other_xuid?: Long;
+      other_xuid?: bigint;
       health_removed?: number;
       num_hits?: number;
       return_health_removed?: number;
@@ -567,7 +565,7 @@ export namespace CCSUsrMsg_RoundEndReportData {
 }
 
 export interface CCSUsrMsg_PostRoundDamageReport {
-  other_xuid?: Long;
+  other_xuid?: bigint;
   given_kill_type?: number;
   given_health_removed?: number;
   given_num_hits?: number;

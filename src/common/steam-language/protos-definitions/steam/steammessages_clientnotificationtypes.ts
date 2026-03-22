@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EClientNotificationType = {
   k_EClientNotificationType_Invalid: 0,
@@ -106,7 +105,7 @@ export interface CClientNotificationDownloadCompleted {
 }
 
 export interface CClientNotificationFriendInvite {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CClientNotificationFriendInviteRollup {
@@ -114,12 +113,12 @@ export interface CClientNotificationFriendInviteRollup {
 }
 
 export interface CClientNotificationFriendInGame {
-  steamid?: Long;
+  steamid?: bigint;
   game_name?: string;
 }
 
 export interface CClientNotificationFriendOnline {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CClientNotificationAchievement {
@@ -182,7 +181,7 @@ export interface CClientNotificationFamilySharingLibraryAvailable {
 }
 
 export interface CClientNotificationIncomingVoiceChat {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CClientNotificationClaimSteamDeckRewards = Record<string, never>;
@@ -264,26 +263,26 @@ export interface CClientNotificationPlaytimeWarning {
 }
 
 export interface CClientNotificationGameRecordingError {
-  game_id?: Long;
+  game_id?: bigint;
   error_type?: EGameRecordingErrorType;
 }
 
 export interface CClientNotificationGameRecordingStart {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CClientNotificationGameRecordingStop {
-  game_id?: Long;
+  game_id?: bigint;
   clip_id?: string;
   duration_secs?: number;
 }
 
 export interface CClientNotificationGameRecordingUserMarkerAdded {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CClientNotificationGameRecordingInstantClip {
-  game_id?: Long;
+  game_id?: bigint;
   clip_id?: string;
   duration_secs?: number;
 }

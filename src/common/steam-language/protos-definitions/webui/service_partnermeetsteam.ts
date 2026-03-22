@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CParterMeetSteam_TestFireEmails_Request {
-  clan_event_gid?: Long;
-  steamid?: Long;
+  clan_event_gid?: bigint;
+  steamid?: bigint;
 }
 
 export interface CParterMeetSteam_TestFireEmails_Response {
@@ -20,8 +19,8 @@ export interface CPartnerEmailAndName {
 }
 
 export interface CPartnerMeetSteam_EmailInvitees_Request {
-  clan_event_gid?: Long;
-  steamid?: Long;
+  clan_event_gid?: bigint;
+  steamid?: bigint;
 }
 
 export interface CPartnerMeetSteam_EmailInvitees_Response {
@@ -30,7 +29,7 @@ export interface CPartnerMeetSteam_EmailInvitees_Response {
 }
 
 export interface CPartnerMeetSteam_GetAvailability_Request {
-  clan_event_gid?: Long;
+  clan_event_gid?: bigint;
 }
 
 export interface CPartnerMeetSteam_GetAvailability_Response {
@@ -53,8 +52,8 @@ export interface CPartnerMeetSteam_GetBatchPartnerEmailAndName_Response {
 }
 
 export interface CPartnerMeetSteam_GetRegistrations_Request {
-  clan_event_gid?: Long;
-  steamid?: Long;
+  clan_event_gid?: bigint;
+  steamid?: bigint;
 }
 
 export interface CPartnerMeetSteam_GetRegistrations_Response {
@@ -64,7 +63,7 @@ export interface CPartnerMeetSteam_GetRegistrations_Response {
 export interface CPartnerMeetSteam_GetRegistrations_Response_Registration {
   group_id?: number;
   session_id?: number;
-  steamid?: Long;
+  steamid?: bigint;
   guests_registered?: number;
   jsondata?: string;
   rt_attendance_marked?: number;
@@ -81,8 +80,8 @@ export interface CPartnerMeetSteam_GetSaleEventOrganizers_Response {
 }
 
 export interface CPartnerMeetSteam_UpdateRegistration_Request {
-  clan_event_gid?: Long;
-  steamid?: Long;
+  clan_event_gid?: bigint;
+  steamid?: bigint;
   registration_group_id?: number;
   registration_session_id?: number;
   guest_count?: number;
@@ -94,7 +93,7 @@ export type CPartnerMeetSteam_UpdateRegistration_Response = Record<string, never
 
 export interface CSaleEventOrganizerInfo {
   accountid?: number;
-  clan_event_gids?: Long[];
+  clan_event_gids?: bigint[];
 }
 
 export abstract class PartnerMeetSteamService {

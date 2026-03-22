@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EStreamChannel = {
   k_EStreamChannelDiscovery: 0,
@@ -406,7 +405,7 @@ export interface CServerHandshakeMsg {
 export interface CAuthenticationRequestMsg {
   token?: Buffer;
   version?: EStreamVersion;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CAuthenticationResponseMsg {
@@ -587,21 +586,21 @@ export interface CInputLatencyTestMsg {
 
 export interface CInputTouchFingerDownMsg {
   input_mark?: number;
-  fingerid?: Long;
+  fingerid?: bigint;
   x_normalized?: number;
   y_normalized?: number;
 }
 
 export interface CInputTouchFingerMotionMsg {
   input_mark?: number;
-  fingerid?: Long;
+  fingerid?: bigint;
   x_normalized?: number;
   y_normalized?: number;
 }
 
 export interface CInputTouchFingerUpMsg {
   input_mark?: number;
-  fingerid?: Long;
+  fingerid?: bigint;
   x_normalized?: number;
   y_normalized?: number;
   canceled?: boolean;
@@ -680,15 +679,15 @@ export interface CShowCursorMsg {
 export type CHideCursorMsg = Record<string, never>;
 
 export interface CSetCursorMsg {
-  cursor_id?: Long;
+  cursor_id?: bigint;
 }
 
 export interface CGetCursorImageMsg {
-  cursor_id?: Long;
+  cursor_id?: bigint;
 }
 
 export interface CSetCursorImageMsg {
-  cursor_id?: Long;
+  cursor_id?: bigint;
   width?: number;
   height?: number;
   hot_x?: number;
@@ -752,7 +751,7 @@ export type CStopRequest = Record<string, never>;
 export type CQuitRequest = Record<string, never>;
 
 export interface CDeleteCursorMsg {
-  cursor_id?: Long;
+  cursor_id?: bigint;
 }
 
 export interface CSetStreamingClientConfig {
@@ -785,7 +784,7 @@ export interface CSetGammaRampMsg {
 export interface CSetActivityMsg {
   activity?: EStreamActivity;
   appid?: number;
-  gameid?: Long;
+  gameid?: bigint;
   game_name?: string;
 }
 
@@ -815,7 +814,7 @@ export interface CRemoteHIDMsg {
 export interface CTouchConfigActiveMsg {
   appid?: number;
   revision?: number;
-  creator?: Long;
+  creator?: bigint;
 }
 
 export interface CGetTouchConfigDataMsg {
@@ -827,7 +826,7 @@ export interface CSetTouchConfigDataMsg {
   revision?: number;
   data?: Buffer;
   layout?: Buffer;
-  creator?: Long;
+  creator?: bigint;
 }
 
 export interface CSaveTouchConfigLayoutMsg {

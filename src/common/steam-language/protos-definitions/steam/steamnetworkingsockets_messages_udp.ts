@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CMsgSteamDatagramConnectionQuality,
   CMsgSteamDatagramSessionCryptInfoSigned,
@@ -26,39 +24,39 @@ export type ESteamNetworkingUDPMsgID =
 
 export interface CMsgSteamSockets_UDP_ChallengeRequest {
   connection_id?: number;
-  my_timestamp?: Long;
+  my_timestamp?: bigint;
   protocol_version?: number;
 }
 
 export interface CMsgSteamSockets_UDP_ChallengeReply {
   connection_id?: number;
-  challenge?: Long;
-  your_timestamp?: Long;
+  challenge?: bigint;
+  your_timestamp?: bigint;
   protocol_version?: number;
 }
 
 export interface CMsgSteamSockets_UDP_ConnectRequest {
   client_connection_id?: number;
-  challenge?: Long;
-  my_timestamp?: Long;
+  challenge?: bigint;
+  my_timestamp?: bigint;
   ping_est_ms?: number;
   crypt?: CMsgSteamDatagramSessionCryptInfoSigned;
   cert?: CMsgSteamDatagramCertificateSigned;
   legacy_protocol_version?: number;
   identity_string?: string;
-  legacy_client_steam_id?: Long;
+  legacy_client_steam_id?: bigint;
   legacy_identity_binary?: CMsgSteamNetworkingIdentityLegacyBinary;
 }
 
 export interface CMsgSteamSockets_UDP_ConnectOK {
   client_connection_id?: number;
   server_connection_id?: number;
-  your_timestamp?: Long;
+  your_timestamp?: bigint;
   delay_time_usec?: number;
   crypt?: CMsgSteamDatagramSessionCryptInfoSigned;
   cert?: CMsgSteamDatagramCertificateSigned;
   identity_string?: string;
-  legacy_server_steam_id?: Long;
+  legacy_server_steam_id?: bigint;
   legacy_identity_binary?: CMsgSteamNetworkingIdentityLegacyBinary;
 }
 

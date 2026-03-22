@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CMsgVideoGameRecordingDef,
   CVideo_GameRecordingSegmentInfo,
@@ -10,21 +8,21 @@ import type {
 } from "./steammessages_clientserver_video";
 
 export interface CVideoManagerClipID {
-  video_manager_clip_id?: Long;
-  video_manager_video_id?: Long;
-  server_timeline_id?: Long;
+  video_manager_clip_id?: bigint;
+  video_manager_video_id?: bigint;
+  server_timeline_id?: bigint;
   manifest_url?: string;
   duration_ms?: number;
   start_offset_ms?: number;
 }
 
 export interface CGameRecordingClip {
-  clip_id?: Long;
-  gameid?: Long;
+  clip_id?: bigint;
+  gameid?: bigint;
   date_recorded?: number;
-  total_file_size_bytes?: Long;
+  total_file_size_bytes?: bigint;
   video_ids?: CVideoManagerClipID[];
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
   upload_complete?: boolean;
   duration_ms?: number;
 }
@@ -39,13 +37,13 @@ export interface CGameRecording_CreateShareClip_Response {
 }
 
 export interface CGameRecording_DeleteSharedClip_Request {
-  clip_id?: Long;
+  clip_id?: bigint;
 }
 
 export type CGameRecording_DeleteSharedClip_Response = Record<string, never>;
 
 export interface CGameRecording_GetSingleSharedClip_Request {
-  clip_id?: Long;
+  clip_id?: bigint;
 }
 
 export interface CGameRecording_GetSingleSharedClip_Response {
@@ -53,7 +51,7 @@ export interface CGameRecording_GetSingleSharedClip_Response {
 }
 
 export interface CVideo_BeginGameRecordingSegmentsUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   component_name?: string;
   representation_name?: string;
   segments_to_store?: CVideo_GameRecordingSegmentInfo[];
@@ -65,7 +63,7 @@ export interface CVideo_BeginGameRecordingSegmentsUpload_Response {
 }
 
 export interface CVideo_CommitGameRecordingSegmentsUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   component_name?: string;
   representation_name?: string;
   first_segment_number?: number;
@@ -76,7 +74,7 @@ export interface CVideo_CommitGameRecordingSegmentsUpload_Request {
 export type CVideo_CommitGameRecordingSegmentsUpload_Response = Record<string, never>;
 
 export interface CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
 }
 
 export interface CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response {
@@ -84,7 +82,7 @@ export interface CVideo_GameRecordingGetNextBatchOfSegmentsToUpload_Response {
 }
 
 export interface CVideo_GameRecordingCommitSegmentUploads_Request {
-  recording_id?: Long;
+  recording_id?: bigint;
   segments_uploaded?: CVideo_GameRecordingSegmentInfo[];
 }
 

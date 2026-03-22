@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CBluetoothManager_CancelPair_Request {
   device?: number;
@@ -67,7 +66,7 @@ export type CBluetoothManager_SetDiscovering_Response = Record<string, never>;
 
 export interface CBluetoothManager_SetLoginAdvertising_Request {
   enabled?: boolean;
-  client_id?: Long;
+  client_id?: bigint;
   device_id?: number;
 }
 

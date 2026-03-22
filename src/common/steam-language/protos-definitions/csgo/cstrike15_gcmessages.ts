@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CEngineGotvSyncPacket } from "./engine_gcmessages";
 import type { CMsgSOCacheSubscribed, CMsgSOCacheSubscriptionCheck } from "./gcsdk_gcmessages";
 
@@ -252,7 +250,7 @@ export interface PlayerRankingInfo {
   rank_change?: number;
   rank_type_id?: number;
   tv_control?: number;
-  rank_window_stats?: Long;
+  rank_window_stats?: bigint;
   leaderboard_name?: string;
   rank_if_win?: number;
   rank_if_lose?: number;
@@ -286,7 +284,7 @@ export interface AccountActivity {
   activity?: number;
   mode?: number;
   map?: number;
-  matchid?: Long;
+  matchid?: bigint;
 }
 
 export interface TournamentMatchSetup {
@@ -298,7 +296,7 @@ export interface TournamentMatchSetup {
 
 export interface ServerHltvInfo {
   tv_udp_port?: number;
-  tv_watch_key?: Long;
+  tv_watch_key?: bigint;
   tv_slots?: number;
   tv_clients?: number;
   tv_proxies?: number;
@@ -306,7 +304,7 @@ export interface ServerHltvInfo {
   game_type?: number;
   game_mapgroup?: string;
   game_map?: string;
-  tv_master_steamid?: Long;
+  tv_master_steamid?: bigint;
   tv_local_slots?: number;
   tv_local_clients?: number;
   tv_local_proxies?: number;
@@ -315,7 +313,7 @@ export interface ServerHltvInfo {
   tv_relay_proxies?: number;
   tv_relay_address?: number;
   tv_relay_port?: number;
-  tv_relay_steamid?: Long;
+  tv_relay_steamid?: bigint;
   flags?: number;
 }
 
@@ -340,13 +338,13 @@ export interface XpProgressData {
 }
 
 export interface MatchEndItemUpdates {
-  item_id?: Long;
+  item_id?: bigint;
   item_attr_defidx?: number;
   item_attr_delta_value?: number;
 }
 
 export interface ScoreLeaderboardData {
-  quest_id?: Long;
+  quest_id?: bigint;
   score?: number;
   accountentries?: ScoreLeaderboardData.AccountEntries[];
   matchentries?: ScoreLeaderboardData.Entry[];
@@ -378,7 +376,7 @@ export interface PlayerQuestData {
 
 export namespace PlayerQuestData {
   export interface QuestItemData {
-    quest_id?: Long;
+    quest_id?: bigint;
     quest_normal_points_earned?: number;
     quest_bonus_points_earned?: number;
     quest_normal_points_required?: number[];
@@ -390,7 +388,7 @@ export namespace PlayerQuestData {
 
 export interface DeepPlayerStatsEntry {
   accountid?: number;
-  match_id?: Long;
+  match_id?: bigint;
   mm_game_mode?: number;
   mapid?: number;
   b_starting_ct?: boolean;
@@ -421,7 +419,7 @@ export interface DeepPlayerStatsEntry {
 
 export interface DeepPlayerMatchEvent {
   accountid?: number;
-  match_id?: Long;
+  match_id?: bigint;
   event_id?: number;
   event_type?: number;
   b_playing_ct?: boolean;
@@ -447,7 +445,7 @@ export interface CMsgGC_ServerQuestUpdateData {
 export interface CMsgGCCStrike15_v2_MatchmakingGC2ServerConfirm {
   token?: number;
   stamp?: number;
-  exchange?: Long;
+  exchange?: bigint;
   retry?: number;
 }
 
@@ -464,7 +462,7 @@ export interface CMsgGCCStrike15_v2_MatchmakingStart {
   tournament_match?: TournamentMatchSetup;
   prime_only?: boolean;
   tv_control?: number;
-  lobby_id?: Long;
+  lobby_id?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_MatchmakingStop {
@@ -557,19 +555,19 @@ export namespace CPreMatchInfoData {
 export interface CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve {
   account_ids?: number[];
   game_type?: number;
-  match_id?: Long;
+  match_id?: bigint;
   server_version?: number;
   flags?: number;
   rankings?: PlayerRankingInfo[];
-  encryption_key?: Long;
-  encryption_key_pub?: Long;
+  encryption_key?: bigint;
+  encryption_key_pub?: bigint;
   party_ids?: number[];
   whitelist?: IpAddressMask[];
-  tv_master_steamid?: Long;
+  tv_master_steamid?: bigint;
   tournament_event?: TournamentEvent;
   tournament_teams?: TournamentTeam[];
   tournament_casters_account_ids?: number[];
-  tv_relay_steamid?: Long;
+  tv_relay_steamid?: bigint;
   pre_match_data?: CPreMatchInfoData;
   tv_control?: number;
   op_var_values?: OperationalVarValue[];
@@ -579,10 +577,10 @@ export interface CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve {
 }
 
 export interface CMsgGCCStrike15_v2_MatchmakingServerReservationResponse {
-  reservationid?: Long;
+  reservationid?: bigint;
   reservation?: CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve;
   map?: string;
-  gc_reservation_sent?: Long;
+  gc_reservation_sent?: bigint;
   server_version?: number;
   tv_info?: ServerHltvInfo;
   reward_player_accounts?: number[];
@@ -601,10 +599,10 @@ export interface CMsgGCCStrike15_v2_MatchmakingServerReservationResponse {
 }
 
 export interface CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve {
-  serverid?: Long;
+  serverid?: bigint;
   direct_udp_ip?: number;
   direct_udp_port?: number;
-  reservationid?: Long;
+  reservationid?: bigint;
   reservation?: CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve;
   map?: string;
   server_address?: string;
@@ -613,7 +611,7 @@ export interface CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve {
 }
 
 export interface CMsgGCCStrike15_v2_MatchmakingServerRoundStats {
-  reservationid?: Long;
+  reservationid?: bigint;
   reservation?: CMsgGCCStrike15_v2_MatchmakingGC2ServerReserve;
   map?: string;
   round?: number;
@@ -675,7 +673,7 @@ export interface CMsgGCCStrike15_v2_MatchmakingGC2ClientHello {
   player_cur_xp?: number;
   player_xp_bonus_flags?: number;
   rankings?: PlayerRankingInfo[];
-  owcaseid?: Long;
+  owcaseid?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_AccountPrivacySettings {
@@ -719,13 +717,13 @@ export interface CMsgGCCStrike15_v2_ClientReportPlayer {
   rpt_teamharm?: number;
   rpt_textabuse?: number;
   rpt_voiceabuse?: number;
-  match_id?: Long;
+  match_id?: bigint;
   report_from_demo?: boolean;
 }
 
 export interface CMsgGCCStrike15_v2_ClientCommendPlayer {
   account_id?: number;
-  match_id?: Long;
+  match_id?: bigint;
   commendation?: PlayerCommendationInfo;
   tokens?: number;
 }
@@ -736,11 +734,11 @@ export interface CMsgGCCStrike15_v2_ClientReportServer {
   rpt_badmotd?: number;
   rpt_listingabuse?: number;
   rpt_inventoryabuse?: number;
-  match_id?: Long;
+  match_id?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_ClientReportResponse {
-  confirmation_id?: Long;
+  confirmation_id?: bigint;
   account_id?: number;
   server_ip?: number;
   response_type?: number;
@@ -751,8 +749,8 @@ export interface CMsgGCCStrike15_v2_ClientReportResponse {
 export interface CMsgGCCStrike15_v2_ClientRequestWatchInfoFriends {
   request_id?: number;
   account_ids?: number[];
-  serverid?: Long;
-  matchid?: Long;
+  serverid?: bigint;
+  matchid?: bigint;
   client_launcher?: number;
   data_center_pings?: DataCenterPing[];
 }
@@ -763,14 +761,14 @@ export interface WatchableMatchInfo {
   tv_spectators?: number;
   tv_time?: number;
   tv_watch_password?: Buffer;
-  cl_decryptdata_key?: Long;
-  cl_decryptdata_key_pub?: Long;
+  cl_decryptdata_key?: bigint;
+  cl_decryptdata_key_pub?: bigint;
   game_type?: number;
   game_mapgroup?: string;
   game_map?: string;
-  server_id?: Long;
-  match_id?: Long;
-  reservation_id?: Long;
+  server_id?: bigint;
+  match_id?: bigint;
+  reservation_id?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_ClientRequestJoinFriendData {
@@ -786,7 +784,7 @@ export interface CMsgGCCStrike15_v2_ClientRequestJoinFriendData {
 export interface CMsgGCCStrike15_v2_ClientRequestJoinServerData {
   version?: number;
   account_id?: number;
-  serverid?: Long;
+  serverid?: bigint;
   server_ip?: number;
   server_port?: number;
   res?: CMsgGCCStrike15_v2_MatchmakingGC2ClientReserve;
@@ -804,7 +802,7 @@ export interface CMsgGCCstrike15_v2_ClientRedeemMissionReward {
 export interface CMsgGCCstrike15_v2_ClientRedeemFreeReward {
   generation_time?: number;
   redeemable_balance?: number;
-  items?: Long[];
+  items?: bigint[];
 }
 
 export interface CMsgGCCstrike15_v2_GC2ServerNotifyXPRewarded {
@@ -871,7 +869,7 @@ export interface CMsgGCCStrike15_v2_PremierSeasonSummary {
 
 export namespace CMsgGCCStrike15_v2_PremierSeasonSummary {
   export interface DataPerWeek {
-    week_id?: Long;
+    week_id?: bigint;
     rank_id?: number;
     matches_played?: number;
   }
@@ -894,7 +892,7 @@ export namespace CMsgGCCStrike15_v2_PremierSeasonSummary {
 }
 
 export interface CMsgGCCStrike15_v2_PlayerOverwatchCaseUpdate {
-  caseid?: Long;
+  caseid?: bigint;
   suspectid?: number;
   fractionid?: number;
   rpt_aimbot?: number;
@@ -905,7 +903,7 @@ export interface CMsgGCCStrike15_v2_PlayerOverwatchCaseUpdate {
 }
 
 export interface CMsgGCCStrike15_v2_PlayerOverwatchCaseAssignment {
-  caseid?: Long;
+  caseid?: bigint;
   caseurl?: string;
   verdict?: number;
   timestamp?: number;
@@ -919,13 +917,13 @@ export interface CMsgGCCStrike15_v2_PlayerOverwatchCaseAssignment {
 }
 
 export interface CMsgGCCStrike15_v2_PlayerOverwatchCaseStatus {
-  caseid?: Long;
+  caseid?: bigint;
   statusid?: number;
 }
 
 export interface CClientHeaderOverwatchEvidence {
   accountid?: number;
-  caseid?: Long;
+  caseid?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_GC2ClientTextMsg {
@@ -946,7 +944,7 @@ export interface CMsgGCCStrike15_v2_MatchEndRunRewardDrops {
 
 export interface CEconItemPreviewDataBlock {
   accountid?: number;
-  itemid?: Long;
+  itemid?: bigint;
   defindex?: number;
   paintindex?: number;
   rarity?: number;
@@ -996,10 +994,10 @@ export interface CMsgItemAcknowledged {
 }
 
 export interface CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockRequest {
-  param_s?: Long;
-  param_a?: Long;
-  param_d?: Long;
-  param_m?: Long;
+  param_s?: bigint;
+  param_a?: bigint;
+  param_d?: bigint;
+  param_m?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_Client2GCEconPreviewDataBlockResponse {
@@ -1021,13 +1019,13 @@ export interface CMsgGCCStrike15_v2_MatchListRequestTournamentGames {
 }
 
 export interface CMsgGCCStrike15_v2_MatchListRequestFullGameInfo {
-  matchid?: Long;
-  outcomeid?: Long;
+  matchid?: bigint;
+  outcomeid?: bigint;
   token?: number;
 }
 
 export interface CDataGCCStrike15_v2_MatchInfo {
-  matchid?: Long;
+  matchid?: bigint;
   matchtime?: number;
   watchablematchinfo?: WatchableMatchInfo;
   roundstats_legacy?: CMsgGCCStrike15_v2_MatchmakingServerRoundStats;
@@ -1098,7 +1096,7 @@ export namespace CMsgGCCStrike15_v2_Predictions {
     groupid?: number;
     index?: number;
     teamid?: number;
-    itemid?: Long;
+    itemid?: bigint;
   }
 }
 
@@ -1111,7 +1109,7 @@ export namespace CMsgGCCStrike15_v2_Fantasy {
   export interface FantasySlot {
     type?: number;
     pick?: number;
-    itemid?: Long;
+    itemid?: bigint;
   }
 
   export interface FantasyTeam {
@@ -1152,8 +1150,8 @@ export interface CMsgCStrike15Welcome {
   time_first_played?: number;
   last_time_played?: number;
   last_ip_address?: number;
-  gscookieid?: Long;
-  uniqueid?: Long;
+  gscookieid?: bigint;
+  uniqueid?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_ClientVarValueNotificationInfo {
@@ -1213,7 +1211,7 @@ export interface CSOEconCoupon {
 export interface CSOAccountItemPersonalStore {
   generation_time?: number;
   redeemable_balance?: number;
-  items?: Long[];
+  items?: bigint[];
 }
 
 export interface CSOAccountXpShop {
@@ -1231,7 +1229,7 @@ export interface CSOAccountXpShopBids {
 
 export interface CSOVolatileItemOffer {
   defidx?: number;
-  faux_itemid?: Long[];
+  faux_itemid?: bigint[];
   generation_time?: number[];
 }
 
@@ -1305,7 +1303,7 @@ export interface CMsgGCCStrike15_v2_MatchmakingGC2ClientSearchStats {
 }
 
 export interface CMsgGC_GlobalGame_Subscribe {
-  ticket?: Long;
+  ticket?: bigint;
 }
 
 export interface CMsgGC_GlobalGame_Unsubscribe {
@@ -1313,7 +1311,7 @@ export interface CMsgGC_GlobalGame_Unsubscribe {
 }
 
 export interface CMsgGC_GlobalGame_Play {
-  ticket?: Long;
+  ticket?: bigint;
   gametimems?: number;
   msperpoint?: number;
 }
@@ -1324,13 +1322,13 @@ export interface CMsgGCCStrike15_v2_AcknowledgePenalty {
 
 export interface CMsgGCCStrike15_v2_Client2GCRequestPrestigeCoin {
   defindex?: number;
-  upgradeid?: Long;
+  upgradeid?: bigint;
   hours?: number;
   prestigetime?: number;
 }
 
 export interface CMsgGCCStrike15_v2_Client2GCStreamUnlock {
-  ticket?: Long;
+  ticket?: bigint;
   os?: number;
 }
 
@@ -1339,7 +1337,7 @@ export interface CMsgGCCStrike15_v2_ClientToGCRequestElevate {
 }
 
 export interface CMsgGCCStrike15_v2_ClientToGCChat {
-  match_id?: Long;
+  match_id?: bigint;
   text?: string;
 }
 
@@ -1376,7 +1374,7 @@ export interface PlayerDecalDigitalSignature {
 
 export interface CMsgGCCStrike15_v2_ClientPlayerDecalSign {
   data?: PlayerDecalDigitalSignature;
-  itemid?: Long;
+  itemid?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_BetaEnrollment {
@@ -1451,9 +1449,9 @@ export namespace CMsgGCCStrike15_v2_Account_RequestCoPlays {
 }
 
 export interface CMsgGCCStrike15_v2_ClientToGCRequestTicket {
-  authorized_steam_id?: Long;
+  authorized_steam_id?: bigint;
   authorized_public_ip?: number;
-  gameserver_steam_id?: Long;
+  gameserver_steam_id?: bigint;
   gameserver_sdr_routing?: string;
 }
 
@@ -1464,19 +1462,19 @@ export interface CMsgGCToClientSteamDatagramTicket {
 export type CMsgGCCStrike15_v2_ClientRequestOffers = Record<string, never>;
 
 export interface CMsgGCCStrike15_v2_ClientRequestSouvenir {
-  itemid?: Long;
-  matchid?: Long;
+  itemid?: bigint;
+  matchid?: bigint;
   eventid?: number;
 }
 
 export interface CMsgGCCStrike15_v2_ClientAccountBalance {
-  amount?: Long;
+  amount?: bigint;
   url?: string;
 }
 
 export interface CMsgGCCStrike15_v2_ClientPartyJoinRelay {
   accountid?: number;
-  lobbyid?: Long;
+  lobbyid?: bigint;
 }
 
 export interface CMsgGCCStrike15_v2_ClientPartyWarning {
@@ -1491,7 +1489,7 @@ export namespace CMsgGCCStrike15_v2_ClientPartyWarning {
 }
 
 export interface CMsgGCCStrike15_v2_SetEventFavorite {
-  eventid?: Long;
+  eventid?: bigint;
   is_favorite?: boolean;
 }
 
@@ -1523,7 +1521,7 @@ export namespace CMsgGCCStrike15_v2_ClientPerfReport {
 export interface CVDiagnostic {
   id?: number;
   extended?: number;
-  value?: Long;
+  value?: bigint;
   string_value?: string;
 }
 
@@ -1540,13 +1538,13 @@ export interface CMsgGCCStrike15_v2_ClientReportValidation {
   clientreportversion?: number;
   status_id?: number;
   diagnostic1?: number;
-  diagnostic2?: Long;
-  diagnostic3?: Long;
+  diagnostic2?: bigint;
+  diagnostic3?: bigint;
   last_launch_data?: string;
   report_count?: number;
-  client_time?: Long;
-  diagnostic4?: Long;
-  diagnostic5?: Long;
+  client_time?: bigint;
+  diagnostic4?: bigint;
+  diagnostic5?: bigint;
   diagnostics?: CVDiagnostic[];
 }
 
@@ -1586,7 +1584,7 @@ export interface CMsgGCCStrike15_v2_GC2ClientInitSystem_Response {
   response?: number;
   error_code1?: number;
   error_code2?: number;
-  handle?: Long;
+  handle?: bigint;
   einit_result?: EInitSystemResult;
   aux_system1?: number;
   aux_system2?: number;

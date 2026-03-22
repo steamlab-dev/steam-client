@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { EBluetoothDeviceType } from "./enums";
 import type { WebUINoResponse } from "./webuimessages_base";
 
@@ -79,7 +77,7 @@ export type CBluetoothManager_SetDiscovering_Response = Record<string, never>;
 
 export interface CBluetoothManager_SetLoginAdvertising_Request {
   enabled?: boolean;
-  client_id?: Long;
+  client_id?: bigint;
   device_id?: number;
 }
 

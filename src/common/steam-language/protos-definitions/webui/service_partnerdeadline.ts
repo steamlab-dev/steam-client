@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPartnerDeadline {
   partnerid?: number;
@@ -9,12 +8,12 @@ export interface CPartnerDeadline {
   status?: number;
   due_date?: number;
   email_days_before_due?: number[];
-  gid?: Long;
+  gid?: bigint;
   store_item_type?: number;
   store_item_id?: number;
   discount_event_id?: number;
   description_jsondata?: string;
-  required_rights?: Long;
+  required_rights?: bigint;
   send_email_on_creation?: boolean;
   accountid?: number;
 }
@@ -33,7 +32,7 @@ export interface CPartnerDeadline_GetDeadlineByTimeRange_Response {
 }
 
 export interface CPartnerDeadline_GetDeadlineByTimeRange_Response_Result {
-  deadlineid?: Long;
+  deadlineid?: bigint;
   data?: CPartnerDeadline;
 }
 
@@ -51,15 +50,15 @@ export interface CPartnerDeadline_GetDeadlinesForPartner_Response {
 }
 
 export interface CPartnerDeadline_GetDeadlinesForPartner_Response_Result {
-  deadlineid?: Long;
+  deadlineid?: bigint;
   data?: CPartnerDeadline;
 }
 
 export interface CPartnerDeadlineLookUpKey {
-  deadlineid?: Long;
+  deadlineid?: bigint;
   partnerid?: number;
   type?: number;
-  gid?: Long;
+  gid?: bigint;
   store_item_type?: number;
   store_item_id?: number;
   discount_event_id?: number;

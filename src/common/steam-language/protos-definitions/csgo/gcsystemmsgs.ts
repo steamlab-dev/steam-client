@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EGCSystemMsg = {
   k_EGCMsgInvalid: 0,
@@ -175,35 +174,35 @@ export type ECommunityItemAttribute =
   (typeof ECommunityItemAttribute)[keyof typeof ECommunityItemAttribute];
 
 export interface CMsgGCHVacVerificationChange {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   is_verified?: boolean;
 }
 
 export interface CMsgGCHAccountPhoneNumberChange {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
-  phone_id?: Long;
+  phone_id?: bigint;
   is_verified?: boolean;
   is_identifying?: boolean;
 }
 
 export interface CMsgGCHInviteUserToLobby {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
-  steamid_invited?: Long;
-  steamid_lobby?: Long;
+  steamid_invited?: bigint;
+  steamid_lobby?: bigint;
 }
 
 export interface CMsgGCHRecurringSubscriptionStatusChange {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
-  agreementid?: Long;
+  agreementid?: bigint;
   active?: boolean;
 }
 
 export interface CQuest_PublisherAddCommunityItemsToPlayer_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   match_item_type?: number;
   match_item_class?: number;
@@ -215,7 +214,7 @@ export interface CQuest_PublisherAddCommunityItemsToPlayer_Request {
 export namespace CQuest_PublisherAddCommunityItemsToPlayer_Request {
   export interface Attribute {
     attribute?: number;
-    value?: Long;
+    value?: bigint;
   }
 }
 
@@ -241,7 +240,7 @@ export interface CCommunity_GetGamePersonalDataCategories_Response {
 
 export interface CCommunity_GetGamePersonalDataEntries_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
   type?: string;
   continue_token?: string;
 }
@@ -255,7 +254,7 @@ export interface CCommunity_GetGamePersonalDataEntries_Response {
 
 export interface CCommunity_TerminateGamePersonalDataEntries_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CCommunity_TerminateGamePersonalDataEntries_Response {

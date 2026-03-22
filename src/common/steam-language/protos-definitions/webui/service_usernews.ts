@@ -1,20 +1,19 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CUserNews_Event {
   eventtype?: number;
   eventtime?: number;
-  steamid_actor?: Long;
-  steamid_target?: Long;
-  gameid?: Long;
+  steamid_actor?: bigint;
+  steamid_target?: bigint;
+  gameid?: bigint;
   packageid?: number;
   shortcutid?: number;
   achievement_names?: string[];
-  clan_eventid?: Long;
-  clan_announcementid?: Long;
-  publishedfileid?: Long;
+  clan_eventid?: bigint;
+  clan_announcementid?: bigint;
+  publishedfileid?: bigint;
   event_last_mod_time?: number;
   appids?: number[];
   event_post_time?: number;
@@ -32,8 +31,8 @@ export interface CUserNews_GetAppDetailsSpotlight_Response {
 export interface CUserNews_GetAppDetailsSpotlight_Response_FeaturedEvent {
   event_type?: number;
   event_time?: number;
-  clan_id?: Long;
-  clan_announcementid?: Long;
+  clan_id?: bigint;
+  clan_announcementid?: bigint;
   appid?: number;
   rtime32_last_modified?: number;
 }

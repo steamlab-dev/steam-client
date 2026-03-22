@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAccountLinking_GetLinkedAccountInfo_Request {
   account_type?: number;
-  account_id?: Long;
+  account_id?: bigint;
   filter?: number;
   return_access_token?: boolean;
 }

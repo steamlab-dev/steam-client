@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EAppContentDetectionType = {
   k_EAppContentDetectionType_None: 0,
@@ -53,14 +52,14 @@ export interface CContentServerDirectory_GetServersForSteamPipe_Response {
 export interface CContentServerDirectory_GetDepotPatchInfo_Request {
   appid?: number;
   depotid?: number;
-  source_manifestid?: Long;
-  target_manifestid?: Long;
+  source_manifestid?: bigint;
+  target_manifestid?: bigint;
 }
 
 export interface CContentServerDirectory_GetDepotPatchInfo_Response {
   is_available?: boolean;
-  patch_size?: Long;
-  patched_chunks_size?: Long;
+  patch_size?: bigint;
+  patched_chunks_size?: bigint;
 }
 
 export interface CContentServerDirectory_GetClientUpdateHosts_Request {
@@ -69,20 +68,20 @@ export interface CContentServerDirectory_GetClientUpdateHosts_Request {
 
 export interface CContentServerDirectory_GetClientUpdateHosts_Response {
   hosts_kv?: string;
-  valid_until_time?: Long;
+  valid_until_time?: bigint;
   ip_country?: string;
 }
 
 export interface CContentServerDirectory_GetManifestRequestCode_Request {
   app_id?: number;
   depot_id?: number;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   app_branch?: string;
   branch_password_hash?: string;
 }
 
 export interface CContentServerDirectory_GetManifestRequestCode_Response {
-  manifest_request_code?: Long;
+  manifest_request_code?: bigint;
 }
 
 export interface CContentServerDirectory_GetCDNAuthToken_Request {
@@ -97,9 +96,9 @@ export interface CContentServerDirectory_GetCDNAuthToken_Response {
 }
 
 export interface CContentServerDirectory_RequestPeerContentServer_Request {
-  remote_client_id?: Long;
-  steamid?: Long;
-  server_remote_client_id?: Long;
+  remote_client_id?: bigint;
+  steamid?: bigint;
+  server_remote_client_id?: bigint;
   app_id?: number;
   current_build_id?: number;
 }
@@ -107,13 +106,13 @@ export interface CContentServerDirectory_RequestPeerContentServer_Request {
 export interface CContentServerDirectory_RequestPeerContentServer_Response {
   server_port?: number;
   installed_depots?: number[];
-  access_token?: Long;
+  access_token?: bigint;
 }
 
 export interface CContentServerDirectory_GetPeerContentInfo_Request {
-  remote_client_id?: Long;
-  steamid?: Long;
-  server_remote_client_id?: Long;
+  remote_client_id?: bigint;
+  steamid?: bigint;
+  server_remote_client_id?: bigint;
 }
 
 export interface CContentServerDirectory_GetPeerContentInfo_Response {

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CAchievementDetails {
   statid?: number;
@@ -11,7 +10,7 @@ export interface CAchievementDetails {
 }
 
 export interface CFriendSharedYearInView {
-  steamid?: Long;
+  steamid?: bigint;
   privacy_state?: number;
   rt_privacy_updated?: number;
   privacy_override?: boolean;
@@ -160,7 +159,7 @@ export interface CRankingCategory {
 }
 
 export interface CSaleFeature_GetAllUserActionDataForType_Request {
-  gid?: Long;
+  gid?: bigint;
   type?: number;
   count?: number;
   last_account_index?: number;
@@ -172,13 +171,13 @@ export interface CSaleFeature_GetAllUserActionDataForType_Response {
 }
 
 export interface CSaleFeature_GetAllUserActionDataForType_Response_Entry {
-  gid?: Long;
+  gid?: bigint;
   jsondata?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CSaleFeature_GetFriendsSharedYearInReview_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   return_private?: boolean;
 }
@@ -189,8 +188,8 @@ export interface CSaleFeature_GetFriendsSharedYearInReview_Response {
 }
 
 export interface CSaleFeature_GetMultipleUserActionData_Request {
-  steamid?: Long;
-  gids?: Long[];
+  steamid?: bigint;
+  gids?: bigint[];
   type?: number;
 }
 
@@ -199,14 +198,14 @@ export interface CSaleFeature_GetMultipleUserActionData_Response {
 }
 
 export interface CSaleFeature_GetMultipleUserActionData_Response_Entry {
-  gid?: Long;
+  gid?: bigint;
   jsondata?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CSaleFeature_GetUserActionData_Request {
-  steamid?: Long;
-  gid?: Long;
+  steamid?: bigint;
+  gid?: bigint;
   type?: number;
 }
 
@@ -215,19 +214,19 @@ export interface CSaleFeature_GetUserActionData_Response {
 }
 
 export interface CSaleFeature_GetUserSharingPermissions_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
 }
 
 export interface CSaleFeature_GetUserSharingPermissions_Response {
   privacy_state?: number;
   generated_value?: boolean;
-  steamid?: Long;
+  steamid?: bigint;
   rt_privacy_updated?: number;
 }
 
 export interface CSaleFeature_GetUserYearAchievements_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   appids?: number[];
   total_only?: boolean;
@@ -241,7 +240,7 @@ export interface CSaleFeature_GetUserYearAchievements_Response {
 }
 
 export interface CSaleFeature_GetUserYearInReview_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   force_regenerate?: boolean;
   access_source?: number;
@@ -257,7 +256,7 @@ export interface CSaleFeature_GetUserYearInReview_Response {
 }
 
 export interface CSaleFeature_GetUserYearInReviewShareImage_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   language?: string;
 }
@@ -272,7 +271,7 @@ export interface CSaleFeature_GetUserYearInReviewShareImage_Response_Image {
 }
 
 export interface CSaleFeature_GetUserYearScreenshots_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   appids?: number[];
 }
@@ -298,7 +297,7 @@ export interface CSaleFeature_GetUserYearScreenshots_Response_ScreenshotsByApp {
 }
 
 export interface CSaleFeature_GetYIRCurrentMonthlySummary_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CSaleFeature_GetYIRCurrentMonthlySummary_Response {
@@ -313,7 +312,7 @@ export interface CSaleFeature_GetYIRCurrentMonthlySummary_Response {
 }
 
 export interface CSaleFeature_SetUserSharingPermissions_Request {
-  steamid?: Long;
+  steamid?: bigint;
   year?: number;
   privacy_state?: number;
 }
@@ -368,11 +367,11 @@ export interface CUserYearInReviewStats {
 
 export interface CYearInReviewPerformanceStats {
   from_dbo?: boolean;
-  overall_time_ms?: Long;
-  dbo_load_ms?: Long;
-  query_execution_ms?: Long;
-  message_population_ms?: Long;
-  dbo_lock_load_ms?: Long;
+  overall_time_ms?: bigint;
+  dbo_load_ms?: bigint;
+  query_execution_ms?: bigint;
+  message_population_ms?: bigint;
+  dbo_lock_load_ms?: bigint;
 }
 
 export abstract class SaleFeatureService {

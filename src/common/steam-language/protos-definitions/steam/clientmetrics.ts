@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CClientMetrics_ClientBootstrap_RequestInfo {
   original_hostname?: string;
@@ -12,7 +11,7 @@ export interface CClientMetrics_ClientBootstrap_RequestInfo {
   status_code?: number;
   address_of_request_url?: string;
   response_time_ms?: number;
-  bytes_received?: Long;
+  bytes_received?: bigint;
   num_retries?: number;
 }
 

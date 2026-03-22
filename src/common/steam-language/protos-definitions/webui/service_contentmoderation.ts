@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface AdditionalSubjectData {
   data?: AdditionalSubjectData_DataEntry[];
@@ -13,7 +12,7 @@ export interface AdditionalSubjectData_DataEntry {
 }
 
 export interface CContentModeration_CancelContentReport_Request {
-  report_id?: Long;
+  report_id?: bigint;
 }
 
 export type CContentModeration_CancelContentReport_Response = Record<string, never>;
@@ -33,8 +32,8 @@ export interface CContentModeration_ClaimBatchForModeration_Response {
 
 export interface CContentModeration_ClaimSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
 }
 
 export type CContentModeration_ClaimSubject_Response = Record<string, never>;
@@ -42,21 +41,21 @@ export type CContentModeration_ClaimSubject_Response = Record<string, never>;
 export interface CContentModeration_CreateContentReport_Request {
   report_reason?: number;
   report_text?: string;
-  owner_steamid?: Long;
+  owner_steamid?: bigint;
   language?: number;
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   additional_subject_data?: AdditionalSubjectData;
   detected_by_automation?: boolean;
 }
 
 export interface CContentModeration_CreateContentReport_Response {
-  report_id?: Long;
+  report_id?: bigint;
 }
 
 export interface CContentModeration_DisputeModerationForReport_Request {
-  report_id?: Long;
+  report_id?: bigint;
   details?: string;
 }
 
@@ -64,18 +63,18 @@ export type CContentModeration_DisputeModerationForReport_Response = Record<stri
 
 export interface CContentModeration_DisputeModerationForSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   details?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CContentModeration_DisputeModerationForSubject_Response = Record<string, never>;
 
 export interface CContentModeration_EscalateSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   required_level?: number;
   reason?: number;
 }
@@ -84,8 +83,8 @@ export type CContentModeration_EscalateSubject_Response = Record<string, never>;
 
 export interface CContentModeration_GetAuditLog_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
 }
 
 export interface CContentModeration_GetAuditLog_Response {
@@ -94,14 +93,14 @@ export interface CContentModeration_GetAuditLog_Response {
 
 export interface CContentModeration_GetAuditLog_Response_AuditLogEntry {
   timestamp?: number;
-  actor_steamid?: Long;
+  actor_steamid?: bigint;
   automated_action?: boolean;
   action?: number;
   additional_json_data?: string;
 }
 
 export interface CContentModeration_GetClaimed_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CContentModeration_GetClaimed_Response {
@@ -110,8 +109,8 @@ export interface CContentModeration_GetClaimed_Response {
 
 export interface CContentModeration_GetContentReportSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
 }
 
 export interface CContentModeration_GetContentReportSubject_Response {
@@ -120,7 +119,7 @@ export interface CContentModeration_GetContentReportSubject_Response {
 
 export interface CContentModeration_GetContentReportSubjectGroup_Request {
   subject_type?: number;
-  subject_group_id?: Long;
+  subject_group_id?: bigint;
 }
 
 export interface CContentModeration_GetContentReportSubjectGroup_Response {
@@ -128,7 +127,7 @@ export interface CContentModeration_GetContentReportSubjectGroup_Response {
 }
 
 export interface CContentModeration_GetModeratorActivity_Request {
-  steamid?: Long;
+  steamid?: bigint;
   rt_start?: number;
 }
 
@@ -138,15 +137,15 @@ export interface CContentModeration_GetModeratorActivity_Response {
 
 export interface CContentModeration_GetModeratorActivity_Response_ModerationActivity {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   timestamp?: number;
   action?: number;
   json_data?: string;
 }
 
 export interface CContentModeration_GetModeratorPreferences_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CContentModeration_GetModeratorPreferences_Response {
@@ -155,10 +154,10 @@ export interface CContentModeration_GetModeratorPreferences_Response {
 }
 
 export interface CContentModeration_GetOneReportSubmittedByUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
 }
 
 export interface CContentModeration_GetOneReportSubmittedByUser_Response {
@@ -166,7 +165,7 @@ export interface CContentModeration_GetOneReportSubmittedByUser_Response {
 }
 
 export interface CContentModeration_GetReportedSubjectsByOwner_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CContentModeration_GetReportedSubjectsByOwner_Response {
@@ -174,7 +173,7 @@ export interface CContentModeration_GetReportedSubjectsByOwner_Response {
 }
 
 export interface CContentModeration_GetReportsSubmittedByUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
   start?: number;
   count?: number;
 }
@@ -210,23 +209,23 @@ export interface CContentModeration_GetSubjectOverview_Response_Bucket {
 }
 
 export interface CContentModeration_ReleaseClaimed_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CContentModeration_ReleaseClaimed_Response = Record<string, never>;
 
 export interface CContentModeration_ReleaseSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
 }
 
 export type CContentModeration_ReleaseSubject_Response = Record<string, never>;
 
 export interface CContentModeration_ResolveDisputedSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   updated_resolution?: number;
   updated_reason?: number;
   updated_sanctions?: ContentReportSubjectSanction[];
@@ -236,8 +235,8 @@ export type CContentModeration_ResolveDisputedSubject_Response = Record<string, 
 
 export interface CContentModeration_ResolveSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   resolution?: number;
   reason?: number;
   note?: string;
@@ -250,7 +249,7 @@ export type CContentModeration_ResolveSubject_Response = Record<string, never>;
 
 export interface CContentModeration_ResolveSubjectGroup_Request {
   subject_type?: number;
-  subject_group_id?: Long;
+  subject_group_id?: bigint;
   resolution?: number;
   reason?: number;
   note?: string;
@@ -273,8 +272,8 @@ export type CContentModeration_SetModeratorPreferences_Response = Record<string,
 
 export interface CContentModeration_UpdateSubject_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   csam_status?: number;
   terrorism_status?: number;
   credible_threat_of_violence_status?: number;
@@ -285,33 +284,33 @@ export type CContentModeration_UpdateSubject_Response = Record<string, never>;
 
 export interface CContentModeration_WriteToAuditLog_Request {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   action?: number;
   automated_action?: boolean;
   additional_json_data?: string;
-  actor_steamid?: Long;
+  actor_steamid?: bigint;
 }
 
 export type CContentModeration_WriteToAuditLog_Response = Record<string, never>;
 
 export interface ContentReport {
-  report_id?: Long;
-  reporter_steamid?: Long;
+  report_id?: bigint;
+  reporter_steamid?: bigint;
   time_reported?: number;
   report_reason?: number;
   report_text?: string;
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
   resolved?: number;
   time_resolved?: number;
-  resolver_steamid?: Long;
+  resolver_steamid?: bigint;
   time_notified?: number;
   additional_subject_data?: AdditionalSubjectData;
   time_disputed?: number;
   dispute_details?: string;
-  dispute_resolver_steamid?: Long;
+  dispute_resolver_steamid?: bigint;
   dispute_resolved?: number;
   time_dispute_resolved?: number;
   detected_by_automation?: boolean;
@@ -324,17 +323,17 @@ export interface ContentReport {
 
 export interface ContentReportSubject {
   subject_type?: number;
-  subject_group_id?: Long;
-  subject_id?: Long;
-  owner_steam_id?: Long;
+  subject_group_id?: bigint;
+  subject_id?: bigint;
+  owner_steam_id?: bigint;
   language?: number;
   resolved?: number;
   time_resolved?: number;
   unresolved_report_count?: number;
   oldest_unresolved_report_time?: number;
-  resolver_steamid?: Long;
-  assigned_moderator_steamid?: Long;
-  time_claimed_by_moderator?: Long;
+  resolver_steamid?: bigint;
+  assigned_moderator_steamid?: bigint;
+  time_claimed_by_moderator?: bigint;
   reports?: ContentReport[];
   additional_subject_data?: AdditionalSubjectData;
   csam_status?: number;
@@ -343,7 +342,7 @@ export interface ContentReportSubject {
   unresolved_dispute_count?: number;
   oldest_unresolved_dispute_time?: number;
   dispute_resolved_time?: number;
-  dispute_resolver_steamid?: Long;
+  dispute_resolver_steamid?: bigint;
   dispute_resolved?: number;
   dispute_resolved_reason?: number;
   owner_dispute_time?: number;

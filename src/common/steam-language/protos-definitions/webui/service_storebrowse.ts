@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CStoreBrowse_GetItems_Request,
   CStoreBrowse_GetItems_Response,
@@ -56,7 +54,7 @@ export interface CStoreBrowse_GetDLCForApps_Request {
   context?: StoreBrowseContext;
   store_page_filter?: CStorePageFilter;
   appids?: StoreItemID[];
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CStoreBrowse_GetDLCForApps_Response {
@@ -69,7 +67,7 @@ export interface CStoreBrowse_GetDLCForApps_Response_DLCData {
   parentappid?: number;
   release_date?: number;
   coming_soon?: boolean;
-  price?: Long;
+  price?: bigint;
   discount?: number;
   free?: boolean;
 }
@@ -118,7 +116,7 @@ export interface CStoreBrowse_GetPriceStops_Response {
 
 export interface CStoreBrowse_GetPriceStops_Response_PriceStop {
   formatted_amount?: string;
-  amount_in_cents?: Long;
+  amount_in_cents?: bigint;
 }
 
 export interface CStoreBrowse_GetStoreCategories_Request {

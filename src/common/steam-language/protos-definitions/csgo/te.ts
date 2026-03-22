@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgQAngle, CMsgVector } from "./networkbasetypes";
 
 export const ETEProtobufIds = {
@@ -39,8 +37,8 @@ export interface CMsgTEArmorRicochet {
 }
 
 export interface CMsgTEBaseBeam {
-  modelindex?: Long;
-  haloindex?: Long;
+  modelindex?: bigint;
+  haloindex?: bigint;
   startframe?: number;
   framerate?: number;
   life?: number;
@@ -114,7 +112,7 @@ export interface CMsgEffectData {
   magnitude?: number;
   radius?: number;
   surfaceprop?: number;
-  effectindex?: Long;
+  effectindex?: bigint;
   damagetype?: number;
   material?: number;
   hitbox?: number;
@@ -222,7 +220,7 @@ export interface CMsgTEPhysicsProp {
   flags?: number;
   effects?: number;
   color?: number;
-  modelindex?: Long;
+  modelindex?: bigint;
   unused_breakmodelsnottomake?: number;
   scale?: number;
   dmgpos?: CMsgVector;

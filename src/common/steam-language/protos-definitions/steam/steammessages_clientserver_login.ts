@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./steammessages_base";
 
 export interface CMsgClientHeartBeat {
@@ -10,19 +8,19 @@ export interface CMsgClientHeartBeat {
 }
 
 export interface CMsgClientServerTimestampRequest {
-  client_request_timestamp?: Long;
+  client_request_timestamp?: bigint;
 }
 
 export interface CMsgClientServerTimestampResponse {
-  client_request_timestamp?: Long;
-  server_timestamp_ms?: Long;
+  client_request_timestamp?: bigint;
+  server_timestamp_ms?: bigint;
 }
 
 export interface CMsgClientSecret {
   version?: number;
   appid?: number;
   deviceid?: number;
-  nonce?: Long;
+  nonce?: bigint;
   hmac?: Buffer;
 }
 
@@ -44,7 +42,7 @@ export interface CMsgClientLogon {
   obfuscated_private_ip?: CMsgIPAddress;
   deprecated_public_ip?: number;
   qos_level?: number;
-  client_supplied_steam_id?: Long;
+  client_supplied_steam_id?: bigint;
   public_ip?: CMsgIPAddress;
   machine_id?: Buffer;
   launcher_type?: number;
@@ -59,7 +57,7 @@ export interface CMsgClientLogon {
   login_key?: string;
   was_converted_deprecated_msg?: boolean;
   anon_user_target_account_name?: string;
-  resolved_user_steam_id?: Long;
+  resolved_user_steam_id?: bigint;
   eresult_sentryfile?: number;
   sha_sentryfile?: Buffer;
   auth_code?: string;
@@ -76,7 +74,7 @@ export interface CMsgClientLogon {
   machine_name?: string;
   machine_name_userchosen?: string;
   country_override?: string;
-  client_instance_id?: Long;
+  client_instance_id?: bigint;
   two_factor_code?: string;
   supports_rate_limit_response?: boolean;
   web_logon_nonce?: string;
@@ -107,18 +105,18 @@ export interface CMsgClientLogOnResponse {
   vanity_url?: string;
   public_ip?: CMsgIPAddress;
   user_country?: string;
-  client_supplied_steamid?: Long;
+  client_supplied_steamid?: bigint;
   ip_country_code?: string;
   parental_settings?: Buffer;
   parental_setting_signature?: Buffer;
   count_loginfailures_to_migrate?: number;
   count_disconnects_to_migrate?: number;
   ogs_data_report_time_window?: number;
-  client_instance_id?: Long;
+  client_instance_id?: bigint;
   force_client_update_check?: boolean;
   agreement_session_url?: string;
-  token_id?: Long;
-  family_group_id?: Long;
+  token_id?: bigint;
+  family_group_id?: bigint;
 }
 
 export interface CMsgClientRequestWebAPIAuthenticateUserNonce {
@@ -159,9 +157,9 @@ export interface CMsgClientAccountInfo {
 }
 
 export interface CMsgClientChallengeRequest {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CMsgClientChallengeResponse {
-  challenge?: Long;
+  challenge?: bigint;
 }

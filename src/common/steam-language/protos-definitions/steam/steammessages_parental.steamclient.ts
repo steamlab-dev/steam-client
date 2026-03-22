@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   ParentalFeatureRequest,
   ParentalPlaytimeDay,
@@ -16,20 +14,20 @@ export interface CParental_EnableParentalSettings_Request {
   settings?: ParentalSettings;
   sessionid?: string;
   enablecode?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_EnableParentalSettings_Response = Record<string, never>;
 
 export interface CParental_DisableParentalSettings_Request {
   password?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_DisableParentalSettings_Response = Record<string, never>;
 
 export interface CParental_GetParentalSettings_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CParental_GetParentalSettings_Response {
@@ -50,7 +48,7 @@ export interface CParental_SetParentalSettings_Request {
   settings?: ParentalSettings;
   new_password?: string;
   sessionid?: string;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_SetParentalSettings_Response = Record<string, never>;
@@ -83,19 +81,19 @@ export type CParental_RequestRecoveryCode_Response = Record<string, never>;
 
 export interface CParental_RequestFeatureAccess_Request {
   features?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CParental_RequestFeatureAccess_Response {
-  requestid?: Long;
+  requestid?: bigint;
 }
 
 export interface CParental_ApproveFeatureAccess_Request {
   approve?: boolean;
-  requestid?: Long;
+  requestid?: bigint;
   features?: number;
   duration?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_ApproveFeatureAccess_Response = Record<string, never>;
@@ -103,25 +101,25 @@ export type CParental_ApproveFeatureAccess_Response = Record<string, never>;
 export interface CParental_RequestPlaytime_Request {
   time_expires?: number;
   current_playtime_restrictions?: ParentalPlaytimeDay;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CParental_RequestPlaytime_Response {
-  requestid?: Long;
+  requestid?: bigint;
 }
 
 export interface CParental_ApprovePlaytime_Request {
   approve?: boolean;
-  requestid?: Long;
+  requestid?: bigint;
   restrictions_approved?: ParentalTemporaryPlaytimeRestrictions;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_ApprovePlaytime_Response = Record<string, never>;
 
 export interface CParental_GetRequests_Request {
   rt_include_completed_since?: number;
-  family_groupid?: Long;
+  family_groupid?: bigint;
 }
 
 export interface CParental_GetRequests_Response {
@@ -132,7 +130,7 @@ export interface CParental_GetRequests_Response {
 export interface CParental_ReportPlaytimeAndNotify_Request {
   day_of_week?: number;
   minutes_used?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CParental_ReportPlaytimeAndNotify_Response = Record<string, never>;

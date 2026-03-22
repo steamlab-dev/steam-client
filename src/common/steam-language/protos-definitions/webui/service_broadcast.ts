@@ -1,22 +1,21 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CBroadcast_BeginBroadcastSession_Request {
   permission?: number;
-  gameid?: Long;
-  client_instance_id?: Long;
+  gameid?: bigint;
+  client_instance_id?: bigint;
   title?: string;
   cellid?: number;
-  rtmp_token?: Long;
+  rtmp_token?: bigint;
   thumbnail_upload?: boolean;
   sysid?: number;
   allow_webrtc?: boolean;
 }
 
 export interface CBroadcast_BeginBroadcastSession_Response {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
   thumbnail_upload_address?: string;
   thumbnail_upload_token?: string;
   thumbnail_interval_seconds?: number;
@@ -24,53 +23,53 @@ export interface CBroadcast_BeginBroadcastSession_Response {
 }
 
 export interface CBroadcast_BroadcastChannelLive_Notification {
-  broadcast_channel_id?: Long;
+  broadcast_channel_id?: bigint;
   broadcast_channel_name?: string;
   broadcast_channel_avatar?: string;
 }
 
 export interface CBroadcast_BroadcastStatus_Notification {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
   num_viewers?: number;
 }
 
 export interface CBroadcast_BroadcastUploadStarted_Notification {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
   upload_token?: string;
   upload_address?: string;
   http_address?: string;
-  broadcast_upload_id?: Long;
+  broadcast_upload_id?: bigint;
   heartbeat_interval_seconds?: number;
   is_rtmp?: boolean;
 }
 
 export interface CBroadcast_BroadcastViewerState_Notification {
-  steamid?: Long;
+  steamid?: bigint;
   state?: number;
 }
 
 export interface CBroadcast_EndBroadcastSession_Request {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
 }
 
 export type CBroadcast_EndBroadcastSession_Response = Record<string, never>;
 
 export interface CBroadcast_GetBroadcastChatInfo_Request {
-  steamid?: Long;
-  broadcast_id?: Long;
+  steamid?: bigint;
+  broadcast_id?: bigint;
   client_ip?: number;
   client_cell?: number;
 }
 
 export interface CBroadcast_GetBroadcastChatInfo_Response {
-  chat_id?: Long;
+  chat_id?: bigint;
   view_url_template?: string;
   flair_group_ids?: number[];
 }
 
 export interface CBroadcast_GetBroadcastChatUserNames_Request {
-  chat_id?: Long;
-  user_steamid?: Long[];
+  chat_id?: bigint;
+  user_steamid?: bigint[];
 }
 
 export interface CBroadcast_GetBroadcastChatUserNames_Response {
@@ -78,17 +77,17 @@ export interface CBroadcast_GetBroadcastChatUserNames_Response {
 }
 
 export interface CBroadcast_GetBroadcastChatUserNames_Response_PersonaName {
-  steam_id?: Long;
+  steam_id?: bigint;
   persona?: string;
 }
 
 export interface CBroadcast_GetBroadcastStatus_Request {
-  steamid?: Long;
-  broadcast_id?: Long;
+  steamid?: bigint;
+  broadcast_id?: bigint;
 }
 
 export interface CBroadcast_GetBroadcastStatus_Response {
-  gameid?: Long;
+  gameid?: bigint;
   title?: string;
   num_viewers?: number;
   permission?: number;
@@ -105,8 +104,8 @@ export interface CBroadcast_GetBroadcastStatus_Response {
 }
 
 export interface CBroadcast_GetBroadcastThumbnail_Request {
-  steamid?: Long;
-  broadcast_id?: Long;
+  steamid?: bigint;
+  broadcast_id?: bigint;
 }
 
 export interface CBroadcast_GetBroadcastThumbnail_Response {
@@ -119,9 +118,9 @@ export interface CBroadcast_GetBroadcastThumbnail_Response {
 export interface CBroadcast_GetBroadcastUploadStats_Request {
   row_limit?: number;
   start_time?: number;
-  upload_id?: Long;
-  steamid?: Long;
-  session_id?: Long;
+  upload_id?: bigint;
+  steamid?: bigint;
+  session_id?: bigint;
 }
 
 export interface CBroadcast_GetBroadcastUploadStats_Response {
@@ -136,24 +135,24 @@ export interface CBroadcast_GetBroadcastUploadStats_Response_UploadStats {
   resolution_x?: number;
   resolution_y?: number;
   avg_bandwidth?: number;
-  total_bytes?: Long;
+  total_bytes?: bigint;
   app_id?: number;
   total_unique_viewers?: number;
-  total_seconds_watched?: Long;
+  total_seconds_watched?: bigint;
   time_started?: number;
-  upload_id?: Long;
+  upload_id?: bigint;
   local_address?: string;
   remote_address?: string;
   frames_per_second?: number;
   num_representations?: number;
   app_name?: string;
   is_replay?: boolean;
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CBroadcast_GetBroadcastViewerStats_Request {
-  upload_id?: Long;
-  steamid?: Long;
+  upload_id?: bigint;
+  steamid?: bigint;
 }
 
 export interface CBroadcast_GetBroadcastViewerStats_Response {
@@ -172,19 +171,19 @@ export interface CBroadcast_GetBroadcastViewerStats_Response_ViewerStats {
 }
 
 export interface CBroadcast_GetBuildClipStatus_Request {
-  broadcast_clip_id?: Long;
+  broadcast_clip_id?: bigint;
 }
 
 export type CBroadcast_GetBuildClipStatus_Response = Record<string, never>;
 
 export interface CBroadcast_GetClipDetails_Request {
-  broadcast_clip_id?: Long;
+  broadcast_clip_id?: bigint;
 }
 
 export interface CBroadcast_GetClipDetails_Response {
-  broadcast_clip_id?: Long;
-  video_id?: Long;
-  channel_id?: Long;
+  broadcast_clip_id?: bigint;
+  video_id?: bigint;
+  channel_id?: bigint;
   app_id?: number;
   accountid_broadcaster?: number;
   accountid_clipmaker?: number;
@@ -196,7 +195,7 @@ export interface CBroadcast_GetClipDetails_Response {
 
 export interface CBroadcast_GetRTMPInfo_Request {
   ip?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CBroadcast_GetRTMPInfo_Response {
@@ -208,7 +207,7 @@ export interface CBroadcast_GetRTMPInfo_Response {
   required_app_id?: number;
   broadcast_chat_permission?: number;
   broadcast_buffer?: number;
-  steamid?: Long;
+  steamid?: bigint;
   chat_rate_limit?: number;
   enable_replay?: boolean;
   is_partner_chat_only?: boolean;
@@ -216,14 +215,14 @@ export interface CBroadcast_GetRTMPInfo_Response {
 }
 
 export interface CBroadcast_HeartbeatBroadcast_Notification {
-  steamid?: Long;
-  broadcast_id?: Long;
-  viewer_token?: Long;
+  steamid?: bigint;
+  broadcast_id?: bigint;
+  viewer_token?: bigint;
   representation?: number;
 }
 
 export interface CBroadcast_InviteToBroadcast_Request {
-  steamid?: Long;
+  steamid?: bigint;
   approval_response?: boolean;
 }
 
@@ -232,24 +231,24 @@ export interface CBroadcast_InviteToBroadcast_Response {
 }
 
 export interface CBroadcast_MuteBroadcastChatUser_Request {
-  chat_id?: Long;
-  user_steamid?: Long;
+  chat_id?: bigint;
+  user_steamid?: bigint;
   muted?: boolean;
 }
 
 export type CBroadcast_MuteBroadcastChatUser_Response = Record<string, never>;
 
 export interface CBroadcast_NotifyBroadcastSessionHeartbeat_Notification {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
 }
 
 export interface CBroadcast_NotifyBroadcastUploadStop_Notification {
-  broadcast_upload_id?: Long;
+  broadcast_upload_id?: bigint;
   upload_result?: number;
 }
 
 export interface CBroadcast_PostChatMessage_Request {
-  chat_id?: Long;
+  chat_id?: bigint;
   message?: string;
   instance_id?: number;
   language?: number;
@@ -264,15 +263,15 @@ export interface CBroadcast_PostChatMessage_Response {
 }
 
 export interface CBroadcast_RemoveUserChatText_Request {
-  chat_id?: Long;
-  user_steamid?: Long;
+  chat_id?: bigint;
+  user_steamid?: bigint;
 }
 
 export type CBroadcast_RemoveUserChatText_Response = Record<string, never>;
 
 export interface CBroadcast_SendBroadcastStateToServer_Request {
   permission?: number;
-  gameid?: Long;
+  gameid?: bigint;
   title?: string;
   game_data_config?: string;
 }
@@ -281,18 +280,18 @@ export type CBroadcast_SendBroadcastStateToServer_Response = Record<string, neve
 
 export interface CBroadcast_SendThumbnailToRelay_Notification {
   thumbnail_upload_token?: string;
-  thumbnail_broadcast_session_id?: Long;
+  thumbnail_broadcast_session_id?: bigint;
   thumbnail_data?: Buffer;
   thumbnail_width?: number;
   thumbnail_height?: number;
 }
 
 export interface CBroadcast_SessionClosed_Notification {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
 }
 
 export interface CBroadcast_SetClipDetails_Request {
-  broadcast_clip_id?: Long;
+  broadcast_clip_id?: bigint;
   start_time?: number;
   end_time?: number;
   video_description?: string;
@@ -308,7 +307,7 @@ export interface CBroadcast_SetRTMPInfo_Request {
   required_app_id?: number;
   broadcast_chat_permission?: number;
   broadcast_buffer?: number;
-  steamid?: Long;
+  steamid?: bigint;
   chat_rate_limit?: number;
   enable_replay?: boolean;
   is_partner_chat_only?: boolean;
@@ -318,11 +317,11 @@ export interface CBroadcast_SetRTMPInfo_Request {
 export type CBroadcast_SetRTMPInfo_Response = Record<string, never>;
 
 export interface CBroadcast_StartBroadcastUpload_Request {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
   cellid?: number;
   as_rtmp?: boolean;
   delay_seconds?: number;
-  rtmp_token?: Long;
+  rtmp_token?: bigint;
   upload_ip_address?: number;
   is_replay?: boolean;
   sysid?: number;
@@ -331,59 +330,59 @@ export interface CBroadcast_StartBroadcastUpload_Request {
 export interface CBroadcast_StartBroadcastUpload_Response {
   upload_token?: string;
   upload_address?: string;
-  broadcast_upload_id?: Long;
+  broadcast_upload_id?: bigint;
   enable_replay?: boolean;
   http_address?: string;
 }
 
 export interface CBroadcast_StartBuildClip_Request {
-  steamid?: Long;
-  broadcast_session_id?: Long;
+  steamid?: bigint;
+  broadcast_session_id?: bigint;
   first_segment?: number;
   num_segments?: number;
   clip_description?: string;
 }
 
 export interface CBroadcast_StartBuildClip_Response {
-  broadcast_clip_id?: Long;
+  broadcast_clip_id?: bigint;
 }
 
 export interface CBroadcast_StopBroadcastUpload_Notification {
-  broadcast_id?: Long;
-  broadcast_relay_id?: Long;
+  broadcast_id?: bigint;
+  broadcast_relay_id?: bigint;
   upload_result?: number;
   too_many_poor_uploads?: boolean;
 }
 
 export interface CBroadcast_StopWatchingBroadcast_Notification {
-  steamid?: Long;
-  broadcast_id?: Long;
-  viewer_token?: Long;
+  steamid?: bigint;
+  broadcast_id?: bigint;
+  viewer_token?: bigint;
 }
 
 export interface CBroadcast_UpdateChatMessageFlair_Request {
-  chat_id?: Long;
+  chat_id?: bigint;
   flair?: string;
 }
 
 export interface CBroadcast_UpdateChatMessageFlair_Response {
   result?: number;
-  chat_id?: Long;
+  chat_id?: bigint;
   flair?: string;
 }
 
 export interface CBroadcast_ViewerBroadcastInvite_Notification {
-  broadcaster_steamid?: Long;
+  broadcaster_steamid?: bigint;
 }
 
 export interface CBroadcast_WaitingBroadcastViewer_Notification {
-  broadcast_id?: Long;
+  broadcast_id?: bigint;
 }
 
 export interface CBroadcast_WatchBroadcast_Request {
-  steamid?: Long;
-  existing_broadcast_id?: Long;
-  viewer_token?: Long;
+  steamid?: bigint;
+  existing_broadcast_id?: bigint;
+  viewer_token?: bigint;
   client_cell?: number;
   watch_location?: number;
   is_webrtc?: boolean;
@@ -392,19 +391,19 @@ export interface CBroadcast_WatchBroadcast_Request {
 export interface CBroadcast_WatchBroadcast_Response {
   response?: number;
   mpd_url?: string;
-  broadcast_id?: Long;
-  gameid?: Long;
+  broadcast_id?: bigint;
+  gameid?: bigint;
   title?: string;
   num_viewers?: number;
   permission?: number;
   is_rtmp?: boolean;
   seconds_delay?: number;
-  viewer_token?: Long;
+  viewer_token?: bigint;
   hls_m3u8_master_url?: string;
   heartbeat_interval?: number;
   thumbnail_url?: string;
   is_webrtc?: boolean;
-  webrtc_session_id?: Long;
+  webrtc_session_id?: bigint;
   webrtc_offer_sdp?: string;
   webrtc_turn_server?: string;
   is_replay?: boolean;
@@ -419,29 +418,29 @@ export interface CBroadcast_WebRTC_Candidate {
 }
 
 export interface CBroadcast_WebRTCAddHostCandidate_Request {
-  webrtc_session_id?: Long;
+  webrtc_session_id?: bigint;
   candidate?: CBroadcast_WebRTC_Candidate;
 }
 
 export type CBroadcast_WebRTCAddHostCandidate_Response = Record<string, never>;
 
 export interface CBroadcast_WebRTCAddViewerCandidate_Notification {
-  broadcast_session_id?: Long;
-  webrtc_session_id?: Long;
+  broadcast_session_id?: bigint;
+  webrtc_session_id?: bigint;
   candidate?: CBroadcast_WebRTC_Candidate;
 }
 
 export interface CBroadcast_WebRTCAddViewerCandidate_Request {
-  broadcaster_steamid?: Long;
-  webrtc_session_id?: Long;
+  broadcaster_steamid?: bigint;
+  webrtc_session_id?: bigint;
   candidate?: CBroadcast_WebRTC_Candidate;
 }
 
 export type CBroadcast_WebRTCAddViewerCandidate_Response = Record<string, never>;
 
 export interface CBroadcast_WebRTCGetHostCandidates_Request {
-  broadcaster_steamid?: Long;
-  webrtc_session_id?: Long;
+  broadcaster_steamid?: bigint;
+  webrtc_session_id?: bigint;
   candidate_generation?: number;
 }
 
@@ -451,7 +450,7 @@ export interface CBroadcast_WebRTCGetHostCandidates_Response {
 }
 
 export interface CBroadcast_WebRTCHaveTURNServer_Notification {
-  broadcast_session_id?: Long;
+  broadcast_session_id?: bigint;
   turn_server?: string;
 }
 
@@ -464,32 +463,32 @@ export interface CBroadcast_WebRTCLookupTURNServer_Response {
 }
 
 export interface CBroadcast_WebRTCNeedTURNServer_Notification {
-  broadcast_session_id?: Long;
+  broadcast_session_id?: bigint;
 }
 
 export interface CBroadcast_WebRTCSetAnswer_Notification {
-  broadcast_session_id?: Long;
-  webrtc_session_id?: Long;
+  broadcast_session_id?: bigint;
+  webrtc_session_id?: bigint;
   answer?: string;
 }
 
 export interface CBroadcast_WebRTCSetAnswer_Request {
-  broadcaster_steamid?: Long;
-  webrtc_session_id?: Long;
+  broadcaster_steamid?: bigint;
+  webrtc_session_id?: bigint;
   answer?: string;
 }
 
 export type CBroadcast_WebRTCSetAnswer_Response = Record<string, never>;
 
 export interface CBroadcast_WebRTCStart_Notification {
-  broadcast_session_id?: Long;
-  webrtc_session_id?: Long;
-  viewer_steamid?: Long;
-  viewer_token?: Long;
+  broadcast_session_id?: bigint;
+  webrtc_session_id?: bigint;
+  viewer_steamid?: bigint;
+  viewer_token?: bigint;
 }
 
 export interface CBroadcast_WebRTCStartResult_Request {
-  webrtc_session_id?: Long;
+  webrtc_session_id?: bigint;
   started?: boolean;
   offer?: string;
   resolution_x?: number;
@@ -500,7 +499,7 @@ export interface CBroadcast_WebRTCStartResult_Request {
 export type CBroadcast_WebRTCStartResult_Response = Record<string, never>;
 
 export interface CBroadcast_WebRTCStopped_Request {
-  webrtc_session_id?: Long;
+  webrtc_session_id?: bigint;
 }
 
 export type CBroadcast_WebRTCStopped_Response = Record<string, never>;

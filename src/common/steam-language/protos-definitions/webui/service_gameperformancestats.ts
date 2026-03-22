@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CGamePerformanceStats_GetGameFrameRateStats_Request {
   appid?: number;
@@ -12,9 +11,9 @@ export interface CGamePerformanceStats_GetGameFrameRateStats_Response {
 }
 
 export interface CGamePerformanceStats_GetGameFrameRateStats_Response_FrameRate {
-  clusterid?: Long;
+  clusterid?: bigint;
   report_days?: number;
-  report_count?: Long;
+  report_count?: bigint;
   mean_frame_rate?: number;
   mean_frame_rate_stddev?: number;
 }

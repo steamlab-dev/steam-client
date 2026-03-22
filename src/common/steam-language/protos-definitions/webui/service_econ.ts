@@ -1,18 +1,17 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CEcon_Asset {
   appid?: number;
-  contextid?: Long;
-  assetid?: Long;
-  classid?: Long;
-  instanceid?: Long;
+  contextid?: bigint;
+  assetid?: bigint;
+  classid?: bigint;
+  instanceid?: bigint;
   currencyid?: number;
-  amount?: Long;
+  amount?: bigint;
   missing?: boolean;
-  est_usd?: Long;
+  est_usd?: bigint;
 }
 
 export interface CEcon_ClientGetItemShopOverlayAuthURL_Request {
@@ -44,20 +43,20 @@ export interface CEcon_GetAssetPropertySchema_Response {
 }
 
 export interface CEcon_GetInventoryItemsWithDescriptions_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
-  contextid?: Long;
+  contextid?: bigint;
   get_descriptions?: boolean;
   language?: string;
   filters?: CEcon_GetInventoryItemsWithDescriptions_Request_FilterOptions;
-  start_assetid?: Long;
+  start_assetid?: bigint;
   count?: number;
   for_trade_offer_verification?: boolean;
   get_asset_properties?: boolean;
 }
 
 export interface CEcon_GetInventoryItemsWithDescriptions_Request_FilterOptions {
-  assetids?: Long[];
+  assetids?: bigint[];
   currencyids?: number[];
   tradable_only?: boolean;
   marketable_only?: boolean;
@@ -68,7 +67,7 @@ export interface CEcon_GetInventoryItemsWithDescriptions_Response {
   descriptions?: CEconItem_Description[];
   missing_assets?: CEcon_Asset[];
   more_items?: boolean;
-  last_assetid?: Long;
+  last_assetid?: bigint;
   total_inventory_count?: number;
   asset_properties?: CEconItem_AssetProperties[];
 }
@@ -87,8 +86,8 @@ export interface CEconItem_Action {
 }
 
 export interface CEconItem_AssetAccessory {
-  classid?: Long;
-  instanceid?: Long;
+  classid?: bigint;
+  instanceid?: bigint;
   standalone_properties?: CEconItem_AssetProperty[];
   parent_relationship_properties?: CEconItem_AssetProperty[];
   nested_accessories?: CEconItem_AssetAccessory[];
@@ -96,15 +95,15 @@ export interface CEconItem_AssetAccessory {
 
 export interface CEconItem_AssetProperties {
   appid?: number;
-  contextid?: Long;
-  assetid?: Long;
+  contextid?: bigint;
+  assetid?: bigint;
   asset_properties?: CEconItem_AssetProperty[];
   asset_accessories?: CEconItem_AssetAccessory[];
 }
 
 export interface CEconItem_AssetProperty {
   propertyid?: number;
-  int_value?: Long;
+  int_value?: bigint;
   float_value?: number;
   string_value?: string;
 }
@@ -115,15 +114,15 @@ export interface CEconItem_AssetPropertySchema {
   type?: number;
   float_min?: number;
   float_max?: number;
-  int_min?: Long;
-  int_max?: Long;
+  int_min?: bigint;
+  int_max?: bigint;
   localized_label?: string;
   hide_from_description?: boolean;
 }
 
 export interface CEconItem_ClassIdentifiers {
-  classid?: Long;
-  instanceid?: Long;
+  classid?: bigint;
+  instanceid?: bigint;
 }
 
 export interface CEconItem_ContainerProperties {
@@ -133,8 +132,8 @@ export interface CEconItem_ContainerProperties {
 
 export interface CEconItem_Description {
   appid?: number;
-  classid?: Long;
-  instanceid?: Long;
+  classid?: bigint;
+  instanceid?: bigint;
   currency?: boolean;
   background_color?: string;
   icon_url?: string;

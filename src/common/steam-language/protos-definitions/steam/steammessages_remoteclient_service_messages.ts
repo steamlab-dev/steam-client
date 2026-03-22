@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ECLientTaskListType = {
   k_EClientTask_DownloadClip: 1,
@@ -12,16 +11,16 @@ export type ECLientTaskListType = (typeof ECLientTaskListType)[keyof typeof ECLi
 export type CRemoteClient_CreateSession_Request = Record<string, never>;
 
 export interface CRemoteClient_CreateSession_Response {
-  session_id?: Long;
+  session_id?: bigint;
   euniverse?: number;
 }
 
 export interface CRemoteClient_DeleteSession_Notification {
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CRemoteClient_StartPairing_Request {
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CRemoteClient_StartPairing_Response {
@@ -29,8 +28,8 @@ export interface CRemoteClient_StartPairing_Response {
 }
 
 export interface CRemoteClient_SetPairingInfo_Request {
-  session_id?: Long;
-  device_id?: Long;
+  session_id?: bigint;
+  device_id?: bigint;
   request?: Buffer;
 }
 
@@ -41,31 +40,31 @@ export interface CRemoteClient_GetPairingInfo_Request {
 }
 
 export interface CRemoteClient_GetPairingInfo_Response {
-  session_id?: Long;
-  device_id?: Long;
+  session_id?: bigint;
+  device_id?: bigint;
   request?: Buffer;
 }
 
 export interface CRemoteClient_CancelPairing_Request {
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export type CRemoteClient_CancelPairing_Response = Record<string, never>;
 
 export interface CRemoteClient_CancelPairing_Notification {
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CRemoteClient_RegisterStatusUpdate_Notification {
-  session_id?: Long;
-  steamid?: Long;
-  device_id?: Long;
+  session_id?: bigint;
+  steamid?: bigint;
+  device_id?: bigint;
   disable_polling?: boolean;
 }
 
 export interface CRemoteClient_UnregisterStatusUpdate_Notification {
-  session_id?: Long;
-  steamid?: Long;
+  session_id?: bigint;
+  steamid?: bigint;
 }
 
 export interface CRemoteClient_DeviceDetails {
@@ -75,27 +74,27 @@ export interface CRemoteClient_DeviceDetails {
 }
 
 export interface CRemoteClient_Online_Notification {
-  steamid?: Long;
-  remote_client_id?: Long;
+  steamid?: bigint;
+  remote_client_id?: bigint;
   device_details?: CRemoteClient_DeviceDetails;
 }
 
 export interface CRemoteClient_Offline_Notification {
-  session_id?: Long;
-  steamid?: Long;
-  remote_client_id?: Long;
+  session_id?: bigint;
+  steamid?: bigint;
+  remote_client_id?: bigint;
 }
 
 export interface CRemoteClient_ClientLogin {
-  remote_client_id?: Long;
-  token_id?: Long;
+  remote_client_id?: bigint;
+  token_id?: bigint;
   device_details?: CRemoteClient_DeviceDetails;
 }
 
 export interface CRemoteClient_ClientDetails {
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   device_details?: CRemoteClient_DeviceDetails;
-  last_seen?: Long;
+  last_seen?: bigint;
   city?: string;
   state?: string;
   country?: string;
@@ -110,44 +109,44 @@ export interface CRemoteClient_GetRecentClients_Response {
 
 export interface CRemoteClient_Task {
   type?: ECLientTaskListType;
-  task_id?: Long;
+  task_id?: bigint;
   url?: string;
-  file_id?: Long;
+  file_id?: bigint;
 }
 
 export interface CRemoteClient_AddClientTask_Request {
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   task?: CRemoteClient_Task;
 }
 
 export type CRemoteClient_AddClientTask_Response = Record<string, never>;
 
 export interface CRemoteClient_TaskList_Notification {
-  remote_client_id?: Long;
+  remote_client_id?: bigint;
   tasklist?: CRemoteClient_Task[];
 }
 
 export interface CRemoteClient_MarkTaskComplete_Request {
-  remote_client_id?: Long;
-  task_id?: Long;
+  remote_client_id?: bigint;
+  task_id?: bigint;
   content_id?: string;
 }
 
 export type CRemoteClient_MarkTaskComplete_Response = Record<string, never>;
 
 export interface CRemoteClient_RemotePacket_Notification {
-  session_id?: Long;
-  steamid?: Long;
+  session_id?: bigint;
+  steamid?: bigint;
   payload?: Buffer;
 }
 
 export interface CRemoteClient_ReplyPacket_Notification {
-  session_id?: Long;
+  session_id?: bigint;
   payload?: Buffer;
 }
 
 export interface CRemoteClient_GetReplies_Request {
-  session_id?: Long;
+  session_id?: bigint;
 }
 
 export interface CRemoteClient_GetReplies_Response {
@@ -174,15 +173,15 @@ export type CRemoteClient_EnableSteamBroadcast_Notification = Record<string, nev
 export type CRemoteClient_DisableSteamBroadcast_Notification = Record<string, never>;
 
 export interface CRemoteClient_SteamBroadcast_Notification {
-  steamid?: Long;
-  clientid?: Long;
+  steamid?: bigint;
+  clientid?: bigint;
   payload?: Buffer;
 }
 
 export interface CRemoteClient_SteamToSteam_Notification {
-  steamid?: Long;
-  src_clientid?: Long;
-  dst_clientid?: Long;
+  steamid?: bigint;
+  src_clientid?: bigint;
+  dst_clientid?: bigint;
   secretid?: number;
   encrypted_payload?: Buffer;
 }
@@ -197,24 +196,24 @@ export interface CRemotePlay_SessionStarted_Request {
 }
 
 export interface CRemotePlay_SessionStarted_Response {
-  record_id?: Long;
+  record_id?: bigint;
 }
 
 export interface CRemotePlay_SessionStopped_Notification {
-  record_id?: Long;
+  record_id?: bigint;
   used_x264?: boolean;
   used_h264?: boolean;
   used_hevc?: boolean;
 }
 
 export interface CRemotePlayTogether_Notification {
-  steamid?: Long;
+  steamid?: bigint;
   Message?: { group_updated: CRemotePlayTogether_Notification.GroupUpdated };
 }
 
 export namespace CRemotePlayTogether_Notification {
   export interface Player {
-    steamid?: Long;
+    steamid?: bigint;
     guestid?: number;
     avatar_hash?: Buffer;
     keyboard_enabled?: boolean;
@@ -224,7 +223,7 @@ export namespace CRemotePlayTogether_Notification {
 
   export interface ControllerSlot_obsolete {
     slotid?: number;
-    steamid?: Long;
+    steamid?: bigint;
   }
 
   export interface ControllerSlot {
@@ -234,10 +233,10 @@ export namespace CRemotePlayTogether_Notification {
   }
 
   export interface GroupUpdated {
-    host_steamid?: Long;
-    host_clientid?: Long;
-    players_obsolete?: Long[];
-    host_gameid?: Long;
+    host_steamid?: bigint;
+    host_clientid?: bigint;
+    players_obsolete?: bigint[];
+    host_gameid?: bigint;
     controller_slots_obsolete?: CRemotePlayTogether_Notification.ControllerSlot_obsolete[];
     has_new_players?: boolean;
     player_slots?: CRemotePlayTogether_Notification.Player[];

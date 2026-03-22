@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CUserReviews_BackfillSavedHardware_Request {
-  saved_hardware_id?: Long;
+  saved_hardware_id?: bigint;
 }
 
 export interface CUserReviews_BackfillSavedHardware_Response {
@@ -25,7 +24,7 @@ export interface CUserReviews_GetIndividualRecommendations_Request {
 }
 
 export interface CUserReviews_GetIndividualRecommendations_Request_RecommendationRequest {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
 }
 
@@ -49,7 +48,7 @@ export interface CUserReviews_Recommendation_Tag_Range {
 }
 
 export interface CUserReviews_Update_Request {
-  recommendationid?: Long;
+  recommendationid?: bigint;
   review_text?: string;
   voted_up?: boolean;
   is_public?: boolean;
@@ -58,14 +57,14 @@ export interface CUserReviews_Update_Request {
   received_compensation?: boolean;
   comments_disabled?: boolean;
   hide_in_steam_china?: boolean;
-  saved_hardware_id?: Long;
+  saved_hardware_id?: bigint;
 }
 
 export type CUserReviews_Update_Response = Record<string, never>;
 
 export interface RecommendationDetails {
-  recommendationid?: Long;
-  steamid?: Long;
+  recommendationid?: bigint;
+  steamid?: bigint;
   appid?: number;
   review?: string;
   time_created?: number;
@@ -80,9 +79,9 @@ export interface RecommendationDetails {
   moderator_hidden?: boolean;
   flagged_by_developer?: number;
   report_score?: number;
-  steamid_moderator?: Long;
-  steamid_developer?: Long;
-  steamid_dev_responder?: Long;
+  steamid_moderator?: bigint;
+  steamid_developer?: bigint;
+  steamid_dev_responder?: bigint;
   developer_response?: string;
   time_developer_responded?: number;
   developer_flag_cleared?: boolean;
@@ -116,8 +115,8 @@ export interface RecommendationDetails {
   is_bot_review_pct?: number;
   positivity_pct?: number;
   tags_with_ranges?: CUserReviews_Recommendation_Tag[];
-  saved_hardware_id?: Long;
-  hardware_cluster_id?: Long;
+  saved_hardware_id?: bigint;
+  hardware_cluster_id?: bigint;
 }
 
 export abstract class UserReviewsService {

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPhone_AddPhoneToAccount_Response {
   success?: boolean;
@@ -9,7 +8,7 @@ export interface CPhone_AddPhoneToAccount_Response {
 }
 
 export interface CPhone_ConfirmAddPhoneToAccount_Request {
-  steamid?: Long;
+  steamid?: bigint;
   stoken?: string;
 }
 

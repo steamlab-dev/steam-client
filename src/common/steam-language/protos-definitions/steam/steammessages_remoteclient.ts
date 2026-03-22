@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CMsgRemoteClientBroadcastStatus,
   EStreamTransport,
@@ -22,8 +20,8 @@ export type ERemoteClientPairWifiAPResult =
   (typeof ERemoteClientPairWifiAPResult)[keyof typeof ERemoteClientPairWifiAPResult];
 
 export interface CMsgRemoteClientStatus {
-  client_id?: Long;
-  instance_id?: Long;
+  client_id?: bigint;
+  instance_id?: bigint;
   status?: CMsgRemoteClientBroadcastStatus;
 }
 
@@ -34,10 +32,10 @@ export interface CMsgRemoteClientAppStatus {
 export namespace CMsgRemoteClientAppStatus {
   export interface AppUpdateInfo {
     time_update_start?: number;
-    bytes_to_download?: Long;
-    bytes_downloaded?: Long;
-    bytes_to_process?: Long;
-    bytes_processed?: Long;
+    bytes_to_download?: bigint;
+    bytes_downloaded?: bigint;
+    bytes_to_process?: bigint;
+    bytes_processed?: bigint;
     estimated_seconds_remaining?: number;
     update_result?: number;
     update_state?: number;
@@ -126,7 +124,7 @@ export interface CMsgRemoteClientWifiAPStatus {
   password?: string;
   wpa2_deprecated?: boolean;
   is_pairing_capable?: boolean;
-  paired_network_hash?: Long;
+  paired_network_hash?: bigint;
 }
 
 export interface CMsgRemoteClientPairWifiAP {

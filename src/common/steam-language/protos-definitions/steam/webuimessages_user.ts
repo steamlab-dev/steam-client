@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { UserSystemInformation } from "./steammessages_base";
 
 export interface CUser_SaveHardwareInfo_Request {
@@ -10,14 +8,14 @@ export interface CUser_SaveHardwareInfo_Request {
 }
 
 export interface CUser_SaveHardwareInfo_Response {
-  saved_hardware_id?: Long;
+  saved_hardware_id?: bigint;
 }
 
 export type CUser_GetSavedHardwareInfo_Request = Record<string, never>;
 
 export interface CUser_GetSavedHardwareInfo_Response {
   friendly_name?: string;
-  saved_hardware_id?: Long;
+  saved_hardware_id?: bigint;
   system_info?: UserSystemInformation;
 }
 

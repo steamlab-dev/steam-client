@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgQAngle, CMsgVector } from "./networkbasetypes";
 
 export const EHitGroup = {
@@ -126,7 +124,7 @@ export interface MLTick {
 }
 
 export interface VacNetShot {
-  steamid_player?: Long;
+  steamid_player?: bigint;
   round_number?: number;
   hit_type?: number;
   weapon_type?: number;

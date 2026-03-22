@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EGCItemMsg = {
   k_EMsgGCBase: 1000,
@@ -227,13 +226,13 @@ export interface CMsgGCGiftedItems {
 export interface CMsgGCDev_SchemaReservationRequest {
   schema_typename?: string;
   instance_name?: string;
-  context?: Long;
-  id?: Long;
+  context?: bigint;
+  id?: bigint;
 }
 
 export interface CMsgCasketItem {
-  casket_item_id?: Long;
-  item_item_id?: Long;
+  casket_item_id?: bigint;
+  item_item_id?: bigint;
 }
 
 export interface CMsgGCUserTrackTimePlayedConsecutively {
@@ -241,7 +240,7 @@ export interface CMsgGCUserTrackTimePlayedConsecutively {
 }
 
 export interface CMsgGCItemCustomizationNotification {
-  item_id?: Long[];
+  item_id?: bigint[];
   request?: number;
-  extra_data?: Long[];
+  extra_data?: bigint[];
 }

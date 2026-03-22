@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CartAmount, CartCoupon, CartGiftInfo, CUserInterface_NavData } from "./common";
 
 export interface AccountCartContents {
@@ -13,7 +11,7 @@ export interface AccountCartContents {
 }
 
 export interface AccountCartLineItem {
-  line_item_id?: Long;
+  line_item_id?: bigint;
   type?: number;
   packageid?: number;
   bundleid?: number;
@@ -23,7 +21,7 @@ export interface AccountCartLineItem {
   price_when_added?: CartAmount;
   gift_info?: CartGiftInfo;
   flags?: AccountCartLineItemFlags;
-  gidcoupon_applied?: Long;
+  gidcoupon_applied?: bigint;
 }
 
 export interface AccountCartLineItemFlags {
@@ -49,10 +47,10 @@ export interface CAccountCart_AddItemsToCart_Request_ItemToAdd {
 }
 
 export interface CAccountCart_AddItemsToCart_Response {
-  line_item_ids?: Long[];
+  line_item_ids?: bigint[];
   cart?: AccountCartContents;
   replaced_packages?: number[];
-  existing_billing_agreementid?: Long;
+  existing_billing_agreementid?: bigint;
   new_billing_agreement_recurring_packageid?: number;
 }
 
@@ -77,12 +75,12 @@ export interface CAccountCart_GetRelevantCoupons_Response {
 }
 
 export interface CAccountCart_GetRelevantCoupons_Response_LineItemCoupons {
-  line_item_id?: Long;
+  line_item_id?: bigint;
   coupons?: CartCoupon[];
 }
 
 export interface CAccountCart_MergeShoppingCartContents_Request {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   user_country?: string;
 }
 
@@ -91,11 +89,11 @@ export interface CAccountCart_MergeShoppingCartContents_Response {
 }
 
 export interface CAccountCart_ModifyLineItem_Request {
-  line_item_id?: Long;
+  line_item_id?: bigint;
   user_country?: string;
   gift_info?: CartGiftInfo;
   flags?: AccountCartLineItemFlags;
-  apply_gidcoupon?: Long;
+  apply_gidcoupon?: bigint;
 }
 
 export interface CAccountCart_ModifyLineItem_Response {
@@ -103,7 +101,7 @@ export interface CAccountCart_ModifyLineItem_Response {
 }
 
 export interface CAccountCart_RemoveItemFromCart_Request {
-  line_item_id?: Long;
+  line_item_id?: bigint;
   user_country?: string;
 }
 

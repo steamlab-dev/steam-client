@@ -1,12 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CShoppingCart_AddBundle_Request {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   bundleid?: number;
-  browserid?: Long;
+  browserid?: bigint;
   store_country?: string;
   quantity?: number;
   beta_mode?: boolean;
@@ -18,28 +17,28 @@ export interface CShoppingCart_AddBundle_Response {
 }
 
 export interface CShoppingCart_AddPackages_Request {
-  gidshoppingcart?: Long;
-  browserid?: Long;
+  gidshoppingcart?: bigint;
+  browserid?: bigint;
   cart_items?: CShoppingCart_PackageItem[];
   store_country_code?: string;
   beta_mode?: boolean;
 }
 
 export interface CShoppingCart_AddPackages_Response {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   contents?: CShoppingCart_Contents;
   result_details?: number[];
 }
 
 export interface CShoppingCart_Amount {
-  amount?: Long;
+  amount?: bigint;
   currencycode?: number;
 }
 
 export interface CShoppingCart_AvailableCoupon {
   couponid?: number;
-  gidcoupon?: Long;
-  gidlineitem?: Long;
+  gidcoupon?: bigint;
+  gidlineitem?: bigint;
 }
 
 export interface CShoppingCart_BundleItem {
@@ -55,35 +54,35 @@ export interface CShoppingCart_Contents {
 
 export interface CShoppingCart_CouponItem {
   couponid?: number;
-  gidcoupontarget?: Long;
+  gidcoupontarget?: bigint;
   packageid?: number;
-  gidcoupon?: Long;
+  gidcoupon?: bigint;
 }
 
 export interface CShoppingCart_CreateNew_Request {
-  steamid_requester?: Long;
-  purchase_request_id?: Long;
+  steamid_requester?: bigint;
+  purchase_request_id?: bigint;
 }
 
 export interface CShoppingCart_CreateNew_Response {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
 }
 
 export interface CShoppingCart_GetContents_Request {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
 }
 
 export interface CShoppingCart_GetContents_Response {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   contents?: CShoppingCart_Contents;
   time_created?: number;
   merged_into_account_cart?: boolean;
-  steamid_requester?: Long;
-  purchase_request_id?: Long;
+  steamid_requester?: bigint;
+  purchase_request_id?: bigint;
 }
 
 export interface CShoppingCart_Item {
-  gidlineitem?: Long;
+  gidlineitem?: bigint;
   package_item?: CShoppingCart_PackageItem;
   wallet_credit_item?: CShoppingCart_WalletCreditItem;
   coupon_item?: CShoppingCart_CouponItem;
@@ -98,14 +97,14 @@ export interface CShoppingCart_LoyaltyRewardItem {
 
 export interface CShoppingCart_MicroTxnAsset {
   microtxnappid?: number;
-  microtxnassetclassid?: Long;
+  microtxnassetclassid?: bigint;
 }
 
 export interface CShoppingCart_PackageItem {
   packageid?: number;
   costwhenadded?: CShoppingCart_Amount;
   is_gift?: boolean;
-  gidbundle?: Long;
+  gidbundle?: bigint;
   quantity?: number;
 }
 
@@ -114,14 +113,14 @@ export interface CShoppingCart_Potentials {
 }
 
 export interface CShoppingCart_RelationShip {
-  gidparent?: Long;
+  gidparent?: bigint;
   children?: CShoppingCart_RelationShip[];
 }
 
 export interface CShoppingCart_RemoveLineItems_Request {
-  gidshoppingcart?: Long;
-  gidlineitems?: Long[];
-  browserid?: Long;
+  gidshoppingcart?: bigint;
+  gidlineitems?: bigint[];
+  browserid?: bigint;
 }
 
 export interface CShoppingCart_RemoveLineItems_Response {
@@ -130,13 +129,13 @@ export interface CShoppingCart_RemoveLineItems_Response {
 }
 
 export interface CShoppingCart_UpdatePackageQuantity_Request {
-  gidshoppingcart?: Long;
-  gidlineitem?: Long;
+  gidshoppingcart?: bigint;
+  gidlineitem?: bigint;
   quantity?: number;
 }
 
 export interface CShoppingCart_UpdatePackageQuantity_Response {
-  gidshoppingcart?: Long;
+  gidshoppingcart?: bigint;
   contents?: CShoppingCart_Contents;
   result_details?: number[];
 }

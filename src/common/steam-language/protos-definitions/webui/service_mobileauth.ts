@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMobileAuth_MigrateMobileSession_Request {
-  steamid?: Long;
+  steamid?: bigint;
   token?: string;
   signature?: Buffer;
   device_details?: CMobileAuth_MigrateMobileSession_Request_DeviceDetails;

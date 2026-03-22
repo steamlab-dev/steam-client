@@ -1,11 +1,10 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CDeveloperPageLink {
   appid?: number;
-  clan_steamid?: Long;
+  clan_steamid?: bigint;
   relation?: number;
   linkname?: string;
   json?: string;

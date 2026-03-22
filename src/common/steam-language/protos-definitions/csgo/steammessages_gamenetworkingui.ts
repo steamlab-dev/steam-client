@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgSteamDatagramP2PRoutingSummary } from "./steamdatagram_messages_sdr";
 import type { CMsgSteamDatagramConnectionQuality } from "./steamnetworkingsockets_messages";
 
@@ -30,12 +28,12 @@ export interface CGameNetworkingUI_ConnectionState {
   ping_default_internet_route?: number;
   e2e_quality_local?: CMsgSteamDatagramConnectionQuality;
   e2e_quality_remote?: CMsgSteamDatagramConnectionQuality;
-  e2e_quality_remote_instantaneous_time?: Long;
-  e2e_quality_remote_lifetime_time?: Long;
+  e2e_quality_remote_instantaneous_time?: bigint;
+  e2e_quality_remote_lifetime_time?: bigint;
   front_quality_local?: CMsgSteamDatagramConnectionQuality;
   front_quality_remote?: CMsgSteamDatagramConnectionQuality;
-  front_quality_remote_instantaneous_time?: Long;
-  front_quality_remote_lifetime_time?: Long;
+  front_quality_remote_instantaneous_time?: bigint;
+  front_quality_remote_lifetime_time?: bigint;
 }
 
 export interface CGameNetworkingUI_Message {

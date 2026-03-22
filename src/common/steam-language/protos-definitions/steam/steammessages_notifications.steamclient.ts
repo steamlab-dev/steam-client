@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ESteamNotificationType = {
   k_ESteamNotificationType_Invalid: 0,
@@ -41,7 +40,7 @@ export type ESteamNotificationType =
   (typeof ESteamNotificationType)[keyof typeof ESteamNotificationType];
 
 export interface SteamNotificationData {
-  notification_id?: Long;
+  notification_id?: bigint;
   notification_targets?: number;
   notification_type?: ESteamNotificationType;
   body_data?: string;

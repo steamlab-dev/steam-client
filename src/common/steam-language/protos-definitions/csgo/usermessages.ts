@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CEntityMsg, CMsgQAngle, CMsgQuaternion, CMsgVector } from "./networkbasetypes";
 
 export const EBaseUserMessages = {
@@ -402,7 +400,7 @@ export namespace CUserMsg_ParticleManager {
   export type ReleaseParticleIndex = Record<string, never>;
 
   export interface CreateParticle {
-    particle_name_index?: Long;
+    particle_name_index?: bigint;
     attach_type?: number;
     entity_handle?: number;
     entity_handle_for_modifiers?: number;
@@ -424,7 +422,7 @@ export namespace CUserMsg_ParticleManager {
   }
 
   export interface DestroyParticleNamed {
-    particle_name_index?: Long;
+    particle_name_index?: bigint;
     entity_handle?: number;
     destroy_immediately?: boolean;
     play_endcap?: boolean;
@@ -727,7 +725,7 @@ export interface CUserMessage_DllStatus {
   total_files?: number;
   process_id?: number;
   osversion?: number;
-  client_time?: Long;
+  client_time?: bigint;
   diagnostics?: CUserMessage_DllStatus.CVDiagnostic[];
   modules?: CUserMessage_DllStatus.CModule[];
 }
@@ -736,12 +734,12 @@ export namespace CUserMessage_DllStatus {
   export interface CVDiagnostic {
     id?: number;
     extended?: number;
-    value?: Long;
+    value?: bigint;
     string_value?: string;
   }
 
   export interface CModule {
-    base_addr?: Long;
+    base_addr?: bigint;
     name?: string;
     size?: number;
     timestamp?: number;
@@ -767,16 +765,16 @@ export interface CUserMessage_Inventory_Response {
   inv_type?: number;
   build_version?: number;
   instance?: number;
-  start_time?: Long;
+  start_time?: bigint;
 }
 
 export namespace CUserMessage_Inventory_Response {
   export interface InventoryDetail {
     index?: number;
-    primary?: Long;
-    offset?: Long;
-    first?: Long;
-    base?: Long;
+    primary?: bigint;
+    offset?: bigint;
+    first?: bigint;
+    base?: bigint;
     name?: string;
     base_name?: string;
     base_detail?: number;
@@ -792,14 +790,14 @@ export interface CUserMessageRequestDiagnostic {
 export namespace CUserMessageRequestDiagnostic {
   export interface Diagnostic {
     index?: number;
-    offset?: Long;
+    offset?: bigint;
     param?: number;
     length?: number;
     type?: number;
-    base?: Long;
-    range?: Long;
-    extent?: Long;
-    detail?: Long;
+    base?: bigint;
+    range?: bigint;
+    extent?: bigint;
+    detail?: bigint;
     name?: string;
     alias?: string;
     vardetail?: Buffer;
@@ -811,7 +809,7 @@ export interface CUserMessage_Diagnostic_Response {
   diagnostics?: CUserMessage_Diagnostic_Response.Diagnostic[];
   build_version?: number;
   instance?: number;
-  start_time?: Long;
+  start_time?: bigint;
   osversion?: number;
   platform?: number;
 }
@@ -819,27 +817,27 @@ export interface CUserMessage_Diagnostic_Response {
 export namespace CUserMessage_Diagnostic_Response {
   export interface Diagnostic {
     index?: number;
-    offset?: Long;
+    offset?: bigint;
     param?: number;
     length?: number;
     detail?: Buffer;
-    base?: Long;
-    range?: Long;
+    base?: bigint;
+    range?: bigint;
     type?: number;
     name?: string;
     alias?: string;
     backup?: Buffer;
     context?: number;
-    control?: Long;
-    augment?: Long;
-    placebo?: Long;
+    control?: bigint;
+    augment?: bigint;
+    placebo?: bigint;
   }
 }
 
 export interface CUserMessage_ExtraUserData {
   item?: number;
-  value1?: Long;
-  value2?: Long;
+  value1?: bigint;
+  value2?: bigint;
   detail1?: Buffer[];
   detail2?: Buffer[];
 }

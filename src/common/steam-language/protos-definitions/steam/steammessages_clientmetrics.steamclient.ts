@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   CClientMetrics_ClientBootstrap_Summary,
   CClientMetrics_ContentDownloadResponse_Hosts,
@@ -62,7 +60,7 @@ export interface CClientMetrics_AppInterfaceMethodCounts {
 }
 
 export interface CClientMetrics_AppInterfaceStats_Notification {
-  game_id?: Long;
+  game_id?: bigint;
   interfaces_created?: CClientMetrics_AppInterfaceCreation[];
   methods_called?: CClientMetrics_AppInterfaceMethodCounts[];
   session_length_seconds?: number;
@@ -82,11 +80,11 @@ export interface CClientMetrics_IPv6Connectivity_Notification {
 export interface CClientMetrics_SteamPipeWorkStats_Operation {
   type?: ESteamPipeOperationType;
   num_ops?: number;
-  num_bytes?: Long;
-  busy_time_ms?: Long;
-  idle_time_ms?: Long;
-  sum_run_time_ms?: Long;
-  sum_wait_time_ms?: Long;
+  num_bytes?: bigint;
+  busy_time_ms?: bigint;
+  idle_time_ms?: bigint;
+  sum_run_time_ms?: bigint;
+  sum_wait_time_ms?: bigint;
 }
 
 export interface CClientMetrics_SteamPipeWorkStats_Notification {
@@ -154,16 +152,16 @@ export namespace CClientMetrics_DownloadRates_Notification {
   export interface StatsInfo {
     source_type?: number;
     source_id?: number;
-    bytes?: Long;
+    bytes?: bigint;
     host_name?: string;
-    microseconds?: Long;
+    microseconds?: bigint;
     used_ipv6?: boolean;
     proxied?: boolean;
     used_http2?: boolean;
     cache_hits?: number;
     cache_misses?: number;
-    hit_bytes?: Long;
-    miss_bytes?: Long;
+    hit_bytes?: bigint;
+    miss_bytes?: bigint;
   }
 }
 
@@ -175,9 +173,9 @@ export interface CClientMetrics_ContentValidation_Notification {
   early_out?: boolean;
   chunks_scanned?: number;
   chunks_corrupt?: number;
-  bytes_scanned?: Long;
-  chunk_bytes_corrupt?: Long;
-  total_file_size_corrupt?: Long;
+  bytes_scanned?: bigint;
+  chunk_bytes_corrupt?: bigint;
+  total_file_size_corrupt?: bigint;
 }
 
 export interface CClientMetrics_CloudAppSyncStats_Notification {
@@ -188,18 +186,18 @@ export interface CClientMetrics_CloudAppSyncStats_Notification {
   files_uploaded?: number;
   files_downloaded?: number;
   files_deleted?: number;
-  bytes_uploaded?: Long;
-  bytes_downloaded?: Long;
-  microsec_total?: Long;
-  microsec_init_caches?: Long;
-  microsec_validate_state?: Long;
-  microsec_ac_launch?: Long;
-  microsec_ac_prep_user_files?: Long;
-  microsec_ac_exit?: Long;
-  microsec_build_sync_list?: Long;
-  microsec_delete_files?: Long;
-  microsec_download_files?: Long;
-  microsec_upload_files?: Long;
+  bytes_uploaded?: bigint;
+  bytes_downloaded?: bigint;
+  microsec_total?: bigint;
+  microsec_init_caches?: bigint;
+  microsec_validate_state?: bigint;
+  microsec_ac_launch?: bigint;
+  microsec_ac_prep_user_files?: bigint;
+  microsec_ac_exit?: bigint;
+  microsec_build_sync_list?: bigint;
+  microsec_delete_files?: bigint;
+  microsec_download_files?: bigint;
+  microsec_upload_files?: bigint;
   hardware_type?: number;
   files_managed?: number;
 }
@@ -243,8 +241,8 @@ export interface CClientMetrics_ClipShare_Notification {
   eresult?: number;
   share_method?: EClipShareMethod;
   seconds?: number;
-  bytes?: Long;
-  gameid?: Long;
+  bytes?: bigint;
+  gameid?: bigint;
 }
 
 export interface CClientMetrics_ClipRange_Notification {
@@ -252,7 +250,7 @@ export interface CClientMetrics_ClipRange_Notification {
   start?: CClientMetrics_ClipRange_Notification.RelativeRangeEdge;
   end?: CClientMetrics_ClipRange_Notification.RelativeRangeEdge;
   seconds?: number;
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export namespace CClientMetrics_ClipRange_Notification {
@@ -266,8 +264,8 @@ export namespace CClientMetrics_ClipRange_Notification {
 export interface CClientMetrics_EndGameRecording_Notification {
   recording_type?: EGameRecordingType;
   seconds?: number;
-  bytes?: Long;
-  gameid?: Long;
+  bytes?: bigint;
+  gameid?: bigint;
   instant_clip?: boolean;
 }
 
@@ -278,7 +276,7 @@ export interface CClientMetrics_GamePerformance_Notification {
 
 export namespace CClientMetrics_GamePerformance_Notification {
   export interface FrameRate {
-    gameid?: Long;
+    gameid?: bigint;
     frame_rate?: number;
     session_seconds?: number;
     framegen_frame_rate?: number;

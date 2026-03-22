@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CCloud_GetUploadServerInfo_Request {
   appid?: number;
@@ -12,18 +11,18 @@ export interface CCloud_GetUploadServerInfo_Response {
 }
 
 export interface CCloud_GetFileDetails_Request {
-  ugcid?: Long;
+  ugcid?: bigint;
   appid?: number;
 }
 
 export interface CCloud_UserFile {
   appid?: number;
-  ugcid?: Long;
+  ugcid?: bigint;
   filename?: string;
-  timestamp?: Long;
+  timestamp?: bigint;
   file_size?: number;
   url?: string;
-  steamid_creator?: Long;
+  steamid_creator?: bigint;
 }
 
 export interface CCloud_GetFileDetails_Response {

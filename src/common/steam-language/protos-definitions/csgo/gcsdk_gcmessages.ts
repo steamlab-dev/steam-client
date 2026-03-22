@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const GCClientLauncherType = {
   GCClientLauncherType_DEFAULT: 0,
@@ -24,19 +23,19 @@ export type GCConnectionStatus = (typeof GCConnectionStatus)[keyof typeof GCConn
 
 export interface CMsgSOIDOwner {
   type?: number;
-  id?: Long;
+  id?: bigint;
 }
 
 export interface CMsgSOSingleObject {
   type_id?: number;
   object_data?: Buffer;
-  version?: Long;
+  version?: bigint;
   owner_soid?: CMsgSOIDOwner;
 }
 
 export interface CMsgSOMultipleObjects {
   objects_modified?: CMsgSOMultipleObjects.SingleObject[];
-  version?: Long;
+  version?: bigint;
   owner_soid?: CMsgSOIDOwner;
 }
 
@@ -49,7 +48,7 @@ export namespace CMsgSOMultipleObjects {
 
 export interface CMsgSOCacheSubscribed {
   objects?: CMsgSOCacheSubscribed.SubscribedType[];
-  version?: Long;
+  version?: bigint;
   owner_soid?: CMsgSOIDOwner;
 }
 
@@ -65,7 +64,7 @@ export interface CMsgSOCacheUnsubscribed {
 }
 
 export interface CMsgSOCacheSubscriptionCheck {
-  version?: Long;
+  version?: bigint;
   owner_soid?: CMsgSOIDOwner;
 }
 
@@ -74,7 +73,7 @@ export interface CMsgSOCacheSubscriptionRefresh {
 }
 
 export interface CMsgSOCacheVersion {
-  version?: Long;
+  version?: bigint;
 }
 
 export interface CMsgAccountDetails {
@@ -101,7 +100,7 @@ export interface CMsgAccountDetails {
 export interface CMsgGCMultiplexMessage {
   msgtype?: number;
   payload?: Buffer;
-  steamids?: Long[];
+  steamids?: bigint[];
   replytogc?: boolean;
 }
 
@@ -122,7 +121,7 @@ export type CGCToGCMsgMasterStartupComplete = Record<string, never>;
 
 export interface CGCToGCMsgRouted {
   msg_type?: number;
-  sender_id?: Long;
+  sender_id?: bigint;
   net_message?: Buffer;
   ip?: number;
 }
@@ -133,12 +132,12 @@ export interface CGCToGCMsgRoutedReply {
 }
 
 export interface CMsgGCUpdateSessionIP {
-  steamid?: Long;
+  steamid?: bigint;
   ip?: number;
 }
 
 export interface CMsgGCRequestSessionIP {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CMsgGCRequestSessionIPResponse {
@@ -147,7 +146,7 @@ export interface CMsgGCRequestSessionIPResponse {
 
 export interface CMsgSOCacheHaveVersion {
   soid?: CMsgSOIDOwner;
-  version?: Long;
+  version?: bigint;
 }
 
 export interface CMsgClientHello {
@@ -228,7 +227,7 @@ export interface CWorkshop_GetContributors_Request {
 }
 
 export interface CWorkshop_GetContributors_Response {
-  contributors?: Long[];
+  contributors?: bigint[];
 }
 
 export interface CWorkshop_SetItemPaymentRules_Request {
@@ -243,14 +242,14 @@ export interface CWorkshop_SetItemPaymentRules_Request {
 
 export namespace CWorkshop_SetItemPaymentRules_Request {
   export interface WorkshopItemPaymentRule {
-    workshop_file_id?: Long;
+    workshop_file_id?: bigint;
     revenue_percentage?: number;
     rule_description?: string;
     rule_type?: number;
   }
 
   export interface WorkshopDirectPaymentRule {
-    workshop_file_id?: Long;
+    workshop_file_id?: bigint;
     rule_description?: string;
   }
 
@@ -288,8 +287,8 @@ export interface CWorkshop_AddSpecialPayment_Request {
   appid?: number;
   gameitemid?: number;
   date?: string;
-  payment_us_usd?: Long;
-  payment_row_usd?: Long;
+  payment_us_usd?: bigint;
+  payment_row_usd?: bigint;
 }
 
 export type CWorkshop_AddSpecialPayment_Response = Record<string, never>;
@@ -297,7 +296,7 @@ export type CWorkshop_AddSpecialPayment_Response = Record<string, never>;
 export interface CProductInfo_SetRichPresenceLocalization_Request {
   appid?: number;
   languages?: CProductInfo_SetRichPresenceLocalization_Request.LanguageSection[];
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export namespace CProductInfo_SetRichPresenceLocalization_Request {
@@ -329,14 +328,14 @@ export namespace CMsgSerializedSOCache {
 
   export interface Cache {
     type?: number;
-    id?: Long;
+    id?: bigint;
     type_caches?: CMsgSerializedSOCache.TypeCache[];
   }
 
   export namespace Cache {
     export interface Version {
       service?: number;
-      version?: Long;
+      version?: bigint;
     }
   }
 }

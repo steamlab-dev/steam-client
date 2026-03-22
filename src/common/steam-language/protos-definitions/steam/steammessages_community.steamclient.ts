@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { ECommentDeleteReason, ECommentThreadType, EContentReportReason } from "./enums";
 import type {
   CCDDBAppDetailCommon,
@@ -84,23 +82,23 @@ export namespace CCommunity_GetAppRichPresenceLocalization_Response {
 }
 
 export interface CCommunity_GetCommentThread_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: ECommentThreadType;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  commentthreadid?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  commentthreadid?: bigint;
   start?: number;
   count?: number;
   upvoters?: number;
   include_deleted?: boolean;
-  gidcomment?: Long;
+  gidcomment?: bigint;
   time_oldest?: number;
   oldest_first?: boolean;
 }
 
 export interface CCommunity_Comment {
-  gidcomment?: Long;
-  steamid?: Long;
+  gidcomment?: bigint;
+  steamid?: bigint;
   timestamp?: number;
   text?: string;
   upvotes?: number;
@@ -111,7 +109,7 @@ export interface CCommunity_Comment {
   total_hidden?: number;
   upvoted_by_user?: boolean;
   reactions?: CCommunity_Comment.Reaction[];
-  gidparentcomment?: Long;
+  gidparentcomment?: bigint;
   delete_reason?: ECommentDeleteReason;
 }
 
@@ -125,8 +123,8 @@ export namespace CCommunity_Comment {
 export interface CCommunity_GetCommentThread_Response {
   comments?: CCommunity_Comment[];
   deleted_comments?: CCommunity_Comment[];
-  steamid?: Long;
-  commentthreadid?: Long;
+  steamid?: bigint;
+  commentthreadid?: bigint;
   start?: number;
   count?: number;
   total_count?: number;
@@ -134,40 +132,40 @@ export interface CCommunity_GetCommentThread_Response {
   upvoters?: number[];
   user_subscribed?: boolean;
   user_upvoted?: boolean;
-  answer_commentid?: Long;
+  answer_commentid?: bigint;
   answer_actor?: number;
   answer_actor_rank?: number;
   can_post?: boolean;
   comment_thread_type?: number;
-  gidfeature?: Long;
-  gidfeature2?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
 }
 
 export interface CCommunity_PostCommentToThread_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: ECommentThreadType;
-  gidfeature?: Long;
-  gidfeature2?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
   text?: string;
-  gidparentcomment?: Long;
+  gidparentcomment?: bigint;
   suppress_notifications?: boolean;
   is_report?: boolean;
   start_hidden?: boolean;
 }
 
 export interface CCommunity_PostCommentToThread_Response {
-  gidcomment?: Long;
-  commentthreadid?: Long;
+  gidcomment?: bigint;
+  commentthreadid?: bigint;
   count?: number;
   upvotes?: number;
 }
 
 export interface CCommunity_DeleteCommentFromThread_Request {
-  steamid?: Long;
+  steamid?: bigint;
   comment_thread_type?: ECommentThreadType;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
   undelete?: boolean;
 }
 
@@ -175,17 +173,17 @@ export type CCommunity_DeleteCommentFromThread_Response = Record<string, never>;
 
 export interface CCommunity_RateCommentThread_Request {
   commentthreadtype?: string;
-  steamid?: Long;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
+  steamid?: bigint;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
   rate_up?: boolean;
   suppress_notifications?: boolean;
 }
 
 export interface CCommunity_RateCommentThread_Response {
-  gidcomment?: Long;
-  commentthreadid?: Long;
+  gidcomment?: bigint;
+  commentthreadid?: bigint;
   count?: number;
   upvotes?: number;
   has_upvoted?: boolean;
@@ -193,32 +191,32 @@ export interface CCommunity_RateCommentThread_Response {
 
 export interface CCommunity_GetCommentThreadRatings_Request {
   commentthreadtype?: string;
-  steamid?: Long;
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
+  steamid?: bigint;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
   max_results?: number;
 }
 
 export interface CCommunity_GetCommentThreadRatings_Response {
-  commentthreadid?: Long;
-  gidcomment?: Long;
+  commentthreadid?: bigint;
+  gidcomment?: bigint;
   upvotes?: number;
   has_upvoted?: boolean;
   upvoter_accountids?: number[];
 }
 
 export interface CCommunity_VerifyClanMembership_Request {
-  steamid?: Long;
-  steamids_verifymembership?: Long[];
+  steamid?: bigint;
+  steamids_verifymembership?: bigint[];
 }
 
 export interface CCommunity_VerifyClanMembership_Response {
-  steamids_nonmembers?: Long[];
+  steamids_nonmembers?: bigint[];
 }
 
 export interface CCommunity_RateClanAnnouncement_Request {
-  announcementid?: Long;
+  announcementid?: bigint;
   vote_up?: boolean;
   clan_accountid?: number;
 }
@@ -226,7 +224,7 @@ export interface CCommunity_RateClanAnnouncement_Request {
 export type CCommunity_RateClanAnnouncement_Response = Record<string, never>;
 
 export interface CCommunity_GetClanAnnouncementVoteForUser_Request {
-  announcementid?: Long;
+  announcementid?: bigint;
 }
 
 export interface CCommunity_GetClanAnnouncementVoteForUser_Response {
@@ -235,7 +233,7 @@ export interface CCommunity_GetClanAnnouncementVoteForUser_Response {
 }
 
 export interface CCommunity_GetClanMetadata_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CCommunity_GetClanMetadata_Response {
@@ -246,14 +244,14 @@ export interface CCommunity_GetClanMetadata_Response {
 }
 
 export interface CCommunity_GetClanLocGroupImages_Request {
-  steamid?: Long;
+  steamid?: bigint;
   group?: EClanImageGroup;
   language?: number;
-  loc_group_ids?: Long[];
+  loc_group_ids?: bigint[];
 }
 
 export interface CCommunity_ClanLocGroupImage {
-  loc_group_id?: Long;
+  loc_group_id?: bigint;
   image_hash?: string;
   thumbnail_hash?: string;
   file_type?: EClanImageFileType;
@@ -268,7 +266,7 @@ export interface CCommunity_GetClanLocGroupImages_Response {
 }
 
 export interface CCommunity_GetAvatarHistory_Request {
-  steamid?: Long;
+  steamid?: bigint;
   filter_user_uploaded_only?: boolean;
 }
 
@@ -285,38 +283,38 @@ export namespace CCommunity_GetAvatarHistory_Response {
 }
 
 export interface CCommunity_GetClanEventCrowdInMetadata_Request {
-  steamid?: Long;
-  itemid?: Long;
+  steamid?: bigint;
+  itemid?: bigint;
 }
 
 export interface CCommunity_GetClanEventCrowdInMetadata_Response {
-  crowdin_project_id?: Long;
-  crowdin_file_id?: Long;
+  crowdin_project_id?: bigint;
+  crowdin_file_id?: bigint;
 }
 
 export interface CCommunity_GetClanCrowdInMetadata_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CCommunity_GetClanCrowdInMetadata_Response {
-  crowdin_project_id?: Long;
-  crowdin_directory_id?: Long;
+  crowdin_project_id?: bigint;
+  crowdin_directory_id?: bigint;
   push_by_default?: boolean;
 }
 
 export interface CCommunity_FetchTranslationFromCrowdIn_Request {
-  steamid?: Long;
-  itemid?: Long;
+  steamid?: bigint;
+  itemid?: bigint;
   language?: number;
 }
 
 export type CCommunity_FetchTranslationFromCrowdIn_Response = Record<string, never>;
 
 export interface CCommunity_HideAndReportComment_Request {
-  gidfeature?: Long;
-  gidfeature2?: Long;
-  gidcomment?: Long;
-  steamid?: Long;
+  gidfeature?: bigint;
+  gidfeature2?: bigint;
+  gidcomment?: bigint;
+  steamid?: bigint;
   commentthreadtype?: string;
   hide?: boolean;
   report_reason?: EContentReportReason;
@@ -355,8 +353,8 @@ export interface CCommunity_GetBestEventsForUser_Request {
 
 export interface CCommunity_PartnerEventResult {
   clanid?: number;
-  event_gid?: Long;
-  announcement_gid?: Long;
+  event_gid?: bigint;
+  announcement_gid?: bigint;
   appid?: number;
   possible_takeover?: boolean;
   rtime32_last_modified?: number;
@@ -374,7 +372,7 @@ export interface CCommunity_MarkPartnerEventsForUser_Request {
 export namespace CCommunity_MarkPartnerEventsForUser_Request {
   export interface PartnerEventMarking {
     clanid?: number;
-    event_gid?: Long;
+    event_gid?: bigint;
     display_location?: EPartnerEventDisplayLocation;
     mark_shown?: boolean;
     mark_read?: boolean;
@@ -384,7 +382,7 @@ export namespace CCommunity_MarkPartnerEventsForUser_Request {
 export type CCommunity_MarkPartnerEventsForUser_Response = Record<string, never>;
 
 export interface CCommunity_GetUserPartnerEventViewStatus_Request {
-  event_gids?: Long[];
+  event_gids?: bigint[];
   include_read_events_only?: boolean;
 }
 
@@ -394,7 +392,7 @@ export interface CCommunity_GetUserPartnerEventViewStatus_Response {
 
 export namespace CCommunity_GetUserPartnerEventViewStatus_Response {
   export interface PartnerEvent {
-    event_gid?: Long;
+    event_gid?: bigint;
     last_shown_time?: number;
     last_read_time?: number;
     clan_account_id?: number;
@@ -441,7 +439,7 @@ export interface CCommunity_SetRecommendationBotReviewStatus_Request {
 export namespace CCommunity_SetRecommendationBotReviewStatus_Request {
   export interface ReviewLabel {
     appid?: number;
-    recommendationid?: Long;
+    recommendationid?: bigint;
     is_bot_review?: boolean;
   }
 }

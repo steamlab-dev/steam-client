@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   EStorageBlockContentType,
   EStorageBlockFileSystemType,
@@ -23,7 +21,7 @@ export interface CStorageDeviceManagerDrive {
   vendor?: string;
   serial?: string;
   is_ejectable?: boolean;
-  size_bytes?: Long;
+  size_bytes?: bigint;
   media_type?: EStorageDriveMediaType;
   is_unformatted?: boolean;
   adopt_stage?: EStorageFormatStage;
@@ -37,7 +35,7 @@ export interface CStorageDeviceManagerBlockDevice {
   path?: string;
   friendly_path?: string;
   label?: string;
-  size_bytes?: Long;
+  size_bytes?: bigint;
   is_formattable?: boolean;
   is_read_only?: boolean;
   is_root_device?: boolean;

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export type CGameRecording_CleanupBackgroundRecordings_Request = Record<string, never>;
 
@@ -13,18 +12,18 @@ export interface CGameRecording_ClipCreated_Notification {
 
 export interface CGameRecording_ClipDeleted_Notification {
   clip_id?: string;
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_ClipSummary {
   clip_id?: string;
-  game_id?: Long;
-  duration_ms?: Long;
+  game_id?: bigint;
+  duration_ms?: bigint;
   date_recorded?: number;
   start_timeline_id?: string;
-  start_offset_ms?: Long;
-  published_file_id?: Long;
-  file_size?: Long;
+  start_offset_ms?: bigint;
+  published_file_id?: bigint;
+  file_size?: bigint;
   name?: string;
   date_clipped?: number;
   temporary?: boolean;
@@ -43,7 +42,7 @@ export interface CGameRecording_DeleteClip_Request {
 export type CGameRecording_DeleteClip_Response = Record<string, never>;
 
 export interface CGameRecording_DeletePerGameSettings_Request {
-  gameid?: Long;
+  gameid?: bigint;
 }
 
 export type CGameRecording_DeletePerGameSettings_Response = Record<string, never>;
@@ -72,7 +71,7 @@ export interface CGameRecording_ExportClipPreview_Request {
 }
 
 export interface CGameRecording_ExportClipPreview_Response {
-  estimated_size?: Long;
+  estimated_size?: bigint;
   settings?: CGameRecording_ExportClip_Settings;
 }
 
@@ -83,7 +82,7 @@ export interface CGameRecording_ExportProgress_Notification {
 }
 
 export interface CGameRecording_GetAndTrimPostGameHighlights_Request {
-  game_id?: Long;
+  game_id?: bigint;
   created_after?: number;
 }
 
@@ -98,13 +97,13 @@ export interface CGameRecording_GetAppsWithBackgroundVideo_Response {
 }
 
 export interface CGameRecording_GetAppsWithBackgroundVideo_Response_App {
-  game_id?: Long;
+  game_id?: bigint;
   most_recent_start_time?: number;
   recording_type?: number;
   video_duration_seconds?: number;
   timeline_duration_seconds?: number;
   is_active?: boolean;
-  file_size?: Long;
+  file_size?: bigint;
 }
 
 export type CGameRecording_GetAvailableDiskSpace_Request = Record<string, never>;
@@ -114,7 +113,7 @@ export interface CGameRecording_GetAvailableDiskSpace_Response {
 }
 
 export interface CGameRecording_GetClips_Request {
-  game_id?: Long;
+  game_id?: bigint;
   created_after?: number;
   include_temporary?: boolean;
 }
@@ -142,15 +141,15 @@ export interface CGameRecording_GetPlatformCapabilities_Response {
 }
 
 export interface CGameRecording_GetRecordingSize_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_GetRecordingSize_Response {
-  file_size?: Long;
+  file_size?: bigint;
 }
 
 export interface CGameRecording_GetTags_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_GetTags_Response {
@@ -160,7 +159,7 @@ export interface CGameRecording_GetTags_Response {
 export interface CGameRecording_GetThumbnails_Request {
   recording_id?: string;
   clip_id?: string;
-  start_offset_us?: Long[];
+  start_offset_us?: bigint[];
   major_axis?: number;
   time_precision?: number;
   timeline_id?: string;
@@ -178,7 +177,7 @@ export interface CGameRecording_GetThumbnails_Response_Thumbnail {
 }
 
 export interface CGameRecording_GetTimelinesForApp_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_GetTimelinesForApp_Response {
@@ -190,9 +189,9 @@ export interface CGameRecording_GetTimelinesForClip_Request {
 }
 
 export interface CGameRecording_GetTimelinesForClip_Response {
-  game_id?: Long;
+  game_id?: bigint;
   timelines?: CGameRecordingTimelineMetadata[];
-  first_timeline_start_offset_ms?: Long;
+  first_timeline_start_offset_ms?: bigint;
 }
 
 export interface CGameRecording_GetTotalDiskSpaceUsage_Request {
@@ -201,29 +200,29 @@ export interface CGameRecording_GetTotalDiskSpaceUsage_Request {
 }
 
 export interface CGameRecording_GetTotalDiskSpaceUsage_Response {
-  size?: Long;
+  size?: bigint;
 }
 
 export type CGameRecording_LowDiskSpace_Notification = Record<string, never>;
 
 export interface CGameRecording_ManuallyDeleteRecordingsForApps_Request {
-  game_ids?: Long[];
+  game_ids?: bigint[];
 }
 
 export type CGameRecording_ManuallyDeleteRecordingsForApps_Response = Record<string, never>;
 
 export interface CGameRecording_OpenOverlayToGamePhase_Notification {
-  game_id?: Long;
+  game_id?: bigint;
   phase_id?: string;
 }
 
 export interface CGameRecording_OpenOverlayToTimelineEvent_Notification {
-  game_id?: Long;
-  entry_id?: Long;
+  game_id?: bigint;
+  entry_id?: bigint;
 }
 
 export interface CGameRecording_PerGameSettings {
-  gameid?: Long;
+  gameid?: bigint;
   enabled?: boolean;
   minutes?: number;
   bitrate?: string;
@@ -233,13 +232,13 @@ export interface CGameRecording_PerGameSettings {
 export type CGameRecording_PhaseListChanged_Notification = Record<string, never>;
 
 export interface CGameRecording_PostGameHighlightsChanged_Notification {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_QueryPhases_Request {
   page?: number;
   count?: number;
-  filter_gameid?: Long;
+  filter_gameid?: bigint;
   filter_search_string?: string;
   filter_tags?: CGameRecording_QueryPhases_Request_Tag[];
   filter_phase_id?: string;
@@ -256,15 +255,15 @@ export interface CGameRecording_QueryPhases_Response {
 }
 
 export interface CGameRecording_QueryPhases_Response_Phase {
-  game_id?: Long;
+  game_id?: bigint;
   date_recorded?: number;
-  duration_ms?: Long;
+  duration_ms?: bigint;
   tags?: CTimelineTag[];
   contained_tags?: CTimelineTag[];
   background_recording?: CGameRecording_QueryPhases_Response_Phase_BackgroundRecording;
   clip_ids?: string[];
   type?: number;
-  start_ms?: Long;
+  start_ms?: bigint;
   screenshots?: number[];
   active?: boolean;
   phase_id?: string;
@@ -274,22 +273,22 @@ export interface CGameRecording_QueryPhases_Response_Phase {
 
 export interface CGameRecording_QueryPhases_Response_Phase_BackgroundRecording {
   timeline_id?: string;
-  offset?: Long;
-  duration_ms?: Long;
+  offset?: bigint;
+  duration_ms?: bigint;
 }
 
 export interface CGameRecording_RecordingSessionChanged_Notification {
   notification_type?: number;
   timeline_id?: string;
-  game_id?: Long;
+  game_id?: bigint;
   session_id?: string;
-  start_offset?: Long;
-  duration_ms?: Long;
+  start_offset?: bigint;
+  duration_ms?: bigint;
   recording_type?: number;
 }
 
 export interface CGameRecording_SaveClip_Request {
-  game_id?: Long;
+  game_id?: bigint;
   start?: CGameRecording_SaveClip_Request_Position;
   end?: CGameRecording_SaveClip_Request_Position;
   name?: string;
@@ -300,7 +299,7 @@ export interface CGameRecording_SaveClip_Request {
 
 export interface CGameRecording_SaveClip_Request_Position {
   timeline_id?: string;
-  offset_ms?: Long;
+  offset_ms?: bigint;
 }
 
 export interface CGameRecording_SaveClip_Response {
@@ -314,13 +313,13 @@ export interface CGameRecording_SetPerGameSettings_Request {
 export type CGameRecording_SetPerGameSettings_Response = Record<string, never>;
 
 export interface CGameRecording_StartRecording_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export type CGameRecording_StartRecording_Response = Record<string, never>;
 
 export interface CGameRecording_StopRecording_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_StopRecording_Response {
@@ -328,38 +327,38 @@ export interface CGameRecording_StopRecording_Response {
 }
 
 export interface CGameRecording_SwitchBackgroundRecordingGame_Request {
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export type CGameRecording_SwitchBackgroundRecordingGame_Response = Record<string, never>;
 
 export interface CGameRecording_TakeScreenshot_Request {
-  game_id?: Long;
+  game_id?: bigint;
   timeline_id?: string;
-  timeline_offset_ms?: Long;
+  timeline_offset_ms?: bigint;
 }
 
 export interface CGameRecording_TakeScreenshot_Response {
-  screenshot_id?: Long;
+  screenshot_id?: bigint;
 }
 
 export interface CGameRecording_TimelineChanged_Notification {
   notification_type?: number;
   timeline_id?: string;
-  game_id?: Long;
+  game_id?: bigint;
   start_time?: number;
-  duration_ms?: Long;
+  duration_ms?: bigint;
 }
 
 export interface CGameRecording_TimelineEntryChanged_Notification {
   entry?: CTimelineEntry;
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CGameRecording_TimelineEntryRemoved_Notification {
-  game_id?: Long;
+  game_id?: bigint;
   timeline_id?: string;
-  entry_id?: Long;
+  entry_id?: bigint;
 }
 
 export interface CGameRecording_UploadClipToSteam_Request {
@@ -380,26 +379,26 @@ export interface CGameRecording_UploadProgress_Notification {
 }
 
 export interface CGameRecording_UserAddTimelineEntry_Request {
-  game_id?: Long;
+  game_id?: bigint;
   entry?: CTimelineEntry;
   clip_id?: string;
 }
 
 export interface CGameRecording_UserAddTimelineEntry_Response {
-  entry_id?: Long;
+  entry_id?: bigint;
 }
 
 export interface CGameRecording_UserRemoveTimelineEntry_Request {
-  game_id?: Long;
+  game_id?: bigint;
   timeline_id?: string;
-  entry_id?: Long;
+  entry_id?: bigint;
   clip_id?: string;
 }
 
 export type CGameRecording_UserRemoveTimelineEntry_Response = Record<string, never>;
 
 export interface CGameRecording_UserUpdateTimelineEntry_Request {
-  game_id?: Long;
+  game_id?: bigint;
   entry?: CTimelineEntry;
   clip_id?: string;
 }
@@ -416,10 +415,10 @@ export interface CGameRecording_ZipClip_Response {
 
 export interface CGameRecordingPhase {
   phase_id?: string;
-  duration_ms?: Long;
+  duration_ms?: bigint;
   tags?: CGameRecordingPhase_Tag[];
   contained_tags?: CGameRecordingPhase_Tag[];
-  background_timeline_offset?: Long;
+  background_timeline_offset?: bigint;
   attributes?: CPhaseAttribute[];
 }
 
@@ -429,13 +428,13 @@ export interface CGameRecordingPhase_Tag {
 }
 
 export interface CGameRecordingTimelineEvent {
-  game_id?: Long;
+  game_id?: bigint;
   rt_created?: number;
   possible_clip?: number;
   timeline_id?: string;
-  entry_id?: Long;
-  timeline_offset_ms?: Long;
-  duration_ms?: Long;
+  entry_id?: bigint;
+  timeline_offset_ms?: bigint;
+  duration_ms?: bigint;
   marker_icon?: string;
   marker_title?: string;
   user_marker?: boolean;
@@ -443,9 +442,9 @@ export interface CGameRecordingTimelineEvent {
 
 export interface CGameRecordingTimelineMetadata {
   timeline_id?: string;
-  game_id?: Long;
+  game_id?: bigint;
   date_recorded?: number;
-  duration_ms?: Long;
+  duration_ms?: bigint;
   recordings?: CGameRecordingTimelineMetadata_Recording[];
   phases?: CGameRecordingPhase[];
   significant_events?: CGameRecordingTimelineEvent[];
@@ -453,15 +452,15 @@ export interface CGameRecordingTimelineMetadata {
 
 export interface CGameRecordingTimelineMetadata_Recording {
   recording_id?: string;
-  start_offset_ms?: Long;
-  duration_ms?: Long;
+  start_offset_ms?: bigint;
+  duration_ms?: bigint;
   recording_type?: number;
   delete_on_cleanup?: boolean;
-  video_manager_clip_id?: Long;
-  video_manager_video_id?: Long;
+  video_manager_clip_id?: bigint;
+  video_manager_video_id?: bigint;
   cdn_manifest_url?: string;
-  file_size?: Long;
-  recording_zero_timeline_offset_ms?: Long;
+  file_size?: bigint;
+  recording_zero_timeline_offset_ms?: bigint;
 }
 
 export interface CPhaseAttribute {
@@ -472,12 +471,12 @@ export interface CPhaseAttribute {
 
 export interface CTimelineEntry {
   timeline_id?: string;
-  entry_id?: Long;
-  time?: Long;
+  entry_id?: bigint;
+  time?: bigint;
   type?: number;
   game_mode?: number;
   range_title?: string;
-  range_duration?: Long;
+  range_duration?: bigint;
   range_possible_clip?: number;
   timestamp_title?: string;
   marker_icon?: string;

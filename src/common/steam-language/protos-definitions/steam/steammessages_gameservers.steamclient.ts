@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgIPAddress } from "./steammessages_base";
 
 export interface CGameServers_GetServerSteamIDsByIP_Request {
@@ -16,12 +14,12 @@ export interface CGameServers_IPsWithSteamIDs_Response {
 export namespace CGameServers_IPsWithSteamIDs_Response {
   export interface Server {
     addr?: string;
-    steamid?: Long;
+    steamid?: bigint;
   }
 }
 
 export interface CGameServers_GetServerIPsBySteamID_Request {
-  server_steamids?: Long[];
+  server_steamids?: bigint[];
 }
 
 export interface CGameServers_QueryByFakeIP_Request {
@@ -49,7 +47,7 @@ export interface CMsgGameServerPingQueryData {
   spectator_port?: number;
   spectator_server_name?: string;
   server_name?: string;
-  steamid?: Long;
+  steamid?: bigint;
   app_id?: number;
   gamedir?: string;
   map?: string;

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgSteamDatagramCertificateSigned } from "./steamnetworkingsockets_messages_certs";
 
 export const ESteamNetworkingSocketsCipher = {
@@ -17,7 +15,7 @@ export type ESteamNetworkingSocketsCipher =
 export interface CMsgSteamDatagramSessionCryptInfo {
   key_type?: CMsgSteamDatagramSessionCryptInfo.EKeyType;
   key_data?: Buffer;
-  nonce?: Long;
+  nonce?: bigint;
   protocol_version?: number;
   ciphers?: ESteamNetworkingSocketsCipher[];
 }
@@ -54,18 +52,18 @@ export interface CMsgSteamDatagramLinkInstantaneousStats {
 
 export interface CMsgSteamDatagramLinkLifetimeStats {
   connected_seconds?: number;
-  packets_sent?: Long;
-  kb_sent?: Long;
-  packets_recv?: Long;
-  kb_recv?: Long;
-  packets_recv_sequenced?: Long;
-  packets_recv_dropped?: Long;
-  packets_recv_out_of_order?: Long;
-  packets_recv_out_of_order_corrected?: Long;
-  packets_recv_duplicate?: Long;
-  packets_recv_lurch?: Long;
-  multipath_packets_recv_sequenced?: Long[];
-  multipath_packets_recv_later?: Long[];
+  packets_sent?: bigint;
+  kb_sent?: bigint;
+  packets_recv?: bigint;
+  kb_recv?: bigint;
+  packets_recv_sequenced?: bigint;
+  packets_recv_dropped?: bigint;
+  packets_recv_out_of_order?: bigint;
+  packets_recv_out_of_order_corrected?: bigint;
+  packets_recv_duplicate?: bigint;
+  packets_recv_lurch?: bigint;
+  multipath_packets_recv_sequenced?: bigint[];
+  multipath_packets_recv_later?: bigint[];
   multipath_send_enabled?: number;
   quality_histogram_100?: number;
   quality_histogram_99?: number;
@@ -165,7 +163,7 @@ export namespace CMsgSteamNetworkingP2PRendezvous {
 
   export interface ApplicationMessage {
     data?: Buffer;
-    msg_num?: Long;
+    msg_num?: bigint;
     flags?: number;
     lane_idx?: number;
   }

@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { EBrowserFeatureStatus, EBrowserGPUStatus } from "./enums";
 
 export const EJSRegisterMethodType = {
@@ -101,7 +99,7 @@ export interface CMsgBrowserCreate {
   initial_left?: number;
   only_allow_trusted_popups?: boolean;
   initial_url?: string;
-  hwnd_parent?: Long;
+  hwnd_parent?: bigint;
   creation_flags?: number;
 }
 
@@ -307,7 +305,7 @@ export interface CMsgViewSource {
 export interface CMsgBrowserReady {
   browser_handle?: number;
   vr_overlay_key?: string;
-  hwnd_browser?: Long;
+  hwnd_browser?: bigint;
 }
 
 export interface CMsgURLChanged {
@@ -424,7 +422,7 @@ export interface CMsgPopupHTMLWindow {
   popup_index?: number;
   trusted_creator?: boolean;
   name?: string;
-  hwnd?: Long;
+  hwnd?: bigint;
   parent_popup_index?: number;
   creation_flags?: number;
 }
@@ -486,11 +484,11 @@ export interface CMsgFileLoadDialogResponse {
 }
 
 export interface CMsgRequestProcessInfo {
-  requestid?: Long;
+  requestid?: bigint;
 }
 
 export interface CMsgProcessInfoNotification {
-  requestid?: Long;
+  requestid?: bigint;
   gpu_status?: EBrowserGPUStatus;
   canvas_2d?: EBrowserFeatureStatus;
   canvas_oop_rasterization?: EBrowserFeatureStatus;
@@ -538,9 +536,9 @@ export interface CMsgSetSharedPaintBuffers {
   browser_handle?: number;
   wide?: number;
   tall?: number;
-  source_pid?: Long;
-  source_handle?: Long;
-  handle?: Long;
+  source_pid?: bigint;
+  source_handle?: bigint;
+  handle?: bigint;
 }
 
 export interface CMsgAckSharedPaintBuffers {
@@ -560,11 +558,11 @@ export interface CMsgNeedsPaint {
 
 export interface CMsgComboNeedsPaint {
   browser_handle?: number;
-  rgba?: Long;
+  rgba?: bigint;
   combobox_wide?: number;
   combobox_tall?: number;
-  shared_memory_handle?: Long;
-  shared_memory_size?: Long;
+  shared_memory_handle?: bigint;
+  shared_memory_size?: bigint;
 }
 
 export interface CMsgNeedsSharedTexturePaint {
@@ -763,7 +761,7 @@ export interface CMsgFocusedNodeTextResponse {
 }
 
 export interface CMsgBuildID {
-  build_id?: Long;
+  build_id?: bigint;
 }
 
 export interface CMsgOpenDevTools {
@@ -822,7 +820,7 @@ export interface CMsgJSValue {
   uint_value?: number;
   double_value?: number;
   string_value?: string;
-  function_handle?: Long;
+  function_handle?: bigint;
   bytes_value?: Buffer;
   is_array?: boolean;
   array_values?: CMsgJSValue[];
@@ -847,14 +845,14 @@ export interface CMsgJSMethodCall {
 export interface CMsgJSExecuteCallback {
   browser_handle?: number;
   owning_browser_handle?: number;
-  function_handle?: Long;
+  function_handle?: bigint;
   arguments?: CMsgJSValue[];
 }
 
 export interface CMsgJSExecutePromise {
   browser_handle?: number;
   owning_browser_handle?: number;
-  promise_handle?: Long;
+  promise_handle?: bigint;
   reject_reason?: string;
   argument?: CMsgJSValue;
 }
@@ -862,7 +860,7 @@ export interface CMsgJSExecutePromise {
 export interface CMsgJSReleaseCallback {
   browser_handle?: number;
   owning_browser_handle?: number;
-  function_handle?: Long;
+  function_handle?: bigint;
 }
 
 export interface CMsgJSRaiseException {
@@ -1067,7 +1065,7 @@ export interface CMsgSetSteamBetaName {
 }
 
 export interface CMsgSetSteamID {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CMsgPopupCreated {

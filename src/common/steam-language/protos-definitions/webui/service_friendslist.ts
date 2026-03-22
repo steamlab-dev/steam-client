@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CFriendsList_FavoritesChanged_Notification {
   favorites?: CFriendsListFavoriteEntry[];
@@ -40,7 +39,7 @@ export interface CFriendsListCategory {
 export interface CFriendsListFavoriteEntry {
   accountid?: number;
   clanid?: number;
-  chat_group_id?: Long;
+  chat_group_id?: bigint;
 }
 
 export interface CMsgClientFriendsList {
@@ -52,7 +51,7 @@ export interface CMsgClientFriendsList {
 }
 
 export interface CMsgClientFriendsList_Friend {
-  ulfriendid?: Long;
+  ulfriendid?: bigint;
   efriendrelationship?: number;
 }
 

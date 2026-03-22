@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ELobbyStatus = {
   k_ELobbyStatusInvalid: 0,
@@ -14,7 +13,7 @@ export type ELobbyStatus = (typeof ELobbyStatus)[keyof typeof ELobbyStatus];
 
 export interface LobbyMatchmakingLegacy_GetLobbyStatus_Request {
   app_id?: number;
-  steamid_lobby?: Long;
+  steamid_lobby?: bigint;
   claim_ownership?: boolean;
   claim_membership?: boolean;
   version_num?: number;
@@ -22,7 +21,7 @@ export interface LobbyMatchmakingLegacy_GetLobbyStatus_Request {
 
 export interface LobbyMatchmakingLegacy_GetLobbyStatus_Response {
   app_id?: number;
-  steamid_lobby?: Long;
+  steamid_lobby?: bigint;
   lobby_status?: ELobbyStatus;
 }
 

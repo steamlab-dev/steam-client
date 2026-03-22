@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { CMsgQAngle, CMsgVector, CSVCMsg_GameSessionConfiguration } from "./networkbasetypes";
 import type {
   CMsgSource2NetworkFlowQuality,
@@ -178,7 +176,7 @@ export interface CMsgVoiceAudio {
 
 export interface CCLCMsg_VoiceData {
   audio?: CMsgVoiceAudio;
-  xuid?: Long;
+  xuid?: bigint;
   tick?: number;
 }
 
@@ -305,7 +303,7 @@ export namespace CSVCMsg_Sounds {
     is_sentence?: boolean;
     is_ambient?: boolean;
     guid?: number;
-    sound_resource_id?: Long;
+    sound_resource_id?: bigint;
   }
 }
 
@@ -467,7 +465,7 @@ export interface CSVCMsg_VoiceData {
   audio?: CMsgVoiceAudio;
   client?: number;
   proximity?: boolean;
-  xuid?: Long;
+  xuid?: bigint;
   audible_mask?: number;
   tick?: number;
   passthrough?: number;
@@ -494,7 +492,7 @@ export interface CSVCMsg_HLTVStatus {
 }
 
 export interface CSVCMsg_ServerSteamID {
-  steam_id?: Long;
+  steam_id?: bigint;
 }
 
 export interface CSVCMsg_CmdKeyValues {
@@ -507,13 +505,13 @@ export interface CSVCMsg_RconServerDetails {
 }
 
 export interface CMsgIPCAddress {
-  computer_guid?: Long;
+  computer_guid?: bigint;
   process_id?: number;
 }
 
 export interface CMsgServerPeer {
   player_slot?: number;
-  steamid?: Long;
+  steamid?: bigint;
   ipc?: CMsgIPCAddress;
   they_hear_you?: boolean;
   you_hear_them?: boolean;
@@ -571,7 +569,7 @@ export interface CBidirMsg_RebroadcastGameEvent {
   posttoserver?: boolean;
   buftype?: number;
   clientbitcount?: number;
-  receivingclients?: Long;
+  receivingclients?: bigint;
 }
 
 export interface CBidirMsg_RebroadcastSource {
@@ -615,10 +613,10 @@ export interface CMsgServerNetworkStats {
   avg_loss_in?: number;
   avg_data_out?: number;
   avg_data_in?: number;
-  total_data_in?: Long;
-  total_packets_in?: Long;
-  total_data_out?: Long;
-  total_packets_out?: Long;
+  total_data_in?: bigint;
+  total_packets_in?: bigint;
+  total_data_out?: bigint;
+  total_packets_out?: bigint;
   players?: CMsgServerNetworkStats.Player[];
 }
 
@@ -629,7 +627,7 @@ export namespace CMsgServerNetworkStats {
   }
 
   export interface Player {
-    steamid?: Long;
+    steamid?: bigint;
     remote_addr?: string;
     ping_avg_ms?: number;
     packet_loss_pct?: number;

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CStorageDeviceManager_Adopt_Request {
   drive_id?: number;
@@ -53,7 +52,7 @@ export interface CStorageDeviceManagerBlockDevice {
   path?: string;
   friendly_path?: string;
   label?: string;
-  size_bytes?: Long;
+  size_bytes?: bigint;
   is_formattable?: boolean;
   is_read_only?: boolean;
   is_root_device?: boolean;
@@ -70,7 +69,7 @@ export interface CStorageDeviceManagerDrive {
   vendor?: string;
   serial?: string;
   is_ejectable?: boolean;
-  size_bytes?: Long;
+  size_bytes?: bigint;
   media_type?: number;
   is_unformatted?: boolean;
   adopt_stage?: number;

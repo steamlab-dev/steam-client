@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CStore_GetUserVotes_Request {
   sale_appid?: number;
@@ -70,7 +69,7 @@ export interface CStore_VoteDefinition_Localization {
 export interface SteamAwardsUserVote {
   voteid?: number;
   appid?: number;
-  communityitemid?: Long;
+  communityitemid?: bigint;
 }
 
 export abstract class StoreSalesService {

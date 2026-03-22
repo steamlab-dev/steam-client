@@ -1,12 +1,11 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CCommunity_GetLinkFilterHashPrefixes_Request {
   hit_type?: number;
   count?: number;
-  start?: Long;
+  start?: bigint;
 }
 
 export interface CCommunity_GetLinkFilterHashPrefixes_Response {
@@ -16,7 +15,7 @@ export interface CCommunity_GetLinkFilterHashPrefixes_Response {
 export interface CCommunity_GetLinkFilterHashes_Request {
   hit_type?: number;
   count?: number;
-  start?: Long;
+  start?: bigint;
 }
 
 export interface CCommunity_GetLinkFilterHashes_Response {
@@ -29,7 +28,7 @@ export interface CCommunity_GetLinkFilterListVersion_Request {
 
 export interface CCommunity_GetLinkFilterListVersion_Response {
   version?: string;
-  count?: Long;
+  count?: bigint;
 }
 
 export abstract class CommunityLinkFilterService {

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPartnerApps_RequestUploadToken_Request {
   filename?: string;
@@ -9,14 +8,14 @@ export interface CPartnerApps_RequestUploadToken_Request {
 }
 
 export interface CPartnerApps_RequestUploadToken_Response {
-  upload_token?: Long;
+  upload_token?: bigint;
   location?: string;
-  routing_id?: Long;
+  routing_id?: bigint;
 }
 
 export interface CPartnerApps_FinishUpload_Request {
-  upload_token?: Long;
-  routing_id?: Long;
+  upload_token?: bigint;
+  routing_id?: bigint;
   app_id?: number;
 }
 
@@ -25,8 +24,8 @@ export interface CPartnerApps_FinishUploadKVSign_Response {
 }
 
 export interface CPartnerApps_FinishUploadLegacyDRM_Request {
-  upload_token?: Long;
-  routing_id?: Long;
+  upload_token?: bigint;
+  routing_id?: bigint;
   app_id?: number;
   flags?: number;
   tool_name?: string;
@@ -40,24 +39,24 @@ export interface CPartnerApps_FinishUploadLegacyDRM_Response {
 export type CPartnerApps_FinishUpload_Response = Record<string, never>;
 
 export interface CPartnerApps_FinishUploadDepot_Request {
-  upload_token?: Long;
-  routing_id?: Long;
+  upload_token?: bigint;
+  routing_id?: bigint;
   app_id?: number;
   depot_id?: number;
   build_flags?: number;
 }
 
 export interface CPartnerApps_FinishUploadDepot_Response {
-  build_routing_id?: Long;
+  build_routing_id?: bigint;
 }
 
 export interface CPartnerApps_GetDepotBuildResult_Request {
-  upload_token?: Long;
-  routing_id?: Long;
+  upload_token?: bigint;
+  routing_id?: bigint;
 }
 
 export interface CPartnerApps_GetDepotBuildResult_Response {
-  manifest_id?: Long;
+  manifest_id?: bigint;
   error_msg?: string;
 }
 

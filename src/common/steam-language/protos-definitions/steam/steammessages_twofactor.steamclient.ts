@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const ETwoFactorStatusFieldFlag = {
   k_ETwoFactorStatusFieldFlag_None: 0,
@@ -21,13 +20,13 @@ export const ETwoFactorUsageType = {
 export type ETwoFactorUsageType = (typeof ETwoFactorUsageType)[keyof typeof ETwoFactorUsageType];
 
 export interface CTwoFactor_Time_Request {
-  sender_time?: Long;
+  sender_time?: bigint;
 }
 
 export interface CTwoFactor_Time_Response {
-  server_time?: Long;
-  skew_tolerance_seconds?: Long;
-  large_time_jink?: Long;
+  server_time?: bigint;
+  skew_tolerance_seconds?: bigint;
+  large_time_jink?: bigint;
   probe_frequency_seconds?: number;
   adjusted_time_probe_frequency_seconds?: number;
   hint_probe_frequency_seconds?: number;
@@ -37,7 +36,7 @@ export interface CTwoFactor_Time_Response {
 }
 
 export interface CTwoFactor_Status_Request {
-  steamid?: Long;
+  steamid?: bigint;
   include?: ETwoFactorStatusFieldFlag;
 }
 
@@ -63,14 +62,14 @@ export interface CTwoFactor_Status_Response {
   allow_external_authenticator?: boolean;
   time_transferred?: number;
   version?: number;
-  last_seen_auth_token_id?: Long;
+  last_seen_auth_token_id?: bigint;
   usages?: CTwoFactor_UsageEvent[];
 }
 
 export interface CTwoFactor_AddAuthenticator_Request {
-  steamid?: Long;
-  authenticator_time?: Long;
-  serial_number?: Long;
+  steamid?: bigint;
+  authenticator_time?: bigint;
+  serial_number?: bigint;
   authenticator_type?: number;
   device_identifier?: string;
   http_headers?: string[];
@@ -79,10 +78,10 @@ export interface CTwoFactor_AddAuthenticator_Request {
 
 export interface CTwoFactor_AddAuthenticator_Response {
   shared_secret?: Buffer;
-  serial_number?: Long;
+  serial_number?: bigint;
   revocation_code?: string;
   uri?: string;
-  server_time?: Long;
+  server_time?: bigint;
   account_name?: string;
   token_gid?: string;
   identity_secret?: Buffer;
@@ -93,9 +92,9 @@ export interface CTwoFactor_AddAuthenticator_Response {
 }
 
 export interface CTwoFactor_FinalizeAddAuthenticator_Request {
-  steamid?: Long;
+  steamid?: bigint;
   authenticator_code?: string;
-  authenticator_time?: Long;
+  authenticator_time?: bigint;
   activation_code?: string;
   http_headers?: string[];
   validate_sms_code?: boolean;
@@ -103,12 +102,12 @@ export interface CTwoFactor_FinalizeAddAuthenticator_Request {
 
 export interface CTwoFactor_FinalizeAddAuthenticator_Response {
   success?: boolean;
-  server_time?: Long;
+  server_time?: bigint;
   status?: number;
 }
 
 export interface CTwoFactor_UpdateTokenVersion_Request {
-  steamid?: Long;
+  steamid?: bigint;
   version?: number;
   signature?: Buffer;
 }
@@ -124,7 +123,7 @@ export interface CTwoFactor_RemoveAuthenticator_Request {
 
 export interface CTwoFactor_RemoveAuthenticator_Response {
   success?: boolean;
-  server_time?: Long;
+  server_time?: bigint;
   revocation_attempts_remaining?: number;
 }
 
@@ -142,17 +141,17 @@ export interface CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Request {
 
 export interface CRemoveAuthenticatorViaChallengeContinue_Replacement_Token {
   shared_secret?: Buffer;
-  serial_number?: Long;
+  serial_number?: bigint;
   revocation_code?: string;
   uri?: string;
-  server_time?: Long;
+  server_time?: bigint;
   account_name?: string;
   token_gid?: string;
   identity_secret?: Buffer;
   secret_1?: Buffer;
   status?: number;
   steamguard_scheme?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CTwoFactor_RemoveAuthenticatorViaChallengeContinue_Response {

@@ -1,53 +1,52 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CClanFAQContent {
-  faq_id?: Long;
+  faq_id?: bigint;
   language?: number;
-  version?: Long;
+  version?: bigint;
   content?: string;
   title?: string;
   timestamp?: number;
-  author_account_id?: Long;
+  author_account_id?: bigint;
   url_code?: string;
 }
 
 export interface CClanFAQS_CheckFAQPermissions_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CClanFAQS_CheckFAQPermissions_Response = Record<string, never>;
 
 export interface CClanFAQS_Create_Request {
-  steamid?: Long;
+  steamid?: bigint;
   internal_name?: string;
   json_data?: string;
 }
 
 export interface CClanFAQS_Create_Response {
-  faq_id?: Long;
+  faq_id?: bigint;
 }
 
 export interface CClanFAQS_Delete_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
 }
 
 export type CClanFAQS_Delete_Response = Record<string, never>;
 
 export interface CClanFAQs_FetchLocalizationFromCrowdIn_Request {
-  faq_id?: Long;
+  faq_id?: bigint;
   language?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export type CClanFAQs_FetchLocalizationFromCrowdIn_Response = Record<string, never>;
 
 export interface CClanFAQS_GetAllDrafts_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
 }
 
 export interface CClanFAQS_GetAllDrafts_Response {
@@ -56,7 +55,7 @@ export interface CClanFAQS_GetAllDrafts_Response {
 }
 
 export interface CClanFAQS_GetAllFAQsForClan_Request {
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CClanFAQS_GetAllFAQsForClan_Response {
@@ -64,8 +63,8 @@ export interface CClanFAQS_GetAllFAQsForClan_Response {
 }
 
 export interface CClanFAQS_GetAllLatestVersionPublishedFAQS_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
 }
 
 export interface CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
@@ -73,17 +72,17 @@ export interface CClanFAQS_GetAllLatestVersionPublishedFAQS_Response {
 }
 
 export interface CClanFAQs_GetCrowdInMetadata_Request {
-  faq_id?: Long;
-  steamid?: Long;
+  faq_id?: bigint;
+  steamid?: bigint;
 }
 
 export interface CClanFAQs_GetCrowdInMetadata_Response {
-  crowdin_project_id?: Long;
-  crowdin_file_id?: Long;
+  crowdin_project_id?: bigint;
+  crowdin_file_id?: bigint;
 }
 
 export interface CClanFAQS_GetFAQ_Request {
-  faq_id?: Long;
+  faq_id?: bigint;
   language?: number;
 }
 
@@ -93,10 +92,10 @@ export interface CClanFAQS_GetFAQ_Response {
 }
 
 export interface CClanFAQS_GetFAQVersion_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   language?: number;
-  version?: Long;
+  version?: bigint;
 }
 
 export interface CClanFAQS_GetFAQVersion_Response {
@@ -104,8 +103,8 @@ export interface CClanFAQS_GetFAQVersion_Response {
 }
 
 export interface CClanFAQS_PreviewDraft_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   language?: number;
 }
 
@@ -114,8 +113,8 @@ export interface CClanFAQS_PreviewDraft_Response {
 }
 
 export interface CClanFAQS_PublishDraft_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   language?: number[];
 }
 
@@ -138,7 +137,7 @@ export interface CClanFAQS_SearchFAQs_Response {
 }
 
 export interface CClanFAQS_SearchFAQs_Response_CFAQSearchResult {
-  articleid?: Long;
+  articleid?: bigint;
   name?: string;
   content?: string;
   clan_accountid?: number;
@@ -147,8 +146,8 @@ export interface CClanFAQS_SearchFAQs_Response_CFAQSearchResult {
 }
 
 export interface CClanFAQS_SetVisibility_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   visible_in_global_realm?: boolean;
   visible_in_china_realm?: boolean;
 }
@@ -156,8 +155,8 @@ export interface CClanFAQS_SetVisibility_Request {
 export type CClanFAQS_SetVisibility_Response = Record<string, never>;
 
 export interface CClanFAQS_UpdateDraft_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   language?: number;
   content?: string;
   title?: string;
@@ -168,23 +167,23 @@ export interface CClanFAQS_UpdateDraft_Response {
 }
 
 export interface CClanFAQS_UpdateInternalName_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   internal_name?: string;
 }
 
 export type CClanFAQS_UpdateInternalName_Response = Record<string, never>;
 
 export interface CClanFAQS_UpdateJsonData_Request {
-  steamid?: Long;
-  faq_id?: Long;
+  steamid?: bigint;
+  faq_id?: bigint;
   json_data?: string;
 }
 
 export type CClanFAQS_UpdateJsonData_Response = Record<string, never>;
 
 export interface CClanFAQSummary {
-  faq_id?: Long;
+  faq_id?: bigint;
   internal_name?: string;
   visible_in_global_realm?: boolean;
   visible_in_china_realm?: boolean;

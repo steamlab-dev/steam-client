@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPlaytest_GetInviteHistory_Request {
   limit?: number;
@@ -14,7 +13,7 @@ export interface CPlaytest_GetInviteHistory_Response {
 
 export interface CPlaytest_GetInviteHistory_Response_Invite {
   appid?: number;
-  steamid_invited?: Long;
+  steamid_invited?: bigint;
   time_created?: number;
   app_name?: string;
 }
@@ -28,7 +27,7 @@ export interface CPlaytest_GetInviteOptions_Response {
 }
 
 export interface CPlaytest_GetInvites_Request {
-  invite_id?: Long;
+  invite_id?: bigint;
 }
 
 export interface CPlaytest_GetInvites_Response {
@@ -36,9 +35,9 @@ export interface CPlaytest_GetInvites_Response {
 }
 
 export interface CPlaytest_GetInvites_Response_Invite {
-  invite_id?: Long;
+  invite_id?: bigint;
   appid?: number;
-  steamid_inviter?: Long;
+  steamid_inviter?: bigint;
   status?: number;
   time_created?: number;
   app_name?: string;
@@ -63,7 +62,7 @@ export interface CPlaytest_GetUserStatus_Response_AppStatus {
 
 export interface CPlaytest_RequestInvite_Request {
   appid?: number;
-  steamid?: Long;
+  steamid?: bigint;
 }
 
 export interface CPlaytest_RequestInvite_Response {
@@ -72,7 +71,7 @@ export interface CPlaytest_RequestInvite_Response {
 }
 
 export interface CPlaytest_UpdateInvites_Request {
-  invite_ids?: Long[];
+  invite_ids?: bigint[];
   status?: number;
 }
 

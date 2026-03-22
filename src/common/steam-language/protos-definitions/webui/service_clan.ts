@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CClan_GetDraftAndRecentPartnerEventSnippet_Request {
-  steamid?: Long;
+  steamid?: bigint;
   rtime_oldest_date?: number;
 }
 
@@ -13,8 +12,8 @@ export interface CClan_GetDraftAndRecentPartnerEventSnippet_Response {
 }
 
 export interface CClan_GetDraftAndRecentPartnerEventSnippet_Response_CEventSnippetData {
-  gid?: Long;
-  announcement_gid?: Long;
+  gid?: bigint;
+  announcement_gid?: bigint;
   hidden?: boolean;
   published?: boolean;
   rtime32_start_time?: number;
@@ -45,12 +44,12 @@ export interface CClan_GetPartnerEventsByBuildIDRange_Response_PatchNotesDesc {
   appid?: number;
   build_id?: number;
   branch?: string;
-  clan_event_gid?: Long;
+  clan_event_gid?: bigint;
   clan_account_id?: number;
 }
 
 export interface CClan_RespondToClanInvite_Request {
-  steamid?: Long;
+  steamid?: bigint;
   accept?: boolean;
 }
 

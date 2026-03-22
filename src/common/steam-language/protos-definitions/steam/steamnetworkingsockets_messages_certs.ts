@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgSteamNetworkingIdentityLegacyBinary {
-  steam_id?: Long;
+  steam_id?: bigint;
   generic_bytes?: Buffer;
   generic_string?: string;
   ipv6_and_port?: Buffer;
@@ -13,7 +12,7 @@ export interface CMsgSteamNetworkingIdentityLegacyBinary {
 export interface CMsgSteamDatagramCertificate {
   key_type?: CMsgSteamDatagramCertificate.EKeyType;
   key_data?: Buffer;
-  legacy_steam_id?: Long;
+  legacy_steam_id?: bigint;
   legacy_identity_binary?: CMsgSteamNetworkingIdentityLegacyBinary;
   identity_string?: string;
   gameserver_datacenter_ids?: number[];
@@ -34,7 +33,7 @@ export namespace CMsgSteamDatagramCertificate {
 
 export interface CMsgSteamDatagramCertificateSigned {
   cert?: Buffer;
-  ca_key_id?: Long;
+  ca_key_id?: bigint;
   ca_signature?: Buffer;
   private_key_data?: Buffer;
 }

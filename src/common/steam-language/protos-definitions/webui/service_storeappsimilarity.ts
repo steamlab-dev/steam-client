@@ -1,8 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type {
   StoreBrowseContext,
   StoreBrowseItemDataRequest,
@@ -11,7 +9,7 @@ import type {
 } from "./common";
 
 export interface CStoreAppSimilarity_IdentifyClustersFromPlaytime_Request {
-  steamid?: Long;
+  steamid?: bigint;
   sort?: number;
   clusters_to_return?: number;
   cluster_index?: number;
@@ -35,7 +33,7 @@ export interface CStoreAppSimilarity_IdentifyClustersFromPlaytime_Response_Clust
 }
 
 export interface CStoreAppSimilarity_PrioritizeAppsForUser_Request {
-  steamid?: Long;
+  steamid?: bigint;
   country_code?: string;
   ids?: StoreItemID[];
   options?: StoreAppSimilarityPriorityOptions;
@@ -75,7 +73,7 @@ export interface StoreAppSimilarityPriorityOptions {
   playtime_score_factor?: number;
   popularity_factor?: number;
   popularity_reciprocal?: number;
-  popularity_base_score?: Long;
+  popularity_base_score?: bigint;
   played_since?: number;
 }
 

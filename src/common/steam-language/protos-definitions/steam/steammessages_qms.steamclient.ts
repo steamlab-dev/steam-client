@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export const EGameSearchAction = {
   k_EGameSearchAction_None: 0,
@@ -35,23 +34,23 @@ export interface CQueuedMatchmaking_SearchForGame_Request {
   params?: GameSearchParam[];
   player_min?: number;
   player_max?: number;
-  steamidlobby?: Long;
-  searchid?: Long;
+  steamidlobby?: bigint;
+  searchid?: bigint;
 }
 
 export interface CQueuedMatchmaking_SearchForGame_Response {
   gamesearchresult?: EGameSearchResult;
-  searchid?: Long;
+  searchid?: bigint;
   seconds_time_estimate?: number;
   poll_frequency?: number;
   count_searching?: number;
   players_in_match?: number;
   players_accepted?: number;
   connect_string?: string;
-  steamidhost?: Long;
+  steamidhost?: bigint;
   rtime_match_made?: number;
   rtime_now?: number;
-  steamid_canceled_search?: Long;
+  steamid_canceled_search?: bigint;
 }
 
 export interface CQueuedMatchmakingGameHost_SearchForPlayers_Request {
@@ -62,11 +61,11 @@ export interface CQueuedMatchmakingGameHost_SearchForPlayers_Request {
   player_max?: number;
   player_max_team_size?: number;
   connection_string?: string;
-  searchid?: Long;
+  searchid?: bigint;
 }
 
 export interface PlayerFound {
-  steamid?: Long;
+  steamid?: bigint;
   action?: EGameSearchAction;
   params?: GameSearchParam[];
   team_number?: number;
@@ -74,22 +73,22 @@ export interface PlayerFound {
 
 export interface CQueuedMatchmakingGameHost_SearchForPlayers_Response {
   gamesearchresult?: EGameSearchResult;
-  searchid?: Long;
+  searchid?: bigint;
   poll_frequency?: number;
-  matchid?: Long;
+  matchid?: bigint;
   players?: PlayerFound[];
   rtime_match_made?: number;
   rtime_now?: number;
 }
 
 export interface PlayerResult {
-  steamid?: Long;
+  steamid?: bigint;
   value?: number;
 }
 
 export interface CQueuedMatchmakingGameHost_SubmitPlayerResult_Request {
   appid?: number;
-  matchid?: Long;
+  matchid?: bigint;
   player_results?: PlayerResult[];
 }
 
@@ -97,7 +96,7 @@ export type CQueuedMatchmakingGameHost_SubmitPlayerResult_Response = Record<stri
 
 export interface CQueuedMatchmakingGameHost_EndGame_Request {
   appid?: number;
-  matchid?: Long;
+  matchid?: bigint;
 }
 
 export type CQueuedMatchmakingGameHost_EndGame_Response = Record<string, never>;

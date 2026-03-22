@@ -1,14 +1,13 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CHelpRequestLogs_GetApplicationLogDemand_Request {
   appid?: number;
 }
 
 export interface CHelpRequestLogs_GetApplicationLogDemand_Response {
-  request_id?: Long;
+  request_id?: bigint;
 }
 
 export interface CHelpRequestLogs_UploadUserApplicationLog_Request {
@@ -16,11 +15,11 @@ export interface CHelpRequestLogs_UploadUserApplicationLog_Request {
   log_type?: string;
   version_string?: string;
   log_contents?: string;
-  request_id?: Long;
+  request_id?: bigint;
 }
 
 export interface CHelpRequestLogs_UploadUserApplicationLog_Response {
-  id?: Long;
+  id?: bigint;
 }
 
 export abstract class HelpRequestLogsService {

@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CMsgClientUCMAddScreenshot {
   appid?: number;
@@ -15,9 +14,9 @@ export interface CMsgClientUCMAddScreenshot {
   caption?: string;
   shortcut_name?: string;
   tag?: CMsgClientUCMAddScreenshot.Tag[];
-  tagged_steamid?: Long[];
+  tagged_steamid?: bigint[];
   spoiler_tag?: boolean;
-  tagged_publishedfileid?: Long[];
+  tagged_publishedfileid?: bigint[];
 }
 
 export namespace CMsgClientUCMAddScreenshot {
@@ -29,12 +28,12 @@ export namespace CMsgClientUCMAddScreenshot {
 
 export interface CMsgClientUCMAddScreenshotResponse {
   eresult?: number;
-  screenshotid?: Long;
-  publishedfileid?: Long;
+  screenshotid?: bigint;
+  publishedfileid?: bigint;
 }
 
 export interface CMsgClientUCMDeleteScreenshot {
-  screenshotid?: Long;
+  screenshotid?: bigint;
 }
 
 export interface CMsgClientUCMDeleteScreenshotResponse {
@@ -61,13 +60,13 @@ export interface CMsgClientUCMPublishFile {
 
 export interface CMsgClientUCMPublishFileResponse {
   eresult?: number;
-  published_file_id?: Long;
+  published_file_id?: bigint;
   needs_workshop_legal_agreement_acceptance?: boolean;
 }
 
 export interface CMsgClientUCMUpdatePublishedFile {
   app_id?: number;
-  published_file_id?: Long;
+  published_file_id?: bigint;
   file_name?: string;
   preview_file_name?: string;
   title?: string;
@@ -84,7 +83,7 @@ export interface CMsgClientUCMUpdatePublishedFile {
   update_url?: boolean;
   url?: string;
   update_content_manifest?: boolean;
-  content_manifest?: Long;
+  content_manifest?: bigint;
   metadata?: string;
   update_metadata?: boolean;
   language?: number;
@@ -97,7 +96,7 @@ export interface CMsgClientUCMUpdatePublishedFile {
   content_descriptors_to_add?: number[];
   content_descriptors_to_remove?: number[];
   allow_admin_tags?: boolean;
-  external_asset_id?: Long;
+  external_asset_id?: bigint;
   game_branch_min?: string;
   game_branch_max?: string;
 }
@@ -123,7 +122,7 @@ export interface CMsgClientUCMUpdatePublishedFileResponse {
 }
 
 export interface CMsgClientUCMDeletePublishedFile {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
 }
 
@@ -149,14 +148,14 @@ export namespace CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse {
     timestamp?: number;
     game_branch_min?: string;
     game_branch_max?: string;
-    manifestid?: Long;
+    manifestid?: bigint;
   }
 
   export interface PublishedFileId {
-    published_file_id?: Long;
+    published_file_id?: bigint;
     rtime32_subscribed?: number;
     appid?: number;
-    file_hcontent?: Long;
+    file_hcontent?: bigint;
     file_size?: number;
     rtime32_last_updated?: number;
     is_depot_content?: boolean;
@@ -165,10 +164,10 @@ export namespace CMsgClientUCMEnumerateUserSubscribedFilesWithUpdatesResponse {
 }
 
 export interface CMsgClientUCMPublishedFileUpdated {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
   time_updated?: number;
-  hcontent?: Long;
+  hcontent?: bigint;
   file_size?: number;
   is_depot_content?: boolean;
   revision?: number;
@@ -188,14 +187,14 @@ export interface CMsgClientWorkshopItemChangesResponse {
 
 export namespace CMsgClientWorkshopItemChangesResponse {
   export interface WorkshopItemInfo {
-    published_file_id?: Long;
+    published_file_id?: bigint;
     time_updated?: number;
-    manifest_id?: Long;
+    manifest_id?: bigint;
   }
 }
 
 export interface CMsgClientUCMSetUserPublishedFileAction {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
   action?: number;
 }
@@ -218,7 +217,7 @@ export interface CMsgClientUCMEnumeratePublishedFilesByUserActionResponse {
 
 export namespace CMsgClientUCMEnumeratePublishedFilesByUserActionResponse {
   export interface PublishedFileId {
-    published_file_id?: Long;
+    published_file_id?: bigint;
     rtime_time_stamp?: number;
   }
 }

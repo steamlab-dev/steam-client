@@ -1,44 +1,42 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-
-import type Long from "long";
 import type { EncryptedAppTicket } from "./encrypted_app_ticket";
 import type { CMsgAuthTicket, CMsgIPAddress } from "./steammessages_base";
 
 export interface CMsgClientRegisterAuthTicketWithCM {
   protocol_version?: number;
   ticket?: Buffer;
-  client_instance_id?: Long;
+  client_instance_id?: bigint;
 }
 
 export interface CMsgClientTicketAuthComplete {
-  steam_id?: Long;
-  game_id?: Long;
+  steam_id?: bigint;
+  game_id?: bigint;
   estate?: number;
   eauth_session_response?: number;
   DEPRECATED_ticket?: Buffer;
   ticket_crc?: number;
   ticket_sequence?: number;
-  owner_steam_id?: Long;
+  owner_steam_id?: bigint;
 }
 
 export interface CMsgClientP2PConnectionInfo {
-  steam_id_dest?: Long;
-  steam_id_src?: Long;
+  steam_id_dest?: bigint;
+  steam_id_src?: bigint;
   app_id?: number;
   candidate?: Buffer;
-  legacy_connection_id_src?: Long;
+  legacy_connection_id_src?: bigint;
   rendezvous?: Buffer;
   app_id_secondary?: number;
 }
 
 export interface CMsgClientP2PConnectionFailInfo {
-  steam_id_dest?: Long;
-  steam_id_src?: Long;
+  steam_id_dest?: bigint;
+  steam_id_src?: bigint;
   app_id?: number;
   ep2p_session_error?: number;
-  connection_id_dest?: Long;
+  connection_id_dest?: bigint;
   close_reason?: number;
   close_message?: string;
 }
@@ -50,7 +48,7 @@ export interface CMsgClientNetworkingCertRequest {
 
 export interface CMsgClientNetworkingCertReply {
   cert?: Buffer;
-  ca_key_id?: Long;
+  ca_key_id?: bigint;
   ca_signature?: Buffer;
 }
 
@@ -73,7 +71,7 @@ export interface CMsgClientGetAppOwnershipTicketResponse {
 }
 
 export interface CMsgClientSessionToken {
-  token?: Long;
+  token?: bigint;
 }
 
 export interface CMsgClientGameConnectTokens {
@@ -96,8 +94,8 @@ export namespace CMsgClientGamesPlayed {
   }
 
   export interface GamePlayed {
-    steam_id_gs?: Long;
-    game_id?: Long;
+    steam_id_gs?: bigint;
+    game_id?: bigint;
     deprecated_game_ip_address?: number;
     game_port?: number;
     is_secure?: boolean;
@@ -115,7 +113,7 @@ export namespace CMsgClientGamesPlayed {
     primary_steam_controller_serial?: string;
     total_steam_controller_count?: number;
     total_non_steam_controller_count?: number;
-    controller_workshop_file_id?: Long;
+    controller_workshop_file_id?: bigint;
     launch_source?: number;
     vr_hmd_runtime?: number;
     game_ip_address?: CMsgIPAddress;
@@ -132,18 +130,18 @@ export namespace CMsgClientGamesPlayed {
 }
 
 export interface CMsgGSApprove {
-  steam_id?: Long;
-  owner_steam_id?: Long;
+  steam_id?: bigint;
+  owner_steam_id?: bigint;
 }
 
 export interface CMsgGSDeny {
-  steam_id?: Long;
+  steam_id?: bigint;
   edeny_reason?: number;
   deny_string?: string;
 }
 
 export interface CMsgGSKick {
-  steam_id?: Long;
+  steam_id?: bigint;
   edeny_reason?: number;
 }
 
@@ -191,7 +189,7 @@ export namespace CMsgClientLicenseList {
     initial_time_unit?: number;
     renewal_period?: number;
     renewal_time_unit?: number;
-    access_token?: Long;
+    access_token?: bigint;
     master_package_id?: number;
   }
 }
@@ -221,7 +219,7 @@ export interface CMsgClientStat2 {
 export namespace CMsgClientStat2 {
   export interface StatDetail {
     client_stat?: number;
-    ll_value?: Long;
+    ll_value?: bigint;
     time_of_day?: number;
     cell_id?: number;
     depot_id?: number;
@@ -230,20 +228,20 @@ export namespace CMsgClientStat2 {
 }
 
 export interface CMsgClientInviteToGame {
-  steam_id_dest?: Long;
-  steam_id_src?: Long;
+  steam_id_dest?: bigint;
+  steam_id_src?: bigint;
   connect_string?: string;
   remote_play?: string;
 }
 
 export interface CMsgClientChatInvite {
-  steam_id_invited?: Long;
-  steam_id_chat?: Long;
-  steam_id_patron?: Long;
+  steam_id_invited?: bigint;
+  steam_id_chat?: bigint;
+  steam_id_patron?: bigint;
   chatroom_type?: number;
-  steam_id_friend_chat?: Long;
+  steam_id_friend_chat?: bigint;
   chat_name?: string;
-  game_id?: Long;
+  game_id?: bigint;
 }
 
 export interface CMsgClientConnectionStats {
@@ -267,30 +265,30 @@ export namespace CMsgClientConnectionStats {
   }
 
   export interface Stats_UDP {
-    pkts_sent?: Long;
-    bytes_sent?: Long;
-    pkts_recv?: Long;
-    pkts_processed?: Long;
-    bytes_recv?: Long;
+    pkts_sent?: bigint;
+    bytes_sent?: bigint;
+    pkts_recv?: bigint;
+    pkts_processed?: bigint;
+    bytes_recv?: bigint;
   }
 
   export interface Stats_VConn {
     connections_udp?: number;
     connections_tcp?: number;
     stats_udp?: CMsgClientConnectionStats.Stats_UDP;
-    pkts_abandoned?: Long;
-    conn_req_received?: Long;
-    pkts_resent?: Long;
-    msgs_sent?: Long;
-    msgs_sent_failed?: Long;
-    msgs_recv?: Long;
-    datagrams_sent?: Long;
-    datagrams_recv?: Long;
-    bad_pkts_recv?: Long;
-    unknown_conn_pkts_recv?: Long;
-    missed_pkts_recv?: Long;
-    dup_pkts_recv?: Long;
-    failed_connect_challenges?: Long;
+    pkts_abandoned?: bigint;
+    conn_req_received?: bigint;
+    pkts_resent?: bigint;
+    msgs_sent?: bigint;
+    msgs_sent_failed?: bigint;
+    msgs_recv?: bigint;
+    datagrams_sent?: bigint;
+    datagrams_recv?: bigint;
+    bad_pkts_recv?: bigint;
+    unknown_conn_pkts_recv?: bigint;
+    missed_pkts_recv?: bigint;
+    dup_pkts_recv?: bigint;
+    failed_connect_challenges?: bigint;
     micro_sec_avg_latency?: number;
     micro_sec_min_latency?: number;
     micro_sec_max_latency?: number;
@@ -329,18 +327,18 @@ export interface CMsgClientWalletInfoUpdate {
   balance?: number;
   currency?: number;
   balance_delayed?: number;
-  balance64?: Long;
-  balance64_delayed?: Long;
+  balance64?: bigint;
+  balance64_delayed?: bigint;
   realm?: number;
 }
 
 export interface CMsgClientAMGetClanOfficers {
-  steamid_clan?: Long;
+  steamid_clan?: bigint;
 }
 
 export interface CMsgClientAMGetClanOfficersResponse {
   eresult?: number;
-  steamid_clan?: Long;
+  steamid_clan?: bigint;
   officer_count?: number;
 }
 
@@ -351,7 +349,7 @@ export interface CMsgClientAMGetPersonaNameHistory {
 
 export namespace CMsgClientAMGetPersonaNameHistory {
   export interface IdInstance {
-    steamid?: Long;
+    steamid?: bigint;
   }
 }
 
@@ -362,7 +360,7 @@ export interface CMsgClientAMGetPersonaNameHistoryResponse {
 export namespace CMsgClientAMGetPersonaNameHistoryResponse {
   export interface NameTableInstance {
     eresult?: number;
-    steamid?: Long;
+    steamid?: bigint;
   }
 
   export namespace NameTableInstance {
@@ -379,7 +377,7 @@ export interface CMsgClientDeregisterWithServer {
 }
 
 export interface CMsgClientClanState {
-  steamid_clan?: Long;
+  steamid_clan?: bigint;
   clan_account_flags?: number;
   name_info?: CMsgClientClanState.NameInfo;
   user_counts?: CMsgClientClanState.UserCounts;
@@ -403,10 +401,10 @@ export namespace CMsgClientClanState {
   }
 
   export interface Event {
-    gid?: Long;
+    gid?: bigint;
     event_time?: number;
     headline?: string;
-    game_id?: Long;
+    game_id?: bigint;
     just_posted?: boolean;
   }
 }

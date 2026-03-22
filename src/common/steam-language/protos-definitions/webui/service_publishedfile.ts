@@ -1,10 +1,9 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CPublishedFile_AddAppRelationship_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   appid?: number;
   relationship?: number;
 }
@@ -12,15 +11,15 @@ export interface CPublishedFile_AddAppRelationship_Request {
 export type CPublishedFile_AddAppRelationship_Response = Record<string, never>;
 
 export interface CPublishedFile_AddChild_Request {
-  publishedfileid?: Long;
-  child_publishedfileid?: Long;
+  publishedfileid?: bigint;
+  child_publishedfileid?: bigint;
 }
 
 export type CPublishedFile_AddChild_Response = Record<string, never>;
 
 export interface CPublishedFile_AreFilesInSubscriptionList_Request {
   appid?: number;
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
   listtype?: number;
   filetype?: number;
   workshopfiletype?: number;
@@ -31,12 +30,12 @@ export interface CPublishedFile_AreFilesInSubscriptionList_Response {
 }
 
 export interface CPublishedFile_AreFilesInSubscriptionList_Response_InList {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   inlist?: boolean;
 }
 
 export interface CPublishedFile_CanSubscribe_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
 }
 
 export interface CPublishedFile_CanSubscribe_Response {
@@ -44,21 +43,21 @@ export interface CPublishedFile_CanSubscribe_Response {
 }
 
 export interface CPublishedFile_Delete_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   appid?: number;
 }
 
 export type CPublishedFile_Delete_Response = Record<string, never>;
 
 export interface CPublishedFile_FileDeleted_Client_Notification {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
 }
 
 export interface CPublishedFile_FileSubscribed_Notification {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
-  file_hcontent?: Long;
+  file_hcontent?: bigint;
   file_size?: number;
   rtime_subscribed?: number;
   is_depot_content?: boolean;
@@ -69,19 +68,19 @@ export interface CPublishedFile_FileSubscribed_Notification {
 
 export interface CPublishedFile_FileSubscribed_Notification_RevisionData {
   revision?: number;
-  file_hcontent?: Long;
+  file_hcontent?: bigint;
   rtime_updated?: number;
   game_branch_min?: string;
   game_branch_max?: string;
 }
 
 export interface CPublishedFile_FileUnsubscribed_Notification {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   app_id?: number;
 }
 
 export interface CPublishedFile_GetAppRelationships_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
 }
 
 export interface CPublishedFile_GetAppRelationships_Response {
@@ -94,7 +93,7 @@ export interface CPublishedFile_GetAppRelationships_Response_AppRelationship {
 }
 
 export interface CPublishedFile_GetAppRelationshipsBatched_Request {
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
   filter_relationship?: number;
 }
 
@@ -108,13 +107,13 @@ export interface CPublishedFile_GetAppRelationshipsBatched_Response_AppRelations
 }
 
 export interface CPublishedFile_GetAppRelationshipsBatched_Response_PublishedFileAppRelationship {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   result?: number;
   app_relationships?: CPublishedFile_GetAppRelationshipsBatched_Response_AppRelationship[];
 }
 
 export interface CPublishedFile_GetChangeHistory_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   total_only?: boolean;
   startindex?: number;
   count?: number;
@@ -133,12 +132,12 @@ export interface CPublishedFile_GetChangeHistory_Response_ChangeLog {
   saved_snapshot?: boolean;
   snapshot_game_branch_min?: string;
   snapshot_game_branch_max?: string;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   accountid?: number;
 }
 
 export interface CPublishedFile_GetChangeHistoryEntry_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   timestamp?: number;
   language?: number;
 }
@@ -149,12 +148,12 @@ export interface CPublishedFile_GetChangeHistoryEntry_Response {
   saved_snapshot?: boolean;
   snapshot_game_branch_min?: string;
   snapshot_game_branch_max?: string;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   accountid?: number;
 }
 
 export interface CPublishedFile_GetContentDescriptors_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
 }
 
 export interface CPublishedFile_GetContentDescriptors_Response {
@@ -169,7 +168,7 @@ export interface CPublishedFile_GetContentDescriptors_Response_ContentDescriptor
 }
 
 export interface CPublishedFile_GetDetails_Request {
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
   includetags?: boolean;
   includeadditionalpreviews?: boolean;
   includechildren?: boolean;
@@ -204,9 +203,9 @@ export interface CPublishedFile_GetItemChanges_Response {
 }
 
 export interface CPublishedFile_GetItemChanges_Response_WorkshopItemInfo {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   time_updated?: number;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   author_snapshots?: PublishedFileAuthorSnapshot[];
 }
 
@@ -218,7 +217,7 @@ export interface CPublishedFile_GetItemInfo_Request {
 }
 
 export interface CPublishedFile_GetItemInfo_Request_WorkshopItem {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   time_updated?: number;
   desired_revision?: number;
 }
@@ -226,22 +225,22 @@ export interface CPublishedFile_GetItemInfo_Request_WorkshopItem {
 export interface CPublishedFile_GetItemInfo_Response {
   update_time?: number;
   workshop_items?: CPublishedFile_GetItemInfo_Response_WorkshopItemInfo[];
-  private_items?: Long[];
+  private_items?: bigint[];
 }
 
 export interface CPublishedFile_GetItemInfo_Response_WorkshopItemInfo {
-  published_file_id?: Long;
+  published_file_id?: bigint;
   time_updated?: number;
-  manifest_id?: Long;
+  manifest_id?: bigint;
   flags?: number;
   revision?: number;
   author_snapshots?: PublishedFileAuthorSnapshot[];
 }
 
 export interface CPublishedFile_GetSubSectionData_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   for_table_of_contents?: boolean;
-  specific_sectionid?: Long;
+  specific_sectionid?: bigint;
   desired_revision?: number;
 }
 
@@ -250,7 +249,7 @@ export interface CPublishedFile_GetSubSectionData_Response {
 }
 
 export interface CPublishedFile_GetUserFiles_Request {
-  steamid?: Long;
+  steamid?: bigint;
   appid?: number;
   shortcutid?: number;
   page?: number;
@@ -311,7 +310,7 @@ export interface CPublishedFile_GetUserFiles_Response_App {
 }
 
 export interface CPublishedFile_GetUserVoteSummary_Request {
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
 }
 
 export interface CPublishedFile_GetUserVoteSummary_Response {
@@ -319,7 +318,7 @@ export interface CPublishedFile_GetUserVoteSummary_Response {
 }
 
 export interface CPublishedFile_GetUserVoteSummary_Response_VoteSummary {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   vote_for?: boolean;
   vote_against?: boolean;
   reported?: boolean;
@@ -345,7 +344,7 @@ export interface CPublishedFile_Publish_Request {
 }
 
 export interface CPublishedFile_Publish_Response {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   redirect_uri?: string;
 }
 
@@ -362,7 +361,7 @@ export interface CPublishedFile_QueryFiles_Request {
   omitted_flags?: string[];
   search_text?: string;
   filetype?: number;
-  child_publishedfileid?: Long;
+  child_publishedfileid?: bigint;
   days?: number;
   include_recent_votes_only?: boolean;
   totalonly?: boolean;
@@ -424,7 +423,7 @@ export interface CPublishedFile_RefreshVotingQueue_Request {
 export type CPublishedFile_RefreshVotingQueue_Response = Record<string, never>;
 
 export interface CPublishedFile_RemoveAppRelationship_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   appid?: number;
   relationship?: number;
 }
@@ -432,16 +431,16 @@ export interface CPublishedFile_RemoveAppRelationship_Request {
 export type CPublishedFile_RemoveAppRelationship_Response = Record<string, never>;
 
 export interface CPublishedFile_RemoveChild_Request {
-  publishedfileid?: Long;
-  child_publishedfileid?: Long;
+  publishedfileid?: bigint;
+  child_publishedfileid?: bigint;
 }
 
 export type CPublishedFile_RemoveChild_Response = Record<string, never>;
 
 export interface CPublishedFile_SetCollectionChildren_Request {
   appid?: number;
-  publishedfileid?: Long;
-  children?: Long[];
+  publishedfileid?: bigint;
+  children?: bigint[];
 }
 
 export type CPublishedFile_SetCollectionChildren_Response = Record<string, never>;
@@ -452,7 +451,7 @@ export interface CPublishedFile_SetPlaytimeForControllerConfigs_Request {
 }
 
 export interface CPublishedFile_SetPlaytimeForControllerConfigs_Request_ControllerConfigUsage {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   seconds_active?: number;
 }
 
@@ -461,7 +460,7 @@ export type CPublishedFile_SetPlaytimeForControllerConfigs_Response = Record<str
 export interface CPublishedFile_SetSubscriptionListFromCollection_Request {
   appid?: number;
   list_type?: number;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   add_only?: boolean;
 }
 
@@ -469,14 +468,14 @@ export type CPublishedFile_SetSubscriptionListFromCollection_Response = Record<s
 
 export interface CPublishedFile_StartPlaytimeTracking_Request {
   appid?: number;
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
 }
 
 export type CPublishedFile_StartPlaytimeTracking_Response = Record<string, never>;
 
 export interface CPublishedFile_StopPlaytimeTracking_Request {
   appid?: number;
-  publishedfileids?: Long[];
+  publishedfileids?: bigint[];
 }
 
 export type CPublishedFile_StopPlaytimeTracking_Response = Record<string, never>;
@@ -488,7 +487,7 @@ export interface CPublishedFile_StopPlaytimeTrackingForAllAppItems_Request {
 export type CPublishedFile_StopPlaytimeTrackingForAllAppItems_Response = Record<string, never>;
 
 export interface CPublishedFile_Subscribe_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   list_type?: number;
   appid?: number;
   notify_client?: boolean;
@@ -498,7 +497,7 @@ export interface CPublishedFile_Subscribe_Request {
 export type CPublishedFile_Subscribe_Response = Record<string, never>;
 
 export interface CPublishedFile_Unsubscribe_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   list_type?: number;
   appid?: number;
   notify_client?: boolean;
@@ -508,7 +507,7 @@ export type CPublishedFile_Unsubscribe_Response = Record<string, never>;
 
 export interface CPublishedFile_Update_Request {
   appid?: number;
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   title?: string;
   file_description?: string;
   visibility?: number;
@@ -524,7 +523,7 @@ export interface CPublishedFile_Update_Request {
 export type CPublishedFile_Update_Response = Record<string, never>;
 
 export interface CPublishedFile_UpdateContentDescriptors_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   descriptors_to_add?: number[];
   descriptors_to_remove?: number[];
 }
@@ -534,7 +533,7 @@ export interface CPublishedFile_UpdateContentDescriptors_Response {
 }
 
 export interface CPublishedFile_Vote_Request {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   vote_up?: boolean;
 }
 
@@ -544,25 +543,25 @@ export interface PublishedFileAuthorSnapshot {
   timestamp?: number;
   game_branch_min?: string;
   game_branch_max?: string;
-  manifestid?: Long;
+  manifestid?: bigint;
 }
 
 export interface PublishedFileDetails {
   result?: number;
-  publishedfileid?: Long;
-  creator?: Long;
+  publishedfileid?: bigint;
+  creator?: bigint;
   creator_appid?: number;
   consumer_appid?: number;
   consumer_shortcutid?: number;
   filename?: string;
-  file_size?: Long;
-  preview_file_size?: Long;
+  file_size?: bigint;
+  preview_file_size?: bigint;
   file_url?: string;
   preview_url?: string;
   youtubevideoid?: string;
   url?: string;
-  hcontent_file?: Long;
-  hcontent_preview?: Long;
+  hcontent_file?: bigint;
+  hcontent_preview?: bigint;
   title?: string;
   file_description?: string;
   short_description?: string;
@@ -577,7 +576,7 @@ export interface PublishedFileDetails {
   num_comments_public?: number;
   banned?: boolean;
   ban_reason?: string;
-  banner?: Long;
+  banner?: bigint;
   can_be_deleted?: boolean;
   incompatible?: boolean;
   app_name?: string;
@@ -607,24 +606,24 @@ export interface PublishedFileDetails {
   for_sale_data?: PublishedFileDetails_ForSaleData;
   metadata?: string;
   language?: number;
-  lifetime_playtime?: Long;
-  lifetime_playtime_sessions?: Long;
+  lifetime_playtime?: bigint;
+  lifetime_playtime_sessions?: bigint;
   playtime_stats?: PublishedFileDetails_PlaytimeStats;
   maybe_inappropriate_sex?: boolean;
   maybe_inappropriate_violence?: boolean;
-  revision_change_number?: Long;
+  revision_change_number?: bigint;
   revision?: number;
   available_revisions?: number[];
   reactions?: PublishedFileDetails_Reaction[];
   ban_text_check_result?: number;
   content_descriptorids?: number[];
   search_score?: number;
-  external_asset_id?: Long;
+  external_asset_id?: bigint;
   author_snapshots?: PublishedFileAuthorSnapshot[];
 }
 
 export interface PublishedFileDetails_Child {
-  publishedfileid?: Long;
+  publishedfileid?: bigint;
   sortorder?: number;
   file_type?: number;
 }
@@ -644,12 +643,12 @@ export interface PublishedFileDetails_KVTag {
 }
 
 export interface PublishedFileDetails_PlaytimeStats {
-  playtime_seconds?: Long;
-  num_sessions?: Long;
+  playtime_seconds?: bigint;
+  num_sessions?: bigint;
 }
 
 export interface PublishedFileDetails_Preview {
-  previewid?: Long;
+  previewid?: bigint;
   sortorder?: number;
   url?: string;
   size?: number;
@@ -680,7 +679,7 @@ export interface PublishedFileDetails_VoteData {
 }
 
 export interface PublishedFileSubSection {
-  sectionid?: Long;
+  sectionid?: bigint;
   title?: string;
   description_text?: string;
   sort_order?: number;

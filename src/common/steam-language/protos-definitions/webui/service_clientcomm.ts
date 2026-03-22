@@ -1,7 +1,6 @@
 /**
  * ⚠️ AUTO-GENERATED FILE — DO NOT EDIT!
  */
-import type Long from "long";
 
 export interface CClientComm_ClientData {
   package_version?: number;
@@ -9,7 +8,7 @@ export interface CClientComm_ClientData {
   machine_name?: string;
   ip_public?: string;
   ip_private?: string;
-  bytes_available?: Long;
+  bytes_available?: bigint;
   running_games?: CClientComm_ClientData_RunningGames[];
   protocol_version?: number;
   clientcomm_version?: number;
@@ -23,7 +22,7 @@ export interface CClientComm_ClientData_RunningGames {
 }
 
 export interface CClientComm_EnableOrDisableDownloads_Request {
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
   enable?: boolean;
 }
 
@@ -37,7 +36,7 @@ export interface CClientComm_GetAllClientLogonInfo_Response {
 }
 
 export interface CClientComm_GetAllClientLogonInfo_Response_Session {
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
   protocol_version?: number;
   os_name?: string;
   machine_name?: string;
@@ -49,14 +48,14 @@ export interface CClientComm_GetAllClientLogonInfo_Response_Session {
 export interface CClientComm_GetClientAppList_Request {
   fields?: string;
   filters?: string;
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
   include_client_info?: boolean;
   language?: string;
   filter_appids?: number[];
 }
 
 export interface CClientComm_GetClientAppList_Response {
-  bytes_available?: Long;
+  bytes_available?: bigint;
   apps?: CClientComm_GetClientAppList_Response_AppData[];
   client_info?: CClientComm_ClientData;
   refetch_interval_sec_full?: number;
@@ -71,8 +70,8 @@ export interface CClientComm_GetClientAppList_Response_AppData {
   app_type?: string;
   num_downloading?: number;
   bytes_download_rate?: number;
-  bytes_downloaded?: Long;
-  bytes_to_download?: Long;
+  bytes_downloaded?: bigint;
+  bytes_to_download?: bigint;
   dlcs?: CClientComm_GetClientAppList_Response_AppData_DLCData[];
   favorite?: boolean;
   auto_update?: boolean;
@@ -80,9 +79,9 @@ export interface CClientComm_GetClientAppList_Response_AppData {
   download_paused?: boolean;
   changing?: boolean;
   available_on_platform?: boolean;
-  bytes_staged?: Long;
-  bytes_to_stage?: Long;
-  bytes_required?: Long;
+  bytes_staged?: bigint;
+  bytes_to_stage?: bigint;
+  bytes_required?: bigint;
   source_buildid?: number;
   target_buildid?: number;
   estimated_seconds_remaining?: number;
@@ -100,7 +99,7 @@ export interface CClientComm_GetClientAppList_Response_AppData_DLCData {
 }
 
 export interface CClientComm_GetClientInfo_Request {
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
 }
 
 export interface CClientComm_GetClientInfo_Response {
@@ -108,7 +107,7 @@ export interface CClientComm_GetClientInfo_Response {
 }
 
 export interface CClientComm_GetClientLogonInfo_Request {
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
 }
 
 export interface CClientComm_GetClientLogonInfo_Response {
@@ -119,13 +118,13 @@ export interface CClientComm_GetClientLogonInfo_Response {
 
 export interface CClientComm_InstallClientApp_Request {
   appid?: number;
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
 }
 
 export type CClientComm_InstallClientApp_Response = Record<string, never>;
 
 export interface CClientComm_LaunchClientApp_Request {
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
   appid?: number;
   query_params?: string;
 }
@@ -135,14 +134,14 @@ export type CClientComm_LaunchClientApp_Response = Record<string, never>;
 export interface CClientComm_SetClientAppUpdateState_Request {
   appid?: number;
   action?: number;
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
 }
 
 export type CClientComm_SetClientAppUpdateState_Response = Record<string, never>;
 
 export interface CClientComm_UninstallClientApp_Request {
   appid?: number;
-  client_instanceid?: Long;
+  client_instanceid?: bigint;
 }
 
 export type CClientComm_UninstallClientApp_Response = Record<string, never>;
