@@ -1,5 +1,4 @@
 import { setTimeout as delay } from "node:timers/promises";
-import Long from "long";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import {
@@ -80,7 +79,7 @@ describe("AuthenticationService", () => {
     const { service, steamProtocol, emitter } = createService();
     vi.spyOn(service, "BeginAuthSessionViaQR").mockResolvedValue({
       challenge_url: "https://challenge",
-      client_id: Long.fromString("100", true),
+      client_id: 100n,
       request_id: Buffer.from("req-1"),
     } as never);
     vi.spyOn(service, "PollAuthSessionStatus").mockResolvedValue({
@@ -102,9 +101,7 @@ describe("AuthenticationService", () => {
       },
     });
     expect(jwtToJson).toHaveBeenCalledWith("refresh-token");
-    expect(steamProtocol.setSteamId).toHaveBeenCalledWith(
-      Long.fromString("76561197960265729", true),
-    );
+    expect(steamProtocol.setSteamId).toHaveBeenCalledWith(76561197960265729n);
     expect(steamProtocol.sendWithResponse).toHaveBeenCalledWith({
       eMsg: EMsg.k_EMsgClientLogon,
       payload: expect.objectContaining({
@@ -119,7 +116,7 @@ describe("AuthenticationService", () => {
   it("loginViaQr throws when challenge URL is missing", async () => {
     const { service } = createService();
     vi.spyOn(service, "BeginAuthSessionViaQR").mockResolvedValue({
-      client_id: Long.fromString("10", true),
+      client_id: 10n,
       request_id: Buffer.from("r"),
     } as never);
 
@@ -146,7 +143,7 @@ describe("AuthenticationService", () => {
     const { service } = createService();
     vi.spyOn(service, "BeginAuthSessionViaQR").mockResolvedValue({
       challenge_url: "https://challenge",
-      client_id: Long.fromString("1", true),
+      client_id: 1n,
     } as never);
 
     await expect(service.loginViaQr()).rejects.toThrow(
@@ -158,7 +155,7 @@ describe("AuthenticationService", () => {
     const { service } = createService();
     vi.spyOn(service, "BeginAuthSessionViaQR").mockResolvedValue({
       challenge_url: "https://challenge",
-      client_id: Long.fromString("1", true),
+      client_id: 1n,
       request_id: Buffer.from("req"),
     } as never);
     vi.spyOn(service, "PollAuthSessionStatus").mockResolvedValue({
@@ -182,8 +179,8 @@ describe("AuthenticationService", () => {
       allowed_confirmations: [
         { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode },
       ],
-      client_id: Long.fromString("55", true),
-      steamid: Long.fromString("66", true),
+      client_id: 55n,
+      steamid: 66n,
       request_id: Buffer.from("req"),
     } as never);
     vi.spyOn(service, "UpdateAuthSessionWithSteamGuardCode").mockResolvedValue({} as never);
@@ -205,8 +202,8 @@ describe("AuthenticationService", () => {
     expect(service.UpdateAuthSessionWithSteamGuardCode).toHaveBeenCalledWith({
       code: "123456",
       code_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
-      client_id: Long.fromString("55", true),
-      steamid: Long.fromString("66", true),
+      client_id: 55n,
+      steamid: 66n,
     });
     expect(steamProtocol.setSteamId).toHaveBeenCalled();
     expect(steamProtocol.sendWithResponse).toHaveBeenCalledWith(
@@ -225,9 +222,9 @@ describe("AuthenticationService", () => {
     } as never);
     vi.spyOn(service, "BeginAuthSessionViaCredentials").mockResolvedValue({
       allowed_confirmations: [],
-      client_id: Long.fromString("11", true),
+      client_id: 11n,
       request_id: Buffer.from("req"),
-      steamid: Long.fromString("22", true),
+      steamid: 22n,
     } as never);
     vi.spyOn(service, "PollAuthSessionStatus").mockResolvedValue({
       access_token: "access-only",
@@ -252,9 +249,9 @@ describe("AuthenticationService", () => {
       allowed_confirmations: [
         { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_MachineToken },
       ],
-      client_id: Long.fromString("11", true),
+      client_id: 11n,
       request_id: Buffer.from("req"),
-      steamid: Long.fromString("22", true),
+      steamid: 22n,
     } as never);
 
     await expect(
@@ -283,9 +280,9 @@ describe("AuthenticationService", () => {
       allowed_confirmations: [
         { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceConfirmation },
       ],
-      client_id: Long.fromString("11", true),
+      client_id: 11n,
       request_id: Buffer.from("req"),
-      steamid: Long.fromString("22", true),
+      steamid: 22n,
     } as never);
     await service.loginViaCredentials(
       { account_name: "alice", password: "password" },
@@ -300,9 +297,9 @@ describe("AuthenticationService", () => {
       allowed_confirmations: [
         { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_EmailConfirmation },
       ],
-      client_id: Long.fromString("12", true),
+      client_id: 12n,
       request_id: Buffer.from("req-2"),
-      steamid: Long.fromString("23", true),
+      steamid: 23n,
     } as never);
     await service.loginViaCredentials(
       { account_name: "alice", password: "password" },
@@ -324,9 +321,9 @@ describe("AuthenticationService", () => {
       allowed_confirmations: [
         { confirmation_type: EAuthSessionGuardType.k_EAuthSessionGuardType_EmailCode },
       ],
-      client_id: Long.fromString("11", true),
+      client_id: 11n,
       request_id: Buffer.from("req"),
-      steamid: Long.fromString("22", true),
+      steamid: 22n,
     } as never);
     vi.spyOn(service, "UpdateAuthSessionWithSteamGuardCode").mockResolvedValue({} as never);
     vi.spyOn(service, "PollAuthSessionStatus").mockResolvedValue({
@@ -365,7 +362,7 @@ describe("AuthenticationService", () => {
     });
 
     const result = await service.PollAuthSessionStatus({
-      client_id: Long.fromString("1", true),
+      client_id: 1n,
       request_id: Buffer.from("r"),
     } as never);
 
@@ -382,7 +379,7 @@ describe("AuthenticationService", () => {
       .mockResolvedValueOnce({ refresh_token: "refresh", access_token: "access" });
 
     const result = await service.PollAuthSessionStatus({
-      client_id: Long.fromString("1", true),
+      client_id: 1n,
       request_id: Buffer.from("r"),
     } as never);
 
@@ -400,7 +397,7 @@ describe("AuthenticationService", () => {
 
     try {
       await service.PollAuthSessionStatus({
-        client_id: Long.fromString("1", true),
+        client_id: 1n,
         request_id: Buffer.from("r"),
       } as never);
       throw new Error("Expected PollAuthSessionStatus to throw");
@@ -448,7 +445,7 @@ describe("AuthenticationService", () => {
 
     await expect(
       service.PollAuthSessionStatus({
-        client_id: Long.fromString("1", true),
+        client_id: 1n,
         request_id: Buffer.from("r"),
       } as never),
     ).rejects.toThrow("Polling timed out after 120 seconds.");
@@ -462,7 +459,7 @@ describe("AuthenticationService", () => {
 
     await expect(
       service.PollAuthSessionStatus({
-        client_id: Long.fromString("1", true),
+        client_id: 1n,
         request_id: Buffer.from("r"),
       } as never),
     ).rejects.toThrow("Polling timed out after 120 seconds.");
@@ -487,8 +484,8 @@ describe("AuthenticationService", () => {
     await service.UpdateAuthSessionWithSteamGuardCode({
       code: "123456",
       code_type: EAuthSessionGuardType.k_EAuthSessionGuardType_DeviceCode,
-      client_id: Long.fromString("1", true),
-      steamid: Long.fromString("2", true),
+      client_id: 1n,
+      steamid: 2n,
     } as never);
     await service.GetAuthSessionInfo({ q: 1 } as never);
     await service.RevokeToken({ token: "t" } as never);

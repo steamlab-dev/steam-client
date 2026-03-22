@@ -1,6 +1,6 @@
 {
   "name": "@steamlab/steam-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Steam client implementation in TypeScript for Node.js.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -51,7 +51,6 @@
   },
   "dependencies": {
     "@steamlab/steam-crypto": "^0.0.2",
-    "long": "^5.3.2",
     "protobufjs": "^8.0.0",
     "smart-buffer": "^4.2.0"
   },

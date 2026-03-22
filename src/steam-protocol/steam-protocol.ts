@@ -1,4 +1,3 @@
-import type Long from "long";
 import { EMsg } from "@/common/steam-language";
 import type { TypedEventEmitter } from "@/common/typed-event-emitter";
 import type { ConnectionOptions, DisconnectMsg } from "@/connection/types";
@@ -171,7 +170,7 @@ export default class SteamProtocol {
     return this.requireConnectedContext().protoMessenger.sendWithResponse(req);
   }
 
-  setSteamId(steamId: Long) {
+  setSteamId(steamId: bigint) {
     this.requireConnectedContext().session.setSteamId(steamId);
   }
 

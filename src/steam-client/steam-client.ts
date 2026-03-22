@@ -1,4 +1,3 @@
-import Long from "long";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
 import { jwtToJson } from "@/common/utils";
@@ -67,7 +66,7 @@ export default class SteamClient {
   }
 
   async startPlaying(
-    gameId: Long | number | string | (Long | number | string)[],
+    gameId: bigint | number | string | (bigint | number | string)[],
   ): Promise<string[]> {
     try {
       // 1. kick other playing sessions
@@ -102,7 +101,7 @@ export default class SteamClient {
     }
   }
 
-  stopPlaying(gameId: Long | number | string | (Long | number | string)[]): string[] {
+  stopPlaying(gameId: bigint | number | string | (bigint | number | string)[]): string[] {
     try {
       const games_played = this.gamesPlayedTracker.untrack(gameId);
 
@@ -136,7 +135,7 @@ export default class SteamClient {
 
     try {
       const token = jwtToJson(req.access_token);
-      const steamId = Long.fromString(token.payload.sub, true);
+      const steamId = BigInt(token.payload.sub);
       this.steamProtocol.setSteamId(steamId);
 
       const res = await this.steamProtocol.sendWithResponse({

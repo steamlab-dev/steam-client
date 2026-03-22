@@ -1,5 +1,4 @@
 import { gzipSync } from "node:zlib";
-import Long from "long";
 import { describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import SteamProtoConstants from "@/steam-protocol/constants";
@@ -40,7 +39,7 @@ const buildNonProtoHeader = (): Buffer => {
 describe("MessageParser", () => {
   it("parses proto envelope/header/body", async () => {
     const protos = {
-      decode: vi.fn().mockReturnValue({ steamid: Long.fromString("76561197960265728", true) }),
+      decode: vi.fn().mockReturnValue({ steamid: 76561197960265728n }),
     };
 
     const parser = new MessageParser(protos as never);
@@ -72,12 +71,12 @@ describe("MessageParser", () => {
     const [parsed] = await parser.parse(packet);
     const header = parsed?.header as {
       client_sessionid: number;
-      steamid: Long;
+      steamid: bigint;
     };
 
     expect(parsed?.isProto).toBe(false);
     expect(header.client_sessionid).toBe(1234);
-    expect(header.steamid.toString()).toBe("76561197960265728");
+    expect(header.steamid).toBe(76561197960265728n);
     expect(parsed?.rawBody).toEqual(Buffer.from([0xaa, 0xbb]));
   });
 

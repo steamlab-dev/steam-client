@@ -1,4 +1,3 @@
-import Long from "long";
 import { describe, expect, it, vi } from "vitest";
 import { EMsg, EResult } from "@/common/steam-language";
 import { SteamProtocolEResultError } from "@/steam-protocol/error";
@@ -16,7 +15,7 @@ describe("ServiceMethodResponseHandler", () => {
       protos as never,
       serviceCallMessenger as never,
     );
-    const jobIdTarget = Long.fromInt(42, true);
+    const jobIdTarget = 42n;
     const message = {
       eMsg: EMsg.k_EMsgServiceMethodResponse,
       isProto: true,
@@ -60,7 +59,7 @@ describe("ServiceMethodResponseHandler", () => {
       rawBody: Buffer.from([1]),
       header: {
         target_job_name: "Authentication.BeginAuthSessionViaQR#1",
-        jobid_target: Long.fromInt(7, true),
+        jobid_target: 7n,
         eresult: EResult.OK,
       },
     };

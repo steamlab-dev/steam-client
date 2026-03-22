@@ -1,6 +1,7 @@
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import protobuf from "protobufjs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { findFilesRecursive } from "@/common/utils";
 import ProtoManager, { SteamProtoError } from "@/steam-protocol/proto-manager";
@@ -70,6 +71,7 @@ describe("ProtoManager", () => {
     };
 
     const fakeType = {
+      fields: {},
       verify: vi.fn().mockReturnValue(null),
       create: vi.fn((body: Record<string, unknown>) => body),
       encode: vi.fn().mockReturnValue({ finish: () => Buffer.from([1, 2, 3]) }),
@@ -92,6 +94,7 @@ describe("ProtoManager", () => {
     };
 
     const fakeType = {
+      fields: {},
       verify: vi.fn().mockReturnValue(null),
       create: vi.fn(() => {
         throw new Error("encode exploded");
@@ -116,7 +119,7 @@ describe("ProtoManager", () => {
     const manager = new ProtoManager("steam") as unknown as {
       loaded: boolean;
       protoCache: Map<string, unknown>;
-      encode: (protoName: string, body: Record<string, unknown>) => Buffer;
+      encodeRaw: (protoName: string, body: Record<string, unknown>) => Buffer;
     };
 
     const fakeType = {
@@ -128,7 +131,7 @@ describe("ProtoManager", () => {
     manager.loaded = true;
     manager.protoCache = new Map([["steam.CMsgProtoBufHeader", fakeType]]);
 
-    expect(() => manager.encode("CMsgProtoBufHeader", { a: 1 })).toThrow("Validation failed");
+    expect(() => manager.encodeRaw("CMsgProtoBufHeader", { a: 1 })).toThrow("Validation failed");
   });
 
   it("throws when getting proto names before loading", () => {
@@ -203,5 +206,98 @@ describe("ProtoManager", () => {
     ]);
     expect(cacheSpy).toHaveBeenCalledTimes(1);
     expect(manager.loaded).toBe(true);
+  });
+
+  it("normalizes bigint values for encode and decode", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      loaded: boolean;
+      protoCache: Map<string, protobuf.Type>;
+      encode: (protoName: string, body: Record<string, unknown>) => Buffer;
+      decode: (protoName: string, buffer: Buffer) => Record<string, unknown>;
+      encodeRaw: (protoName: string, body: Record<string, unknown>) => Buffer;
+      decodeRaw: (protoName: string, buffer: Buffer) => Record<string, unknown>;
+    };
+
+    const root = protobuf.parse(`
+      syntax = "proto3";
+
+      message Nested {
+        uint64 value = 1;
+      }
+
+      message Example {
+        uint64 id = 1;
+        repeated uint64 ids = 2;
+        map<string, uint64> counts = 3;
+        Nested nested = 4;
+        repeated Nested items = 5;
+        map<string, Nested> nested_map = 6;
+        bytes payload = 7;
+      }
+    `).root;
+
+    const exampleType = root.lookupType("Example") as protobuf.Type;
+    const payload = {
+      id: 1n,
+      ids: [2n, 3n],
+      counts: { alpha: 4n },
+      nested: { value: 5n },
+      items: [{ value: 6n }],
+      nested_map: { bravo: { value: 7n } },
+      payload: Buffer.from([0xde, 0xad, 0xbe, 0xef]),
+    };
+
+    manager.loaded = true;
+    manager.protoCache = new Map([["steam.Example", exampleType]]);
+
+    const encoded = manager.encode("Example", payload);
+    const decoded = manager.decode("Example", encoded);
+    const rawEncoded = manager.encodeRaw("Example", {
+      ...payload,
+      id: 1,
+      ids: [2, 3],
+      counts: { alpha: 4 },
+      nested: { value: 5 },
+      items: [{ value: 6 }],
+      nested_map: { bravo: { value: 7 } },
+    });
+    const rawDecoded = manager.decodeRaw("Example", rawEncoded);
+
+    expect(decoded).toMatchObject({
+      id: 1n,
+      ids: [2n, 3n],
+      counts: { alpha: 4n },
+      nested: { value: 5n },
+      items: [{ value: 6n }],
+    });
+    expect(Buffer.from(decoded.payload as Uint8Array)).toEqual(
+      Buffer.from([0xde, 0xad, 0xbe, 0xef]),
+    );
+
+    expect(rawDecoded.id).not.toBe(1n);
+  });
+
+  it("wraps encode failures even when payload contains bigint values", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      loaded: boolean;
+      protoCache: Map<string, unknown>;
+      encode: (protoName: string, body: Record<string, unknown>) => Buffer;
+    };
+
+    const fakeType = {
+      fields: {
+        id: { type: "uint64" },
+      },
+      verify: vi.fn().mockReturnValue(null),
+      create: vi.fn(() => {
+        throw new Error("encode exploded");
+      }),
+      encode: vi.fn(),
+    };
+
+    manager.loaded = true;
+    manager.protoCache = new Map([["steam.CMsgProtoBufHeader", fakeType]]);
+
+    expect(() => manager.encode("CMsgProtoBufHeader", { id: 123n })).toThrow(SteamProtoError);
   });
 });

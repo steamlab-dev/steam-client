@@ -1,5 +1,4 @@
 import { setTimeout } from "node:timers/promises";
-import Long from "long";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import { ESessionPersistence } from "@/common/steam-language/protos-definitions/steam/enums";
 import {
@@ -127,7 +126,7 @@ export default class AuthenticationService implements IAuthenticationService {
       });
 
       const token = jwtToJson(pollingRes.refresh_token);
-      const steamId = Long.fromString(token.payload.sub, true);
+      const steamId = BigInt(token.payload.sub);
       this.steamProtocol.setSteamId(steamId);
 
       // 5. attempt login
@@ -199,7 +198,7 @@ export default class AuthenticationService implements IAuthenticationService {
       });
 
       const token = jwtToJson(pollingRes.refresh_token);
-      const steamId = Long.fromString(token.payload.sub, true);
+      const steamId = BigInt(token.payload.sub);
       this.steamProtocol.setSteamId(steamId);
 
       // 7. attempt login
@@ -217,8 +216,8 @@ export default class AuthenticationService implements IAuthenticationService {
 
   private async handleLoginConfirmations(
     confirmations: SteamProtos["CAuthentication_AllowedConfirmation"][],
-    client_id: Long | undefined,
-    steamid: Long | undefined,
+    client_id: bigint | undefined,
+    steamid: bigint | undefined,
     onSteamGuardRequired: Promise<string>,
   ): Promise<void> {
     const GuardType = EAuthSessionGuardType;

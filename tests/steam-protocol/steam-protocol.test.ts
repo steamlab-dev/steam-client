@@ -1,4 +1,3 @@
-import Long from "long";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import ConnectionError from "@/connection/error";
@@ -33,7 +32,7 @@ describe("SteamProtocol", () => {
     };
 
     const session = {
-      getSession: vi.fn().mockReturnValue({ steamId: Long.UZERO, clientId: 0, isLoggedIn: false }),
+      getSession: vi.fn().mockReturnValue({ steamId: 0n, clientId: 0, isLoggedIn: false }),
       setSteamId: vi.fn(),
       cleanUp: vi.fn(),
     };

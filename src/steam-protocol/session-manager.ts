@@ -1,11 +1,9 @@
-import Long from "long";
-
 /**
  * Defines the structure for a session, containing the user's SteamID,
  * the client's session ID, and login status.
  */
 export interface SteamProtocolSession {
-  steamId: Long;
+  steamId: bigint;
   clientId: number;
   isLoggedIn: boolean;
 }
@@ -16,14 +14,14 @@ export interface SteamProtocolSession {
  * per session to ensure stability after they are established.
  */
 export default class SessionManager {
-  private steamId: Long = Long.UZERO;
+  private steamId: bigint = 0n;
   private clientId: number = 0;
   private isLoggedInState: boolean = false;
 
   /**
    * Retrieves the current user's SteamID for the session.
    */
-  public getSteamId(): Long {
+  public getSteamId(): bigint {
     return this.steamId;
   }
 
@@ -31,8 +29,8 @@ export default class SessionManager {
    * Sets the user's SteamID for the session. This can only be done once
    * per session, when the current SteamID is the default unset value.
    */
-  public setSteamId(steamId?: Long): void {
-    if (this.steamId.equals(Long.UZERO) && steamId?.notEquals(Long.UZERO)) {
+  public setSteamId(steamId?: bigint): void {
+    if (this.steamId === 0n && steamId !== undefined && steamId !== 0n) {
       this.steamId = steamId;
     }
   }
@@ -84,7 +82,7 @@ export default class SessionManager {
    * ending the current session.
    */
   public cleanUp(): void {
-    this.steamId = Long.UZERO;
+    this.steamId = 0n;
     this.clientId = 0;
     this.isLoggedInState = false;
   }

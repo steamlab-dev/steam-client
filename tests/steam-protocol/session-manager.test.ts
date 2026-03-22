@@ -1,4 +1,3 @@
-import Long from "long";
 import { describe, expect, it } from "vitest";
 import SessionManager from "@/steam-protocol/session-manager";
 
@@ -6,17 +5,25 @@ describe("steam-protocol SessionManager", () => {
   it("writes steamId only once and ignores zero/undefined", () => {
     const session = new SessionManager();
 
-    expect(session.getSteamId()).toEqual(Long.UZERO);
+    expect(session.getSteamId()).toEqual(0n);
     session.setSteamId(undefined);
-    expect(session.getSteamId()).toEqual(Long.UZERO);
+    expect(session.getSteamId()).toEqual(0n);
 
-    session.setSteamId(Long.UZERO);
-    expect(session.getSteamId()).toEqual(Long.UZERO);
+    session.setSteamId(0n);
+    expect(session.getSteamId()).toEqual(0n);
 
-    session.setSteamId(Long.fromString("76561197960265729", true));
+    session.setSteamId(76561197960265729n);
     expect(session.getSteamId().toString()).toBe("76561197960265729");
 
-    session.setSteamId(Long.fromString("76561197960265730", true));
+    session.setSteamId(76561197960265730n);
+    expect(session.getSteamId().toString()).toBe("76561197960265729");
+  });
+
+  it("accepts decoded bigint steamId values", () => {
+    const session = new SessionManager();
+
+    session.setSteamId(76561197960265729n);
+
     expect(session.getSteamId().toString()).toBe("76561197960265729");
   });
 
@@ -38,13 +45,13 @@ describe("steam-protocol SessionManager", () => {
 
   it("tracks login state and resets on cleanup", () => {
     const session = new SessionManager();
-    session.setSteamId(Long.fromString("76561197960265729", true));
+    session.setSteamId(76561197960265729n);
     session.setClientId(123);
     session.setLoggedIn(true);
 
     expect(session.isLoggedIn()).toBe(true);
     expect(session.getSession()).toEqual({
-      steamId: Long.fromString("76561197960265729", true),
+      steamId: 76561197960265729n,
       clientId: 123,
       isLoggedIn: true,
     });
@@ -52,7 +59,7 @@ describe("steam-protocol SessionManager", () => {
     session.cleanUp();
 
     expect(session.getSession()).toEqual({
-      steamId: Long.UZERO,
+      steamId: 0n,
       clientId: 0,
       isLoggedIn: false,
     });

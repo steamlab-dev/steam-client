@@ -1,11 +1,10 @@
-import Long from "long";
 import { describe, expect, it, vi } from "vitest";
 import SteamClientError from "@/steam-client/error";
 import PlayerService from "@/steam-client/services/player";
 
 describe("PlayerService", () => {
   const createService = () => {
-    const steamId = Long.fromString("76561197960265729", true);
+    const steamId = 76561197960265729n;
     const steamProtocol = {
       getSession: vi.fn().mockReturnValue({ steamId }),
       sendServiceCallWithRes: vi.fn().mockResolvedValue({ response: true }),
@@ -35,7 +34,7 @@ describe("PlayerService", () => {
 
   it("GetOwnedGames merges overrides but always forces session steamid", async () => {
     const { service, steamProtocol, steamId } = createService();
-    const fakeSteamId = Long.fromString("123", true);
+    const fakeSteamId = 123n;
 
     await service.GetOwnedGames({
       include_appinfo: false,

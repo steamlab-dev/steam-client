@@ -1,4 +1,3 @@
-import type Long from "long";
 import type {
   EMsg,
   EMsgMapToPayload,
@@ -58,10 +57,10 @@ export interface MessageHandlerEvents {
 export interface NonProtoHeader {
   headerSize: number;
   headerVersion: number;
-  targetJobId: Long;
-  sourceJobId: Long;
+  targetJobId: bigint;
+  sourceJobId: bigint;
   headerCanary: number;
-  steamid: Long;
+  steamid: bigint;
   client_sessionid: number;
 }
 

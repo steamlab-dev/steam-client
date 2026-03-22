@@ -1,12 +1,12 @@
-import Long from "long";
 import type { SteamProtos } from "@/common/steam-language";
 
-type gameId = string;
+type GameId = string;
+type GameIdInput = bigint | number | string;
 type GamesPlayedEntry = NonNullable<SteamProtos["CMsgClientGamesPlayed"]["games_played"]>[number];
 type ProcessInfo = NonNullable<GamesPlayedEntry["process_id_list"]>[number];
 
 class GamesPlayedTracker {
-  private gamesPlayedTracker = new Map<gameId, GamesPlayedEntry>();
+  private gamesPlayedTracker = new Map<GameId, GamesPlayedEntry>();
   private processIdCounter: number;
   private readonly steamProcessId: number;
 
@@ -15,10 +15,7 @@ class GamesPlayedTracker {
     this.processIdCounter = this.steamProcessId;
   }
 
-  track(
-    gameId: Long | number | string | (Long | number | string)[],
-    steamId: Long,
-  ): GamesPlayedEntry[] {
+  track(gameId: GameIdInput | GameIdInput[], steamId: bigint): GamesPlayedEntry[] {
     const gameIds = Array.isArray(gameId) ? gameId : [gameId];
 
     for (const id of gameIds) {
@@ -38,7 +35,7 @@ class GamesPlayedTracker {
     return this.getCurrentlyPlayingGames();
   }
 
-  untrack(gameId: Long | number | string | (Long | number | string)[]): GamesPlayedEntry[] {
+  untrack(gameId: GameIdInput | GameIdInput[]): GamesPlayedEntry[] {
     const gameIds = Array.isArray(gameId) ? gameId : [gameId];
 
     for (const id of gameIds) {
@@ -58,7 +55,7 @@ class GamesPlayedTracker {
     return this.getCurrentlyPlayingGames();
   }
 
-  isPlaying(gameId: Long | number | string): boolean {
+  isPlaying(gameId: GameIdInput): boolean {
     const gameIdAsLong = this.getGameIdAsLong(gameId);
     const keyString = gameIdAsLong.toString();
     return this.gamesPlayedTracker.has(keyString);
@@ -72,7 +69,7 @@ class GamesPlayedTracker {
     return this.gamesPlayedTracker.size;
   }
 
-  private addToTracker(game_id: Long, steamId: Long) {
+  private addToTracker(game_id: bigint, steamId: bigint) {
     const process_id = this.getNextProcessId();
 
     const process_id_list: ProcessInfo[] = [
@@ -108,32 +105,32 @@ class GamesPlayedTracker {
     return Math.floor(randomPid / 4) * 4;
   }
 
-  private getGameIdAsLong(gameId: Long | number | string): Long {
+  private getGameIdAsLong(gameId: GameIdInput): bigint {
     try {
-      let longGameId: Long;
+      let normalizedGameId: bigint;
 
-      if (Long.isLong(gameId)) {
-        longGameId = gameId;
+      if (typeof gameId === "bigint") {
+        normalizedGameId = gameId;
       } else if (typeof gameId === "number") {
         if (!Number.isInteger(gameId) || gameId < 0 || gameId > Number.MAX_SAFE_INTEGER) {
           throw new Error("gameId must be a positive integer within safe range");
         }
-        longGameId = Long.fromNumber(gameId);
+        normalizedGameId = BigInt(gameId);
       } else if (typeof gameId === "string") {
         const trimmed = gameId.trim();
         if (!trimmed || !/^\d+$/.test(trimmed)) {
           throw new Error("gameId string must contain only digits");
         }
-        longGameId = Long.fromString(trimmed);
+        normalizedGameId = BigInt(trimmed);
       } else {
-        throw new Error("Invalid gameId type - must be Long, number, or string");
+        throw new Error("Invalid gameId type - must be bigint, number, or string");
       }
 
-      if (longGameId.isZero() || longGameId.isNegative()) {
+      if (normalizedGameId <= 0n) {
         throw new Error("gameId must be positive");
       }
 
-      return longGameId;
+      return normalizedGameId;
     } catch (error) {
       if (error instanceof Error && error.message.startsWith("gameId")) {
         throw error;
@@ -144,32 +141,32 @@ class GamesPlayedTracker {
     }
   }
 
-  private steamId64ToSteamId32(steamId64: Long): number {
+  private steamId64ToSteamId32(steamId64: bigint): number {
     // Magic number used for SteamID conversion
-    const STEAM_ID_BASE = Long.fromString("76561197960265728");
+    const STEAM_ID_BASE = 76561197960265728n;
 
     // Validate input
-    if (!Long.isLong(steamId64)) {
-      throw new Error("Input must be a Long");
+    if (typeof steamId64 !== "bigint") {
+      throw new Error("Input must be a bigint");
     }
 
-    if (steamId64.lessThan(STEAM_ID_BASE)) {
+    if (steamId64 < STEAM_ID_BASE) {
       throw new Error("Invalid SteamID64: too small");
     }
 
     // Perform the conversion
-    const steamId32Long = steamId64.subtract(STEAM_ID_BASE);
+    const steamId32 = steamId64 - STEAM_ID_BASE;
 
     // Convert to number and validate it's within safe integer range
-    if (steamId32Long.greaterThan(Number.MAX_SAFE_INTEGER)) {
+    if (steamId32 > BigInt(Number.MAX_SAFE_INTEGER)) {
       throw new Error("Resulting SteamID32 exceeds MAX_SAFE_INTEGER");
     }
 
-    if (steamId32Long.lessThan(0)) {
+    if (steamId32 < 0n) {
       throw new Error("Resulting SteamID32 is negative");
     }
 
-    return steamId32Long.toNumber();
+    return Number(steamId32);
   }
 }
 

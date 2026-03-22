@@ -1,6 +1,5 @@
 import { promisify } from "node:util";
 import { gunzip } from "node:zlib";
-import Long from "long";
 import { SmartBuffer } from "smart-buffer";
 import { EMsg, EMsgMapToProtoName, type SteamProtos } from "@/common/steam-language";
 import SteamProtoConstants from "../constants";
@@ -79,10 +78,10 @@ export default class MessageParser {
     return {
       headerSize: buf.readUInt8(),
       headerVersion: buf.readUInt16LE(),
-      targetJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
-      sourceJobId: Long.fromBigInt(buf.readBigUInt64LE(), true),
+      targetJobId: buf.readBigUInt64LE(),
+      sourceJobId: buf.readBigUInt64LE(),
       headerCanary: buf.readUInt8(),
-      steamid: Long.fromBigInt(buf.readBigUInt64LE(), true),
+      steamid: buf.readBigUInt64LE(),
       client_sessionid: buf.readInt32LE(),
     };
   }

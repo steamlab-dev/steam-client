@@ -1,4 +1,3 @@
-import Long from "long";
 import { EMsg, type SteamProtos } from "@/common/steam-language";
 import type Connection from "@/connection/connection";
 import { SteamProtocolError } from "../error";
@@ -24,7 +23,7 @@ const PENDING_REQUEST_TIMEOUT_MS = 30_000;
 const CLEANUP_ERROR_MESSAGE = "Cancelled by ServiceCallSender";
 
 export default class ServiceCallMessenger implements Messenger {
-  private lastGeneratedId: Long = Long.UZERO;
+  private lastGeneratedId = 0n;
 
   constructor(
     private readonly protos: SteamProtoManager,
@@ -52,7 +51,7 @@ export default class ServiceCallMessenger implements Messenger {
       target_job_name: targetJobName,
       jobid_source: jobIdSource,
     });
-    const buffer = this.protos.encodeUnsafe(req.message, req.payload as Record<string, unknown>);
+    const buffer = this.protos.encode(req.message, req.payload as Record<string, unknown>);
     this.connection.send(Buffer.concat([header, buffer]));
 
     return promise;
@@ -113,8 +112,8 @@ export default class ServiceCallMessenger implements Messenger {
       : EMsg.k_EMsgServiceMethodCallFromClientNonAuthed;
   }
 
-  private genUniqueJobIdSource(): Long {
-    this.lastGeneratedId = this.lastGeneratedId.add(1);
+  private genUniqueJobIdSource(): bigint {
+    this.lastGeneratedId += 1n;
     return this.lastGeneratedId;
   }
 }

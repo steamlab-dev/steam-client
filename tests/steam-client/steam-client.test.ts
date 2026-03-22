@@ -1,4 +1,3 @@
-import Long from "long";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { EMsg } from "@/common/steam-language";
 import { TypedEventEmitter } from "@/common/typed-event-emitter";
@@ -50,13 +49,13 @@ describe("SteamClient", () => {
     disconnect: vi.fn(),
     sendWithResponse: vi.fn(),
     send: vi.fn(),
-    getSession: vi.fn(() => ({ steamId: Long.fromString("76561197960265729", true) })),
+    getSession: vi.fn(() => ({ steamId: 76561197960265729n })),
     setSteamId: vi.fn(),
     addMessageHandler: vi.fn(),
   };
   const tracker = {
-    track: vi.fn(() => [{ game_id: Long.fromNumber(730) }]),
-    untrack: vi.fn(() => [{ game_id: Long.fromNumber(730) }]),
+    track: vi.fn(() => [{ game_id: 730n }]),
+    untrack: vi.fn(() => [{ game_id: 730n }]),
   };
   const session = {
     playingBlocked: false,
@@ -263,9 +262,7 @@ describe("SteamClient", () => {
       access_token: "token",
     } as never);
 
-    expect(steamProtocol.setSteamId).toHaveBeenCalledWith(
-      Long.fromString("76561197960265729", true),
-    );
+    expect(steamProtocol.setSteamId).toHaveBeenCalledWith(76561197960265729n);
     expect(steamProtocol.sendWithResponse).toHaveBeenCalledWith(
       expect.objectContaining({
         eMsg: EMsg.k_EMsgClientLogon,

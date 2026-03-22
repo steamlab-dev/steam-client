@@ -1,4 +1,3 @@
-import Long from "long";
 import { describe, expect, it, vi } from "vitest";
 import { EMsg, EResult } from "@/common/steam-language";
 import LogOnResponseHandler from "@/steam-protocol/message-handler/handlers/logon-handler";
@@ -11,7 +10,7 @@ describe("LogOnResponseHandler", () => {
     rawBody: Buffer.alloc(0),
     header: {
       client_sessionid: 42,
-      steamid: Long.fromString("76561197960265729", true),
+      steamid: 76561197960265729n,
     },
     body: {
       eresult: EResult.OK,

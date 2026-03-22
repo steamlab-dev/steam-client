@@ -59,7 +59,7 @@ export default class ProtoMessenger implements Messenger {
     if (!protoName) {
       throw new ProtoMessengerError(`Missing proto mapping for eMsg: ${eMsg}`);
     }
-    const body = this.protos.encodeUnsafe(protoName, payload as Record<string, unknown>);
+    const body = this.protos.encode(protoName, payload as Record<string, unknown>);
     this.connection.send(Buffer.concat([header, body]));
   }
 

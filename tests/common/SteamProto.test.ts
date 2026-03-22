@@ -49,10 +49,10 @@ describe("SteamProtoManager", () => {
       expect(message).toEqual(decodedMessage);
     });
 
-    it("Should encodeUnsafe and decode correctly", async () => {
+    it("Should encodeRaw and decode correctly", async () => {
       await steamProtos.loadProtos();
       const message = { account_name: "test" };
-      const encodedMessage = steamProtos.encodeUnsafe("steam.CMsgClientLogon", message);
+      const encodedMessage = steamProtos.encodeRaw("steam.CMsgClientLogon", message);
       const decodedMessage = steamProtos.decode("steam.CMsgClientLogon", encodedMessage);
 
       expect(message).toEqual(decodedMessage);
