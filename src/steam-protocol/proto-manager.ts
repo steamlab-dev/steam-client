@@ -8,6 +8,15 @@ import { findFilesRecursive, pathExists } from "@/common/utils";
 import { SteamProtocolError } from "./error";
 
 type Namespaces = "steam" | "csgo" | "webui";
+type Proto64BitIntegerType = "int64" | "uint64" | "sint64" | "fixed64" | "sfixed64";
+
+const PROTO_64_BIT_INTEGER_TYPES = new Set<Proto64BitIntegerType>([
+  "int64",
+  "uint64",
+  "sint64",
+  "fixed64",
+  "sfixed64",
+]);
 
 export class SteamProtoError extends SteamProtocolError {
   constructor(messageOrCause: string | unknown, cause?: unknown) {
@@ -134,7 +143,7 @@ export default class ProtoManager {
    * @param body The JavaScript object to encode.
    * @throws {SteamProtoError} If the payload fails validation or if encoding fails.
    */
-  public encode(protoName: string, body: Record<string, unknown>): Buffer {
+  public encodeRaw(protoName: string, body: Record<string, unknown>): Buffer {
     const proto = this.getProtoType(protoName);
     const verified = proto.verify(body);
     if (verified) {
@@ -153,19 +162,20 @@ export default class ProtoManager {
   }
 
   /**
-   * Encodes a payload object without performing validation. Use for trusted data to improve performance.
+   * Encodes a payload object using bigint-aware normalization.
    * @param protoName The fully qualified name of the message type to use for encoding.
    * @param body The JavaScript object to encode.
    * @throws {SteamProtoError} If encoding fails.
    */
-  public encodeUnsafe(protoName: string, body: Record<string, unknown>): Buffer {
+  public encode(protoName: string, body: Record<string, unknown>): Buffer {
     const proto = this.getProtoType(protoName);
+    const normalizedBody = this.normalizeForEncode(proto, body) as Record<string, unknown>;
     try {
-      const message = proto.create(body);
+      const message = proto.create(normalizedBody);
       return Buffer.from(proto.encode(message).finish());
     } catch (error) {
       throw new SteamProtoError(
-        `Encoding failed for ${protoName}, data: ${JSON.stringify(body, null, 2)}`,
+        `Encoding failed for ${protoName}, data: ${this.formatValueForError(body)}`,
         error,
       );
     }
@@ -177,11 +187,30 @@ export default class ProtoManager {
    * @param buffer The binary buffer to decode.
    * @throws {SteamProtoError} If decoding fails.
    */
-  public decode(protoName: string, buffer: Buffer): Record<string, unknown> {
+  public decodeRaw(protoName: string, buffer: Buffer): Record<string, unknown> {
     const proto = this.getProtoType(protoName);
     try {
       const message = proto.decode(buffer);
       return proto.toObject(message);
+    } catch (error) {
+      throw new SteamProtoError(
+        `Decoding failed for ${protoName}, data [${buffer.toString("hex")}]`,
+        error,
+      );
+    }
+  }
+
+  /**
+   * Decodes a binary buffer into a JavaScript object using bigint-aware normalization.
+   * @param protoName The fully qualified name of the message type to use for decoding.
+   * @param buffer The binary buffer to decode.
+   * @throws {SteamProtoError} If decoding fails.
+   */
+  public decode(protoName: string, buffer: Buffer): Record<string, unknown> {
+    const proto = this.getProtoType(protoName);
+    try {
+      const message = proto.decode(buffer);
+      return this.normalizeForDecode(proto, proto.toObject(message)) as Record<string, unknown>;
     } catch (error) {
       throw new SteamProtoError(
         `Decoding failed for ${protoName}, data [${buffer.toString("hex")}]`,
@@ -232,6 +261,11 @@ export default class ProtoManager {
       );
     }
 
+    if (
+      typeof (proto as protobuf.Type & { resolveAll?: () => unknown }).resolveAll === "function"
+    ) {
+      proto.resolveAll();
+    }
     return proto;
   }
 
@@ -303,5 +337,173 @@ export default class ProtoManager {
     const imported = new Set(importArrays.flat());
 
     return protoPaths.map(normalize).filter((file) => !imported.has(file));
+  }
+
+  private normalizeForEncode(type: protobuf.Type, input: unknown): unknown {
+    if (this.isBinaryLike(input) || !input || typeof input !== "object") {
+      return input;
+    }
+
+    const out = { ...(input as Record<string, unknown>) };
+
+    for (const [key, value] of Object.entries(out)) {
+      if (value == null) {
+        continue;
+      }
+
+      const field = type.fields[key];
+      if (field) {
+        out[key] = this.encodeField(field, value);
+      }
+    }
+
+    return out;
+  }
+
+  private encodeField(field: protobuf.Field, value: unknown): unknown {
+    if (field.repeated && Array.isArray(value)) {
+      return value.map((item) => this.encodeSingle(field, item));
+    }
+
+    if (field.map && this.isPlainObject(value)) {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, entry]) => [key, this.encodeSingle(field, entry)]),
+      );
+    }
+
+    return this.encodeSingle(field, value);
+  }
+
+  private encodeSingle(field: protobuf.Field, value: unknown): unknown {
+    if (value == null) {
+      return value;
+    }
+
+    if (field.resolvedType instanceof protobuf.Type) {
+      return this.normalizeForEncode(field.resolvedType, value);
+    }
+
+    if (this.is64BitIntegerField(field) && typeof value === "bigint") {
+      return value.toString();
+    }
+
+    return value;
+  }
+
+  private normalizeForDecode(type: protobuf.Type, input: unknown): unknown {
+    if (this.isBinaryLike(input) || !input || typeof input !== "object") {
+      return input;
+    }
+
+    const out = { ...(input as Record<string, unknown>) };
+
+    for (const [key, value] of Object.entries(out)) {
+      if (value == null) {
+        continue;
+      }
+
+      const field = type.fields[key];
+      if (field) {
+        out[key] = this.decodeField(field, value);
+      }
+    }
+
+    return out;
+  }
+
+  private decodeField(field: protobuf.Field, value: unknown): unknown {
+    if (field.repeated && Array.isArray(value)) {
+      return value.map((item) => this.decodeSingle(field, item));
+    }
+
+    if (field.map && this.isPlainObject(value)) {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, entry]) => [key, this.decodeSingle(field, entry)]),
+      );
+    }
+
+    return this.decodeSingle(field, value);
+  }
+
+  private decodeSingle(field: protobuf.Field, value: unknown): unknown {
+    if (value == null) {
+      return value;
+    }
+
+    if (field.resolvedType instanceof protobuf.Type) {
+      return this.normalizeForDecode(field.resolvedType, value);
+    }
+
+    if (!this.is64BitIntegerField(field)) {
+      return value;
+    }
+
+    if (typeof value === "string") {
+      return BigInt(value);
+    }
+
+    if (typeof value === "number") {
+      if (!Number.isSafeInteger(value)) {
+        throw new SteamProtoError("Unsafe 64-bit integer represented as number during decode");
+      }
+      return BigInt(value);
+    }
+
+    if (this.hasStringRepresentation(value)) {
+      return BigInt(value.toString());
+    }
+
+    return value;
+  }
+
+  private is64BitIntegerField(field: protobuf.Field): boolean {
+    return PROTO_64_BIT_INTEGER_TYPES.has(field.type as Proto64BitIntegerType);
+  }
+
+  private isPlainObject(value: unknown): value is Record<string, unknown> {
+    return (
+      !!value && typeof value === "object" && !Array.isArray(value) && !this.isBinaryLike(value)
+    );
+  }
+
+  private isBinaryLike(value: unknown): value is Uint8Array {
+    return Buffer.isBuffer(value) || value instanceof Uint8Array;
+  }
+
+  private hasStringRepresentation(value: unknown): value is { toString(): string } {
+    return typeof value === "object" && value !== null && typeof value.toString === "function";
+  }
+
+  private formatValueForError(value: unknown): string {
+    const seen = new WeakSet<object>();
+
+    return (
+      JSON.stringify(
+        value,
+        (_key, currentValue: unknown) => {
+          if (typeof currentValue === "bigint") {
+            return currentValue.toString();
+          }
+
+          if (Buffer.isBuffer(currentValue)) {
+            return `Buffer<${currentValue.toString("hex")}>`;
+          }
+
+          if (currentValue instanceof Uint8Array) {
+            return `Uint8Array<${Buffer.from(currentValue).toString("hex")}>`;
+          }
+
+          if (typeof currentValue === "object" && currentValue !== null) {
+            if (seen.has(currentValue)) {
+              return "[Circular]";
+            }
+            seen.add(currentValue);
+          }
+
+          return currentValue;
+        },
+        2,
+      ) ?? String(value)
+    );
   }
 }
