@@ -76,6 +76,8 @@ describe("MessageParser", () => {
 
     expect(parsed?.isProto).toBe(false);
     expect(header.client_sessionid).toBe(1234);
+    expect((parsed?.header as { targetJobId: bigint }).targetJobId).toBe(11n);
+    expect((parsed?.header as { sourceJobId: bigint }).sourceJobId).toBe(22n);
     expect(header.steamid).toBe(76561197960265728n);
     expect(parsed?.rawBody).toEqual(Buffer.from([0xaa, 0xbb]));
   });

@@ -300,4 +300,33 @@ describe("ProtoManager", () => {
 
     expect(() => manager.encode("CMsgProtoBufHeader", { id: 123n })).toThrow(SteamProtoError);
   });
+
+  it("normalizes Long-like decoded 64-bit values into bigint", () => {
+    const manager = new ProtoManager("steam") as unknown as {
+      loaded: boolean;
+      protoCache: Map<string, protobuf.Type>;
+      decode: (protoName: string, buffer: Buffer) => Record<string, unknown>;
+    };
+
+    const root = protobuf.parse(`
+      syntax = "proto3";
+
+      message Example {
+        uint64 id = 1;
+      }
+    `).root;
+
+    const exampleType = root.lookupType("Example") as protobuf.Type;
+    const decodedLongLike = {
+      toString: () => "123",
+    };
+
+    vi.spyOn(exampleType, "decode").mockReturnValue({} as never);
+    vi.spyOn(exampleType, "toObject").mockReturnValue({ id: decodedLongLike });
+
+    manager.loaded = true;
+    manager.protoCache = new Map([["steam.Example", exampleType]]);
+
+    expect(manager.decode("Example", Buffer.from([0x01]))).toEqual({ id: 123n });
+  });
 });
