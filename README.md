@@ -63,7 +63,7 @@ await client.services.authentication.loginViaQr();
 
 ### Credential Login
 
-Credential login is a two-step flow. If Steam Guard is required, the second argument — a callback — is invoked so you can supply the code asynchronously.
+Credential login is a two-step flow. If Steam Guard is required, pass a `Promise<string>` as the second argument. Resolve it with the code when it becomes available.
 
 ```ts
 // Listen for the type of guard required
@@ -85,7 +85,7 @@ const codePromise = new Promise<string>((resolve) => {
 
 const logonPromise = client.services.authentication.loginViaCredentials(
   { account_name: "your-username", password: "your-password" },
-  async () => codePromise, // called only when a code is needed
+  codePromise,
 );
 
 // Supply the code when it arrives (e.g. from user input or your own service)
@@ -140,8 +140,8 @@ const options: ConnectionOptions = {
 | `client.connect()` | Connects to the Steam CM server |
 | `client.disconnect()` | Disconnects from the CM server |
 | `client.logonRequest(payload)` | Logs on using a refresh token |
-| `client.startPlaying(gameId)` | Reports a game as being played |
-| `client.stopPlaying(gameId)` | Stops reporting a game as being played |
+| `client.startPlaying(gameId)` | Reports a game as being played. Accepts `bigint`, `number`, `string`, or arrays of those values |
+| `client.stopPlaying(gameId)` | Stops reporting a game as being played. Accepts `bigint`, `number`, `string`, or arrays of those values |
 
 ## Services
 
