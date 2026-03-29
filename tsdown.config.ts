@@ -15,9 +15,11 @@ export default defineConfig({
 
   // 4. Bundling Strategy
   // unbundle: false -> Combines all YOUR source files into a single output file (dist/index.js).
-  // external: [/node_modules/] -> Tells tsdown: "Do not bundle library code."
+  // deps.neverBundle: [/node_modules/] -> Tells tsdown: "Do not bundle library code."
   unbundle: false,
-  external: [/node_modules/],
+  deps: {
+    neverBundle: [/node_modules/],
+  },
 
   // 5. Output Management
   // 'dist' is the standard output folder.
