@@ -63,7 +63,7 @@ await client.services.authentication.loginViaQr();
 
 ### Credential Login
 
-Credential login is a two-step flow. If Steam Guard is required, pass a `Promise<string>` as the second argument. Resolve it with the code when it becomes available.
+Credential login is a two-step flow. Pass a `Promise<string>` as the second argument so the client can await a Steam Guard code if Steam requests one during sign-in. Resolve it with the device or email code when it becomes available.
 
 ```ts
 // Listen for the type of guard required
@@ -78,10 +78,7 @@ client.emitter.once("steam-auth-tokens", ({ tokens }) => {
 });
 
 // Use a promise to bridge the guard code from wherever it arrives
-let resolveCode!: (code: string) => void;
-const codePromise = new Promise<string>((resolve) => {
-  resolveCode = resolve;
-});
+const { promise: codePromise, resolve: resolveCode } = Promise.withResolvers<string>();
 
 const logonPromise = client.services.authentication.loginViaCredentials(
   { account_name: "your-username", password: "your-password" },
@@ -150,7 +147,14 @@ Services are available via `client.services`.
 | Service | Description |
 |---|---|
 | `client.services.authentication` | QR and credential login flows |
-| `client.services.player` | Player-related Steam service calls |
+| `client.services.player` | Player-related Steam service calls. `GetOwnedGames()` is implemented; many generated player methods are not implemented yet |
+
+At the moment, `client.services.player.GetOwnedGames()` is the main ready-to-use player helper:
+
+```ts
+const ownedGames = await client.services.player.GetOwnedGames();
+console.log(ownedGames.games);
+```
 
 ## Events
 
